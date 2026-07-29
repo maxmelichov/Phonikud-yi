@@ -1,0 +1,42 @@
+{
+  "types": 41935,
+  "instances": 726511,
+  "before": {
+    "types_ge_min": 12471,
+    "types_single_variant": 3264,
+    "type_consistency": 0.2617272071205196,
+    "instance_consistency": 0.6117799592517132,
+    "mean_variants_per_type": 2.9661614946676287,
+    "mean_variants_all_types": 1.630547275545487
+  },
+  "after_mechanical": {
+    "types_ge_min": 12471,
+    "types_single_variant": 3299,
+    "type_consistency": 0.26453371822628496,
+    "instance_consistency": 0.6218859974069272,
+    "mean_variants_per_type": 2.9038569481196377,
+    "mean_variants_all_types": 1.6116370573506618
+  },
+  "projected": {
+    "types_ge_min": 12471,
+    "types_single_variant": 12287,
+    "type_consistency": 0.9852457701868335,
+    "instance_consistency": 0.993934061863308,
+    "mean_variants_per_type": 1.0412958062705477,
+    "mean_variants_all_types": 1.0122809109335877
+  },
+  "sources": {
+    "gemini": 8845,
+    "majority": 2049,
+    "homograph": 184,
+    "mechanical": 30857
+  },
+  "gemini": {
+    "batches": 4,
+    "unresolved": 34,
+    "prompt_tokens": 16835,
+    "completion_tokens": 31971,
+    "cost_usd": 0.085
+  },
+  "homographs": 184
+}

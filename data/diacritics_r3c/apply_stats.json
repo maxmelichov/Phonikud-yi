@@ -1,0 +1,77 @@
+{
+  "train": {
+    "lines": 9542,
+    "words": 726511,
+    "mapped": 718259,
+    "unmapped": 8252,
+    "changed": 362363,
+    "pct_mapped": 98.86,
+    "pct_changed": 49.88,
+    "before": {
+      "types_ge_min": 12471,
+      "types_single_variant": 3264,
+      "type_consistency": 0.2617272071205196,
+      "instance_consistency": 0.6117799592517132,
+      "mean_variants_per_type": 2.9661614946676287,
+      "mean_variants_all_types": 1.630547275545487
+    },
+    "after": {
+      "types_ge_min": 12471,
+      "types_single_variant": 12287,
+      "type_consistency": 0.9852457701868335,
+      "instance_consistency": 0.993934061863308,
+      "mean_variants_per_type": 1.0412958062705477,
+      "mean_variants_all_types": 1.0122809109335877
+    }
+  },
+  "val": {
+    "lines": 579,
+    "words": 40532,
+    "mapped": 38127,
+    "unmapped": 2405,
+    "changed": 20589,
+    "pct_mapped": 94.07,
+    "pct_changed": 50.8,
+    "before": {
+      "types_ge_min": 1635,
+      "types_single_variant": 539,
+      "type_consistency": 0.3296636085626911,
+      "instance_consistency": 0.6491312878550914,
+      "mean_variants_per_type": 2.2862385321100915,
+      "mean_variants_all_types": 1.391304347826087
+    },
+    "after": {
+      "types_ge_min": 1635,
+      "types_single_variant": 1602,
+      "type_consistency": 0.9798165137614679,
+      "instance_consistency": 0.9937441351266812,
+      "mean_variants_per_type": 1.039755351681957,
+      "mean_variants_all_types": 1.0121141719216729
+    }
+  },
+  "test": {
+    "lines": 529,
+    "words": 38661,
+    "mapped": 36364,
+    "unmapped": 2297,
+    "changed": 19419,
+    "pct_mapped": 94.06,
+    "pct_changed": 50.23,
+    "before": {
+      "types_ge_min": 1636,
+      "types_single_variant": 538,
+      "type_consistency": 0.32885085574572126,
+      "instance_consistency": 0.6288511200528497,
+      "mean_variants_per_type": 2.360635696821516,
+      "mean_variants_all_types": 1.4110337972166997
+    },
+    "after": {
+      "types_ge_min": 1636,
+      "types_single_variant": 1601,
+      "type_consistency": 0.9786063569682152,
+      "instance_consistency": 0.9945949192240706,
+      "mean_variants_per_type": 1.0397310513447433,
+      "mean_variants_all_types": 1.0129224652087476
+    }
+  }
+}

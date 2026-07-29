@@ -1,0 +1,58 @@
+{
+  "n_records_scanned": 23852,
+  "filter_reasons": {
+    "word_mismatch": 4157,
+    "token_count": 5463,
+    "undiacritized": 3417,
+    "ok": 10650,
+    "empty": 163,
+    "no_hebrew": 2
+  },
+  "train": {
+    "episodes": 238,
+    "lines": 9542,
+    "words": 728543,
+    "heb_chars": 2863152
+  },
+  "val": {
+    "episodes": 13,
+    "lines": 579,
+    "words": 40702,
+    "heb_chars": 159530
+  },
+  "test": {
+    "episodes": 13,
+    "lines": 529,
+    "words": 38772,
+    "heb_chars": 152728
+  },
+  "marks": {
+    "U+05B7": 228239,
+    "U+05B8": 223633,
+    "U+05B0": 194117,
+    "U+05B6": 159372,
+    "U+05BC": 144723,
+    "U+05B4": 142424,
+    "U+05B9": 54381,
+    "U+05C1": 49043,
+    "U+05B5": 42382,
+    "U+05BF": 34650,
+    "U+05B2": 11453,
+    "U+05C2": 6609,
+    "U+05B1": 1876,
+    "U+05BB": 1039,
+    "U+05B3": 187,
+    "U+05BA": 47,
+    "U+05C7": 21
+  },
+  "params": {
+    "annotations": "/Users/maxm/Documents/Phonikud-yi/data/annotations",
+    "out_dir": "data/diacritics_r2",
+    "val_frac": 0.05,
+    "test_frac": 0.05,
+    "min_word_agree": 0.9,
+    "min_confidence": 0.0,
+    "seed": 42,
+    "stats_only": false
+  }
+}

@@ -4,6 +4,11 @@ __pycache__/
 .env
 data/audio/
 data/chunks/
-data/annotations/
 *.mp3
 *.wav
+data/annotate_*.log
+data/download_all.log
+data/*shard_*.jsonl
+data/gold_*.jsonl
+models/
+phonikud/

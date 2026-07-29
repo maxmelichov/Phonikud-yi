@@ -471,6 +471,7 @@ def _preprocess_hebrew(text: str) -> str:
     text = unicodedata.normalize('NFC', text)
     text = re.sub(r"[\u05BE\u2010\u2011\u2012\u2013\u2014]", "-", text)
     text = re.sub(r"[\u05f3\u02bc\u2018\u2019`]", "'", text)
+    text = re.sub(r"[\u05f4\u201c\u201d]", '"', text)  # gershayim -> ASCII " (acronyms kept intact)
 
     # 1. Contractions
     text = re.sub(r"ס'איז", "סיז", text)

@@ -140,9 +140,14 @@ def token_pairs(rec: dict) -> list[tuple[str, str, str]]:
     if len(pointed) != len(yi):
         pointed = [""] * len(yi)
     out = []
+    # Gemini often emits precomposed ligatures; fold to standard digraphs so
+    # word keys match yiddish_g2p lexicons and the plain-text spelling.
+    def fold(s: str) -> str:
+        return s.replace("ײ", "יי").replace("ױ", "וי").replace("װ", "וו").replace("״", '"')
+
     for w, pt, p in zip(yi, pointed, ip):
-        w = NON_WORD.sub("", w).replace("״", '"')
-        pt = NON_WORD.sub("", pt).replace("״", '"')
+        w = fold(NON_WORD.sub("", w))
+        pt = fold(NON_WORD.sub("", pt))
         p = normalize_ipa(p)
         if w and p:
             out.append((w, pt, p))
@@ -206,23 +211,26 @@ def main() -> int:
         rule_ipa = hebrew_to_ipa(word)
         if normalize_ipa(rule_ipa) == obs_ipa:
             continue
-        rows.append((word, rule_ipa, obs_ipa, count, score))
+        pointed = ""
+        if word in pointed_forms and pointed_forms[word]:
+            pointed = pointed_forms[word].most_common(1)[0][0]
+        rows.append((word, pointed, rule_ipa, obs_ipa, count, score))
 
-    rows.sort(key=lambda r: (-r[3], -r[4], r[0]))
+    rows.sort(key=lambda r: (-r[4], -r[5], r[0]))
 
     out = Path(args.out)
     out.parent.mkdir(parents=True, exist_ok=True)
     with open(out, "w", encoding="utf-8") as fh:
-        fh.write("word\trule_ipa\tobserved_ipa\tcount\n")
-        for word, rule_ipa, obs_ipa, count, _ in rows:
-            fh.write(f"{word}\t{rule_ipa}\t{obs_ipa}\t{count}\n")
+        fh.write("word\tpointed\trule_ipa\tobserved_ipa\tcount\n")
+        for word, pointed, rule_ipa, obs_ipa, count, _ in rows:
+            fh.write(f"{word}\t{pointed}\t{rule_ipa}\t{obs_ipa}\t{count}\n")
 
     print(
         f"chunks={seen_chunks} aligned={usable_chunks} pairs={total_pairs} "
         f"distinct_words={len(observed)} candidates={len(rows)}\n-> {out}"
     )
-    for word, rule_ipa, obs_ipa, count, score in rows[:15]:
-        print(f"  {word}\trule={rule_ipa}\tobs={obs_ipa}\tn={count}\tlk={score:.2f}")
+    for word, pointed, rule_ipa, obs_ipa, count, score in rows[:15]:
+        print(f"  {word}\t{pointed}\trule={rule_ipa}\tobs={obs_ipa}\tn={count}\tlk={score:.2f}")
     return 0
 
 

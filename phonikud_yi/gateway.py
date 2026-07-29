@@ -10,6 +10,7 @@ import base64
 import json
 import os
 import random
+import re
 import time
 from pathlib import Path
 from typing import Any, Iterable
@@ -45,12 +46,14 @@ class Gateway:
         self,
         api_key: str | None = None,
         base_url: str | None = None,
-        timeout: int = 300,
+        timeout: int | None = None,
         max_retries: int = 5,
     ) -> None:
         self.api_key = api_key or _env("AI_GATEWAY_API_KEY")
         self.base_url = (base_url or _env("AI_GATEWAY_BASE_URL")).rstrip("/")
-        self.timeout = timeout
+        # Gemini Pro reasoning over audio routinely exceeds 300s; default high,
+        # overridable via env for slow/fast model mixes.
+        self.timeout = timeout or int(os.environ.get("GATEWAY_TIMEOUT_S", "900"))
         self.max_retries = max_retries
         self.session = requests.Session()
 
@@ -94,6 +97,7 @@ class Gateway:
         temperature: float = 0.0,
         json_object: bool = False,
         max_tokens: int | None = None,
+        reasoning_effort: str | None = None,
     ) -> str:
         # gemini-3.x are reasoning models: reasoning tokens are billed against
         # max_tokens, so a small budget yields empty content.
@@ -104,6 +108,11 @@ class Gateway:
             "messages": messages,
             "temperature": temperature,
         }
+        # Cap thinking: unconstrained dynamic reasoning on audio is what blew
+        # the budget on the 3.1-pro run. Env override: GATEWAY_REASONING_EFFORT.
+        effort = reasoning_effort or os.environ.get("GATEWAY_REASONING_EFFORT")
+        if effort:
+            payload["reasoning_effort"] = effort
         if json_object:
             payload["response_format"] = {"type": "json_object"}
         if max_tokens:
@@ -111,9 +120,14 @@ class Gateway:
         try:
             data = self._post("/chat/completions", payload)
         except GatewayError as exc:
-            # Some models reject response_format; retry once without it.
-            if json_object and "response_format" in str(exc):
-                payload.pop("response_format")
+            # Some models reject response_format / reasoning_effort; retry without.
+            retriable = [
+                k for k in ("response_format", "reasoning_effort")
+                if k in payload and k in str(exc)
+            ]
+            if retriable:
+                for k in retriable:
+                    payload.pop(k)
                 data = self._post("/chat/completions", payload)
             else:
                 raise
@@ -166,6 +180,10 @@ def audio_message(
     return {"role": role, "content": [part, {"type": "text", "text": text}]}
 
 
+# Unescaped ASCII " between Hebrew letters (acronyms like תשפ"ו) breaks JSON strings.
+_HEB_NAKED_QUOTE = re.compile(r'(?<=[֐-׿])"(?=[֐-׿])')
+
+
 def parse_json_loose(raw: str) -> Any:
     s = raw.strip()
     if s.startswith("```"):
@@ -173,14 +191,14 @@ def parse_json_loose(raw: str) -> Any:
         if s.rstrip().endswith("```"):
             s = s.rstrip()[:-3]
     s = s.strip()
+    start = min([i for i in (s.find("{"), s.find("[")) if i != -1], default=-1)
+    end = max(s.rfind("}"), s.rfind("]"))
+    if start != -1 and end > start:
+        s = s[start : end + 1]
     try:
         return json.loads(s)
     except json.JSONDecodeError:
-        start = min([i for i in (s.find("{"), s.find("[")) if i != -1], default=-1)
-        end = max(s.rfind("}"), s.rfind("]"))
-        if start != -1 and end > start:
-            return json.loads(s[start : end + 1])
-        raise
+        return json.loads(_HEB_NAKED_QUOTE.sub("״", s))
 
 
 def iter_jsonl(path: str | Path) -> Iterable[dict[str, Any]]:

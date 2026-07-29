@@ -64,6 +64,9 @@ Rules:
   the letter names. Their ipa token is what the speaker actually says; if an acronym
   is pronounced as several words, join its IPA with hyphens (e.g. ב"ה -> borəx-haʃem)
   so token counts still match text word-for-word.
+- IMPORTANT: inside the JSON strings, write the acronym mark as the Hebrew gershayim
+  character ״ (U+05F4), NEVER an ASCII double quote, so the JSON stays valid
+  (e.g. תשפ״ו not תשפ"ו).
 - text_yi_pointed: identical words in identical order, but with the right diacritics:
   YIVO pointing on Germanic-component words (אַ אָ ייִ וּ פּ בֿ פֿ כּ שׂ תּ) and full Hebrew
   nikud on loshn-koydesh words reflecting the ACTUAL Hasidic pronunciation heard.
@@ -105,20 +108,30 @@ def annotate_chunk(gw: Gateway, audio_path: Path, model: str) -> dict:
     obj = gw.chat_json(msgs, model=model)
     if isinstance(obj, list):
         obj = obj[0] if obj else {}
+    def _txt(key: str) -> str:
+        # Model writes gershayim as ״ to keep JSON valid; store as ASCII ".
+        return (obj.get(key) or "").strip().replace("״", '"')
+
     return {
-        "text_yi": (obj.get("text_yi") or "").strip(),
-        "text_yi_pointed": (obj.get("text_yi_pointed") or "").strip(),
-        "ipa": (obj.get("ipa") or "").strip(),
+        "text_yi": _txt("text_yi"),
+        "text_yi_pointed": _txt("text_yi_pointed"),
+        "ipa": _txt("ipa"),
         "confidence": obj.get("confidence"),
         "notes": (obj.get("notes") or "").strip(),
     }
 
 
 def annotate_episode(
-    gw: Gateway, eid: str, audio: Path, model: str, chunk_s: float, max_chunks: int | None
+    gw: Gateway,
+    eid: str,
+    audio: Path,
+    model: str,
+    chunk_s: float,
+    max_chunks: int | None,
+    out_dir: Path = ANNOT_DIR,
 ) -> Path:
-    out_path = ANNOT_DIR / f"{eid}.jsonl"
-    ANNOT_DIR.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / f"{eid}.jsonl"
+    out_dir.mkdir(parents=True, exist_ok=True)
 
     done: set[int] = set()
     if out_path.exists():
@@ -161,6 +174,7 @@ def main() -> int:
     ap.add_argument("--chunk-s", type=float, default=30.0)
     ap.add_argument("--limit", type=int, default=None, help="max episodes")
     ap.add_argument("--max-chunks", type=int, default=None, help="max chunks per episode")
+    ap.add_argument("--out-dir", default=str(ANNOT_DIR), help="annotation output directory")
     args = ap.parse_args()
 
     manifest = Path(args.manifest) if args.manifest else None
@@ -196,7 +210,8 @@ def main() -> int:
             continue
         print(f"episode {r['id']}")
         out = annotate_episode(
-            gw, r["id"], r["audio"], args.model, args.chunk_s, args.max_chunks
+            gw, r["id"], r["audio"], args.model, args.chunk_s, args.max_chunks,
+            out_dir=Path(args.out_dir),
         )
         print(f"  -> {out}")
     return 0

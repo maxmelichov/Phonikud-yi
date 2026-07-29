@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/Users/maxm/Documents/Phonikud-yi/phonikud_yi/gateway.py", line 113, in chat
+    data = self._post("/chat/completions", payload)
+  File "/Users/maxm/Documents/Phonikud-yi/phonikud_yi/gateway.py", line 72, in _post
+    raise GatewayError(f"{r.status_code}: {r.text[:800]}")
+phonikud_yi.gateway.GatewayError: 400: {"error":{"message":"Invalid input","type":"invalid_request_error","param":"response_format","code":"invalid_request_error"}}
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<stdin>", line 16, in <module>
+  File "/Users/maxm/Documents/Phonikud-yi/scripts/annotate_audio.py", line 108, in annotate_chunk
+    obj = gw.chat_json(msgs, model=model)
+  File "/Users/maxm/Documents/Phonikud-yi/phonikud_yi/gateway.py", line 128, in chat_json
+    raw = self.chat(messages, json_object=kw.pop("json_object", True), **kw)
+  File "/Users/maxm/Documents/Phonikud-yi/phonikud_yi/gateway.py", line 118, in chat
+    data = self._post("/chat/completions", payload)
+  File "/Users/maxm/Documents/Phonikud-yi/phonikud_yi/gateway.py", line 78, in _post
+    raise GatewayError(f"exhausted {self.max_retries} retries: {last}")
+phonikud_yi.gateway.GatewayError: exhausted 5 retries: HTTPSConnectionPool(host='ai-gateway.vercel.sh', port=443): Read timed out. (read timeout=300)
