@@ -41,14 +41,26 @@ def strip_marks(s: str) -> str:
 
 
 def split_token(tok: str):
-    """Split leading/trailing non-Hebrew punctuation off a token's core."""
-    i, j = 0, len(tok)
-    while i < j and not HEB.match(strip_marks(tok[i]) or " "):
-        i += 1
-    while j > i and not HEB.match(strip_marks(tok[j - 1]) or " "):
-        j -= 1
-    return tok[:i], tok[i:j], tok[j:]
+    """Split leading/trailing punctuation off a token's core.
 
+    Combining marks belong to the letter they follow, so when trimming from the
+    right we skip over any marks first and then test the *base* character. The
+    naive version treated a word-final sheva as trailing punctuation, which meant
+    a canonical replacement got the stolen mark re-appended after it and produced
+    a doubled point (זִיךְ -> זִיךְְ)."""
+    n = len(tok)
+    i = 0
+    while i < n and not HEB.match(tok[i]):
+        i += 1
+    j = n
+    while j > i:
+        k = j - 1
+        while k > i and MARKS.match(tok[k]):
+            k -= 1
+        if HEB.match(tok[k]):
+            break  # real letter: its marks run to j-1, so the core ends at j
+        j = k  # punctuation: drop it and keep scanning left
+    return tok[:i], tok[i:j], tok[j:]
 
 class Diacritizer:
     def __init__(self, onnx_path, dictionary=None, threads=None):

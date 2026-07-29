@@ -34,7 +34,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from phonikud_yi.gateway import iter_jsonl  # noqa: E402
 from yiddish_g2p import (  # noqa: E402
-    _LK_ALL,
+    _LK_BARE as _LK_ALL,
     _WORD_LATIN,
     _strip_points,
     hebrew_to_ipa,

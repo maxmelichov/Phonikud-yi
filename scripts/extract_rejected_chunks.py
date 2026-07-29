@@ -26,7 +26,7 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 
-from prepare_diacritics_dataset import HEB_LETTER, check, fold  # noqa: E402
+from prepare_diacritics_dataset import HEB_LETTER, check, fold, strip_marks  # noqa: E402
 
 
 def main() -> int:
@@ -66,8 +66,11 @@ def main() -> int:
                 continue  # already in the gold set
             reasons[why] += 1
 
-            # The plain side still has to be usable text.
-            plain = fold(text_yi)
+            # The plain side still has to be usable text. text_yi carries partial
+            # nikud on ~8% of words (the annotator pointed some of it); the teacher
+            # was trained on fully stripped input, so strip it or the teacher sees
+            # out-of-distribution text and stacks its marks on top of the old ones.
+            plain = strip_marks(fold(text_yi))
             if not plain or not HEB_LETTER.search(plain):
                 continue
             if len(plain.split()) < args.min_words:

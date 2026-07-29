@@ -583,6 +583,8 @@ def _word_to_latin(word: str) -> str:
                 out.append(_POINT_TO_LATIN[point])
                 if _POINT_TO_LATIN[point]:
                     prev_point = prev_consonant_point = point
+            elif point:
+                prev_consonant_point = point  # pending: colors a bare digraph
             continue
         if ch == "װ":
             out.append("v")
@@ -601,7 +603,20 @@ def _word_to_latin(word: str) -> str:
             i += size
             continue
 
-        out.append(_consonant(ch, marks))
+        latin_c = _consonant(ch, marks)
+        # Hebrew soft bet: in pointed loshn-koydesh a bare ב after a pointed
+        # consonant reads /v/ (צְבִי -> tsvi, לִבְרָכָה -> livrokhe). Germanic ב
+        # sits next to vowel letters and stays /b/ (האָבְן, אָבֶער).
+        if (
+            latin_c == "b"
+            and DAGESH not in marks
+            and i > 0
+            and units[i - 1][0] not in "אעיוײױ"
+            and _HEBREW_CHAR.match(units[i - 1][0])
+            and _vowel_point(units[i - 1][1])
+        ):
+            latin_c = "v"
+        out.append(latin_c)
         # A vowel point on a consonant is realised unless the next letter already
         # spells that vowel independently, which would double it up.
         point = _vowel_point(marks)
@@ -620,6 +635,11 @@ def _word_to_latin(word: str) -> str:
             out.append(vowel)
             if vowel:
                 prev_point = prev_consonant_point = point
+        elif point:
+            # Vowel suppressed because the following letters spell it; keep it
+            # visible so a bare digraph can read its quality (זַיין -> zayn,
+            # וַוייל -> vayl).
+            prev_consonant_point = point
         i += 1
 
     return "".join(out)
@@ -644,7 +664,9 @@ def _nucleus(
     point = _vowel_point(marks)
 
     if ch == "ײ":
-        return ("ay", 1, PATAH) if PATAH in marks else ("ey", 1, "")
+        if PATAH in marks or prev_consonant_point == PATAH:
+            return ("ay", 1, PATAH)
+        return ("ey", 1, "")
     if ch == "ױ":
         return ("oy", 1, "")
 
@@ -653,7 +675,7 @@ def _nucleus(
             # tsvey yudn: a hiriq on either yud is ייִ /yi/, a pasekh marks /ay/
             if HIRIQ in marks or HIRIQ in nxt_marks:
                 return ("yi", 2, HIRIQ)
-            if PATAH in marks or PATAH in nxt_marks:
+            if PATAH in marks or PATAH in nxt_marks or prev_consonant_point == PATAH:
                 return ("ay", 2, PATAH)
             return ("ey", 2, "")
         if point:
