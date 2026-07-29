@@ -2,30 +2,30 @@
   "consumerUserId": "user_31BrK4MZcxy2EmKxYDTBX59l5vh",
   "containerDiskInGb": 60,
   "costPerHr": 0.5,
-  "createdAt": "2026-07-29 17:38:25.507 +0000 UTC",
+  "createdAt": "2026-07-29 22:22:32.871 +0000 UTC",
   "desiredStatus": "RUNNING",
   "env": {
     "PUBLIC_KEY": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDzaxkDhNRsVWsy9NLfLA53kbNnc2iJMTVsVK7oVWHmZ maxm@maxms-MacBook-Pro.local"
   },
   "gpuCount": 1,
-  "id": "v3lpzq6h3mqs6e",
+  "id": "99bxf9tpo1xsze",
   "imageName": "runpod/pytorch:1.1.0-cu1281-torch280-ubuntu2204",
-  "lastStartedAt": "2026-07-29 17:38:25.502 +0000 UTC",
-  "lastStatusChange": "Rented by User: Wed Jul 29 2026 17:38:25 GMT+0000 (Coordinated Universal Time)",
+  "lastStartedAt": "2026-07-29 22:22:32.866 +0000 UTC",
+  "lastStatusChange": "Rented by User: Wed Jul 29 2026 22:22:32 GMT+0000 (Coordinated Universal Time)",
   "machine": {
     "dataCenterId": "EU-CZ-1",
-    "diskThroughputMBps": 9086,
+    "diskThroughputMBps": 8546,
     "gpuTypeId": "NVIDIA GeForce RTX 3090",
     "location": "CZ",
-    "maxDownloadSpeedMbps": 9212,
-    "maxUploadSpeedMbps": 36296,
+    "maxDownloadSpeedMbps": 9330,
+    "maxUploadSpeedMbps": 30095,
     "secureCloud": true,
     "supportPublicIp": true,
-    "reservedCountVersion": 773858
+    "reservedCountVersion": 42762
   },
-  "machineId": "dnih2965489l",
+  "machineId": "u2j9s1gs2mw5",
   "memoryInGb": 125,
-  "name": "yi-small",
+  "name": "yi-small2",
   "ports": [
     "22/tcp"
   ],
@@ -36,8 +36,8 @@
   "volumeMountPath": "/workspace",
   "_requested_gpu": "NVIDIA GeForce RTX 3090",
   "_cloud": "SECURE",
-  "ip": "213.192.2.122",
-  "port": 40108,
+  "ip": "213.192.2.110",
+  "port": 40139,
   "gpu": null,
-  "elapsed_s": 2
+  "elapsed_s": 97
 }
