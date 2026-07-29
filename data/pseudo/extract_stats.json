@@ -1,0 +1,14 @@
+{
+  "kept": {
+    "train": 11662,
+    "val": 642,
+    "test": 645
+  },
+  "reasons": {
+    "word_mismatch": 4157,
+    "token_count": 5463,
+    "undiacritized": 3417,
+    "empty": 163,
+    "no_hebrew": 2
+  }
+}

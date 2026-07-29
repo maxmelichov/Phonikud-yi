@@ -108,7 +108,9 @@ def predict_marks(model, tokenizer, examples, batch_size=8, max_length=512, log_
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--model", type=Path, required=True)
+    ap.add_argument("--model", type=Path, default=None, help="torch checkpoint dir (teacher)")
+    ap.add_argument("--onnx", type=Path, default=None, help="student .onnx")
+    ap.add_argument("--label", default=None)
     ap.add_argument("--train", type=Path, required=True)
     ap.add_argument("--test", type=Path, required=True)
     ap.add_argument("--out", type=Path, required=True)
@@ -124,12 +126,23 @@ def main():
     examples = read_pointed_file(args.test, args.max_length - 32)
     print(f"test: {len(examples)} segments", flush=True)
 
-    model = PhonikudModel.from_pretrained(args.model).eval()
-    tokenizer = AutoTokenizer.from_pretrained(args.model)
-    torch.set_num_threads(max(1, (torch.get_num_threads() or 4)))
-    print(f"running inference on CPU ({torch.get_num_threads()} threads)", flush=True)
-
-    preds = predict_marks(model, tokenizer, examples, args.batch_size, args.max_length)
+    if args.onnx:
+        sys.path.insert(0, str(REPO / "scripts"))
+        from infer_onnx import Diacritizer
+        d = Diacritizer(args.onnx)
+        print(f"running ONNX student: {args.onnx}", flush=True)
+        preds = []
+        t0 = time.time()
+        for i in range(0, len(examples), args.batch_size):
+            preds.extend(d.marks_for([e.text for e in examples[i : i + args.batch_size]]))
+            if (i // args.batch_size) % 20 == 0:
+                print(f"  {min(i+args.batch_size,len(examples))}/{len(examples)}", flush=True)
+        print(f"  inference took {time.time()-t0:.1f}s", flush=True)
+    else:
+        model = PhonikudModel.from_pretrained(args.model).eval()
+        tokenizer = AutoTokenizer.from_pretrained(args.model)
+        print(f"running torch teacher on CPU ({torch.get_num_threads()} threads)", flush=True)
+        preds = predict_marks(model, tokenizer, examples, args.batch_size, args.max_length)
 
     # ---- aggregate per word ------------------------------------------------
     groups = {"in_vocab": [], "oov": []}
@@ -203,7 +216,9 @@ def main():
         }
 
     res = {
-        "model": str(args.model), "test": str(args.test),
+        "model": str(args.onnx or args.model),
+        "label": args.label or ("student" if args.onnx else "teacher"),
+        "test": str(args.test),
         "train_vocab_size": len(vocab),
         "overall": stats(words),
         "in_vocab": stats(groups["in_vocab"]),
@@ -219,12 +234,13 @@ def main():
     res["examples_oov_wrong"] = rng.sample(oov_bad, min(10, len(oov_bad)))
 
     args.out.mkdir(parents=True, exist_ok=True)
-    (args.out / "oov_wordlevel_report.json").write_text(
+    stem = args.label.replace(" ", "_") if args.label else ("student" if args.onnx else "round4")
+    (args.out / f"oov_wordlevel_{stem}.json").write_text(
         json.dumps(res, ensure_ascii=False, indent=2), encoding="utf-8")
 
     # ---- markdown ----------------------------------------------------------
-    L = ["# Round 4 — OOV and word-level evaluation\n"]
-    L.append(f"Model: `{args.model}` · test: `{args.test}` · no retraining, inference only.\n")
+    L = [f"# OOV and word-level evaluation — {res['label']}\n"]
+    L.append(f"Model: `{res['model']}` · test: `{args.test}` · no retraining, inference only.\n")
     L.append(f"\nA word is **in-vocab** if its bare (unpointed) form appears anywhere in "
              f"`{args.train.name}` — {len(vocab):,} distinct forms. "
              f"{res['oov_word_rate']:.1f}% of test word tokens are OOV "
@@ -258,7 +274,7 @@ def main():
     for r in res["examples_oov_wrong"]:
         L.append(f"| `{r['word']}` | `{r['gold']}` | `{r['pred']}` |")
 
-    (args.out / "oov_wordlevel_report.md").write_text("\n".join(L) + "\n", encoding="utf-8")
+    (args.out / f"oov_wordlevel_{stem}.md").write_text("\n".join(L) + "\n", encoding="utf-8")
 
     print("\n" + json.dumps(
         {k: res[k] for k in ("overall", "in_vocab", "oov", "oov_word_rate")}, indent=2))
