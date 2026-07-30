@@ -73,12 +73,16 @@ def main():
         return round(sum(p.stat().st_size for p in paths if p.exists()) / 1e6, 1)
 
     # ---- student ONNX (fp32 / int8) -------------------------------------
-    for name, path in (("student ONNX fp32", small / "student.onnx"),
-                       ("student ONNX int8", small / "student.int8.onnx")):
+    for name, path, npar in (
+        ("student-linear ONNX fp32", small / "student.onnx", 18_416_666),
+        ("student-linear ONNX int8", small / "student.int8.onnx", 18_416_666),
+        ("student-MLP ONNX fp32", small / "mlp_heads/student_mlp.onnx", 18_803_994),
+        ("student-MLP ONNX int8", small / "mlp_heads/student_mlp.int8.onnx", 18_803_994),
+    ):
         if not path.exists():
             continue
         d = Diacritizer(path, None, args.threads)
-        entry = {"file_mb": size_mb(path), "params": 18_416_666, "runs": {}}
+        entry = {"file_mb": size_mb(path), "params": npar, "runs": {}}
         for b in batches:
             entry["runs"][f"batch{b}"] = bench(lambda ls: d.point_model(ls), lines, b)
             print(f"  {name} b{b}: {entry['runs'][f'batch{b}']}", flush=True)

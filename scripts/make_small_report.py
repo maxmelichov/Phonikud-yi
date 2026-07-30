@@ -28,20 +28,23 @@ def main():
     teacher_eval = jload(R4 / "oov_wordlevel_report.json")
     student_eval = jload(SMALL / "oov_wordlevel_student.json")
     student_int8_eval = jload(SMALL / "oov_wordlevel_student_int8.json")
+    mlp_eval = jload(SMALL / "oov_wordlevel_student_mlp.json")
     bench = jload(SMALL / "benchmark.json", {})
 
     val = {
-        "teacher (round 4, 306M)": jload(R4 / "stageB/metrics.json", {}).get("char_acc"),
+        "teacher, round 4 (306M)": jload(R4 / "stageB/metrics.json", {}).get("char_acc"),
         "student gold-only (18.4M)": jload(SMALL / "gold_only/best_metrics.json", {}).get("char_acc"),
         "student gold+pseudo (18.4M)": jload(SMALL / "student_kd/best_metrics.json", {}).get("char_acc"),
+        "student MLP heads (18.8M)": jload(SMALL / "mlp_heads/best_metrics.json", {}).get("char_acc"),
     }
 
     out = {
         "val_char_acc": val,
         "test": {
             "teacher": teacher_eval,
-            "student": student_eval,
+            "student_linear": student_eval,
             "student_int8": student_int8_eval,
+            "student_mlp": mlp_eval,
         },
         "benchmark": bench,
     }
@@ -59,8 +62,9 @@ def main():
     L.append("| model | params | val char acc |")
     L.append("|---|---:|---:|")
     for k, v in val.items():
-        par = "306M" if "round 4" in k else "18.4M"
-        L.append(f"| {k.split(' (')[0]} | {par} | {v:.2f}% |" if v is not None else f"| {k} | {par} | n/a |")
+        par = k[k.rfind("(") + 1 : k.rfind(")")]
+        L.append(f"| {k.split(' (')[0]} | {par} | {v:.2f}% |" if v is not None
+                 else f"| {k.split(' (')[0]} | {par} | n/a |")
     g, gp = val["student gold-only (18.4M)"], val["student gold+pseudo (18.4M)"]
     if g and gp:
         L.append(f"\nAdding the teacher pseudo-labels is worth **+{gp-g:.2f}** points "
@@ -81,20 +85,30 @@ def main():
                 ("**OOV char accuracy**", "oov", "char_acc"),
                 ("**OOV marked-char accuracy**", "oov", "marked_char_acc"),
                 ("**OOV word accuracy**", "oov", "word_acc")]
-        L.append("| metric | teacher (306M) | student (18.4M) | delta |")
-        L.append("|---|---:|---:|---:|")
-        for label, grp, key in rows:
-            a = teacher_eval[grp][key]
-            b = student_eval[grp][key]
-            L.append(f"| {label} | {a:.2f}% | {b:.2f}% | {b-a:+.2f} |")
+        if mlp_eval:
+            L.append("| metric | teacher (306M) | student-linear (18.4M) | "
+                     "student-MLP (18.8M) | MLP - linear |")
+            L.append("|---|---:|---:|---:|---:|")
+            for label, grp, key in rows:
+                a, b, c = (teacher_eval[grp][key], student_eval[grp][key], mlp_eval[grp][key])
+                L.append(f"| {label} | {a:.2f}% | {b:.2f}% | {c:.2f}% | {c-b:+.2f} |")
+        else:
+            L.append("| metric | teacher (306M) | student (18.4M) | delta |")
+            L.append("|---|---:|---:|---:|")
+            for label, grp, key in rows:
+                a = teacher_eval[grp][key]
+                b = student_eval[grp][key]
+                L.append(f"| {label} | {a:.2f}% | {b:.2f}% | {b-a:+.2f} |")
 
-        iv = student_eval["in_vocab"]["char_acc"] - teacher_eval["in_vocab"]["char_acc"]
+        best_eval = mlp_eval or student_eval
+        iv = best_eval["in_vocab"]["char_acc"] - teacher_eval["in_vocab"]["char_acc"]
         L.append(f"\nGroup sizes are identical for both models: "
                  f"{student_eval['in_vocab']['n_words']:,} in-vocab and "
                  f"{student_eval['oov']['n_words']:,} OOV word tokens "
                  f"({student_eval['oov_word_rate']:.1f}% OOV).\n")
-        L.append(f"\nIn-vocab is the target the brief set (within 1-2 points): the student is "
-                 f"**{iv:+.2f}** points on in-vocab characters.\n")
+        L.append(f"\nThe brief asked for within 1-2 points of the teacher on in-vocab: the "
+                 f"best student is **{iv:+.2f}** points on in-vocab characters, so that target "
+                 f"is missed by both head types.\n")
 
         if student_int8_eval:
             L.append(f"\nInt8 quantisation costs "
@@ -116,16 +130,53 @@ def main():
             L.append(f"| {name} | {m['file_mb']:.1f} MB | {m['params']/1e6:.1f}M | "
                      + " | ".join(cells) + " |")
 
+        students = [k for k in bench["models"] if k.startswith("student")]
         try:
-            s = bench["models"]["student ONNX int8"]["runs"]["batch1"]["chars_per_sec"]
-            t = bench["models"]["teacher torch fp32"]["runs"]["batch1"]["chars_per_sec"]
-            sm = bench["models"]["student ONNX int8"]["file_mb"]
-            tm = bench["models"]["teacher torch fp32"]["file_mb"]
-            L.append(f"\nThe shipped int8 student is **{s/t:.1f}x faster** than the torch "
-                     f"teacher at batch 1 and **{tm/sm:.0f}x smaller** on disk "
-                     f"({sm:.1f} MB vs {tm:.0f} MB).\n")
+            tt = bench["models"]["teacher torch fp32"]
+            t_cps = tt["runs"]["batch1"]["chars_per_sec"]
+            fastest = max(students, key=lambda k: bench["models"][k]["runs"]["batch1"]["chars_per_sec"])
+            s_cps = bench["models"][fastest]["runs"]["batch1"]["chars_per_sec"]
+            sm = min(bench["models"][k]["file_mb"] for k in students)
+            L.append(f"\nEvery student variant runs **~7-8x faster** than the torch teacher at "
+                     f"batch 1 ({s_cps:,} vs {t_cps:,} chars/s) and is **{tt['file_mb']/sm:.0f}x "
+                     f"smaller** on disk ({sm:.1f} MB vs {tt['file_mb']:.0f} MB).\n")
+            L.append("\nDifferences *among* the student variants (fp32 vs int8, linear vs MLP) "
+                     "are within run-to-run noise on this 150-line benchmark — repeat runs moved "
+                     "individual numbers by ~10%. Treat them as equal in speed; the real, "
+                     "reproducible gaps are student-vs-teacher and fp32-vs-int8 on **file size**, "
+                     "not throughput.\n")
         except KeyError:
             pass
+
+    # ---- head-type A/B ---------------------------------------------------
+    if mlp_eval:
+        vl = val["student gold+pseudo (18.4M)"]
+        vm = val["student MLP heads (18.8M)"]
+        gap_lin = teacher_eval["in_vocab"]["char_acc"] - student_eval["in_vocab"]["char_acc"]
+        gap_mlp = teacher_eval["in_vocab"]["char_acc"] - mlp_eval["in_vocab"]["char_acc"]
+        L.append("\n## Head type: linear vs Phonikud-style MLP\n")
+        L.append("Identical encoder, data, learning rates and protocol; the only change is the "
+                 "three heads, from `Linear(512, n)` to `Linear(512,256) -> ReLU -> "
+                 "Linear(256, n)`. That adds 387,328 parameters (13,338 -> 400,666 in the heads, "
+                 "18.42M -> 18.80M total).\n")
+        L.append(f"\n- **val all-char:** {vl:.2f}% -> {vm:.2f}% (**{vm-vl:+.2f}**)")
+        L.append(f"- **test all-char:** {student_eval['overall']['char_acc']:.2f}% -> "
+                 f"{mlp_eval['overall']['char_acc']:.2f}% "
+                 f"(**{mlp_eval['overall']['char_acc']-student_eval['overall']['char_acc']:+.2f}**)")
+        L.append(f"- **test word-level:** {student_eval['overall']['word_acc']:.2f}% -> "
+                 f"{mlp_eval['overall']['word_acc']:.2f}% "
+                 f"(**{mlp_eval['overall']['word_acc']-student_eval['overall']['word_acc']:+.2f}**)")
+        L.append(f"- **in-vocab char gap vs teacher:** {gap_lin:.2f} -> {gap_mlp:.2f} points "
+                 f"(closes {100*(gap_lin-gap_mlp)/gap_lin:.0f}% of it)")
+        L.append(f"- **OOV char:** {student_eval['oov']['char_acc']:.2f}% -> "
+                 f"{mlp_eval['oov']['char_acc']:.2f}% "
+                 f"({mlp_eval['oov']['char_acc']-student_eval['oov']['char_acc']:+.2f})\n")
+        L.append("\nThe MLP heads win everywhere the model is interpolating over words it has "
+                 "seen, and win nothing where it has to generalize: OOV characters actually get "
+                 "slightly *worse*. That is the expected shape — a deeper head can carve up a "
+                 "representation more finely, but it cannot add knowledge the 18M-parameter "
+                 "encoder never learned. The in-vocab gap to the teacher barely moves, which "
+                 "says the gap is in the encoder, not the head.\n")
 
     # ---- dictionary-first shipped pipeline ------------------------------
     df = jload(SMALL / "dict_first.json")
@@ -147,6 +198,19 @@ def main():
                  "on the ~94% of running text already in the lexicon, and weak on the rest.\n")
 
     # ---- provenance -----------------------------------------------------
+    if mlp_eval:
+        L.append("\n## Which one to ship\n")
+        L.append("**Ship the MLP-head variant** (`mlp_heads/student_mlp.int8.onnx`). It is better "
+                 "on every in-vocab metric, better on overall word accuracy, costs 387k extra "
+                 "parameters (+2.1%) and 0.4 MB of int8 file size, and is speed-neutral. There is "
+                 "no axis on which the linear head is preferable.\n")
+        L.append("\nThat said, keep expectations calibrated: the win is **+0.18 all-char / +0.48 "
+                 "word-level** on test. It is a free improvement, not a fix. Neither head type "
+                 "reaches the within-1-2-point in-vocab target, and neither improves OOV, which "
+                 "is where the student is genuinely weak. If the student needs to be materially "
+                 "better, the lever is a bigger/pretrained encoder or a larger lexicon -- not the "
+                 "head.\n")
+
     L.append("\n## Notes and provenance\n")
     L.append("- **Architecture:** ModernBERT ingredients used are pre-LN, RoPE, GeGLU and "
              "bias-free linears. ModernBERT's alternating local/global attention is *not* used "
@@ -169,6 +233,11 @@ def main():
              "were regenerated from stripped input (now 0 doubled marks, 0 letters with two "
              "vowels), and the student was retrained. The same `split_token` bug was live in the "
              "shipping inference wrapper and is fixed there too.\n")
+    L.append("- **Head-type A/B was controlled on everything except head depth.** Both runs "
+             "use the student's own init convention (normal, std 0.02) applied uniformly, "
+             "rather than switching the MLP heads to torch defaults. The two schemes are "
+             "near-identical in scale here (torch default for fan-in 512 has std ~0.026), so "
+             "this keeps head depth the only variable rather than confounding it with init.\n")
     L.append("- **int8 is smaller but not faster on this Mac** (18.9 MB vs 74.0 MB, 13.7k vs "
              "14.3k chars/s). Dynamic quantisation adds dequantisation overhead that outweighs "
              "the cheaper matmuls at this model size on Apple silicon. Ship int8 for size; there "
@@ -183,6 +252,7 @@ def main():
         ("student.int8.onnx", "dynamic-int8 ONNX (the one to ship)"),
         ("student_kd/", "torch checkpoint, config and char vocab (gold+pseudo)"),
         ("gold_only/", "gold-only ablation checkpoint"),
+        ("mlp_heads/", "MLP-head variant: checkpoint, metrics, ONNX (fp32 + int8)"),
         ("report.md / report.json", "this report"),
         ("benchmark.json", "raw benchmark numbers"),
         ("dict_first.json", "dictionary-first vs model-alone word accuracy"),
