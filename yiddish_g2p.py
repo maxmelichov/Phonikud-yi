@@ -233,7 +233,12 @@ _LK_PATTERN = re.compile(
 
 
 def _lk_replace(match: re.Match) -> str:
-    return _LK_BARE.get(_strip_points(match.group(1)), match.group(1))
+    repl = _LK_BARE.get(_strip_points(match.group(1)))
+    if repl is None:
+        return match.group(1)
+    # Tag the substitution so the stress stage still knows this word is
+    # loshn-koydesh after it has been respelled phonetically.
+    return "" + repl
 
 # =====================================================================
 # STAGE 1.5: HIGH-FREQUENCY WORD LEXICON (unpointed spelling -> Latin base)
@@ -733,6 +738,126 @@ def letter_at(units: list[tuple[str, str]], idx: int) -> str:
     return units[idx][0] if 0 <= idx < len(units) else ""
 
 
+# =====================================================================
+# STAGE 2.5: STRESS
+#
+# Yiddish stress is far more predictable than Hebrew's:
+#   * Germanic words stress the first syllable of the ROOT, skipping the
+#     unstressed inseparable prefixes (\u05D2\u05E2\u05BE \u05D1\u05D0\u05B7\u05BE \u05E4\u05BF\u05D0\u05B7\u05E8\u05BE \u05D3\u05E2\u05E8\u05BE \u05E6\u05E2\u05BE \u05D0\u05B7\u05E0\u05D8\u05BE).
+#     Separable prefixes (\u05D0\u05B8\u05DF\u05BE \u05D0\u05B7\u05D5\u05D5\u05E2\u05E7\u05BE \u05D0\u05D5\u05E0\u05D8\u05E2\u05E8\u05BE) are stressed and are already
+#     the first syllable, so the same rule covers them.
+#   * Loshn-koydesh words take penultimate stress in the Ashkenazi reading
+#     (\u05E9\u05D0\u05B8\u05D1\u05E2\u05E1 SHObes, \u05D1\u05E8\u05D0\u05B8\u05DB\u05E2 BROkhe, \u05DE\u05D9\u05E9\u05E4\u05BC\u05D0\u05B8\u05DB\u05E2 mishPOkhe).
+# Monosyllables are left unmarked. Words the rules get wrong are corrected in
+# _STRESS_OVERRIDE, which is what the audio validation pass populates.
+# =====================================================================
+STRESS = "\u02C8"
+_LK_SENTINEL = ""
+
+# Inseparable (unstressed) prefixes. Deliberately excludes "be-", which would
+# mis-strip native words like beser.
+_UNSTRESSED_PREFIXES = ("ge", "ba", "far", "der", "tse", "ant", "ent")
+
+# Bare (unpointed) Hebrew word -> nucleus index; negative counts from the end.
+_STRESS_OVERRIDE: dict[str, int] = {}
+
+
+def _nuclei(latin: str) -> list[tuple[int, int]]:
+    """(start, end) offsets of each vowel nucleus in a Latin word."""
+    out: list[tuple[int, int]] = []
+    i, n = 0, len(latin)
+    while i < n:
+        if latin[i] in _LATIN_VOWELS:
+            j = i + 1
+            # ey/ay/oy are one nucleus, but only when the yud is not the onset
+            # of the next syllable (\u05DC\u05E2\u05D5\u05D5\u05F2\u05B7\u05E2 levaye is le-va-ye, not le-vay-e).
+            if (
+                j < n
+                and latin[j] == "y"
+                and latin[i] in "aeo"
+                and (j + 1 >= n or latin[j + 1] not in _LATIN_VOWELS)
+            ):
+                j += 1
+            out.append((i, j))
+            i = j
+        else:
+            i += 1
+    return out
+
+
+def _stress_nucleus(bare: str, latin: str, is_lk: bool, count: int) -> int:
+    """Index of the nucleus that carries stress."""
+    if bare in _STRESS_OVERRIDE:
+        return _STRESS_OVERRIDE[bare] % count
+    if is_lk:
+        return max(0, count - 2)  # penultimate
+    skipped, rest = 0, latin
+    while True:
+        for p in _UNSTRESSED_PREFIXES:
+            # Only strip when a root with its own vowel remains.
+            if rest.startswith(p) and _nuclei(rest[len(p):]):
+                skipped += len(_nuclei(p))
+                rest = rest[len(p):]
+                break
+        else:
+            break
+    return min(skipped, count - 1)
+
+
+# Consonant units that must not be split by the stress mark.
+_C_UNITS = ("dzh", "tsh", "kh", "sh", "zh", "ts", "dz")
+
+# Clusters that can begin a Yiddish syllable. Anything longer stays with the
+# preceding syllable, so פֿאַרשטיין is farˈshteyn rather than faˈrshteyn.
+_LEGAL_ONSETS = {
+    "sht", "shp", "shtr", "shpr", "shm", "shn", "shl", "shv", "shr", "shk",
+    "st", "sp", "str", "spr", "sk", "sl", "sm", "sn", "sv",
+    "tr", "dr", "kr", "gr", "pr", "br", "fr", "vr",
+    "kl", "gl", "pl", "bl", "fl", "kn", "gn", "tsv", "kv", "shtsh",
+}
+
+
+def _split_consonants(cluster: str) -> list[str]:
+    """Cluster -> consonant units, keeping digraphs (sh, kh, ts...) whole."""
+    units, i = [], 0
+    while i < len(cluster):
+        for u in _C_UNITS:
+            if cluster.startswith(u, i):
+                units.append(u)
+                i += len(u)
+                break
+        else:
+            units.append(cluster[i])
+            i += 1
+    return units
+
+
+def _apply_stress(latin: str, bare: str, is_lk: bool) -> str:
+    """Insert the stress mark before the onset of the stressed syllable."""
+    nuc = _nuclei(latin)
+    if len(nuc) < 2:
+        return latin  # monosyllables carry no mark
+    start = nuc[_stress_nucleus(bare, latin, is_lk, len(nuc))][0]
+    j = start
+    while j > 0 and latin[j - 1].isalpha() and latin[j - 1] not in _LATIN_VOWELS:
+        j -= 1
+    units = _split_consonants(latin[j:start])
+    # Keep only the longest legal onset; the rest closes the previous syllable.
+    while len(units) > 1 and "".join(units) not in _LEGAL_ONSETS:
+        units.pop(0)
+    onset = len("".join(units))
+    return latin[: start - onset] + STRESS + latin[start - onset :]
+
+
+_LK_LETTERS = set("\u05EA\u05D7\u05E9\u05C2")
+
+
+def _looks_lk(bare: str) -> bool:
+    """Hebrew-origin word not covered by the lexicon (\u05EA/\u05D7 never occur in the
+    Germanic component)."""
+    return any(c in bare for c in "\u05EA\u05D7")
+
+
 _TAG_PATTERN = re.compile(r"<\s*[a-zA-Z]+\s*>")
 _PUNCT_SPLIT = re.compile(r"^([^\w\u0590-\u05FF]*)([\s\S]*?)([^\w\u0590-\u05FF]*)$")
 
@@ -771,7 +896,7 @@ def _preprocess_hebrew(text: str) -> str:
     return text
 
 
-def hebrew_to_latin(text: str) -> str:
+def hebrew_to_latin(text: str, stress: bool = False) -> str:
     tokens = text.split()
     out_tokens: list[str] = []
     for tok in tokens:
@@ -782,6 +907,11 @@ def hebrew_to_latin(text: str) -> str:
                 continue
             m = _PUNCT_SPLIT.match(part)
             lead, core, trail = m.group(1), m.group(2), m.group(3)
+            is_lk = "" in lead or "" in core
+            lead = lead.replace("", "")
+            core = core.replace("", "")
+            if not core:
+                continue
             # _WORD_LATIN only guesses vowels that unpointed spelling leaves open,
             # so it applies to the bare form only while the word itself carries no
             # vowel point. Otherwise the diacritics are the better evidence
@@ -794,6 +924,8 @@ def hebrew_to_latin(text: str) -> str:
                     if stem in core:
                         core = core.replace(stem, repl)
                 latin = _word_to_latin(core)
+            if stress and latin:
+                latin = _apply_stress(latin, bare, is_lk or _looks_lk(bare))
             latin_parts.append(lead + latin + trail)
         if latin_parts:
             out_tokens.append(" ".join(latin_parts))
@@ -880,9 +1012,11 @@ def normalize_ipa_spacing(ipa: str) -> str:
     return ipa
 
 
-def hebrew_to_ipa(text: str) -> str:
+def hebrew_to_ipa(text: str, stress: bool = False) -> str:
+    """Yiddish text -> IPA. ``stress=True`` marks the stressed syllable of every
+    polysyllabic word with ˈ, which is what a TTS front-end wants."""
     text = _preprocess_hebrew(strip_tags(text))
-    latin = hebrew_to_latin(text)
+    latin = hebrew_to_latin(text, stress=stress)
     ipa = latin_to_ipa(latin)
     ipa = normalize_ipa_affricates(ipa)
     return normalize_ipa_spacing(ipa)

@@ -40,10 +40,23 @@ CASES: list[tuple[str, str, str]] = [
 ]
 
 
+# Stress marking (hebrew_to_ipa(..., stress=True)).
+STRESS_CASES: list[tuple[str, str, str]] = [
+    ("שבת", "ˈʃubɛs", "LK penultimate"),
+    ("משפּחה", "miˈʃpuxə", "LK penultimate, 3 syllables"),
+    ("חתונה", "xaˈsɛnə", "LK penultimate"),
+    ("געקומען", "ɡɛˈkimɛn", "unstressed prefix ge-"),
+    ("פארשטיין", "farˈʃtaɪn", "unstressed prefix far-, legal onset sht"),
+    ("ארבעטן", "ˈarbɛtən", "no prefix: first syllable"),
+    ("אונטערגיין", "ˈintɛrɡaɪn", "separable prefix IS stressed"),
+    ("גיין", "ɡaɪn", "monosyllable stays unmarked"),
+]
+
+
 def main() -> int:
     passed = failed = xfailed = fixed = 0
-    for text, want, note in CASES:
-        got = hebrew_to_ipa(text)
+    for text, want, note in CASES + [(t, w, "stress: " + n) for t, w, n in STRESS_CASES]:
+        got = hebrew_to_ipa(text, stress=note.startswith("stress:"))
         xfail = note.startswith("XFAIL")
         ok = got == want
         if ok and not xfail:
