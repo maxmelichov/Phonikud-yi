@@ -42,11 +42,11 @@ CASES: list[tuple[str, str, str]] = [
 
 # Stress marking (hebrew_to_ipa(..., stress=True)).
 STRESS_CASES: list[tuple[str, str, str]] = [
-    ("שבת", "ˈʃubɛs", "LK penultimate"),
-    ("משפּחה", "miˈʃpuxə", "LK penultimate, 3 syllables"),
-    ("חתונה", "xaˈsɛnə", "LK penultimate"),
-    ("געקומען", "ɡɛˈkimɛn", "unstressed prefix ge-"),
-    ("פארשטיין", "farˈʃtaɪn", "unstressed prefix far-, legal onset sht"),
+    ("שבת", "ʃˈubɛs", "LK penultimate"),
+    ("משפּחה", "miʃpˈuxə", "LK penultimate, 3 syllables"),
+    ("חתונה", "xasˈɛnə", "LK penultimate"),
+    ("געקומען", "ɡɛkˈimɛn", "unstressed prefix ge-"),
+    ("פארשטיין", "farʃtˈaɪn", "unstressed prefix far-"),
     ("ארבעטן", "ˈarbɛtən", "no prefix: first syllable"),
     ("אונטערגיין", "ˈintɛrɡaɪn", "separable prefix IS stressed"),
     ("גיין", "ɡaɪn", "monosyllable stays unmarked"),

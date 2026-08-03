@@ -804,49 +804,17 @@ def _stress_nucleus(bare: str, latin: str, is_lk: bool, count: int) -> int:
     return min(skipped, count - 1)
 
 
-# Consonant units that must not be split by the stress mark.
-_C_UNITS = ("dzh", "tsh", "kh", "sh", "zh", "ts", "dz")
-
-# Clusters that can begin a Yiddish syllable. Anything longer stays with the
-# preceding syllable, so פֿאַרשטיין is farˈshteyn rather than faˈrshteyn.
-_LEGAL_ONSETS = {
-    "sht", "shp", "shtr", "shpr", "shm", "shn", "shl", "shv", "shr", "shk",
-    "st", "sp", "str", "spr", "sk", "sl", "sm", "sn", "sv",
-    "tr", "dr", "kr", "gr", "pr", "br", "fr", "vr",
-    "kl", "gl", "pl", "bl", "fl", "kn", "gn", "tsv", "kv", "shtsh",
-}
-
-
-def _split_consonants(cluster: str) -> list[str]:
-    """Cluster -> consonant units, keeping digraphs (sh, kh, ts...) whole."""
-    units, i = [], 0
-    while i < len(cluster):
-        for u in _C_UNITS:
-            if cluster.startswith(u, i):
-                units.append(u)
-                i += len(u)
-                break
-        else:
-            units.append(cluster[i])
-            i += 1
-    return units
-
-
 def _apply_stress(latin: str, bare: str, is_lk: bool) -> str:
-    """Insert the stress mark before the onset of the stressed syllable."""
+    """Insert the stress mark directly before the stressed VOWEL.
+
+    TTS convention, as in the Phonikud paper: /sˈefer/ rather than the
+    syllable-onset placement /ˈsefer/ used in dictionary IPA.
+    """
     nuc = _nuclei(latin)
     if len(nuc) < 2:
         return latin  # monosyllables carry no mark
     start = nuc[_stress_nucleus(bare, latin, is_lk, len(nuc))][0]
-    j = start
-    while j > 0 and latin[j - 1].isalpha() and latin[j - 1] not in _LATIN_VOWELS:
-        j -= 1
-    units = _split_consonants(latin[j:start])
-    # Keep only the longest legal onset; the rest closes the previous syllable.
-    while len(units) > 1 and "".join(units) not in _LEGAL_ONSETS:
-        units.pop(0)
-    onset = len("".join(units))
-    return latin[: start - onset] + STRESS + latin[start - onset :]
+    return latin[:start] + STRESS + latin[start:]
 
 
 _LK_LETTERS = set("\u05EA\u05D7\u05E9\u05C2")
