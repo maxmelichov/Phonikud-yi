@@ -42,18 +42,18 @@ CASES: list[tuple[str, str, str]] = [
 
 # Stress marking (hebrew_to_ipa(..., stress=True)).
 STRESS_CASES: list[tuple[str, str, str]] = [
-    ("שבת", "ʃˈubɛs", "LK penultimate"),
+    ("שבת", "ʃˈubəs", "LK penultimate"),
     ("משפּחה", "miʃpˈuxə", "LK penultimate, 3 syllables"),
-    ("חתונה", "xasˈɛnə", "LK penultimate"),
-    ("געקומען", "ɡɛkˈimɛn", "unstressed prefix ge-"),
+    ("חתונה", "xˈasənə", "LK penultimate"),
+    ("געקומען", "ɡəkˈimən", "unstressed prefix ge-"),
     ("פארשטיין", "farʃtˈaɪn", "unstressed prefix far-"),
-    ("ארבעטן", "ˈarbɛtən", "no prefix: first syllable"),
-    ("אונטערגיין", "ˈintɛrɡaɪn", "separable prefix IS stressed"),
+    ("ארבעטן", "ˈarbətən", "no prefix: first syllable"),
+    ("אונטערגיין", "ˈintərɡaɪn", "separable prefix IS stressed"),
     ("גיין", "ɡaɪn", "monosyllable stays unmarked"),
     # --- _STRESS_OVERRIDE entries confirmed against audio (scripts/stress_eval.py) ---
     ("אזוי", "azˈɔɪ", "override: unstressed initial a-, not *Azoy"),
     ("חנוכה", "xˈanikə", "override: LK with initial, not penultimate, stress"),
-    ("אינטערעסאנט", "intɛrɛsˈant", "override: loanword keeps donor stress"),
+    ("אינטערעסאנט", "intərəsˈant", "override: loanword keeps donor stress"),
 ]
 
 
