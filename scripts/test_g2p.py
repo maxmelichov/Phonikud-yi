@@ -50,6 +50,10 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("ארבעטן", "ˈarbɛtən", "no prefix: first syllable"),
     ("אונטערגיין", "ˈintɛrɡaɪn", "separable prefix IS stressed"),
     ("גיין", "ɡaɪn", "monosyllable stays unmarked"),
+    # --- _STRESS_OVERRIDE entries confirmed against audio (scripts/stress_eval.py) ---
+    ("אזוי", "azˈɔɪ", "override: unstressed initial a-, not *Azoy"),
+    ("חנוכה", "xˈanikə", "override: LK with initial, not penultimate, stress"),
+    ("אינטערעסאנט", "intɛrɛsˈant", "override: loanword keeps donor stress"),
 ]
 
 

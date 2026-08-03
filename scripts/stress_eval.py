@@ -81,8 +81,34 @@ def load_sample() -> dict:
 _HEB = re.compile(r"[֐-׿]")
 
 
+# Syllabification is display-only (it makes the indices we send Gemini
+# unambiguous); the engine itself marks stress directly before the vowel and no
+# longer needs onset logic, so these tables live here.
+_C_UNITS = ("dzh", "tsh", "kh", "sh", "zh", "ts", "dz")
+_LEGAL_ONSETS = {
+    "sht", "shp", "shtr", "shpr", "shm", "shn", "shl", "shv", "shr", "shk",
+    "st", "sp", "str", "spr", "sk", "sl", "sm", "sn", "sv",
+    "tr", "dr", "kr", "gr", "pr", "br", "fr", "vr",
+    "kl", "gl", "pl", "bl", "fl", "kn", "gn", "tsv", "kv", "shtsh",
+}
+
+
+def _split_consonants(cluster: str) -> list[str]:
+    units, i = [], 0
+    while i < len(cluster):
+        for u in _C_UNITS:
+            if cluster.startswith(u, i):
+                units.append(u)
+                i += len(u)
+                break
+        else:
+            units.append(cluster[i])
+            i += 1
+    return units
+
+
 def syllabify(latin: str) -> list[str]:
-    """Split a Latin word into syllables at the same boundaries _apply_stress uses."""
+    """Split a Latin word into syllables (maximal legal onset)."""
     nuc = G._nuclei(latin)
     if not nuc:
         return [latin]
@@ -91,8 +117,8 @@ def syllabify(latin: str) -> list[str]:
         j = s
         while j > 0 and latin[j - 1].isalpha() and latin[j - 1] not in G._LATIN_VOWELS:
             j -= 1
-        units = G._split_consonants(latin[j:s])
-        while len(units) > 1 and "".join(units) not in G._LEGAL_ONSETS:
+        units = _split_consonants(latin[j:s])
+        while len(units) > 1 and "".join(units) not in _LEGAL_ONSETS:
             units.pop(0)
         starts.append(s - len("".join(units)))
     starts.append(len(latin))
@@ -143,7 +169,7 @@ def analyze_word(token: str) -> dict | None:
         else:
             break
     return {
-        "word": G._strip_points(core),
+        "word": bare,
         "bare": bare,
         "latin": latin,
         "ipa": G.normalize_ipa_affricates(G.latin_to_ipa(G._apply_stress(latin, bare, is_lk))),
@@ -262,10 +288,15 @@ def pairs(tag: str, split: str | None = None):
         if split and rec.get("split") != split:
             continue
         by_word = {w["word"]: w for w in rec["words"]}
-        for j in rec["judgments"]:
+        # Gemini sometimes echoes the word re-spelled phonetically, so pair
+        # positionally when the list lengths line up and fall back to the string.
+        positional = len(rec["judgments"]) == len(rec["words"])
+        for pos, j in enumerate(rec["judgments"]):
             if not isinstance(j, dict):
                 continue
             w = by_word.get(str(j.get("word", "")).strip())
+            if w is None and positional:
+                w = rec["words"][pos]
             if w is None:
                 continue
             conf = j.get("confidence")
@@ -277,6 +308,8 @@ def pairs(tag: str, split: str | None = None):
             ci = int(ci) if isinstance(ci, (int, float)) else None
             if not ok and (ci is None or not (0 <= ci < w["n_syl"])):
                 continue  # unusable disagreement
+            if not ok and ci == w["ours"]:
+                continue  # self-contradictory: "wrong" but names our own syllable
             if ok:
                 ci = w["ours"]
             yield rec, w, j, ok, ci, conf

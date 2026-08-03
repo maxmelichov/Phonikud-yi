@@ -759,7 +759,36 @@ _LK_SENTINEL = ""
 _UNSTRESSED_PREFIXES = ("ge", "ba", "far", "der", "tse", "ant", "ent")
 
 # Bare (unpointed) Hebrew word -> nucleus index; negative counts from the end.
-_STRESS_OVERRIDE: dict[str, int] = {}
+# Harvested by scripts/stress_eval.py from audio: words where Gemini Flash,
+# listening to the recording, disagreed with the rules at confidence >= 0.8 in
+# at least two independent chunks with the same answer. Keys are the form the
+# stress stage actually sees, i.e. AFTER the loshn-koydesh lexical swap
+# (חנוכה is looked up as כאניקע). Singleton disagreements are parked in
+# data/stress_needs_review.tsv instead.
+_STRESS_OVERRIDE: dict[str, int] = {
+    # Unstressed initial a- (adverbs/particles): aZOY, aMOL, aRAYN, not *Azoy.
+    # The rules stress syllable 0 because a- is not an inseparable prefix.
+    "אזא": 1,        # aˈza
+    "אזוי": 1,       # aˈzoy
+    "אזעלכע": 1,     # aˈzelkhe
+    "אמאל": 1,       # aˈmol
+    "אראפ": 1,       # aˈrop
+    "אראפגעקומען": 1,  # aˈropgekumen
+    "ארויס": 1,      # aˈroys
+    "אריין": 1,      # aˈrayn
+    # Loanwords keep the donor language's stress, not first-syllable Germanic.
+    "אינטערעסאנט": 3,   # interesˈant
+    "אינטערעסאנטע": 3,  # interesˈante
+    "פראבלעם": 1,    # proˈblem
+    # Germanic-looking but non-initial stress.
+    "צוריק": 1,      # tsuˈrik
+    # Loshn-koydesh the penultimate rule gets wrong.
+    "כאניקע": 0,     # KHAnike (חנוכה), initial not penultimate
+    "טויערע": 0,     # TOYre (תורה), the swap spells a spurious third syllable
+    "ישראל": 1,      # yisrˈoel
+    "כביכול": 1,     # kivyˈokhl
+    "קימאט": 1,      # kiˈmat (כמעט)
+}
 
 
 def _nuclei(latin: str) -> list[tuple[int, int]]:
