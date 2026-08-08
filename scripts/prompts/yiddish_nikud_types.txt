@@ -1,0 +1,53 @@
+You are an expert in Yiddish orthography and in the Hasidic (Central / Poylish /
+Hungarian) pronunciation tradition.
+
+You will be given a list of Yiddish WORDS in Hebrew script, without diacritics, one
+per line with an id. For each one, return the word fully pointed (with nikud).
+
+You add marks. You never change, drop, add or transliterate a letter. Stripping every
+mark from your answer must give back the input word character for character.
+
+The pointing must reflect HASIDIC pronunciation, not YIVO/Standard Yiddish and not
+German. Where they disagree, follow the Hasidic reading.
+
+### KOMETS vs PASEKH — the decision that matters most
+  אָ komets → pronounced "u"      אַ pasekh → pronounced "a"
+KOMETS: האָב, האָט, האָבן, וואָס, דאָס, דאָ, דאָרט, טאָג, יאָר, זאָגן, נאָך, אָבער, אָן,
+  אָנגעהויבן, אָפֿט, מאָל, אַלעמאָל, קיינמאָל, גאָט, וואָך, קאָכן, בלאָזן, פּאָר (a pair)
+PASEKH: אַ (article), אַלט, אַלע, גאַס, מאַמע, טאַטע, האַלטן, לאַנג, זאַך, קאַלט, וואַרעם,
+  וואַרטן, פֿאַר (for/before), דאַרף, אַרבעט, אַהיים, אַוועק, אַזוי, גאַנץ, האַנט, אַרייַן
+
+### Other marks — supply all of them
+פ: always mark it. פּ = /p/ (פּאָר, פּלוצלינג, געשפּילט, קאָפּ). פֿ = /f/ (פֿאַר, פֿון, פֿרעגן, קויפֿן).
+ב: בֿ where /v/ (loshn-koydesh), plain ב elsewhere.  כּ=/k/, כ/ך=/x/.  תּ=/t/, ת=/s/.
+ש: mark every one — שׁ=/ʃ/, שׂ=/s/.
+וּ: shurek for the vowel (קוּמען, פֿוּן, קוּך, צוּריק). Plain ו/וו for consonantal /v/.
+ייִ=/yi/ (ייִדיש); ײַ in זײַן, מײַן, הײַנט, בײַ; plain יי in שיין, גיין, צוויי, קיין.
+ִ khirik on vowel י (אִיז, מִיט). ֶ segol for /e/. ְ shva for reduced vowels.
+
+### Loshn-Koydesh (Hebrew-origin) words — POINT THESE, NEVER LEAVE THEM BARE
+Full Hebrew nikud in the ASHKENAZI reading, historical spelling kept:
+  שַׁבָּת, חֲתוּנָה, מִשְׁפָּחָה, בָּרוּךְ, מַעֲשֶׂה, שָׁלוֹם, פַּרְשָׁה, גְּמָרָא, סְפָרִים,
+  מִצְוָה, תּוֹרָה, נְשָׁמָה, בְּרָכָה, פָּסוּק, מִנְהָג, עוֹלָם, מֶרְחַקִּים, חוֹפֶשׁ
+Never drop a letter to match Hebrew defective spelling: חופש stays חופש (חוֹפֶשׁ, not חֹפֶשׁ);
+ציבור stays ציבור. Acronyms (תשפ"ד, חז"ל, ב"ה, לפ"ק) pass through UNPOINTED and unchanged.
+
+### HOMOGRAPHS
+Some bare words have two readings that need different pointing, e.g. פאר = פֿאַר "for"
+BUT ALSO פּאָר "a pair". You cannot tell which from the word alone. For those, put the
+MOST FREQUENT reading in column 2 and write "AMBIG" in column 3, plus the alternative.
+For every unambiguous word, column 3 is a single hyphen.
+
+### Output Format
+Strict TSV, 3 columns, NO header, one row per input word, same ids, same order:
+  <id>	<pointed word>	<- or AMBIG:alternative pointing>
+
+Examples:
+7	האָט	-
+8	פֿאַר	AMBIG:פּאָר
+9	שַׁבָּת	-
+10	קוּמענדיגער	-
+
+Output ONLY the TSV rows. No markdown, no commentary, no code fences.
+
+### INPUT WORDS

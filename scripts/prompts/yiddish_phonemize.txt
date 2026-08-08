@@ -1,0 +1,192 @@
+You are an expert in Central (Poylish / Galitzyaner / Hungarian) Yiddish phonology as
+spoken today in Hasidic communities — Williamsburg, Boro Park, Kiryas Joel, Monsey.
+Your task is to produce training data for a Yiddish text-to-speech phonemizer.
+
+You will be given Yiddish sentences in Hebrew script, unpointed. For each one you
+produce TWO things: the fully pointed (diacritized) form, and the phoneme string.
+
+The single most important property of this dataset is CONSISTENCY. The same word in
+the same sense must ALWAYS receive the same pointing and the same phonemes, in every
+sentence, in every batch. A previous round of this dataset rendered האָט as hut, hot
+AND hat, and וואָס as vus, vos AND vas. That inconsistency destroyed the model: it
+learned to pick a dialect at random. Do not transcribe "what a speaker might say" or
+vary for naturalness. Apply the rules below mechanically, every single time.
+
+This is HASIDIC Yiddish, NOT YIVO/Standard Yiddish and NOT German. If your instinct
+says "o" where the table below says "u", follow the table.
+
+
+### Phoneme Inventory (STRICT RESTRICTION)
+
+You may ONLY use the following characters. Never introduce any other IPA symbol,
+Latin letter, Hebrew letter, or diacritic. A single out-of-inventory character makes
+the row unusable.
+
+• Vowels: a, ɛ, i, u, ɔ, ə
+• Diphthongs: aɪ, ɔɪ
+• Consonants: b, d, f, ɡ, h, j, k, l, m, n, p, r, s, t, v, x, z, ʃ, ʒ, ʦ, ʧ, ʣ, ʤ
+• Stress mark: ˈ
+
+Notes on the inventory:
+- ɡ is U+0261 (script g), NOT the ASCII letter g.
+- The affricates are the single precomposed characters ʦ ʧ ʣ ʤ — never write t+s or t+ʃ.
+- x is the ch of בוך / חכמה. Never use χ, kh, or h for it.
+- j is the y of יאָר. Never use y.
+- There is no /o/ and no /e/ in this inventory. Stressed segol is ɛ; unstressed
+  reduced vowels are ə. The komets NEVER produces ɔ (see the table below); ɔ occurs
+  only as the first element of the diphthong ɔɪ.
+
+
+### THE VOWEL TABLE — this is the heart of the task
+
+Central Yiddish shifted its vowels away from Standard/YIVO Yiddish. These shifts are
+what make it sound Hasidic rather than German. Apply all of them, always:
+
+| pointing | Standard/YIVO | THIS DIALECT | examples |
+|----------|---------------|--------------|----------|
+| ַ  pasekh        | a   | **a**   | אַלט → alt, גאַס → ɡas, מאַמע → mˈamə |
+| ָ  komets        | o   | **u**   | האָט → hut, וואָס → vus, יאָר → jur, טאָג → tuɡ |
+| ֶ  segol         | e   | **ɛ**   | עסן → ˈɛsən, רעדן → rˈɛdən |
+| ִ  khirik        | i   | **i**   | ביז → biz, מיט → mit |
+| וּ  shurek/kubuts | u   | **i**   | קומען → kˈimən, פֿון → fin, קוך → kix, צוריק → ʦirˈik |
+| ֵ  tseyre / ײ    | ey  | **aɪ**  | שיין → ʃaɪn, גיין → ɡaɪn, צוויי → ʦvaɪ |
+| ַײ pasekh-tsvey-yudn | ay | **aɪ** | היינט → haɪnt, מיין → maɪn, זיין → zaɪn |
+| ֹ  kholem / וי   | oy  | **ɔɪ**  | אויף → ɔɪf, גרויס → ɡrɔɪs, שוין → ʃɔɪn |
+| ְ  shva / unstressed | ə | **ə** | געזען → ɡəzˈɛn, אָבער → ˈubər |
+
+THE TWO RULES THAT ARE MOST OFTEN GOT WRONG — check every word against these:
+
+1. **komets → u, NEVER o and NEVER a.** This is the #1 error. German and Standard
+   Yiddish read the komets as "o" or "a"; Hasidic Yiddish reads it as "u".
+     האָב → hub (not hob, not hab)      האָט → hut (not hot, not hat)
+     האָבן → hˈubən (not hobn/habn)     דאָס → dus      דאָ → du
+     אַלעמאָל → ˈaləmul                  אָנגעהויבן → ˈunɡəhɔɪbən
+     זאָגן → zˈuɡən                      געקאָכט → ɡəkˈuxt      בלאָזט → bluzt
+   Note the contrast with pasekh, which stays a: אַלט alt vs אָלט would be ult.
+
+2. **shurek/kubuts → i, NEVER u.** קומען is kˈimən, not kumen. פֿון is fin, not fun.
+   קוך is kix. צוריק is ʦirˈik. געדולד is ɡədˈild.
+
+Consonants worth pinning:
+- פּ (pey, with dagesh) = p. פֿ (fey, with rafe) = f. Unpointed פ is ambiguous and you
+  must decide from the word: פּאָר "a pair" is pur, פֿאַר "for/before" is far.
+- בֿ = v, בּ/ב = b. כּ = k, כ/ך = x. תּ = t, ת = s. שׂ = s, שׁ = ʃ.
+- Final voiced stops stay voiced: האַנט hant, but טאָג tuɡ (not tuk).
+
+
+### Loshn-Koydesh (Hebrew-origin) words
+
+These are NOT read with Israeli Hebrew phonology. They follow the Ashkenazi/Hasidic
+tradition: ת without dagesh is s, komets is u, and stress is usually penultimate.
+
+  שבת → ʃˈubəs        חתונה → xˈasənə      משפּחה → miʃpˈuxə     ברוך → bˈurəx
+  מעשה → mˈaːsə → use mˈasə                שלום → ʃˈuləm        בית → bˈaɪs
+  תלמיד → tˈalməd     פּרשה → pˈarʃə       גמרא → ɡəmˈurə       חכמה → xˈaxmə
+  בטחון → bitˈuxən    כלל ישראל → klal-jisrˈuəl → write klal-jisrˈul
+
+Multi-word Hebrew phrases and acronyms that are pronounced as one unit join with a
+hyphen so the token count still matches: ב"ה → bˈurəx-haʃˈɛm, בעל-הבית → balə-bˈus.
+
+
+### Stress
+
+Every word of two or more syllables carries EXACTLY ONE stress mark ˈ, placed
+immediately BEFORE the stressed vowel, not before the syllable's consonants:
+  ɡəzˈɛn  — correct.        ɡəˈzɛn — wrong.
+Monosyllables carry NO stress mark: hut, vus, mit, biz, ɡas.
+Single-letter prefixes and clitics (אַ, די, דער, איז, אין, אוּן) carry no stress.
+
+Placement rules:
+- Germanic-component words: stress the first syllable of the stem.
+    ˈarbətən, ˈkindər, ˈaltən, ʃˈtɛlən
+- Unstressed prefixes — ge-, be-, der-, far-, tsu-, ant- — are skipped; stress the
+  syllable after them: ɡəzˈɛn, ɡərˈɛdt, farʃtˈaɪn, dərʦˈaɪlən.
+- Separable prefixes ARE stressed: ˈunɡəhɔɪbən, ˈintərɡaɪn, ˈɔɪfhərən, ˈavɛkɡɛɡanɡən.
+- Loshn-koydesh words: usually penultimate — ʃˈubəs, xˈasənə, miʃpˈuxə.
+- Loanwords keep the donor language's stress: intərəsˈant, muzˈik, tɛlɛfˈun.
+
+
+### Homographs — context decides
+
+Unpointed Yiddish hides these distinctions and the sentence is the only clue. Getting
+them right is the most valuable part of this dataset. Point them so the reading is
+unambiguous, and phonemize what you pointed.
+
+* פאר = פֿאַר far (for, before — the preposition/prefix)
+        BUT ALSO פּאָר pur (a pair, a few) — "אַ פּאָר יאָר" a pur jur, "אַ פּאָר וואָכן" a pur vuxən
+* אויף = ɔɪf (on, upon)  BUT ALSO the reduced af in fast speech — always write ɔɪf
+* צו = ʦu (to)  BUT ALSO ʦi (too, as in "צו גרויס")
+* וואָס = vus (what / that)  — always vus, never vos
+* ניט / נישט = nit / niʃt — keep whichever is written, do not normalize
+* זי = zi (she)  BUT ALSO the plural pronoun זיי zaɪ (they)
+* מיר = mir (we / to me) — same phonemes, no issue, but never write "mia"
+* אַ / אָן: אַ a (indefinite article) vs אָן un (without, on-) — pasekh vs komets
+* לעבן = lˈɛbən (to live)  BUT ALSO lˈɛbən (next to) — same, no contrast needed
+* גיין ɡaɪn (to go) vs גיין as part of אונטערגיין ˈintərɡaɪn — prefix takes the stress
+
+At minimum, whenever פאר appears you must decide far vs pur from the sentence and
+point it explicitly as פֿאַר or פּאָר.
+
+
+### Pointing conventions (column 2)
+
+Point every word fully and CONSISTENTLY — the same word always gets the same marks.
+- Germanic words: YIVO-style pointing — אַ אָ ייִ וּ פּ פֿ בֿ כּ שׂ תּ.
+- Mark the komets explicitly as אָ. Never leave a komets-alef bare.
+- Mark פּ vs פֿ on every pe. Mark בֿ where it is /v/.
+- Put ONE vowel mark per vowel. Do not write both הָאָט and הָאט — always הָאָט.
+- Loshn-koydesh words: full Hebrew nikud reflecting the Ashkenazi reading.
+- Keep the word count and word order identical to column 1. Same punctuation.
+
+
+### TASK
+
+For each numbered input sentence below, output one TSV row.
+
+
+### Output Format
+
+Output a strict TSV with exactly 3 columns and NO header:
+
+Column 1: the input sentence id, copied exactly.
+Column 2: the fully pointed Yiddish sentence — same words, same order, same punctuation.
+Column 3: the phoneme string — one token per word of column 2, single spaces between
+          tokens, punctuation preserved attached to its token.
+
+Example rows:
+
+3	הַיינְט וִויל אִיךְ אײַךְ דֶערְצֵיילְן אַ מַעֲשֶׂה וואָס אִיז גֶעשֶׁעהן מִיט מִיר מִיט אַ פּאָר יאָר צוּרִיק.	haɪnt vil ix aɪx dərʦˈaɪlən a mˈasə vus iz ɡəʃˈɛn mit mir mit a pur jur ʦirˈik.
+4	מִיר האָבְּן זִיךְ גֶעשְׁטֶעלְט רֶעדְן בִּיז דִי זוּן האָט אָנְגֶעהוֹיבְּן אוּנְטֶערְגֵיין.	mir hˈubən zix ɡəʃtˈɛlt rˈɛdən biz di zin hut ˈunɡəhɔɪbən ˈintərɡaɪn.
+5	דִי קִינְדֶער האָבְּן גֶעשְׁפִּילְט אוֹיף דִי פּאָדְלאָגֶע אוּן דִי מאַמֶע האָט גֶעקאָכְט עֶסְן אִין קוּךְ.	di kˈindər hˈubən ɡəʃpˈilt ɔɪf di pˈudluɡə in di mˈamə hut ɡəkˈuxt ˈɛsən in kix.
+
+Rules:
+* Output ONLY the TSV rows. No markdown, no headers, no commentary, no numbering
+  beyond the id column, no code fences.
+* Exactly one row per input sentence, in the same order, with the same ids.
+* Column 3 must contain ONLY characters from the inventory, plus spaces, hyphens and
+  the punctuation carried over from column 1.
+* Column 2 and column 3 must have the same number of whitespace-separated tokens.
+* Never leave a row blank. If a sentence is unintelligible, still output your best
+  effort rather than skipping it.
+
+### FINAL CHECK — run this over column 3 before you emit each row
+
+These three mistakes account for almost every rejected row. Check for them explicitly:
+
+1. STRESS. Count the vowels in each token. If a token has two or more vowels it MUST
+   contain exactly one ˈ. Words like zˈɛnən, ɡrˈɔɪsə, azˈɔɪ, zˈuɡən, jˈɛdər, mˈidraʃ
+   are frequently emitted with no stress mark at all — that makes the row unusable.
+   (Remember ɔɪ and aɪ are ONE vowel each, so ɡrˈɔɪsə has two vowels, not three.)
+2. NO "e" AND NO "o" ANYWHERE. These two ASCII letters are not in the inventory and
+   are the most common violation. Use ɛ for a stressed segol, ə for a reduced vowel,
+   u for a komets, and ɔ only inside ɔɪ. Write ɡ (U+0261), never ASCII g.
+3. TOKEN COUNT. Column 2 and column 3 must have the same number of space-separated
+   tokens. Do not merge two Yiddish words into one phoneme token or split one into
+   two — except for hyphen-joined loshn-koydesh phrases, which stay a single token.
+
+Also: copy the source words EXACTLY into column 2. Add diacritics and nothing else.
+Do not correct spelling, do not expand abbreviations, do not move or drop the
+gershayim in acronyms like תשפ"ד and לפ"ק.
+
+
+### INPUT SENTENCES

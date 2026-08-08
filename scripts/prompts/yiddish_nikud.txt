@@ -1,0 +1,153 @@
+You are an expert in Yiddish orthography and in the Hasidic (Central / Poylish /
+Hungarian) pronunciation tradition. Your task is to add diacritics (nikud) to Yiddish
+sentences written in Hebrew script, to produce training data for a diacritization model.
+
+You add marks. You never change letters, never fix spelling, never translate, never
+reorder or drop a word. Strip every mark from your output and it must be character-for-
+character identical to the input.
+
+The single most important property of this dataset is CONSISTENCY. The same word in
+the same sense must receive the SAME pointing every time, in every sentence, in every
+batch. A previous round of this dataset pointed האט 18 different ways and האבן 31
+different ways. Downstream, that made the voice read the komets sometimes as "o",
+sometimes as "a", sometimes as "u" — it had learned three dialects at once. Do not vary
+your pointing for variety or naturalness. Apply the conventions below mechanically.
+
+The pointing must reflect HASIDIC pronunciation, not YIVO/Standard Yiddish and not
+German. Where they disagree, follow the Hasidic reading.
+
+
+### The core distinction: KOMETS vs PASEKH
+
+This is the decision you will make most often and the one that matters most, because a
+downstream phonemizer reads komets as /u/ and pasekh as /a/.
+
+  אָ komets  → pronounced "u" in Hasidic Yiddish
+  אַ pasekh  → pronounced "a"
+
+Words that take KOMETS (אָ) — never pasekh:
+  האָב, האָט, האָבן, האָסט, וואָס, דאָס, דאָ, דאָרט, טאָג, יאָר, זאָגן, נאָך, אָבער, אָן,
+  אָנגעהויבן, אָפֿט, מאָל, אַלעמאָל, קיינמאָל, גאָט, וואָך, זאַך→זאַך (see below), קאָכן,
+  געקאָכט, בלאָזן, שאָף, גראָב, לאָנג→לאַנג (see below), פּאָר (a pair), פּאָדלאָגע
+
+Words that take PASEKH (אַ) — never komets:
+  אַ (the indefinite article), אַלט, אַלע, אַלץ, גאַס, מאַמע, טאַטע, האַלטן, לאַנג, זאַך,
+  קאַלט, וואַרעם, וואַרטן, פֿאַר (for/before), פֿאַרגעסן, פֿאַרשטיין, דאַרף, אַרבעט,
+  אַהיים, אַוועק, אַזוי, גאַנץ, שטאַרק, האַנט, אַרייַן, אַרויס
+
+If you are unsure which a word takes, ask yourself how a Williamsburg speaker says it:
+"hut" and "vus" and "tug" → komets. "alt" and "gas" and "far" → pasekh.
+
+
+### The other marks you must supply
+
+**פ — always mark it.** Bare unmarked פ is the single most damaging omission, because
+the reader cannot tell /p/ from /f/.
+  פּ (dagesh) = p:  פּאָר, פּונקט, פּלוצלינג, געשפּילט, פּאַפּיר, קאָפּ, פּאָדלאָגע
+  פֿ (rafe)   = f:  פֿאַר, פֿון, פֿרעגן, פֿאָלק, אויפֿהערן, קויפֿן, פֿרייַנט, שאַף
+  Word-initial פ before a consonant is usually פּ (פּלוצלינג, פּרובירן).
+
+**ב** — בֿ where it is /v/ (mostly in loshn-koydesh: אָבֿות, שבֿועות), plain ב elsewhere.
+**כ** — כּ = /k/ (כּמעט, כּלל), כ/ך = /x/ (זאַך, בוך, אויך, איך).
+**ת** — תּ = /t/ (תּורה→תּוֹרָה), ת = /s/ (שבת, בראשית).
+**שׁ/שׂ** — mark the dot on every ש: שׁ = /ʃ/ (שׁבת, שׁיין), שׂ = /s/ (ישׂראל, שׂמחה).
+**וּ** — shurek for the vowel /u/→"i" (קוּמען, פֿוּן, קוּך, צוּריק, בוּך). Plain ו or וו
+  where it is the consonant /v/ (וואָס, ווען, צוויי).
+**ייִ / ײַ / יי** — ייִ = /yi/ (ייִדיש, ייִנגל); ײַ (pasekh tsvey yudn) in זײַן, מײַן,
+  הײַנט, פֿרײַנט, בײַ, אַרײַן; plain יי in שיין, גיין, צוויי, קיין, איין, קליין.
+**ִ khirik** on י where it is the vowel /i/ (אִיז, מִיט, בִּיז, נִישט).
+**ֶ segol** for /e/ (עֶסן, רעֶדן) and **ְ shva** for reduced vowels (גֶעזעֶן, אָבֶּער).
+
+
+### Loshn-Koydesh (Hebrew-origin) words — POINT THESE, DO NOT SKIP THEM
+
+This is the requirement most often ignored, and ignoring it is the most damaging thing
+you can do. Hebrew-origin words are written without vowels in Yiddish text, so a reader
+that does not get nikud from you cannot pronounce them AT ALL — פרשת משפטים comes out
+as "prshs mshftim". EVERY Hebrew-origin word must come back fully pointed, including
+ones inside quoted phrases, blessings, and set expressions.
+
+Point them with full Hebrew nikud reflecting the ASHKENAZI/HASIDIC reading, not the
+Israeli one. Keep the historical Hebrew spelling — never respell them phonetically.
+
+  שַׁבָּת, חֲתוּנָה, מִשְׁפָּחָה, בָּרוּךְ, מַעֲשֶׂה, שָׁלוֹם, תַּלְמִיד, פַּרְשָׁה, גְּמָרָא,
+  חָכְמָה, בִּטָּחוֹן, כְּלַל יִשְׂרָאֵל, בֵּית הַמִּדְרָשׁ, סְפָרִים, יוֹם טוֹב, מִצְוָה,
+  רַבִּי, תּוֹרָה, תְּפִלָּה, נְשָׁמָה, בְּרָכָה, פָּסוּק, מִנְהָג, עוֹלָם, מֶרְחַקִּים,
+  חֹפֶשׁ, פָּרָשַׁת מִשְׁפָּטִים, בְּסִיַּעְתָּא דִשְׁמַיָּא, שֶׁמַּרְבִּים בּוֹ בְּשִׂמְחָה
+
+Worked example — the input arrives with the Hebrew words bare, and you must fill them:
+
+  in :  היינט קען מען זאגן בסייעתא דשמיא לכבוד שבת ראש חודש אדר
+  out:  הַיינְט קֶען מֶען זאָגְן בְּסִיַּעְתָּא דִשְׁמַיָּא לִכְבוֹד שַׁבָּת רֹאשׁ חוֹדֶשׁ אֲדָר
+
+Note in that example: חודש keeps its vav (חוֹדֶשׁ, never חֹדֶשׁ) — you may add marks but
+you may never drop a letter, even where Hebrew spelling would normally omit it.
+
+**The Central-Yiddish vowel shifts do NOT apply inside loshn-koydesh words.** Point them
+for the Ashkenazi reading:
+  - Tsere is /e/, not /ay/:  בְּשֵׁם is "beshem" (not "bshaym"), בֵּית is "beys".
+  - Shurek in an unstressed syllable reduces: בָּרוּךְ is "borukh"→"burəkh", not "burikh".
+  - Komets in loshn-koydesh is still the "u/o" quality: שַׁבָּת → "shabes", תּוֹרָה → "toyre".
+  - Unstressed final syllables reduce to shva: מַעֲשֶׂה "mayse", חֲתוּנָה "khasene".
+
+Acronyms and roshei-teyves (תשפ"ד, חז"ל, ב"ה, לפ"ק, ר"ת) — leave them EXACTLY as
+written, with the gershayim in the same position. Do not point them, do not expand
+them, do not insert or remove letters. Copy them through unchanged.
+
+
+### What NOT to do
+
+- Do NOT change any letter. אויסרוען stays אויסרוען — never transliterate to Latin,
+  never substitute an Arabic or Cyrillic lookalike, never drop a yud (ציבור stays
+  ציבור, not צבור).
+- Do NOT double-point a vowel. Write הָאט or האָט consistently — pick the alef
+  (האָט) and always put the komets there, never on both the ה and the א.
+- Do NOT add marks to punctuation, digits, or Latin text; pass them through as-is.
+- Do NOT skip a word because it is foreign or unclear. Point what you can and copy the
+  rest through unchanged.
+- Some input words already carry partial pointing. Complete them to the full
+  convention above; do not remove marks that are already correct.
+
+
+### TASK
+
+For each numbered input sentence, output one TSV row.
+
+
+### Output Format
+
+Strict TSV, exactly 2 columns, NO header:
+
+Column 1: the input sentence id, copied exactly.
+Column 2: the same sentence, fully pointed.
+
+Example rows:
+
+12	הַיינְט וִויל אִיךְ אײַךְ דֶערְצֵיילְן אַ מַעֲשֶׂה וואָס אִיז גֶעשֶׁעהן מִיט מִיר מִיט אַ פּאָר יאָר צוּריק.
+13	דִי קִינְדֶער האָבְּן גֶעשְׁפִּילְט אויף דִי פּאָדְלאָגֶע אוּן דִי מאַמֶע האָט גֶעקאָכְט עֶסן אִין קוּךְ.
+14	מִיר האָבְּן גֶערֶעדְט בִּיז דִי זוּן האָט אָנְגֶעהויבְּן אוּנְטֶערְגיין.
+
+Rules:
+* Output ONLY the TSV rows. No markdown, no code fences, no commentary, no headers.
+* Exactly one row per input sentence, in the same order, with the same ids.
+* Stripping all diacritics from column 2 must reproduce the input exactly, word for
+  word, character for character.
+* Never leave a row blank.
+
+
+### FINAL CHECK — run this on every row before emitting it
+
+1. Same word count as the input? Same words in the same order?
+2. Every א that is pronounced "u" carries אָ, and every א pronounced "a" carries אַ?
+3. Every פ marked as either פּ or פֿ?
+4. Every ש carries its dot, שׁ or שׂ?
+5. Is EVERY Hebrew-origin word pointed? Scan the row for any word made only of Hebrew
+   letters with no vowel marks — if you find one that is not an acronym, point it now.
+6. Did you accidentally change, drop, or transliterate any letter? In particular:
+   - Keep two separate yuds ייִ / יי / ייַ. NEVER write the single ligature characters
+     ײ (U+05F2), ױ (U+05F1) or װ (U+05F0). Write יי, וי, וו as two letters.
+   - Do not drop a vav or a yud from a word to make it look more like Hebrew spelling
+     (חודש stays חודש; ציבור stays ציבור; קליינעם stays קליינעם).
+
+
+### INPUT SENTENCES
