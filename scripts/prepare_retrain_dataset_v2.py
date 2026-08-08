@@ -90,6 +90,33 @@ from data.audio_endorsed_lk import AUDIO_ENDORSED_LK  # noqa: E402
 from data.homograph_lk import HOMOGRAPH_LK  # noqa: E402
 from data.sefaria_pointed_lk import SEFARIA_POINTED_LK  # noqa: E402
 
+try:  # audio-confirmed pe flips (scripts/build_audio_pe_lexicon.py)
+    from data.audio_pe_lk import AUDIO_PE_LK  # noqa: E402
+except ImportError:
+    AUDIO_PE_LK = {}
+
+try:  # audio-confirmed vowel corrections (scripts/build_audio_vowel_lexicon.py)
+    from data.audio_vowel_lk import AUDIO_VOWEL_LK  # noqa: E402
+except ImportError:
+    AUDIO_VOWEL_LK = {}
+
+# Rescued readings the xeus LK sweep heard CONTRADICTED in the audio
+# (scripts/xeus_lk_sweep.py, verdict SUSPECT). A suspect reading is never
+# stamped as a training target: teaching the model a reading the audio
+# refutes is worse than leaving the word unsupervised.
+_LK_VOTES = Path(__file__).resolve().parent.parent / "data" / "audio_lexicon" / "lk_sweep_votes.tsv"
+
+
+def _load_suspect_keys() -> set[str]:
+    if not _LK_VOTES.exists():
+        return set()
+    with _LK_VOTES.open(encoding="utf-8") as fh:
+        return {row["key"] for row in csv.DictReader(fh, delimiter="\t")
+                if row["verdict"] == "SUSPECT"}
+
+
+SUSPECT_KEYS = _load_suspect_keys()
+
 
 # ------------------------------------------------------------------- helpers
 
@@ -175,7 +202,10 @@ class Stamper:
         self.counts: collections.Counter[str] = collections.Counter()
         self.by_word: collections.Counter[str] = collections.Counter()
         self.evidence_keys = (set(AUDIO_ENDORSED_LK) | set(HOMOGRAPH_LK)
-                              | set(SEFARIA_POINTED_LK))
+                              | set(SEFARIA_POINTED_LK) | set(AUDIO_PE_LK)
+                              | set(AUDIO_VOWEL_LK))
+        # all audio tables carry {"ipa": ...} and stamp through try_audio
+        self.audio_all = {**AUDIO_VOWEL_LK, **AUDIO_PE_LK, **AUDIO_ENDORSED_LK}
         # key -> {pointed form seen in some row's text_pointed: occurrences}.
         # Filled by the collect pass, collapsed to ONE form per key by
         # choose_canonical(); empty while collecting.
@@ -231,7 +261,7 @@ class Stamper:
         content of the audio endorsement -- and it is what keeps one type from
         carrying five conflicting labels (תפיסה used to carry five).
         """
-        entry = AUDIO_ENDORSED_LK[key]
+        entry = self.audio_all[key]
         ccore = None
         if ctok is not None:
             _, cand, _ = G.split_affixes(ctok)
@@ -322,7 +352,11 @@ class Stamper:
             key = key_of(core)
             if key not in self.evidence_keys:
                 continue
-            if self.collecting and key not in AUDIO_ENDORSED_LK:
+            if key in SUSPECT_KEYS:
+                if not self.collecting:
+                    self.counts["suspect_not_stamped"] += 1
+                continue  # audio refutes this reading; never a training target
+            if self.collecting and key not in self.audio_all:
                 continue  # the collect pass only surveys the audio forms
             if not self.collecting:
                 self.counts["evidence_class_tokens"] += 1
@@ -331,14 +365,16 @@ class Stamper:
                     self.counts["already_supervised"] += 1
                 continue
 
-            if key in AUDIO_ENDORSED_LK:
+            if key in self.audio_all:
                 if not ctoks_done:
                     ctoks = self.aligned_corpus_tokens(row)
                     cmap = self.corpus_cores_by_key(row)
                     ctoks_done = True
                 stamp = self.try_audio(core, key,
                                        ctoks[pos] if ctoks else None, cmap)
-                source = "audio"
+                source = ("audio-pe" if key in AUDIO_PE_LK
+                          else "audio-vowel" if key in AUDIO_VOWEL_LK
+                          else "audio")
             elif key in HOMOGRAPH_LK:
                 # type-level winner only: this occurrence was never decided
                 self.counts["homograph_type_not_stamped"] += 1

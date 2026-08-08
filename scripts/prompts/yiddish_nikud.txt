@@ -47,6 +47,14 @@ the reader cannot tell /p/ from /f/.
   פֿ (rafe)   = f:  פֿאַר, פֿון, פֿרעגן, פֿאָלק, אויפֿהערן, קויפֿן, פֿרייַנט, שאַף
   Word-initial פ before a consonant is usually פּ (פּלוצלינג, פּרובירן).
 
+  THE פאר HOMOGRAPH — you must decide it from the sentence, every single time:
+    · פּאָר "a pair / a few" (noun): אַ פּאָר יאָר, אַ פּאָר וואָכן, אַ פּאָר טעג,
+      אַ פּאָר מינוט — dagesh AND komets.
+    · פֿאַר "for / before" (preposition or verb prefix): פֿאַר אים, פֿאַר דער וואך,
+      פֿאַרגעסן, פֿאַרשטיין — rafe AND pasekh.
+  Right after the article אַ it is virtually always the noun: אַ פּאָר, never אַ פֿאַר.
+  Writing פֿאַר in "מיט אַ ___ יאָר צוריק" is a hard error.
+
 **ב** — בֿ where it is /v/ (mostly in loshn-koydesh: אָבֿות, שבֿועות), plain ב elsewhere.
 **כ** — כּ = /k/ (כּמעט, כּלל), כ/ך = /x/ (זאַך, בוך, אויך, איך).
 **ת** — תּ = /t/ (תּורה→תּוֹרָה), ת = /s/ (שבת, בראשית).

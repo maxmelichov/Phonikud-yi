@@ -29,7 +29,7 @@ System: `az ɛr vil ɛs ˈɛməzdiɡ nˈɛmən də tˈɔjrə ləʃˈamu.`
 **3.**
 > אויך האט ראש חודש די יארצייט פון דעם הייליגן רבי ברוכל גארליצער.
 
-System: `oʊx hut rɔjʃ xˈɔjdəʃ də jˈarʦajt fin dejm hˈajliɡn rˈɛbə brixl ɡˈarliʦər.`
+System: `oʊx hut rɔjʃ xˈɔjdəʃ də jˈurʦajt fin dejm hˈajliɡn rˈɛbə brixl ɡˈarliʦər.`
 
 **4.**
 > קוק אויף משה רבינו, ווי היינט איז זי!
@@ -49,7 +49,7 @@ System: `iz hubn zaj ɡəkˈɛnt nux mɛr lˈirnən vi dɛr daːn.`
 **7.**
 > זאגט דער הייליגער מאור עיניים, משה רבנוס יארצייט איז אייביג פרשת תצוה, יא?
 
-System: `zuɡt dɛr hˈajliɡər mir ˈajnajm, mˈɔjʃə rbnis jˈarʦajt iz ˈajbiɡ pˈarʃis təʦˈavɛ, ju?`
+System: `zuɡt dɛr hˈajliɡər mir ˈajnajm, mˈɔjʃə rbnis jˈurʦajt iz ˈajbiɡ pˈarʃis təʦˈavɛ, ju?`
 
 **8.**
 > ס'איז געווען געקענט, האָט מען גערופן טאַקע דעם דיין אַז מען גייט עס קאַשערן.
@@ -68,5 +68,7 @@ System: `iz vɛn də jidn hubn ɡəzˈuɡt nˈɛʃə ˈinʃmə, ɡlaːx hut dɛr
 
 ---
 
-*Sentences are verbatim corpus text. System output generated 2026-08-08
-(engine with MWE fusion, register-aware Hebrew, and the full rescue chain).*
+*Sentences are verbatim corpus text. System output regenerated 2026-08-08
+(engine with MWE fusion, register-aware Hebrew, the full rescue chain, and
+PhoneticXeus audio-verified consonant/vowel tables — jˈurʦajt reflects the
+23/29-clip audio vote on יארצייט).*
