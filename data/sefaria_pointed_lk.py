@@ -40,17 +40,17 @@ Regenerate: python scripts/build_sefaria_lexicon.py
 """
 
 SEFARIA_POINTED_LK = {
-    'כזית': {"ipa": 'kazˈajis', "variants": [], "pointed": 'כַּזַּיִת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 75, "dominance": 0.926},  # freq 1653
+    'כזית': {"ipa": 'kazˈajis', "variants": [], "pointed": 'כַּזַּיִת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 75, "dominance": 0.926},  # freq 1653
     'מקבל': {"ipa": 'mkˈabajl', "variants": ['məkˈabajl'], "pointed": 'מְקַבֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 44, "dominance": 0.846},  # freq 482
     'כהן': {"ipa": 'kˈɔjhajn', "variants": [], "pointed": 'כֹּהֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 241, "dominance": 0.956},  # freq 474
     'המקדש': {"ipa": 'hamˈikduʃ', "variants": [], "pointed": 'הַמִּקְדָּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 88, "dominance": 0.822},  # freq 468
     'השנה': {"ipa": 'haʃˈunə', "variants": ['haʃˈunu'], "pointed": 'הַשָּׁנָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 93, "dominance": 0.989},  # freq 432
     'מצוות': {"ipa": 'mˈiʦvɔjs', "variants": [], "pointed": 'מִצְווֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 396
-    'רבותי': {"ipa": 'rabˈɔjsaː', "variants": ['rabˈɔjsaj'], "pointed": 'רַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 379
+    'רבותי': {"ipa": 'rabˈɔjsaj', "variants": [], "pointed": 'רַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 379
     'נח': {"ipa": 'nˈɔjxa', "variants": [], "pointed": 'נֹחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 46, "dominance": 1.0},  # freq 375
     'זכות': {"ipa": 'zxis', "variants": ['zəxˈus'], "pointed": 'זְכוּת', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 30, "dominance": 1.0},  # freq 335
     'מוחל': {"ipa": 'mˈɔjxajl', "variants": [], "pointed": 'מוֹחֵל', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 1.0},  # freq 325
-    'אותיות': {"ipa": 'ɔjsˈijɔjs', "variants": [], "pointed": 'אוֹתִיּוֹת', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 9, "dominance": 1.0},  # freq 319
+    'אותיות': {"ipa": 'ɔjsˈijɔjs', "variants": [], "pointed": 'אוֹתִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 319
     'המלך': {"ipa": 'hamˈɛlɛx', "variants": [], "pointed": 'הַמֶּלֶךְ', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 1127, "dominance": 0.995},  # freq 319
     'בשם': {"ipa": 'bʃajm', "variants": ['bəʃˈajm'], "pointed": 'בְּשֵׁם', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 118, "dominance": 0.908},  # freq 314
     'הזה': {"ipa": 'hˈazə', "variants": ['hˈazɛ'], "pointed": 'הַזֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 901, "dominance": 0.975},  # freq 297
@@ -63,7 +63,7 @@ SEFARIA_POINTED_LK = {
     'אחד': {"ipa": 'ˈɛxud', "variants": [], "pointed": 'אֶחָד', "register": 'merged', "why": 'default-embedded', "n_sources": 1488, "dominance": 0.94},  # freq 249
     'מחבר': {"ipa": 'mxˈibur', "variants": ['məxˈubur'], "pointed": 'מְחֻבָּר', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 247
     'מנחה': {"ipa": 'mˈinxə', "variants": ['mˈinxu'], "pointed": 'מִנְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 96, "dominance": 0.99},  # freq 246
-    'חשבון': {"ipa": 'xˈɛʒbɔjn', "variants": ['xˈɛʃbɔjn'], "pointed": 'חֶשְׁבּוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 47, "dominance": 1.0},  # freq 237
+    'חשבון': {"ipa": 'xˈɛʃbɔjn', "variants": [], "pointed": 'חֶשְׁבּוֹן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 47, "dominance": 1.0},  # freq 237
     'בראשית': {"ipa": 'brˈajʃis', "variants": ['bərˈajʃis'], "pointed": 'בְּרֵאשִׁית', "register": 'merged', "why": 'default-embedded', "n_sources": 48, "dominance": 1.0},  # freq 226
     'בשעת': {"ipa": 'biʃˈas', "variants": ['bˈiʃas'], "pointed": 'בִּשְׁעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 57, "dominance": 1.0},  # freq 224
     'הר': {"ipa": 'har', "variants": [], "pointed": 'הַר', "register": 'merged', "why": 'default-embedded', "n_sources": 162, "dominance": 0.97},  # freq 222
@@ -81,13 +81,13 @@ SEFARIA_POINTED_LK = {
     'בכל': {"ipa": 'bxul', "variants": ['bəxˈul'], "pointed": 'בְּכׇל', "register": 'merged', "why": 'default-embedded', "n_sources": 709, "dominance": 0.87},  # freq 175
     'נסתלק': {"ipa": 'nistˈalajk', "variants": [], "pointed": 'נִסְתַּלֵּק', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 172
     'לכם': {"ipa": 'lˈuxəm', "variants": ['lˈuxɛm'], "pointed": 'לָכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 534, "dominance": 0.996},  # freq 170
-    'הבית': {"ipa": 'habˈajis', "variants": [], "pointed": 'הַבַּיִת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 417, "dominance": 0.808},  # freq 165
+    'הבית': {"ipa": 'habˈajis', "variants": [], "pointed": 'הַבַּיִת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 417, "dominance": 0.808},  # freq 165
     'ציצית': {"ipa": 'ʦˈiʦis', "variants": [], "pointed": 'צִיצִית', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 165
     'הנה': {"ipa": 'hinˈajə', "variants": ['hˈinaj'], "pointed": 'הִנֵּה', "register": 'merged', "why": 'default-embedded', "n_sources": 472, "dominance": 0.858},  # freq 163
     'מלכות': {"ipa": 'mˈalxis', "variants": ['mˈalxus'], "pointed": 'מַלְכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 62, "dominance": 0.954},  # freq 162
     'יוחנן': {"ipa": 'jɔjxˈunun', "variants": [], "pointed": 'יוֹחָנָן', "register": 'merged', "why": 'default-embedded', "n_sources": 126, "dominance": 1.0},  # freq 155
     'תלמידי': {"ipa": 'talmˈidaj', "variants": [], "pointed": 'תַּלְמִידֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 155
-    'אות': {"ipa": 'ɔjs', "variants": [], "pointed": 'אוֹת', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 28, "dominance": 0.848},  # freq 150
+    'אות': {"ipa": 'ɔjs', "variants": [], "pointed": 'אוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 28, "dominance": 0.848},  # freq 150
     'לב': {"ipa": 'lajv', "variants": [], "pointed": 'לֵב', "register": 'merged', "why": 'default-embedded', "n_sources": 220, "dominance": 0.978},  # freq 150
     'רחמים': {"ipa": 'raxˈamim', "variants": [], "pointed": 'רַחֲמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 33, "dominance": 1.0},  # freq 150
     'יראת': {"ipa": 'jˈiras', "variants": [], "pointed": 'יִרְאַת', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 0.964},  # freq 148
@@ -97,8 +97,8 @@ SEFARIA_POINTED_LK = {
     'שר': {"ipa": 'sar', "variants": [], "pointed": 'שַׂר', "register": 'merged', "why": 'default-embedded', "n_sources": 87, "dominance": 0.978},  # freq 138
     'יחוס': {"ipa": 'jˈuxis', "variants": ['jˈuxus'], "pointed": 'יָחוּס', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 134
     'חזן': {"ipa": 'xˈazan', "variants": [], "pointed": 'חַזַּן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 133
-    "לה'": {"ipa": 'lɛ', "variants": ['lah'], "pointed": "לַה'", "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 0.95},  # freq 132
-    'חיה': {"ipa": 'xˈaju', "variants": [], "pointed": 'חַיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 74, "dominance": 0.881},  # freq 131
+    "לה'": {"ipa": 'lah', "variants": [], "pointed": "לַה'", "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 19, "dominance": 0.95},  # freq 132
+    'חיה': {"ipa": 'xˈaju', "variants": [], "pointed": 'חַיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 74, "dominance": 0.881},  # freq 131
     'כנגד': {"ipa": 'knˈɛɡəd', "variants": ['kənˈɛɡɛd'], "pointed": 'כְּנֶגֶד', "register": 'merged', "why": 'default-embedded', "n_sources": 111, "dominance": 1.0},  # freq 131
     'פנחס': {"ipa": 'pˈinxus', "variants": [], "pointed": 'פִּנְחָס', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 130
     'קבלת': {"ipa": 'kabˈulas', "variants": [], "pointed": 'קַבָּלַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 128
@@ -129,7 +129,7 @@ SEFARIA_POINTED_LK = {
     'כן': {"ipa": 'kajn', "variants": [], "pointed": 'כֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 819, "dominance": 0.99},  # freq 101
     'מנחת': {"ipa": 'mˈinxas', "variants": [], "pointed": 'מִנְחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 70, "dominance": 0.933},  # freq 101
     'צמח': {"ipa": 'ʦˈɛmax', "variants": [], "pointed": 'צֶמַח', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 101
-    'יוחאי': {"ipa": 'jˈɔjxaː', "variants": ['jˈɔjxaj'], "pointed": 'יוֹחַאי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 99
+    'יוחאי': {"ipa": 'jˈɔjxaj', "variants": [], "pointed": 'יוֹחַאי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 99
     'דן': {"ipa": 'dun', "variants": [], "pointed": 'דָן', "register": 'merged', "why": 'default-embedded', "n_sources": 72, "dominance": 1.0},  # freq 98
     'מנשה': {"ipa": 'mnˈaʃə', "variants": ['mənˈaʃɛ'], "pointed": 'מְנַשֶּׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 115, "dominance": 1.0},  # freq 98
     'זאת': {"ipa": 'zɔjs', "variants": [], "pointed": 'זֹאת', "register": 'merged', "why": 'default-embedded', "n_sources": 274, "dominance": 0.996},  # freq 96
@@ -142,7 +142,7 @@ SEFARIA_POINTED_LK = {
     'אורח': {"ipa": 'ɔjrˈajxa', "variants": [], "pointed": 'אוֹרֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 88
     'חול': {"ipa": 'xil', "variants": ['xul'], "pointed": 'חוּל', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 88
     'נחמו': {"ipa": 'naxˈami', "variants": ['naxˈamu'], "pointed": 'נַחֲמוּ', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 2, "dominance": 1.0},  # freq 88
-    'תצוה': {"ipa": 'tʦˈai', "variants": ['təʦˈavɛ'], "pointed": 'תְּצַוֶּה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 2, "dominance": 1.0},  # freq 88
+    'תצוה': {"ipa": 'təʦˈavɛ', "variants": [], "pointed": 'תְּצַוֶּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 88
     'כך': {"ipa": 'kux', "variants": [], "pointed": 'כָּךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 307, "dominance": 0.978},  # freq 87
     'תרגום': {"ipa": 'tˈarɡim', "variants": ['tˈarɡum'], "pointed": 'תַּרְגּוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 86
     'נסיונות': {"ipa": 'nisjˈɔjnɔjs', "variants": [], "pointed": 'נִסְיוֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 85
@@ -160,20 +160,20 @@ SEFARIA_POINTED_LK = {
     'קללות': {"ipa": 'klˈulɔjs', "variants": ['kəlˈulɔjs'], "pointed": 'קְלָלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 76
     'תרומה': {"ipa": 'trˈimə', "variants": ['tərˈumu'], "pointed": 'תְּרוּמָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 247, "dominance": 1.0},  # freq 76
     'מתנות': {"ipa": 'matˈunɔjs', "variants": [], "pointed": 'מַתָּנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 0.882},  # freq 75
-    'פרשיות': {"ipa": 'puruʃˈiɔjs', "variants": ['puruʃˈijɔjs'], "pointed": 'פָּרָשִׁיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 75
+    'פרשיות': {"ipa": 'puruʃˈijɔjs', "variants": [], "pointed": 'פָּרָשִׁיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 75
     'רבקה': {"ipa": 'rˈivkə', "variants": ['rˈivku'], "pointed": 'רִבְקָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 25, "dominance": 1.0},  # freq 75
     'תצא': {"ipa": 'tˈajʦaj', "variants": [], "pointed": 'תֵּצֵא', "register": 'merged', "why": 'default-embedded', "n_sources": 79, "dominance": 1.0},  # freq 75
-    'החודש': {"ipa": 'haxˈidəʃ', "variants": ['hˈaxvdɛʃ'], "pointed": 'הַחודֶשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 74
+    'החודש': {"ipa": 'hˈaxvdɛʃ', "variants": [], "pointed": 'הַחודֶשׁ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 74
     'הכהן': {"ipa": 'hakˈɔjhajn', "variants": [], "pointed": 'הַכֹּהֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 406, "dominance": 0.99},  # freq 74
     'לעשות': {"ipa": 'laˈasɔjs', "variants": [], "pointed": 'לַעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 297, "dominance": 0.958},  # freq 74
     'מנוחה': {"ipa": 'mnˈixə', "variants": ['mənˈuxu'], "pointed": 'מְנוּחָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 28, "dominance": 1.0},  # freq 74
-    'אותו': {"ipa": 'ˈɔjsɔj', "variants": [], "pointed": 'אוֹתוֹ', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 289, "dominance": 1.0},  # freq 73
+    'אותו': {"ipa": 'ˈɔjsɔj', "variants": [], "pointed": 'אוֹתוֹ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 289, "dominance": 1.0},  # freq 73
     'קבלה': {"ipa": 'kˈibluh', "variants": ['kˈiblu'], "pointed": 'קִבְּלָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 73
     'שחרית': {"ipa": 'ʃaxˈaris', "variants": [], "pointed": 'שַׁחֲרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 73
     'כנסת': {"ipa": 'knˈɛsəs', "variants": ['kənˈɛsɛs'], "pointed": 'כְנֶסֶת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 72
-    'וישלח': {"ipa": 'vaˈiʃlax', "variants": ['vajˈiʃlax'], "pointed": 'וַיִּשְׁלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 192, "dominance": 0.865},  # freq 70
+    'וישלח': {"ipa": 'vajˈiʃlax', "variants": [], "pointed": 'וַיִּשְׁלַח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 192, "dominance": 0.865},  # freq 70
     'ריח': {"ipa": 'rˈajxa', "variants": [], "pointed": 'רֵיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 45, "dominance": 1.0},  # freq 69
-    'תהיה': {"ipa": 'tˈihə', "variants": ['tˈihjɛ'], "pointed": 'תִּהְיֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 189, "dominance": 0.995},  # freq 68
+    'תהיה': {"ipa": 'tˈihjɛ', "variants": [], "pointed": 'תִּהְיֶה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 189, "dominance": 0.995},  # freq 68
     'אשת': {"ipa": 'ˈajʃəs', "variants": ['ˈajʃɛs'], "pointed": 'אֵשֶׁת', "register": 'merged', "why": 'default-embedded', "n_sources": 147, "dominance": 0.993},  # freq 67
     'גם': {"ipa": 'ɡam', "variants": [], "pointed": 'גַּם', "register": 'merged', "why": 'default-embedded', "n_sources": 526, "dominance": 1.0},  # freq 67
     'שבעת': {"ipa": 'ʃˈivas', "variants": [], "pointed": 'שִׁבְעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 127, "dominance": 0.92},  # freq 66
@@ -198,7 +198,7 @@ SEFARIA_POINTED_LK = {
     'תשרי': {"ipa": 'tˈiʃraj', "variants": [], "pointed": 'תִּשְׁרֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 58
     'שפת': {"ipa": 'sfas', "variants": ['səfˈas'], "pointed": 'שְׂפַת', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 44, "dominance": 0.88},  # freq 57
     'דף': {"ipa": 'daf', "variants": [], "pointed": 'דַּף', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 54
-    'יתברך': {"ipa": 'jizbˈurax', "variants": ['jisbˈurax'], "pointed": 'יִתְבָּרַךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 70, "dominance": 0.959},  # freq 54
+    'יתברך': {"ipa": 'jisbˈurax', "variants": [], "pointed": 'יִתְבָּרַךְ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 70, "dominance": 0.959},  # freq 54
     'מופתים': {"ipa": 'mˈɔjfsim', "variants": ['mˈɔjfəsim'], "pointed": 'מוֹפְתִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 54
     'מיתה': {"ipa": 'mˈisə', "variants": ['mˈisu'], "pointed": 'מִיתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 1.0},  # freq 54
     'מנהל': {"ipa": 'mnˈahajl', "variants": ['mənˈahajl'], "pointed": 'מְנַהֵל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 54
@@ -209,7 +209,7 @@ SEFARIA_POINTED_LK = {
     'שחיטה': {"ipa": 'ʃxˈitə', "variants": ['ʃəxˈitu'], "pointed": 'שְׁחִיטָה', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 53
     'שנת': {"ipa": 'ʃnas', "variants": ['ʃənˈas'], "pointed": 'שְׁנַת', "register": 'merged', "why": 'default-embedded', "n_sources": 45, "dominance": 1.0},  # freq 53
     'בה': {"ipa": 'bu', "variants": ['buh'], "pointed": 'בָּהּ', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 723, "dominance": 0.969},  # freq 52
-    'בחקותי': {"ipa": 'bxikˈɔjsaː', "variants": ['bəxukˈɔjsaj'], "pointed": 'בְּחֻקּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 52
+    'בחקותי': {"ipa": 'bəxukˈɔjsaj', "variants": [], "pointed": 'בְּחֻקּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 52
     'חזיר': {"ipa": 'xˈazir', "variants": [], "pointed": 'חֲזִיר', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 51
     'אוצרות': {"ipa": 'ˈɔjʦrɔjs', "variants": ['ˈɔjʦərɔjs'], "pointed": 'אוֹצְרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.8},  # freq 50
     'אחת': {"ipa": 'ˈaxas', "variants": [], "pointed": 'אַחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 676, "dominance": 0.866},  # freq 50
@@ -231,14 +231,14 @@ SEFARIA_POINTED_LK = {
     'רחמנא': {"ipa": 'raxamˈunu', "variants": [], "pointed": 'רַחֲמָנָא', "register": 'merged', "why": 'default-embedded', "n_sources": 37, "dominance": 1.0},  # freq 47
     'אבותינו': {"ipa": 'avɔjsˈajni', "variants": ['avɔjsˈajnu'], "pointed": 'אֲבוֹתֵינוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 194, "dominance": 1.0},  # freq 46
     'כוסות': {"ipa": 'kˈɔjsɔjs', "variants": [], "pointed": 'כּוֹסוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 46
-    'מקץ': {"ipa": 'mˈikaːʦ', "variants": ['mˈikajʦ'], "pointed": 'מִקֵּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 24, "dominance": 1.0},  # freq 46
+    'מקץ': {"ipa": 'mˈikajʦ', "variants": [], "pointed": 'מִקֵּץ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 24, "dominance": 1.0},  # freq 46
     'תהלים': {"ipa": 'təhˈilim', "variants": [], "pointed": 'תְּהִלִּים', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 46
     'הדבר': {"ipa": 'hadˈuvur', "variants": [], "pointed": 'הַדָּבָר', "register": 'merged', "why": 'default-embedded', "n_sources": 250, "dominance": 0.923},  # freq 45
     'מגפה': {"ipa": 'maɡˈajfə', "variants": ['maɡˈajfu'], "pointed": 'מַגֵּפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 45
     'מצבה': {"ipa": 'maʦˈajvə', "variants": ['maʦˈajvu'], "pointed": 'מַצֵּבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.9},  # freq 45
     'שפחה': {"ipa": 'ʃˈifxə', "variants": ['ʃˈifxu'], "pointed": 'שִׁפְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 1.0},  # freq 45
     'המתים': {"ipa": 'hamˈajsim', "variants": [], "pointed": 'הַמֵּתִים', "register": 'merged', "why": 'default-embedded', "n_sources": 32, "dominance": 1.0},  # freq 44
-    'ויקח': {"ipa": 'vaˈikax', "variants": ['vajˈikax'], "pointed": 'וַיִּקַּח', "register": 'merged', "why": 'default-embedded', "n_sources": 215, "dominance": 0.977},  # freq 44
+    'ויקח': {"ipa": 'vajˈikax', "variants": [], "pointed": 'וַיִּקַּח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 215, "dominance": 0.977},  # freq 44
     'חצות': {"ipa": 'xˈaʦɔjs', "variants": [], "pointed": 'חֲצוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 24, "dominance": 0.923},  # freq 44
     'נותן': {"ipa": 'nˈɔjsajn', "variants": [], "pointed": 'נוֹתֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 251, "dominance": 1.0},  # freq 44
     'נחום': {"ipa": 'nˈaxim', "variants": ['nˈaxum'], "pointed": 'נַחוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.889},  # freq 44
@@ -248,14 +248,14 @@ SEFARIA_POINTED_LK = {
     'וזאת': {"ipa": 'vzɔjs', "variants": ['vəzˈɔjs'], "pointed": 'וְזֹאת', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 0.935},  # freq 43
     'ושמחה': {"ipa": 'vsˈimxə', "variants": ['vəsˈimxu'], "pointed": 'וְשִׂמְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.947},  # freq 43
     'זקן': {"ipa": 'zˈukajn', "variants": [], "pointed": 'זָקֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 59, "dominance": 0.855},  # freq 43
-    'חייב': {"ipa": 'xˈajujv', "variants": [], "pointed": 'חַיָּיב', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 43
+    'חייב': {"ipa": 'xˈajujv', "variants": [], "pointed": 'חַיָּיב', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 43
     'תהיו': {"ipa": 'tˈihji', "variants": ['tˈihju'], "pointed": 'תִּהְיוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 43
     'תודה': {"ipa": 'tˈɔjdə', "variants": ['tˈɔjdu'], "pointed": 'תּוֹדָה', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 43
     'תמים': {"ipa": 'tˈumim', "variants": [], "pointed": 'תָּמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 56, "dominance": 0.918},  # freq 43
     'תנא': {"ipa": 'tˈunu', "variants": [], "pointed": 'תָּנָא', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 43
     'אתכם': {"ipa": 'ˈɛsxəm', "variants": ['ˈɛsxɛm'], "pointed": 'אֶתְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 345, "dominance": 0.863},  # freq 42
     'חסרון': {"ipa": 'xˈɛsrɔjn', "variants": [], "pointed": 'חֶסְרוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 42
-    'חשבונות': {"ipa": 'xəʒbˈɔjnɔjs', "variants": ['xɛʃbˈɔjnɔjs'], "pointed": 'חֶשְׁבּוֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 42
+    'חשבונות': {"ipa": 'xɛʃbˈɔjnɔjs', "variants": [], "pointed": 'חֶשְׁבּוֹנוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 42
     'מחדש': {"ipa": 'mxˈadajʃ', "variants": ['məxˈadajʃ'], "pointed": 'מְחַדֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 42
     'מנוח': {"ipa": 'munˈɔjxa', "variants": [], "pointed": 'מָנוֹחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 28, "dominance": 1.0},  # freq 42
     'מתפלל': {"ipa": 'mispˈalajl', "variants": [], "pointed": 'מִתְפַּלֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 42
@@ -274,7 +274,7 @@ SEFARIA_POINTED_LK = {
     'המות': {"ipa": 'hamˈuvɛs', "variants": [], "pointed": 'הַמָּוֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 14, "dominance": 0.933},  # freq 39
     'פאות': {"ipa": 'pˈajɔjs', "variants": [], "pointed": 'פֵאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 39
     'תעשה': {"ipa": 'taˈasɛ', "variants": [], "pointed": 'תַּעֲשֶׂה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 169, "dominance": 0.889},  # freq 39
-    'אותם': {"ipa": 'ˈɔjsum', "variants": [], "pointed": 'אוֹתָם', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 224, "dominance": 1.0},  # freq 38
+    'אותם': {"ipa": 'ˈɔjsum', "variants": [], "pointed": 'אוֹתָם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 224, "dominance": 1.0},  # freq 38
     'אחשורוש': {"ipa": 'axaʃvˈajrɔjʃ', "variants": [], "pointed": 'אֲחַשְׁוֵרוֹשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 1.0},  # freq 38
     'זכרונות': {"ipa": 'zixrˈɔjnɔjs', "variants": [], "pointed": 'זִכְרוֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 38
     'טהרה': {"ipa": 'tuhˈurə', "variants": ['tuhˈuru'], "pointed": 'טָהֳרָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 42, "dominance": 0.894},  # freq 38
@@ -290,7 +290,7 @@ SEFARIA_POINTED_LK = {
     'עבֿירות': {"ipa": 'avˈajrɔjs', "variants": [], "pointed": 'עֲבֵירוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 37
     'קללה': {"ipa": 'klˈulə', "variants": ['kəlˈulu'], "pointed": 'קְלָלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 37
     'תזריע': {"ipa": 'tazrˈia', "variants": [], "pointed": 'תַזְרִיעַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 37
-    'אותי': {"ipa": 'ˈɔjsi', "variants": [], "pointed": 'אוֹתִי', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 47, "dominance": 1.0},  # freq 36
+    'אותי': {"ipa": 'ˈɔjsi', "variants": [], "pointed": 'אוֹתִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 47, "dominance": 1.0},  # freq 36
     'הזאת': {"ipa": 'hˈazɔjs', "variants": [], "pointed": 'הַזֹּאת', "register": 'merged', "why": 'default-embedded', "n_sources": 288, "dominance": 0.976},  # freq 36
     'זהב': {"ipa": 'zˈuhuv', "variants": [], "pointed": 'זָהָב', "register": 'merged', "why": 'default-embedded', "n_sources": 322, "dominance": 0.988},  # freq 36
     'חלקים': {"ipa": 'xalˈukim', "variants": [], "pointed": 'חֲלָקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 36
@@ -315,7 +315,7 @@ SEFARIA_POINTED_LK = {
     'נצח': {"ipa": 'nˈɛʦax', "variants": [], "pointed": 'נֶצַח', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.867},  # freq 33
     'תחת': {"ipa": 'tˈaxas', "variants": [], "pointed": 'תַּחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 367, "dominance": 0.958},  # freq 33
     'בכורות': {"ipa": 'bxˈɔjrɔjs', "variants": ['bəxˈɔjrɔjs'], "pointed": 'בְּכוֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 32
-    'זית': {"ipa": 'zˈajis', "variants": [], "pointed": 'זַיִת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 72, "dominance": 0.96},  # freq 32
+    'זית': {"ipa": 'zˈajis', "variants": [], "pointed": 'זַיִת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 72, "dominance": 0.96},  # freq 32
     'מכח': {"ipa": 'mikˈɔjxa', "variants": [], "pointed": 'מִכֹּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 32
     'מסר': {"ipa": 'mˈusar', "variants": [], "pointed": 'מָסַר', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 32
     'מתוך': {"ipa": 'mˈitɔjx', "variants": [], "pointed": 'מִתּוֹךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 105, "dominance": 1.0},  # freq 32
@@ -327,7 +327,7 @@ SEFARIA_POINTED_LK = {
     'הבן': {"ipa": 'hˈabajn', "variants": [], "pointed": 'הַבֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 33, "dominance": 0.892},  # freq 31
     'חברון': {"ipa": 'xˈɛvrɔjn', "variants": [], "pointed": 'חֶבְרוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 31
     'חכמי': {"ipa": 'xˈaxmaj', "variants": [], "pointed": 'חַכְמֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 31
-    'חסדו': {"ipa": 'xˈasdɔj', "variants": ['xˈazdɔj'], "pointed": 'חַסְדּוֹ', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 110, "dominance": 0.991},  # freq 31
+    'חסדו': {"ipa": 'xˈasdɔj', "variants": [], "pointed": 'חַסְדּוֹ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 110, "dominance": 0.991},  # freq 31
     'חתנים': {"ipa": 'xasˈunim', "variants": [], "pointed": 'חֲתָנִים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 31
     'יחזקאל': {"ipa": 'jxˈɛzkajl', "variants": ['jəxˈɛzkajl'], "pointed": 'יְחֶזְקֵאל', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 31
     'יתומים': {"ipa": 'jsˈɔjmim', "variants": ['jəsˈɔjmim'], "pointed": 'יְתוֹמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 31
@@ -336,7 +336,7 @@ SEFARIA_POINTED_LK = {
     'חסרונות': {"ipa": 'xəsrˈɔjnɔjs', "variants": ['xɛsrˈɔjnɔjs'], "pointed": 'חֶסְרוֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 30
     'להיות': {"ipa": 'lˈihjɔjs', "variants": [], "pointed": 'לִהְיוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 208, "dominance": 1.0},  # freq 30
     'תפלין': {"ipa": 'tfˈilin', "variants": ['təfˈilin'], "pointed": 'תְּפִלִּין', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 30
-    'אחריו': {"ipa": 'axarˈuji', "variants": ['axˈarujv'], "pointed": 'אַחֲרָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 111, "dominance": 1.0},  # freq 29
+    'אחריו': {"ipa": 'axˈarujv', "variants": [], "pointed": 'אַחֲרָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 111, "dominance": 1.0},  # freq 29
     'חטאים': {"ipa": 'xatˈuim', "variants": [], "pointed": 'חַטָּאִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 12, "dominance": 0.857},  # freq 29
     'חמורים': {"ipa": 'xamˈɔjrim', "variants": [], "pointed": 'חֲמוֹרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 29
     'יותר': {"ipa": 'jˈɔjsajr', "variants": [], "pointed": 'יוֹתֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 39, "dominance": 0.907},  # freq 29
@@ -345,10 +345,10 @@ SEFARIA_POINTED_LK = {
     'פּחד': {"ipa": 'pˈaxad', "variants": [], "pointed": 'פַּחַד', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 0.862},  # freq 29
     'רחמיך': {"ipa": 'raxamˈajxu', "variants": ['raxamˈɛjxu'], "pointed": 'רַחֲמֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 76, "dominance": 1.0},  # freq 29
     'שאגת': {"ipa": 'ʃaˈaɡas', "variants": [], "pointed": 'שַׁאֲגַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 29
-    'תנאי': {"ipa": 'tnaː', "variants": ['tənˈaj'], "pointed": 'תְּנַאי', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 0.941},  # freq 29
+    'תנאי': {"ipa": 'tənˈaj', "variants": [], "pointed": 'תְּנַאי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 0.941},  # freq 29
     'תקיעות': {"ipa": 'tkiˈɛɔjs', "variants": ['təkˈiɔjs'], "pointed": 'תְּקִיעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 29
     'הוצאות': {"ipa": 'hɔjʦˈuɔjs', "variants": [], "pointed": 'הוֹצָאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 28
-    'היתר': {"ipa": 'hajˈusajr', "variants": [], "pointed": 'הַיָּתֵר', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 28
+    'היתר': {"ipa": 'hajˈusajr', "variants": [], "pointed": 'הַיָּתֵר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 28
     'חושש': {"ipa": 'xˈɔjʃajʃ', "variants": [], "pointed": 'חוֹשֵׁשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 28
     'ידעתי': {"ipa": 'judˈati', "variants": [], "pointed": 'יָדַעְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 89, "dominance": 0.927},  # freq 28
     'סמך': {"ipa": 'sˈumax', "variants": [], "pointed": 'סָמַךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 28
@@ -372,15 +372,15 @@ SEFARIA_POINTED_LK = {
     'יהונתן': {"ipa": 'jəhɔjnˈusun', "variants": [], "pointed": 'יְהוֹנָתָן', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 63, "dominance": 1.0},  # freq 26
     'יחוד': {"ipa": 'jˈixid', "variants": ['jˈixud'], "pointed": 'יִחוּד', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 26
     'כזאת': {"ipa": 'kˈuzɔjs', "variants": [], "pointed": 'כָּזֹאת', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 0.952},  # freq 26
-    'משגיח': {"ipa": 'maʒɡˈixa', "variants": ['maʃɡˈixa'], "pointed": 'מַשְׁגִּיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 26
+    'משגיח': {"ipa": 'maʃɡˈixa', "variants": [], "pointed": 'מַשְׁגִּיחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 26
     'נקבות': {"ipa": 'nkˈajvɔjs', "variants": ['nəkˈajvɔjs'], "pointed": 'נְקֵבוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 26
     'קח': {"ipa": 'kax', "variants": [], "pointed": 'קַח', "register": 'merged', "why": 'default-embedded', "n_sources": 76, "dominance": 0.974},  # freq 26
-    'רחמיו': {"ipa": 'raxamˈuji', "variants": ['raxˈamujv'], "pointed": 'רַחֲמָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 26
+    'רחמיו': {"ipa": 'raxˈamujv', "variants": [], "pointed": 'רַחֲמָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 26
     'גשם': {"ipa": 'ɡˈɛʃəm', "variants": ['ɡˈɛʃɛm'], "pointed": 'גֶּשֶׁם', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 0.933},  # freq 25
     'הנרות': {"ipa": 'hanˈajrɔjs', "variants": [], "pointed": 'הַנֵּרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 25
     'ואנחנו': {"ipa": 'vaanˈaxni', "variants": ['vaanˈaxnu'], "pointed": 'וַאֲנַחְנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 61, "dominance": 1.0},  # freq 25
     'ואתם': {"ipa": 'vˈatəm', "variants": ['vəˈatɛm'], "pointed": 'וְאַתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 75, "dominance": 0.987},  # freq 25
-    'חוה': {"ipa": 'xˈai', "variants": ['xˈavu'], "pointed": 'חַוָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 25
+    'חוה': {"ipa": 'xˈavu', "variants": [], "pointed": 'חַוָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 25
     'כרפס': {"ipa": 'kˈarpas', "variants": [], "pointed": 'כַּרְפַּס', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 25
     'לדעת': {"ipa": 'ludˈaas', "variants": [], "pointed": 'לָדַעַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 37, "dominance": 0.925},  # freq 25
     'לראות': {"ipa": 'lˈirɔjs', "variants": [], "pointed": 'לִרְאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 76, "dominance": 0.962},  # freq 25
@@ -388,7 +388,7 @@ SEFARIA_POINTED_LK = {
     'מערת': {"ipa": 'mˈuras', "variants": ['məˈuras'], "pointed": 'מְעָרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 25
     'קץ': {"ipa": 'kajʦ', "variants": [], "pointed": 'קֵץ', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 0.968},  # freq 25
     'שמירת': {"ipa": 'ʃmˈiras', "variants": ['ʃəmˈiras'], "pointed": 'שְׁמִירַת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 25
-    "בה'": {"ipa": 'bɛ', "variants": ['bah'], "pointed": "בַּה'", "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 24
+    "בה'": {"ipa": 'bah', "variants": [], "pointed": "בַּה'", "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 24
     'בחיים': {"ipa": 'baxˈajim', "variants": [], "pointed": 'בַּחַיִּים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 16, "dominance": 1.0},  # freq 24
     'גדלות': {"ipa": 'ɡdˈɔjlɔjs', "variants": ['ɡədˈɔjlɔjs'], "pointed": 'גְּדֹלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 0.906},  # freq 24
     'הגם': {"ipa": 'hˈaɡam', "variants": [], "pointed": 'הֲגַם', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 24
@@ -450,12 +450,12 @@ SEFARIA_POINTED_LK = {
     'נוכח': {"ipa": 'nˈɔjxux', "variants": [], "pointed": 'נוֹכָח', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 20
     'עוונות': {"ipa": 'avˈɔjnɔjs', "variants": [], "pointed": 'עֲווֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 20
     'אומרת': {"ipa": 'ɔjmˈɛrɛs', "variants": [], "pointed": 'אוֹמֶרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 38, "dominance": 1.0},  # freq 19
-    'אותה': {"ipa": 'ˈɔjsu', "variants": [], "pointed": 'אוֹתָהּ', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 160, "dominance": 0.976},  # freq 19
+    'אותה': {"ipa": 'ˈɔjsu', "variants": [], "pointed": 'אוֹתָהּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 160, "dominance": 0.976},  # freq 19
     'אחרון': {"ipa": 'axˈarɔjn', "variants": [], "pointed": 'אַחֲרוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 28, "dominance": 1.0},  # freq 19
     'דגל': {"ipa": 'dˈɛɡəl', "variants": ['dˈɛɡɛl'], "pointed": 'דֶּגֶל', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 19
     'המזבח': {"ipa": 'hamizbˈajxa', "variants": [], "pointed": 'הַמִּזְבֵּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 274, "dominance": 0.993},  # freq 19
     'המעלות': {"ipa": 'hamaˈalɔjs', "variants": [], "pointed": 'הַמַּעֲלוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 26, "dominance": 1.0},  # freq 19
-    'חזקיהו': {"ipa": 'xizkijˈuhu', "variants": [], "pointed": 'חִזְקִיָּהוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 72, "dominance": 1.0},  # freq 19
+    'חזקיהו': {"ipa": 'xizkijˈuhu', "variants": [], "pointed": 'חִזְקִיָּהוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 72, "dominance": 1.0},  # freq 19
     'חכמת': {"ipa": 'xˈuxmas', "variants": [], "pointed": 'חׇכְמַת', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.812},  # freq 19
     'כפרות': {"ipa": 'kəfˈajrɔjs', "variants": ['kfˈajrɔjs'], "pointed": 'כְפֵרוֹת', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 1, "dominance": 1.0},  # freq 19
     'לבית': {"ipa": 'lvajs', "variants": ['ləvˈajs'], "pointed": 'לְבֵית', "register": 'merged', "why": 'default-embedded', "n_sources": 276, "dominance": 0.868},  # freq 19
@@ -494,10 +494,10 @@ SEFARIA_POINTED_LK = {
     'דבש': {"ipa": 'dvaʃ', "variants": ['dəvˈaʃ'], "pointed": 'דְּבַשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 35, "dominance": 0.921},  # freq 17
     'הלב': {"ipa": 'hˈalajv', "variants": [], "pointed": 'הַלֵּב', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 17
     'הקן': {"ipa": 'hˈakajn', "variants": [], "pointed": 'הַקֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 17
-    'ויחנו': {"ipa": 'vaaxˈani', "variants": ['vajaxˈanu'], "pointed": 'וַיַּחֲנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 80, "dominance": 0.988},  # freq 17
+    'ויחנו': {"ipa": 'vajaxˈanu', "variants": [], "pointed": 'וַיַּחֲנוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 80, "dominance": 0.988},  # freq 17
     'ונתתי': {"ipa": 'vnusˈati', "variants": ['vənusˈati'], "pointed": 'וְנָתַתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 115, "dominance": 0.991},  # freq 17
     'חופּה': {"ipa": 'xˈɔjfɛ', "variants": ['xˈɔjfə'], "pointed": 'חוֹפֶה', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 1, "dominance": 1.0},  # freq 17
-    'חייא': {"ipa": 'xajˈaju', "variants": [], "pointed": 'חַיַּיָּא', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 17
+    'חייא': {"ipa": 'xajˈaju', "variants": [], "pointed": 'חַיַּיָּא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 17
     'יחידי': {"ipa": 'jxˈidi', "variants": ['jəxˈidi'], "pointed": 'יְחִידִי', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 17
     'לפרט': {"ipa": 'lˈifrut', "variants": [], "pointed": 'לִפְרָט', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 17
     'מאות': {"ipa": 'mˈajɔjs', "variants": [], "pointed": 'מֵאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 336, "dominance": 1.0},  # freq 17
@@ -505,7 +505,7 @@ SEFARIA_POINTED_LK = {
     'נבוכדנצר': {"ipa": 'nvixadnˈɛʦar', "variants": ['nəvuxadnˈɛʦar'], "pointed": 'נְבוּכַדְנֶצַּר', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 1.0},  # freq 17
     'נמשל': {"ipa": 'nˈimʃal', "variants": [], "pointed": 'נִמְשַׁל', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 17
     'נקמה': {"ipa": 'nkˈumə', "variants": ['nəkˈumu'], "pointed": 'נְקָמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 17
-    'נשבר': {"ipa": 'nˈiʒbar', "variants": ['nˈiʃbar'], "pointed": 'נִשְׁבַּר', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 0.821},  # freq 17
+    'נשבר': {"ipa": 'nˈiʃbar', "variants": [], "pointed": 'נִשְׁבַּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 23, "dominance": 0.821},  # freq 17
     'סליחה': {"ipa": 'slˈixə', "variants": ['səlˈixu'], "pointed": 'סְלִיחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 17
     'פלאות': {"ipa": 'plˈuɔjs', "variants": ['pəlˈuɔjs'], "pointed": 'פְּלָאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 17
     'צרה': {"ipa": 'ʦˈurə', "variants": ['ʦˈuru'], "pointed": 'צָרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 68, "dominance": 1.0},  # freq 17
@@ -516,37 +516,37 @@ SEFARIA_POINTED_LK = {
     'העדות': {"ipa": 'huˈajdus', "variants": [], "pointed": 'הָעֵדוּת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 24, "dominance": 1.0},  # freq 16
     'השרת': {"ipa": 'haʃˈurajs', "variants": [], "pointed": 'הַשָּׁרֵת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 16
     'ואחר': {"ipa": 'vˈaxar', "variants": ['vəˈaxar'], "pointed": 'וְאַחַר', "register": 'merged', "why": 'default-embedded', "n_sources": 203, "dominance": 0.971},  # freq 16
-    'חולים': {"ipa": 'xˈilim', "variants": ['xvlim'], "pointed": 'חולִים', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 16
+    'חולים': {"ipa": 'xvlim', "variants": [], "pointed": 'חולִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 1.0},  # freq 16
     'חור': {"ipa": 'xir', "variants": ['xur'], "pointed": 'חוּר', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.929},  # freq 16
     'חושב': {"ipa": 'xˈɔjʃajv', "variants": [], "pointed": 'חוֹשֵׁב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 16
-    'חזקיה': {"ipa": 'xizkˈiju', "variants": [], "pointed": 'חִזְקִיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 12, "dominance": 1.0},  # freq 16
+    'חזקיה': {"ipa": 'xizkˈiju', "variants": [], "pointed": 'חִזְקִיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 12, "dominance": 1.0},  # freq 16
     'חנוך': {"ipa": 'xˈanɔjx', "variants": [], "pointed": 'חֲנוֹךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 16
     'יחידה': {"ipa": 'jxˈidə', "variants": ['jəxˈidu'], "pointed": 'יְחִידָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 16
     'לעת': {"ipa": 'lajs', "variants": ['ləˈajs'], "pointed": 'לְעֵת', "register": 'merged', "why": 'default-embedded', "n_sources": 55, "dominance": 0.948},  # freq 16
     'מחזיק': {"ipa": 'maxˈazik', "variants": [], "pointed": 'מַחֲזִיק', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 16
     'מרכבה': {"ipa": 'mərkˈuvə', "variants": ['mɛrkˈuvu'], "pointed": 'מֶרְכָּבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 16
-    'מתתיהו': {"ipa": 'matisˈuhi', "variants": ['matisjˈuhu'], "pointed": 'מַתִּתְיָהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 16
+    'מתתיהו': {"ipa": 'matisjˈuhu', "variants": [], "pointed": 'מַתִּתְיָהוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 1.0},  # freq 16
     'נחלה': {"ipa": 'naxˈalə', "variants": ['naxˈalu'], "pointed": 'נַחֲלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 48, "dominance": 0.889},  # freq 16
     'סיחון': {"ipa": 'sˈixɔjn', "variants": [], "pointed": 'סִיחוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 16
     'סם': {"ipa": 'sam', "variants": [], "pointed": 'סַם', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 16
     'עולמות': {"ipa": 'ɔjlˈumɔjs', "variants": [], "pointed": 'עוֹלָמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 16
     'פחות': {"ipa": 'pˈuxis', "variants": ['pˈuxus'], "pointed": 'פָּחוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 92, "dominance": 0.948},  # freq 16
     'פתוח': {"ipa": 'pusˈixa', "variants": ['pusˈuxa'], "pointed": 'פָּתוּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 0.944},  # freq 16
-    'ציציות': {"ipa": 'ʦiʦˈiɔjs', "variants": ['ʦiʦˈijɔjs'], "pointed": 'צִיצִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 16
+    'ציציות': {"ipa": 'ʦiʦˈijɔjs', "variants": [], "pointed": 'צִיצִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 16
     'צרעת': {"ipa": 'ʦurˈaas', "variants": [], "pointed": 'צָרַעַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 18, "dominance": 0.857},  # freq 16
     'תענוג': {"ipa": 'taˈanuɡ', "variants": [], "pointed": 'תַּעֲנוּג', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 16
     'תקנה': {"ipa": 'tˈiknə', "variants": ['tˈiknɛ'], "pointed": 'תִּקְנֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 16
     'אחרונים': {"ipa": 'axarˈɔjnim', "variants": [], "pointed": 'אַחֲרוֹנִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 15
     'באחרית': {"ipa": 'baxˈaris', "variants": ['bəaxˈaris'], "pointed": 'בְּאַחֲרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 15
     'בחלקו': {"ipa": 'bxˈɛlkɔj', "variants": ['bəxˈɛlkɔj'], "pointed": 'בְּחֶלְקוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 15
-    'בתיה': {"ipa": 'bˈisu', "variants": ['bˈisju'], "pointed": 'בִּתְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 15
+    'בתיה': {"ipa": 'bˈisju', "variants": [], "pointed": 'בִּתְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 15
     'דש': {"ipa": 'duʃ', "variants": [], "pointed": 'דָּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 15
     'המשפטים': {"ipa": 'hamiʃpˈutim', "variants": [], "pointed": 'הַמִּשְׁפָּטִים', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 15
     'הפסח': {"ipa": 'hapˈɛsax', "variants": [], "pointed": 'הַפֶּסַח', "register": 'merged', "why": 'default-embedded', "n_sources": 96, "dominance": 0.873},  # freq 15
     'הרבה': {"ipa": 'harbˈajə', "variants": ['hˈarbaj'], "pointed": 'הַרְבֵּה', "register": 'merged', "why": 'default-embedded', "n_sources": 109, "dominance": 0.886},  # freq 15
     'חצי': {"ipa": 'xˈaʦi', "variants": [], "pointed": 'חֲצִי', "register": 'merged', "why": 'default-embedded', "n_sources": 113, "dominance": 0.942},  # freq 15
     'טובֿות': {"ipa": 'tˈɔjvɔjs', "variants": [], "pointed": 'טוֹבוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 15
-    'יתגדל': {"ipa": 'jizɡˈadal', "variants": ['jisɡˈadal'], "pointed": 'יִתְגַּדַּל', "register": 'merged', "why": 'default-embedded', "n_sources": 42, "dominance": 0.857},  # freq 15
+    'יתגדל': {"ipa": 'jisɡˈadal', "variants": [], "pointed": 'יִתְגַּדַּל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 42, "dominance": 0.857},  # freq 15
     'יתום': {"ipa": 'jˈusɔjm', "variants": [], "pointed": 'יָתוֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 1.0},  # freq 15
     'ככם': {"ipa": 'kˈuxəm', "variants": ['kˈuxɛm'], "pointed": 'כָּכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 15
     'כתובה': {"ipa": 'ksˈivə', "variants": ['kəsˈuvu'], "pointed": 'כְּתוּבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 15
@@ -557,12 +557,12 @@ SEFARIA_POINTED_LK = {
     'מקורות': {"ipa": 'mkˈɔjrɔjs', "variants": ['məkˈɔjrɔjs'], "pointed": 'מְקוֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 15
     'משורת': {"ipa": 'miʃˈiras', "variants": ['miʃˈuras'], "pointed": 'מִשּׁוּרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 15
     'משפטן': {"ipa": 'miʃpˈutun', "variants": [], "pointed": 'מִשְׁפָּטָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 15
-    'נחמיה': {"ipa": 'nxˈɛmu', "variants": ['nəxˈɛmju'], "pointed": 'נְחֶמְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 1.0},  # freq 15
+    'נחמיה': {"ipa": 'nəxˈɛmju', "variants": [], "pointed": 'נְחֶמְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 30, "dominance": 1.0},  # freq 15
     'נטילת': {"ipa": 'ntˈilas', "variants": ['nətˈilas'], "pointed": 'נְטִילַת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 15
     'נרות': {"ipa": 'nˈajrɔjs', "variants": [], "pointed": 'נֵרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 1.0},  # freq 15
     'עזרת': {"ipa": 'ˈɛzras', "variants": [], "pointed": 'עֶזְרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 0.833},  # freq 15
     'עצות': {"ipa": 'ˈajʦɔjs', "variants": [], "pointed": 'עֵצוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 15
-    'קויתי': {"ipa": 'kiˈijsi', "variants": ['kivˈisi'], "pointed": 'קִוִּיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 15
+    'קויתי': {"ipa": 'kivˈisi', "variants": [], "pointed": 'קִוִּיתִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 0.917},  # freq 15
     'ראשית': {"ipa": 'rˈajʃis', "variants": [], "pointed": 'רֵאשִׁית', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 1.0},  # freq 15
     'רחמי': {"ipa": 'raxˈamaj', "variants": [], "pointed": 'רַחֲמֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 15
     'שה': {"ipa": 'sɛ', "variants": [], "pointed": 'שֶׂה', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 0.926},  # freq 15
@@ -572,7 +572,7 @@ SEFARIA_POINTED_LK = {
     'הבהמה': {"ipa": 'habhˈajmə', "variants": ['habhˈajmu'], "pointed": 'הַבְּהֵמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 94, "dominance": 1.0},  # freq 14
     'התאוה': {"ipa": 'hataˈavu', "variants": [], "pointed": 'הַתַּאֲוָה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 0.857},  # freq 14
     'והיית': {"ipa": 'vəhujˈisu', "variants": [], "pointed": 'וְהָיִיתָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 26, "dominance": 0.929},  # freq 14
-    'ויתקדש': {"ipa": 'viskˈadaʃ', "variants": ['vəjiskˈadaʃ'], "pointed": 'וְיִתְקַדַּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 42, "dominance": 0.894},  # freq 14
+    'ויתקדש': {"ipa": 'vəjiskˈadaʃ', "variants": [], "pointed": 'וְיִתְקַדַּשׁ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 42, "dominance": 0.894},  # freq 14
     'ומעשרות': {"ipa": 'umaˈasrɔjs', "variants": [], "pointed": 'וּמַעַשְׂרוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 14
     'ונשמחה': {"ipa": 'vnˈismxə', "variants": ['vənˈisməxu'], "pointed": 'וְנִשְׂמְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.857},  # freq 14
     'ועתה': {"ipa": 'vˈatə', "variants": ['vəˈatu'], "pointed": 'וְעַתָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 288, "dominance": 1.0},  # freq 14
@@ -621,7 +621,7 @@ SEFARIA_POINTED_LK = {
     'מלכיות': {"ipa": 'malxˈijɔjs', "variants": ['malxˈujɔjs'], "pointed": 'מַלְכֻיוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 13
     'נזר': {"ipa": 'nˈajzər', "variants": ['nˈajzɛr'], "pointed": 'נֵזֶר', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 13
     'נחמד': {"ipa": 'nˈɛxmud', "variants": [], "pointed": 'נֶחְמָד', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 13
-    'נפלאותיו': {"ipa": 'niflɔjsˈuji', "variants": ['nifləˈɔjsujv'], "pointed": 'נִפְלְאוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 13
+    'נפלאותיו': {"ipa": 'nifləˈɔjsujv', "variants": [], "pointed": 'נִפְלְאוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 13
     'שחט': {"ipa": 'ʃˈuxat', "variants": [], "pointed": 'שָׁחַט', "register": 'merged', "why": 'default-embedded', "n_sources": 37, "dominance": 1.0},  # freq 13
     'שירות': {"ipa": 'ʃˈirɔjs', "variants": [], "pointed": 'שִׁירוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 13
     'שלוח': {"ipa": 'ʃulˈixa', "variants": ['ʃulˈuxa'], "pointed": 'שָׁלוּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 13
@@ -629,12 +629,12 @@ SEFARIA_POINTED_LK = {
     'תמר': {"ipa": 'tˈumur', "variants": [], "pointed": 'תָּמָר', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 0.92},  # freq 13
     'תציל': {"ipa": 'tˈaʦil', "variants": [], "pointed": 'תַּצִּיל', "register": 'wh', "why": 'quoted-span-share', "n_sources": 7, "dominance": 1.0},  # freq 13
     'תרגזו': {"ipa": 'tˈirɡzi', "variants": ['tˈirɡəzu'], "pointed": 'תִּרְגְּזוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 13
-    'אבותיו': {"ipa": 'avɔjsˈuji', "variants": ['avˈɔjsujv'], "pointed": 'אֲבוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 12
+    'אבותיו': {"ipa": 'avˈɔjsujv', "variants": [], "pointed": 'אֲבוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 12
     'אגרת': {"ipa": 'iɡˈɛrɛs', "variants": [], "pointed": 'אִגֶּרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 4, "dominance": 1.0},  # freq 12
     'בורח': {"ipa": 'bɔjrˈajxa', "variants": [], "pointed": 'בּוֹרֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 12
     'ברמה': {"ipa": 'burˈumə', "variants": ['burˈumu'], "pointed": 'בָּרָמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.923},  # freq 12
     'גאות': {"ipa": 'ɡˈajis', "variants": ['ɡˈajus'], "pointed": 'גֵּאוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.923},  # freq 12
-    'הבריות': {"ipa": 'habrˈijɔjs', "variants": ['habrˈiɔjs'], "pointed": 'הַבְּרִיּוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 15, "dominance": 1.0},  # freq 12
+    'הבריות': {"ipa": 'habrˈijɔjs', "variants": [], "pointed": 'הַבְּרִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 15, "dominance": 1.0},  # freq 12
     'החכמה': {"ipa": 'haxˈuxmə', "variants": ['haxˈuxmu'], "pointed": 'הַחׇכְמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 12
     'הפחות': {"ipa": 'hapˈaxɔjs', "variants": [], "pointed": 'הַפַּחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 12
     'ואחרי': {"ipa": 'vaxˈaraj', "variants": ['vəaxˈaraj'], "pointed": 'וְאַחֲרֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 57, "dominance": 0.966},  # freq 12
@@ -642,10 +642,10 @@ SEFARIA_POINTED_LK = {
     'ונסלח': {"ipa": 'vnˈislax', "variants": ['vənˈislax'], "pointed": 'וְנִסְלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 12
     'חובֿ': {"ipa": 'xɔjv', "variants": [], "pointed": 'חוֹב', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 1.0},  # freq 12
     'חומה': {"ipa": 'xˈɔjmə', "variants": ['xˈɔjmu'], "pointed": 'חוֹמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 38, "dominance": 1.0},  # freq 12
-    'יחדו': {"ipa": 'jaxdˈui', "variants": ['jˈaxduv'], "pointed": 'יַחְדָּו', "register": 'merged', "why": 'default-embedded', "n_sources": 104, "dominance": 0.972},  # freq 12
+    'יחדו': {"ipa": 'jˈaxduv', "variants": [], "pointed": 'יַחְדָּו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 104, "dominance": 0.972},  # freq 12
     'כלאחר': {"ipa": 'kilˈaxar', "variants": [], "pointed": 'כִּלְאַחַר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 12
     'כת': {"ipa": 'kas', "variants": [], "pointed": 'כַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 12
-    'לבריות': {"ipa": 'labrˈiɔjs', "variants": ['labrˈijɔjs'], "pointed": 'לַבְּרִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 12
+    'לבריות': {"ipa": 'labrˈijɔjs', "variants": [], "pointed": 'לַבְּרִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 12
     'לוקח': {"ipa": 'lɔjkˈajxa', "variants": [], "pointed": 'לוֹקֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 12
     'למלחמה': {"ipa": 'lamilxˈumə', "variants": ['lamilxˈumu'], "pointed": 'לַמִּלְחָמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 70, "dominance": 0.972},  # freq 12
     'מנה': {"ipa": 'mˈunə', "variants": ['mˈunɛ'], "pointed": 'מָנֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 93, "dominance": 0.877},  # freq 12
@@ -662,11 +662,11 @@ SEFARIA_POINTED_LK = {
     'שמחים': {"ipa": 'smˈajxim', "variants": ['səmˈajxim'], "pointed": 'שְׂמֵחִים', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 12
     'תוכו': {"ipa": 'tˈɔjxɔj', "variants": [], "pointed": 'תּוֹכוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 12
     'תקרי': {"ipa": 'tˈikraj', "variants": [], "pointed": 'תִּקְרֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 12
-    'תשואות': {"ipa": 'ʧˈiis', "variants": ['təʃˈuvs'], "pointed": 'תְּשׁוּאות', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 12
+    'תשואות': {"ipa": 'təʃˈuvs', "variants": [], "pointed": 'תְּשׁוּאות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 12
     'תשקוט': {"ipa": 'tˈiʃkɔjt', "variants": [], "pointed": 'תִּשְׁקוֹט', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 12
     'תתורו': {"ipa": 'tusˈiri', "variants": ['tusˈuru'], "pointed": 'תָתוּרוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 12
-    'בחייו': {"ipa": 'bxˈaːi', "variants": ['bəxˈajujv'], "pointed": 'בְּחַיָּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 11
-    'בחקתי': {"ipa": 'bxikˈɔjsaː', "variants": ['bəxukˈɔjsaj'], "pointed": 'בְּחֻקֹּתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 11
+    'בחייו': {"ipa": 'bəxˈajujv', "variants": [], "pointed": 'בְּחַיָּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 11
+    'בחקתי': {"ipa": 'bəxukˈɔjsaj', "variants": [], "pointed": 'בְּחֻקֹּתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 11
     'בתמוז': {"ipa": 'bsˈamiz', "variants": ['bəsˈamuz'], "pointed": 'בְּתַמּוּז', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 11
     'דמות': {"ipa": 'dmis', "variants": ['dəmˈus'], "pointed": 'דְּמוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 11
     'הזיתים': {"ipa": 'hazˈajsim', "variants": [], "pointed": 'הַזֵּיתִים', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 11
@@ -675,7 +675,7 @@ SEFARIA_POINTED_LK = {
     'המדרש': {"ipa": 'hamˈidruʃ', "variants": [], "pointed": 'הַמִּדְרָשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 11
     'הרת': {"ipa": 'hˈaras', "variants": [], "pointed": 'הֲרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 11
     'ואכלת': {"ipa": 'vuxˈaltu', "variants": ['vəuxˈaltu'], "pointed": 'וְאָכַלְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 0.958},  # freq 11
-    'וחשבון': {"ipa": 'vxˈɛʒbɔjn', "variants": ['vəxˈɛʃbɔjn'], "pointed": 'וְחֶשְׁבּוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 11
+    'וחשבון': {"ipa": 'vəxˈɛʃbɔjn', "variants": [], "pointed": 'וְחֶשְׁבּוֹן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 11
     'זיתים': {"ipa": 'zˈajsim', "variants": [], "pointed": 'זֵיתִים', "register": 'merged', "why": 'default-embedded', "n_sources": 58, "dominance": 1.0},  # freq 11
     'זרש': {"ipa": 'zˈɛrɛʃ', "variants": ['zˈɛrəʃ'], "pointed": 'זֶרֶשׁ', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 2, "dominance": 1.0},  # freq 11
     'חברו': {"ipa": 'xavˈajrɔj', "variants": [], "pointed": 'חֲבֵרוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 127, "dominance": 0.969},  # freq 11
@@ -692,7 +692,7 @@ SEFARIA_POINTED_LK = {
     'כהנה': {"ipa": 'kəhˈunu', "variants": [], "pointed": 'כְּהֻנָּה', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 16, "dominance": 0.889},  # freq 11
     'כעת': {"ipa": 'kˈuajs', "variants": [], "pointed": 'כָּעֵת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 18, "dominance": 0.947},  # freq 11
     'לוחם': {"ipa": 'lˈɔjxajm', "variants": [], "pointed": 'לוֹחֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 11
-    'לחיי': {"ipa": 'ləxˈajaj', "variants": [], "pointed": 'לְחַיֵּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 12, "dominance": 0.857},  # freq 11
+    'לחיי': {"ipa": 'ləxˈajaj', "variants": [], "pointed": 'לְחַיֵּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 12, "dominance": 0.857},  # freq 11
     'למדן': {"ipa": 'lmˈidun', "variants": ['ləmˈidun'], "pointed": 'לְמִדָּן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 11
     'מחנות': {"ipa": 'maxˈanɔjs', "variants": [], "pointed": 'מַחֲנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 11
     'מחצה': {"ipa": 'məxˈɛʦə', "variants": ['mɛxˈɛʦu'], "pointed": 'מֶחֱצָה', "register": 'merged', "why": 'default-embedded', "n_sources": 60, "dominance": 0.8},  # freq 11
@@ -702,12 +702,12 @@ SEFARIA_POINTED_LK = {
     'מקשר': {"ipa": 'mkˈiʃur', "variants": ['məkˈuʃur'], "pointed": 'מְקֻשָּׁר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 11
     'נוראות': {"ipa": 'nɔjrˈuɔjs', "variants": [], "pointed": 'נוֹרָאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 11
     'נחשון': {"ipa": 'nˈaxʃɔjn', "variants": [], "pointed": 'נַחְשׁוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 11
-    'סתומה': {"ipa": 'sˈimə', "variants": ['səsˈumu'], "pointed": 'סְתוּמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 11
+    'סתומה': {"ipa": 'səsˈumu', "variants": [], "pointed": 'סְתוּמָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 11
     'ערלתו': {"ipa": 'urlˈusɔj', "variants": [], "pointed": 'עׇרְלָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 11
     'פדות': {"ipa": 'pdis', "variants": ['pədˈus'], "pointed": 'פְּדוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 11
     'קצות': {"ipa": 'kʦɔjs', "variants": ['kəʦˈɔjs'], "pointed": 'קְצוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 0.941},  # freq 11
     'קרן': {"ipa": 'kˈɛrɛn', "variants": ['kˈɛrən'], "pointed": 'קֶרֶן', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 65, "dominance": 0.929},  # freq 11
-    'שויתי': {"ipa": 'ʃiˈijsi', "variants": ['ʃivˈisi'], "pointed": 'שִׁוִּיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 11
+    'שויתי': {"ipa": 'ʃivˈisi', "variants": [], "pointed": 'שִׁוִּיתִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 11
     'שושנת': {"ipa": 'ʃɔjʃˈanas', "variants": [], "pointed": 'שׁוֹשַׁנַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 11
     'שרפה': {"ipa": 'srˈajfə', "variants": ['sərˈajfu'], "pointed": 'שְׂרֵפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.857},  # freq 11
     'תימן': {"ipa": 'tˈajmun', "variants": [], "pointed": 'תֵּימָן', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 11
@@ -721,16 +721,16 @@ SEFARIA_POINTED_LK = {
     'בתשובה': {"ipa": 'bisʃˈivə', "variants": ['bisʃˈuvu'], "pointed": 'בִּתְשׁוּבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 10
     'גט': {"ipa": 'ɡajt', "variants": [], "pointed": 'גֵּט', "register": 'merged', "why": 'default-embedded', "n_sources": 136, "dominance": 1.0},  # freq 10
     'האתון': {"ipa": 'huˈusɔjn', "variants": [], "pointed": 'הָאָתוֹן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 11, "dominance": 1.0},  # freq 10
-    'היתה': {"ipa": 'hˈujəsu', "variants": [], "pointed": 'הָיְתָה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 387, "dominance": 0.99},  # freq 10
+    'היתה': {"ipa": 'hˈujəsu', "variants": [], "pointed": 'הָיְתָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 387, "dominance": 0.99},  # freq 10
     'המחלה': {"ipa": 'hamaxˈalə', "variants": ['hamaxˈalu'], "pointed": 'הַמַּחֲלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 10
     'הפלגה': {"ipa": 'hapalˈuɡə', "variants": ['hapalˈuɡu'], "pointed": 'הַפַּלָּגָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 10
     'הקברות': {"ipa": 'hakvˈurɔjs', "variants": [], "pointed": 'הַקְּבָרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 10
     'ובחרת': {"ipa": 'ivuxˈartu', "variants": ['uvuxˈartu'], "pointed": 'וּבָחַרְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 10
     'ועשיתם': {"ipa": 'vaasˈisəm', "variants": ['vaasˈisɛm'], "pointed": 'וַעֲשִׂיתֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 40, "dominance": 0.909},  # freq 10
     'ושמרתם': {"ipa": 'iʃmˈartəm', "variants": ['uʃəmˈartɛm'], "pointed": 'וּשְׁמַרְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 1.0},  # freq 10
-    'חייך': {"ipa": 'xajˈɛjxu', "variants": [], "pointed": 'חַיֶּיךָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 25, "dominance": 1.0},  # freq 10
+    'חייך': {"ipa": 'xajˈɛjxu', "variants": [], "pointed": 'חַיֶּיךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 25, "dominance": 1.0},  # freq 10
     'חליצה': {"ipa": 'xalˈiʦə', "variants": ['xalˈiʦu'], "pointed": 'חֲלִיצָה', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 1.0},  # freq 10
-    'חנניה': {"ipa": 'xanˈanu', "variants": ['xanˈanju'], "pointed": 'חֲנַנְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 1.0},  # freq 10
+    'חנניה': {"ipa": 'xanˈanju', "variants": [], "pointed": 'חֲנַנְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 30, "dominance": 1.0},  # freq 10
     'חרון': {"ipa": 'xˈarɔjn', "variants": [], "pointed": 'חֲרוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 0.812},  # freq 10
     'יחי': {"ipa": 'jxi', "variants": ['jəxˈi'], "pointed": 'יְחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 10
     'יריעות': {"ipa": 'jriˈɛɔjs', "variants": ['jərˈiɔjs'], "pointed": 'יְרִיעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 10
@@ -742,8 +742,8 @@ SEFARIA_POINTED_LK = {
     'מחני': {"ipa": 'mxˈajni', "variants": ['məxˈajni'], "pointed": 'מְחֵנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 10
     'ממלכת': {"ipa": 'mamlˈɛxɛs', "variants": [], "pointed": 'מַמְלֶכֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 12, "dominance": 1.0},  # freq 10
     'נחשים': {"ipa": 'nxˈuʃim', "variants": ['nəxˈuʃim'], "pointed": 'נְחָשִׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 10
-    'נקיות': {"ipa": 'nkˈiis', "variants": ['nəkˈijus'], "pointed": 'נְקִיּוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 10
-    'נתגלגל': {"ipa": 'nizɡˈalɡajl', "variants": ['nisɡˈalɡajl'], "pointed": 'נִתְגַּלְגֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 10
+    'נקיות': {"ipa": 'nəkˈijus', "variants": [], "pointed": 'נְקִיּוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 10
+    'נתגלגל': {"ipa": 'nisɡˈalɡajl', "variants": [], "pointed": 'נִתְגַּלְגֵּל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 10
     'עבדת': {"ipa": 'avˈɔjdas', "variants": [], "pointed": 'עֲבֹדַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 29, "dominance": 0.879},  # freq 10
     'פּאות': {"ipa": 'pˈajɔjs', "variants": [], "pointed": 'פֵאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 10
     'קטנות': {"ipa": 'ktˈanɔjs', "variants": ['kətˈanɔjs'], "pointed": 'קְטַנּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 10
@@ -752,12 +752,12 @@ SEFARIA_POINTED_LK = {
     'שׂר': {"ipa": 'sar', "variants": [], "pointed": 'שַׂר', "register": 'merged', "why": 'default-embedded', "n_sources": 87, "dominance": 0.978},  # freq 10
     'שביעית': {"ipa": 'ʃvˈiis', "variants": ['ʃəvˈiis'], "pointed": 'שְׁבִיעִית', "register": 'merged', "why": 'default-embedded', "n_sources": 95, "dominance": 1.0},  # freq 10
     'שחורה': {"ipa": 'ʃxˈɔjrə', "variants": ['ʃəxˈɔjru'], "pointed": 'שְׁחוֹרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 10
-    'שכחה': {"ipa": 'ʃˈixə', "variants": ['ʃˈixxu'], "pointed": 'שִׁכְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 54, "dominance": 0.885},  # freq 10
+    'שכחה': {"ipa": 'ʃˈixxu', "variants": [], "pointed": 'שִׁכְחָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 54, "dominance": 0.885},  # freq 10
     'שמינית': {"ipa": 'ʃmˈinis', "variants": ['ʃəmˈinis'], "pointed": 'שְׁמִינִית', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 10
     'תּלמידי': {"ipa": 'talmˈidaj', "variants": [], "pointed": 'תַּלְמִידֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 10
     'תּנא': {"ipa": 'tˈunu', "variants": [], "pointed": 'תָּנָא', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 10
     'תּרגום': {"ipa": 'tˈarɡim', "variants": ['tˈarɡum'], "pointed": 'תַּרְגּוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 10
-    'תו': {"ipa": 'tˈui', "variants": ['tuv'], "pointed": 'תָּו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 10
+    'תו': {"ipa": 'tuv', "variants": [], "pointed": 'תָּו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 10
     'תירא': {"ipa": 'tˈiru', "variants": [], "pointed": 'תִּירָא', "register": 'merged', "why": 'default-embedded', "n_sources": 57, "dominance": 1.0},  # freq 10
     'תכלת': {"ipa": 'txˈajləs', "variants": ['təxˈajlɛs'], "pointed": 'תְּכֵלֶת', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 1.0},  # freq 10
     'תמימים': {"ipa": 'tmˈimim', "variants": ['təmˈimim'], "pointed": 'תְּמִימִים', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 10
@@ -774,18 +774,18 @@ SEFARIA_POINTED_LK = {
     'הבה': {"ipa": 'hˈuvə', "variants": ['hˈuvu'], "pointed": 'הָבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 9
     'הדס': {"ipa": 'hˈadas', "variants": [], "pointed": 'הֲדַס', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 9
     'החמת': {"ipa": 'haxˈajmɛs', "variants": [], "pointed": 'הַחֵמֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 9, "dominance": 1.0},  # freq 9
-    'היולדת': {"ipa": 'hajvlˈɛdɛs', "variants": ['haːˈilədəs'], "pointed": 'הַיּולֶדֶת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 9
+    'היולדת': {"ipa": 'hajvlˈɛdɛs', "variants": [], "pointed": 'הַיּולֶדֶת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 9
     'הכסף': {"ipa": 'hakˈɛsəf', "variants": ['hakˈɛsɛf'], "pointed": 'הַכֶּסֶף', "register": 'merged', "why": 'default-embedded', "n_sources": 81, "dominance": 0.92},  # freq 9
     'המה': {"ipa": 'hˈajmə', "variants": ['hˈajmu'], "pointed": 'הֵמָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 240, "dominance": 0.992},  # freq 9
     'השטן': {"ipa": 'hasˈutun', "variants": [], "pointed": 'הַשָּׂטָן', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 9
     'ואמרתם': {"ipa": 'vaamˈartɛm', "variants": ['vaamˈartəm'], "pointed": 'וַאֲמַרְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 31, "dominance": 1.0},  # freq 9
     'ובתוך': {"ipa": 'ˈivsɔjx', "variants": ['ˈuvəsɔjx'], "pointed": 'וּבְתוֹךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 9
     'ועשית': {"ipa": 'vusˈisu', "variants": ['vəusˈisu'], "pointed": 'וְעָשִׂיתָ', "register": 'merged', "why": 'default-embedded', "n_sources": 101, "dominance": 0.971},  # freq 9
-    'ורבותי': {"ipa": 'vrabˈɔjsaː', "variants": ['vərabˈɔjsaj'], "pointed": 'וְרַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 9
+    'ורבותי': {"ipa": 'vərabˈɔjsaj', "variants": [], "pointed": 'וְרַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 9
     'חדרים': {"ipa": 'xadˈurim', "variants": [], "pointed": 'חֲדָרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 9
     'חורב': {"ipa": 'xˈɔjrajv', "variants": [], "pointed": 'חוֹרֵב', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 9
     'חותם': {"ipa": 'xˈɔjsum', "variants": [], "pointed": 'חוֹתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.857},  # freq 9
-    'חייו': {"ipa": 'xˈaːi', "variants": ['xˈajujv'], "pointed": 'חַיָּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 9
+    'חייו': {"ipa": 'xˈajujv', "variants": [], "pointed": 'חַיָּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 15, "dominance": 1.0},  # freq 9
     'חיין': {"ipa": 'xˈajin', "variants": [], "pointed": 'חַיִּין', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 10, "dominance": 1.0},  # freq 9
     'חמדה': {"ipa": 'xˈɛmdə', "variants": ['xˈɛmdu'], "pointed": 'חֶמְדָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 0.875},  # freq 9
     'חשוף': {"ipa": 'xˈasɔjf', "variants": [], "pointed": 'חֲשׂוֹף', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 9
@@ -805,7 +805,7 @@ SEFARIA_POINTED_LK = {
     'מותר': {"ipa": 'mˈɔjsar', "variants": [], "pointed": 'מוֹתַר', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 0.909},  # freq 9
     'מחילת': {"ipa": 'mxˈilas', "variants": ['məxˈilas'], "pointed": 'מְחִילַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 9
     'מכשפה': {"ipa": 'mxaʃˈajfə', "variants": ['məxaʃˈajfu'], "pointed": 'מְכַשֵּׁפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 9
-    'מעת': {"ipa": 'mˈajajs', "variants": [], "pointed": 'מֵעֵת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 28, "dominance": 1.0},  # freq 9
+    'מעת': {"ipa": 'mˈajajs', "variants": [], "pointed": 'מֵעֵת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 28, "dominance": 1.0},  # freq 9
     'מצבֿה': {"ipa": 'maʦˈajvə', "variants": ['maʦˈajvu'], "pointed": 'מַצֵּבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.9},  # freq 9
     'מקומות': {"ipa": 'mkˈɔjmɔjs', "variants": ['məkˈɔjmɔjs'], "pointed": 'מְקוֹמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 9
     'מרעיתך': {"ipa": 'marisˈɛxu', "variants": [], "pointed": 'מַרְעִיתֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 9
@@ -814,7 +814,7 @@ SEFARIA_POINTED_LK = {
     'נרננה': {"ipa": 'nrˈannə', "variants": ['nərˈannu'], "pointed": 'נְרַנְּנָה', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 9
     'נשמתו': {"ipa": 'niʃmˈusɔj', "variants": [], "pointed": 'נִשְׁמָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 9
     'סלה': {"ipa": 'sˈɛlə', "variants": ['sˈɛlu'], "pointed": 'סֶלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 195, "dominance": 0.995},  # freq 9
-    'פּרשיות': {"ipa": 'puruʃˈiɔjs', "variants": ['puruʃˈijɔjs'], "pointed": 'פָּרָשִׁיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 9
+    'פּרשיות': {"ipa": 'puruʃˈijɔjs', "variants": [], "pointed": 'פָּרָשִׁיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 9
     'קהלת': {"ipa": 'kɔjhˈɛlɛs', "variants": [], "pointed": 'קֹהֶלֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 10, "dominance": 0.909},  # freq 9
     'קינות': {"ipa": 'kˈinɔjs', "variants": [], "pointed": 'קִינוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 9
     'קמץ': {"ipa": 'kˈumaʦ', "variants": [], "pointed": 'קָמַץ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 9
@@ -825,7 +825,7 @@ SEFARIA_POINTED_LK = {
     'שרץ': {"ipa": 'ʃˈɛrəʦ', "variants": ['ʃˈɛrɛʦ'], "pointed": 'שֶׁרֶץ', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.947},  # freq 9
     'שתי': {"ipa": 'ʃtaj', "variants": ['ʃətˈaj'], "pointed": 'שְׁתֵּי', "register": 'merged', "why": 'default-embedded', "n_sources": 386, "dominance": 0.97},  # freq 9
     'תברכו': {"ipa": 'təvˈurəxu', "variants": ['tvˈurxi'], "pointed": 'תְבָרְכוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 9
-    'תניא': {"ipa": 'tanˈua', "variants": ['tˈanju'], "pointed": 'תַּנְיָא', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 9
+    'תניא': {"ipa": 'tˈanju', "variants": [], "pointed": 'תַּנְיָא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 9
     'תעשו': {"ipa": 'taˈasu', "variants": [], "pointed": 'תַּעֲשׂוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 72, "dominance": 0.947},  # freq 9
     'תקח': {"ipa": 'tˈikax', "variants": [], "pointed": 'תִּקַּח', "register": 'merged', "why": 'default-embedded', "n_sources": 32, "dominance": 0.8},  # freq 9
     'תשועה': {"ipa": 'ʧˈiə', "variants": ['təʃˈuu'], "pointed": 'תְּשׁוּעָה', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 1.0},  # freq 9
@@ -854,20 +854,20 @@ SEFARIA_POINTED_LK = {
     'הפרשה': {"ipa": 'hapurˈuʃə', "variants": ['hapurˈuʃu'], "pointed": 'הַפָּרָשָׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 8
     'ואכלתם': {"ipa": 'vaaxˈaltəm', "variants": ['vaaxˈaltɛm'], "pointed": 'וַאֲכַלְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 0.909},  # freq 8
     'ואסתר': {"ipa": 'vˈɛstajr', "variants": ['vəˈɛstajr'], "pointed": 'וְאֶסְתֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.8},  # freq 8
-    'וחיות': {"ipa": 'vxˈaːɔjs', "variants": ['vəxˈajɔjs'], "pointed": 'וְחַיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 8
+    'וחיות': {"ipa": 'vəxˈajɔjs', "variants": [], "pointed": 'וְחַיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 8
     'ויחנך': {"ipa": 'vixinˈɛku', "variants": ['vixunˈɛku'], "pointed": 'וִיחֻנֶּךָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 8
-    'ויפקח': {"ipa": 'vaˈifkax', "variants": ['vajˈifkax'], "pointed": 'וַיִּפְקַח', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 4, "dominance": 1.0},  # freq 8
+    'ויפקח': {"ipa": 'vajˈifkax', "variants": [], "pointed": 'וַיִּפְקַח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 8
     'ונפלאות': {"ipa": 'vniflˈuɔjs', "variants": ['vəniflˈuɔjs'], "pointed": 'וְנִפְלָאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 8
     'וראיתם': {"ipa": 'irˈisəm', "variants": ['urəˈisɛm'], "pointed": 'וּרְאִיתֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 8
     'זב': {"ipa": 'zuv', "variants": [], "pointed": 'זָב', "register": 'merged', "why": 'default-embedded', "n_sources": 24, "dominance": 1.0},  # freq 8
     'זריזות': {"ipa": 'zrˈizis', "variants": ['zərˈizus'], "pointed": 'זְרִיזוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 8
     'חגבים': {"ipa": 'xaɡˈuvim', "variants": [], "pointed": 'חֲגָבִים', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 8
     'חזר': {"ipa": 'xˈuzar', "variants": [], "pointed": 'חָזַר', "register": 'merged', "why": 'default-embedded', "n_sources": 55, "dominance": 0.965},  # freq 8
-    'חיינו': {"ipa": 'xajˈajnu', "variants": [], "pointed": 'חַיֵּינוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 28, "dominance": 0.933},  # freq 8
+    'חיינו': {"ipa": 'xajˈajnu', "variants": [], "pointed": 'חַיֵּינוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 28, "dominance": 0.933},  # freq 8
     'חלוקה': {"ipa": 'xalˈikuh', "variants": ['xalˈuku'], "pointed": 'חֲלוּקָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 8
     'חלל': {"ipa": 'xˈulul', "variants": [], "pointed": 'חָלָל', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 0.811},  # freq 8
     'חסדיך': {"ipa": 'xasudˈajxu', "variants": ['xasudˈɛjxu'], "pointed": 'חֲסָדֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 8
-    'חץ': {"ipa": 'xaːʦ', "variants": ['xajʦ'], "pointed": 'חֵץ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 8
+    'חץ': {"ipa": 'xajʦ', "variants": [], "pointed": 'חֵץ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 8
     'חקירות': {"ipa": 'xakˈirɔjs', "variants": [], "pointed": 'חֲקִירוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 8
     'טפח': {"ipa": 'tˈɛfax', "variants": [], "pointed": 'טֶפַח', "register": 'merged', "why": 'default-embedded', "n_sources": 145, "dominance": 0.906},  # freq 8
     'יחרץ': {"ipa": 'jɛxˈɛraʦ', "variants": ['jəxˈɛraʦ'], "pointed": 'יֶחֱרַץ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 8
@@ -876,7 +876,7 @@ SEFARIA_POINTED_LK = {
     'לברך': {"ipa": 'lvˈurajx', "variants": ['ləvˈurajx'], "pointed": 'לְבָרֵךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 0.906},  # freq 8
     'לדעתי': {"ipa": 'lədˈati', "variants": [], "pointed": 'לְדַעְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 8
     'להבה': {"ipa": 'ləhˈuvə', "variants": ['lɛhˈuvu'], "pointed": 'לֶהָבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 8
-    'להחיות': {"ipa": 'ləhaxˈajɔjs', "variants": [], "pointed": 'לְהַחֲיוֹת', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 19, "dominance": 0.95},  # freq 8
+    'להחיות': {"ipa": 'ləhaxˈajɔjs', "variants": [], "pointed": 'לְהַחֲיוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 19, "dominance": 0.95},  # freq 8
     'מחוץ': {"ipa": 'mˈixiʦ', "variants": ['mˈixuʦ'], "pointed": 'מִחוּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 63, "dominance": 1.0},  # freq 8
     'מחט': {"ipa": 'mˈaxat', "variants": [], "pointed": 'מַחַט', "register": 'wh', "why": 'quoted-span-share', "n_sources": 10, "dominance": 1.0},  # freq 8
     'מלח': {"ipa": 'mˈɛlax', "variants": [], "pointed": 'מֶלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 31, "dominance": 0.886},  # freq 8
@@ -902,17 +902,17 @@ SEFARIA_POINTED_LK = {
     'קרך': {"ipa": 'kˈurxu', "variants": ['kˈurəxu'], "pointed": 'קָרְךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 8
     'שבחי': {"ipa": 'ʃˈabxi', "variants": [], "pointed": 'שַׁבְּחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 8
     'שהם': {"ipa": 'ʃˈɛhajm', "variants": [], "pointed": 'שֶׁהֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 102, "dominance": 0.936},  # freq 8
-    'שיתמהמה': {"ipa": 'ʃɛjismahmˈajha', "variants": [], "pointed": 'שֶׁיִּתְמַהְמֵהַּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 8
+    'שיתמהמה': {"ipa": 'ʃɛjismahmˈajha', "variants": [], "pointed": 'שֶׁיִּתְמַהְמֵהַּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 8
     'שלהם': {"ipa": 'ʃəlˈuhəm', "variants": ['ʃɛlˈuhɛm'], "pointed": 'שֶׁלָּהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 1.0},  # freq 8
     'תבא': {"ipa": 'tˈuvɔj', "variants": [], "pointed": 'תָּבֹא', "register": 'merged', "why": 'default-embedded', "n_sources": 31, "dominance": 0.912},  # freq 8
     'תושיע': {"ipa": 'tɔjʃˈia', "variants": [], "pointed": 'תּוֹשִׁיעַ', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 8
     'תזכרו': {"ipa": 'tˈizkri', "variants": ['tˈizkəru'], "pointed": 'תִּזְכְּרוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 8
     'תל': {"ipa": 'tajl', "variants": [], "pointed": 'תֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 8
     'תמימי': {"ipa": 'tmˈimaj', "variants": ['təmˈimaj'], "pointed": 'תְּמִימֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 8
-    'תעניות': {"ipa": 'taanˈijɔjs', "variants": [], "pointed": 'תַּעֲנִיּוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 1.0},  # freq 8
+    'תעניות': {"ipa": 'taanˈijɔjs', "variants": [], "pointed": 'תַּעֲנִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 8
     'תרבה': {"ipa": 'tˈarbə', "variants": ['tˈarbɛ'], "pointed": 'תַּרְבֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 8
     'תשועת': {"ipa": 'ʧˈias', "variants": ['təʃˈuas'], "pointed": 'תְּשׁוּעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 8
-    'אבותי': {"ipa": 'avˈɔjsaː', "variants": ['avˈɔjsaj'], "pointed": 'אֲבוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 0.842},  # freq 7
+    'אבותי': {"ipa": 'avˈɔjsaj', "variants": [], "pointed": 'אֲבוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 0.842},  # freq 7
     'אחרית': {"ipa": 'axˈaris', "variants": [], "pointed": 'אַחֲרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 7
     'אכילת': {"ipa": 'axˈilas', "variants": [], "pointed": 'אֲכִילַת', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 7
     'אסנת': {"ipa": 'ˈusnas', "variants": ['ˈusənas'], "pointed": 'אָסְנַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 7
@@ -928,9 +928,9 @@ SEFARIA_POINTED_LK = {
     'הברית': {"ipa": 'hˈabris', "variants": [], "pointed": 'הַבְּרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 53, "dominance": 1.0},  # freq 7
     'הגבר': {"ipa": 'haɡˈɛvɛr', "variants": [], "pointed": 'הַגֶּבֶר', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 23, "dominance": 0.92},  # freq 7
     'הדלקה': {"ipa": 'hadlˈajkə', "variants": ['hadlˈajku'], "pointed": 'הַדְּלֵקָה', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 7
-    'החי': {"ipa": 'hˈaxaː', "variants": ['hˈaxaj'], "pointed": 'הַחַי', "register": 'merged', "why": 'default-embedded', "n_sources": 41, "dominance": 0.854},  # freq 7
+    'החי': {"ipa": 'hˈaxaj', "variants": [], "pointed": 'הַחַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 41, "dominance": 0.854},  # freq 7
     'החתן': {"ipa": 'həxˈusun', "variants": ['hɛxˈusun'], "pointed": 'הֶחָתָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
-    'היחיד': {"ipa": 'hajˈuxid', "variants": [], "pointed": 'הַיָּחִיד', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 95, "dominance": 1.0},  # freq 7
+    'היחיד': {"ipa": 'hajˈuxid', "variants": [], "pointed": 'הַיָּחִיד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 95, "dominance": 1.0},  # freq 7
     'היית': {"ipa": 'hujˈisu', "variants": [], "pointed": 'הָיִיתָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 34, "dominance": 0.85},  # freq 7
     'המלכה': {"ipa": 'hamˈalkə', "variants": ['hamˈalku'], "pointed": 'הַמַּלְכָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 0.963},  # freq 7
     'המלכות': {"ipa": 'hamˈalxis', "variants": ['hamˈalxus'], "pointed": 'הַמַּלְכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 7
@@ -950,10 +950,10 @@ SEFARIA_POINTED_LK = {
     'זבת': {"ipa": 'zˈuvas', "variants": [], "pointed": 'זָבַת', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 1.0},  # freq 7
     'חולם': {"ipa": 'xˈɔjlajm', "variants": [], "pointed": 'חוֹלֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 7
     'חיש': {"ipa": 'xiʃ', "variants": [], "pointed": 'חִישׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 7
-    'חית': {"ipa": 'xˈajas', "variants": [], "pointed": 'חַיַּת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 33, "dominance": 1.0},  # freq 7
+    'חית': {"ipa": 'xˈajas', "variants": [], "pointed": 'חַיַּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 33, "dominance": 1.0},  # freq 7
     'חליפות': {"ipa": 'xalˈifɔjs', "variants": [], "pointed": 'חֲלִיפוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 7
     'חלשים': {"ipa": 'xalˈuʃim', "variants": [], "pointed": 'חַלָּשִׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.9},  # freq 7
-    'יחדיו': {"ipa": 'jaxdˈuji', "variants": ['jˈaxdujv'], "pointed": 'יַחְדָּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 7
+    'יחדיו': {"ipa": 'jˈaxdujv', "variants": [], "pointed": 'יַחְדָּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 7
     'יחידות': {"ipa": 'jxˈidis', "variants": ['jəxˈidus'], "pointed": 'יְחִידוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
     'יחסן': {"ipa": 'jajxˈusajn', "variants": [], "pointed": 'יֵחָסֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
     'כּנגד': {"ipa": 'knˈɛɡəd', "variants": ['kənˈɛɡɛd'], "pointed": 'כְּנֶגֶד', "register": 'merged', "why": 'default-embedded', "n_sources": 111, "dominance": 1.0},  # freq 7
@@ -981,7 +981,7 @@ SEFARIA_POINTED_LK = {
     'נכספתי': {"ipa": 'nixsˈafti', "variants": [], "pointed": 'נִכְסַפְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
     'סלח': {"ipa": 'slax', "variants": ['səlˈax'], "pointed": 'סְלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 41, "dominance": 0.976},  # freq 7
     'עברית': {"ipa": 'ˈivris', "variants": [], "pointed": 'עִבְרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 7
-    'עניות': {"ipa": 'anˈiis', "variants": ['anˈijus'], "pointed": 'עֲנִיּוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 7
+    'עניות': {"ipa": 'anˈijus', "variants": [], "pointed": 'עֲנִיּוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 7
     'פֿן': {"ipa": 'pɛn', "variants": [], "pointed": 'פֶּן', "register": 'merged', "why": 'default-embedded', "n_sources": 143, "dominance": 1.0},  # freq 7
     'פחדים': {"ipa": 'pxˈudim', "variants": ['pəxˈudim'], "pointed": 'פְּחָדִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
     'צומח': {"ipa": 'ʦɔjmˈajxa', "variants": [], "pointed": 'צוֹמֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
@@ -1003,7 +1003,7 @@ SEFARIA_POINTED_LK = {
     'תרצח': {"ipa": 'tˈirʦux', "variants": [], "pointed": 'תִּרְצָח', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 7
     'אבותיהם': {"ipa": 'avɔjsˈajhəm', "variants": ['avɔjsˈajhɛm'], "pointed": 'אֲבוֹתֵיהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 6
     'אבותם': {"ipa": 'avˈɔjsum', "variants": [], "pointed": 'אֲבוֹתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 44, "dominance": 1.0},  # freq 6
-    'אותנו': {"ipa": 'ɔjsˈunu', "variants": [], "pointed": 'אוֹתָנוּ', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 14, "dominance": 1.0},  # freq 6
+    'אותנו': {"ipa": 'ɔjsˈunu', "variants": [], "pointed": 'אוֹתָנוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 14, "dominance": 1.0},  # freq 6
     'אחותי': {"ipa": 'axˈɔjsi', "variants": [], "pointed": 'אֲחוֹתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 6
     'אימת': {"ipa": 'ˈajmas', "variants": [], "pointed": 'אֵימַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'אמונת': {"ipa": 'əmˈinas', "variants": ['ɛmˈunas'], "pointed": 'אֱמוּנַת', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 2, "dominance": 1.0},  # freq 6
@@ -1014,7 +1014,7 @@ SEFARIA_POINTED_LK = {
     'בפרשת': {"ipa": 'bfurˈuʃas', "variants": ['bəfurˈuʃas'], "pointed": 'בְּפָרָשַׁת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 6
     'בקהלם': {"ipa": 'bikhˈulum', "variants": [], "pointed": 'בִּקְהָלָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'ברזל': {"ipa": 'bˈarzəl', "variants": ['bˈarzɛl'], "pointed": 'בַּרְזֶל', "register": 'merged', "why": 'default-embedded', "n_sources": 65, "dominance": 1.0},  # freq 6
-    'ברחמיו': {"ipa": 'braxamˈuji', "variants": ['bəraxˈamujv'], "pointed": 'בְּרַחֲמָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 6
+    'ברחמיו': {"ipa": 'bəraxˈamujv', "variants": [], "pointed": 'בְּרַחֲמָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 6
     'בשנת': {"ipa": 'bˈiʃnas', "variants": [], "pointed": 'בִּשְׁנַת', "register": 'merged', "why": 'default-embedded', "n_sources": 77, "dominance": 1.0},  # freq 6
     'גנבה': {"ipa": 'ɡnˈajvə', "variants": ['ɡənˈajvu'], "pointed": 'גְּנֵבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'דמעות': {"ipa": 'dmˈuɔjs', "variants": ['dəmˈuɔjs'], "pointed": 'דְּמָעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
@@ -1036,16 +1036,16 @@ SEFARIA_POINTED_LK = {
     'התמיד': {"ipa": 'hatˈumid', "variants": [], "pointed": 'הַתָּמִיד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 55, "dominance": 1.0},  # freq 6
     'ובישועתך': {"ipa": 'iviʃiˈusxu', "variants": ['uviʃuˈusəxu'], "pointed": 'וּבִישׁוּעָתְךָ', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 3, "dominance": 1.0},  # freq 6
     'והבריח': {"ipa": 'vəhabrˈixa', "variants": [], "pointed": 'וְהַבְּרִיחַ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 6
-    'ויתהלל': {"ipa": 'vəjishˈalul', "variants": ['vishˈalul'], "pointed": 'וְיִתְהַלָּל', "register": 'wh', "why": 'quoted-span-share', "n_sources": 42, "dominance": 0.977},  # freq 6
+    'ויתהלל': {"ipa": 'vəjishˈalul', "variants": [], "pointed": 'וְיִתְהַלָּל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 42, "dominance": 0.977},  # freq 6
     'ולקח': {"ipa": 'vlˈukax', "variants": ['vəlˈukax'], "pointed": 'וְלָקַח', "register": 'merged', "why": 'default-embedded', "n_sources": 40, "dominance": 0.889},  # freq 6
     'ומצאת': {"ipa": 'umuʦˈusu', "variants": ['imuʦˈusu'], "pointed": 'וּמָצָאתָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 8, "dominance": 0.889},  # freq 6
     'ונחמדים': {"ipa": 'vnəxəmˈudim', "variants": ['vənɛxɛmˈudim'], "pointed": 'וְנֶחֱמָדִים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 6
     'ונשמח': {"ipa": 'vnˈismax', "variants": ['vənˈismax'], "pointed": 'וְנִשְׂמַח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 6
     'ונתן': {"ipa": 'vnˈusan', "variants": ['vənˈusan'], "pointed": 'וְנָתַן', "register": 'merged', "why": 'default-embedded', "n_sources": 126, "dominance": 0.887},  # freq 6
-    'וצויתי': {"ipa": 'vəʦivˈisi', "variants": ['vʦiˈijsi'], "pointed": 'וְצִוִּיתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 6
+    'וצויתי': {"ipa": 'vəʦivˈisi', "variants": [], "pointed": 'וְצִוִּיתִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 6
     'וראית': {"ipa": 'vəruˈisu', "variants": [], "pointed": 'וְרָאִיתָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 5, "dominance": 1.0},  # freq 6
-    'ורחמיו': {"ipa": 'vəraxˈamujv', "variants": ['vraxamˈuji'], "pointed": 'וְרַחֲמָיו', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 6
-    'ותשבחות': {"ipa": 'vsiʒbˈuxɔjs', "variants": ['vəsiʃbˈuxɔjs'], "pointed": 'וְתִשְׁבָּחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 6
+    'ורחמיו': {"ipa": 'vəraxˈamujv', "variants": [], "pointed": 'וְרַחֲמָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 6
+    'ותשבחות': {"ipa": 'vəsiʃbˈuxɔjs', "variants": [], "pointed": 'וְתִשְׁבָּחוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 0.833},  # freq 6
     'זבחי': {"ipa": 'zˈivxaj', "variants": [], "pointed": 'זִבְחֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 0.872},  # freq 6
     'חביב': {"ipa": 'xˈuviv', "variants": [], "pointed": 'חָבִיב', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 6
     'חגיגה': {"ipa": 'xaɡˈiɡə', "variants": ['xaɡˈiɡu'], "pointed": 'חֲגִיגָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 6
@@ -1067,7 +1067,7 @@ SEFARIA_POINTED_LK = {
     'לרחוק': {"ipa": 'lurˈuxɔjk', "variants": [], "pointed": 'לָרָחוֹק', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 6
     'לשכת': {"ipa": 'lˈiʃkas', "variants": [], "pointed": 'לִשְׁכַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 35, "dominance": 0.972},  # freq 6
     'מאירת': {"ipa": 'mˈiras', "variants": ['məˈiras'], "pointed": 'מְאִירַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 6
-    'מאתים': {"ipa": 'musˈajim', "variants": [], "pointed": 'מָאתַיִם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 91, "dominance": 0.91},  # freq 6
+    'מאתים': {"ipa": 'musˈajim', "variants": [], "pointed": 'מָאתַיִם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 91, "dominance": 0.91},  # freq 6
     'מבטחו': {"ipa": 'mivtˈaxɔj', "variants": [], "pointed": 'מִבְטַחוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 6
     'מגלגלין': {"ipa": 'məɡˈalɡəlin', "variants": ['mɡˈalɡlin'], "pointed": 'מְגַלְגְּלִין', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 6
     'מהם': {"ipa": 'mˈajhəm', "variants": ['mˈajhɛm'], "pointed": 'מֵהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 183, "dominance": 1.0},  # freq 6
@@ -1082,15 +1082,15 @@ SEFARIA_POINTED_LK = {
     'ממית': {"ipa": 'mˈajmis', "variants": [], "pointed": 'מֵמִית', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 6
     'מנשיקות': {"ipa": 'minʃˈikɔjs', "variants": [], "pointed": 'מִנְּשִׁיקוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'מסרת': {"ipa": 'musˈartu', "variants": [], "pointed": 'מָסַרְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 6
-    'מעשׂות': {"ipa": 'majˈasɔjs', "variants": [], "pointed": 'מֵעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 1.0},  # freq 6
+    'מעשׂות': {"ipa": 'majˈasɔjs', "variants": [], "pointed": 'מֵעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 6
     'מקרבֿ': {"ipa": 'mikˈɛrəv', "variants": ['mikˈɛrɛv'], "pointed": 'מִקֶּרֶב', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 0.833},  # freq 6
     'מריח': {"ipa": 'majrˈajxa', "variants": [], "pointed": 'מֵרֵיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 6
     'משאלותינו': {"ipa": 'miʃalɔjsˈajni', "variants": ['miʃalɔjsˈajnu'], "pointed": 'מִשְׁאֲלוֹתֵינוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 6
     'משכבותם': {"ipa": 'miʃkvˈɔjsum', "variants": ['miʃkəvˈɔjsum'], "pointed": 'מִשְׁכְּבוֹתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 6
     'משלם': {"ipa": 'mʃˈalajm', "variants": ['məʃˈalajm'], "pointed": 'מְשַׁלֵּם', "register": 'merged', "why": 'default-embedded', "n_sources": 126, "dominance": 0.863},  # freq 6
-    'מתאוה': {"ipa": 'misˈavu', "variants": ['misˈai'], "pointed": 'מִתְאַוָּה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 6
+    'מתאוה': {"ipa": 'misˈavu', "variants": [], "pointed": 'מִתְאַוָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 6
     'מתפּלל': {"ipa": 'mispˈalajl', "variants": [], "pointed": 'מִתְפַּלֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 6
-    'נדדה': {"ipa": 'nˈudədu', "variants": ['nˈudə'], "pointed": 'נָדְדָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 6
+    'נדדה': {"ipa": 'nˈudədu', "variants": [], "pointed": 'נָדְדָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 6
     'ניחוח': {"ipa": 'nixˈɔjxa', "variants": [], "pointed": 'נִיחוֹחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 6
     'נכספה': {"ipa": 'nˈixsfə', "variants": ['nˈixsəfu'], "pointed": 'נִכְסְפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'נצב': {"ipa": 'nˈiʦuv', "variants": [], "pointed": 'נִצָּב', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 1.0},  # freq 6
@@ -1109,7 +1109,7 @@ SEFARIA_POINTED_LK = {
     'שיחות': {"ipa": 'ʃˈixɔjs', "variants": [], "pointed": 'שִׁיחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
     'שמרתם': {"ipa": 'ʃmˈartəm', "variants": ['ʃəmˈartɛm'], "pointed": 'שְׁמַרְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 6
     'שן': {"ipa": 'ʃajn', "variants": [], "pointed": 'שֵׁן', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.818},  # freq 6
-    'שפתותיו': {"ipa": 'sifsɔjsˈuji', "variants": ['sifsˈɔjsujv'], "pointed": 'שִׂפְתוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 6
+    'שפתותיו': {"ipa": 'sifsˈɔjsujv', "variants": [], "pointed": 'שִׂפְתוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 6
     'שתיקה': {"ipa": 'ʃsˈikə', "variants": ['ʃəsˈiku'], "pointed": 'שְׁתִיקָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 6
     'תאמין': {"ipa": 'taˈamin', "variants": [], "pointed": 'תַּאֲמִין', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 6
     'תאמר': {"ipa": 'tˈɔjmar', "variants": [], "pointed": 'תֹּאמַר', "register": 'merged', "why": 'default-embedded', "n_sources": 76, "dominance": 0.974},  # freq 6
@@ -1137,7 +1137,7 @@ SEFARIA_POINTED_LK = {
     'בחזקת': {"ipa": 'bxˈɛzkas', "variants": ['bəxˈɛzkas'], "pointed": 'בְּחֶזְקַת', "register": 'merged', "why": 'default-embedded', "n_sources": 40, "dominance": 0.976},  # freq 5
     'בחרבי': {"ipa": 'bxˈarbi', "variants": ['bəxˈarbi'], "pointed": 'בְּחַרְבִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'בחשך': {"ipa": 'baxˈɔjʃəx', "variants": ['baxˈɔjʃɛx'], "pointed": 'בַּחֹשֶׁךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 5
-    'ביצחק': {"ipa": 'bˈiʦxuk', "variants": ['bəjˈiʦxuk'], "pointed": 'בְיִצְחָק', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
+    'ביצחק': {"ipa": 'bəjˈiʦxuk', "variants": [], "pointed": 'בְיִצְחָק', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 5
     'במלכות': {"ipa": 'bmˈalxis', "variants": ['bəmˈalxus'], "pointed": 'בְּמַלְכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 0.933},  # freq 5
     'בעצרת': {"ipa": 'baaʦˈɛrɛs', "variants": [], "pointed": 'בַּעֲצֶרֶת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 5
     'בתולה': {"ipa": 'bsˈilə', "variants": ['bəsˈulu'], "pointed": 'בְּתוּלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 1.0},  # freq 5
@@ -1150,7 +1150,7 @@ SEFARIA_POINTED_LK = {
     'החג': {"ipa": 'hˈɛxuɡ', "variants": [], "pointed": 'הֶחָג', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 0.955},  # freq 5
     'החכמים': {"ipa": 'haxaxˈumim', "variants": [], "pointed": 'הַחֲכָמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 5
     'החלטה': {"ipa": 'hˈixltə', "variants": ['hˈuxəltu'], "pointed": 'הֻחְלְטָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
-    'הידעתם': {"ipa": 'hajdˈatɛm', "variants": [], "pointed": 'הַיְדַעְתֶּם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 5
+    'הידעתם': {"ipa": 'hajdˈatɛm', "variants": [], "pointed": 'הַיְדַעְתֶּם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 5
     'הכלה': {"ipa": 'hakˈalə', "variants": ['hakˈalu'], "pointed": 'הַכַּלָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 5
     'המאורות': {"ipa": 'hamˈɔjrɔjs', "variants": [], "pointed": 'הַמְּאוֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
     'המאכלת': {"ipa": 'hamaaxˈɛlɛs', "variants": [], "pointed": 'הַמַּאֲכֶלֶת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 7, "dominance": 1.0},  # freq 5
@@ -1161,13 +1161,13 @@ SEFARIA_POINTED_LK = {
     'ואשלח': {"ipa": 'vuˈɛʃlax', "variants": [], "pointed": 'וָאֶשְׁלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.8},  # freq 5
     'וביתו': {"ipa": 'ivˈajsɔj', "variants": ['uvˈajsɔj'], "pointed": 'וּבֵיתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 5
     'ובשמחה': {"ipa": 'ivasˈimxə', "variants": ['uvasˈimxu'], "pointed": 'וּבַשִּׂמְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
-    'וגרשתיו': {"ipa": 'vɡajraʃtˈii', "variants": ['vəɡajrˈaʃtiv'], "pointed": 'וְגֵרַשְׁתִּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
+    'וגרשתיו': {"ipa": 'vəɡajrˈaʃtiv', "variants": [], "pointed": 'וְגֵרַשְׁתִּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 5
     'וזכרתי': {"ipa": 'vəzuxˈarti', "variants": ['vzuxˈarti'], "pointed": 'וְזָכַרְתִּי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 11, "dominance": 1.0},  # freq 5
     'וזכרתם': {"ipa": 'uzəxˈartɛm', "variants": ['izxˈartəm'], "pointed": 'וּזְכַרְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 5
     'וחוץ': {"ipa": 'vxiʦ', "variants": ['vəxˈuʦ'], "pointed": 'וְחוּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 5
-    'ויחר': {"ipa": 'vaˈixar', "variants": ['vajˈixar'], "pointed": 'וַיִּחַר', "register": 'merged', "why": 'default-embedded', "n_sources": 47, "dominance": 0.94},  # freq 5
-    'וירח': {"ipa": 'vurˈajxa', "variants": ['vəjurˈajxa'], "pointed": 'וְיָרֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.867},  # freq 5
-    'ויתעלה': {"ipa": 'vəjisˈalɛ', "variants": ['visˈalə'], "pointed": 'וְיִתְעַלֶּה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 44, "dominance": 1.0},  # freq 5
+    'ויחר': {"ipa": 'vajˈixar', "variants": [], "pointed": 'וַיִּחַר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 47, "dominance": 0.94},  # freq 5
+    'וירח': {"ipa": 'vəjurˈajxa', "variants": [], "pointed": 'וְיָרֵחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 0.867},  # freq 5
+    'ויתעלה': {"ipa": 'vəjisˈalɛ', "variants": [], "pointed": 'וְיִתְעַלֶּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 44, "dominance": 1.0},  # freq 5
     'ומקללך': {"ipa": 'imkalˈɛlxu', "variants": ['uməkalˈɛlxu'], "pointed": 'וּמְקַלֶּלְךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'ונחנו': {"ipa": 'vnˈaxni', "variants": ['vənˈaxnu'], "pointed": 'וְנַחְנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 5
     'ונחשת': {"ipa": 'ˈinxɔjʃəs', "variants": ['unəxˈɔjʃɛs'], "pointed": 'וּנְחֹשֶׁת', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 5
@@ -1179,7 +1179,7 @@ SEFARIA_POINTED_LK = {
     'זכיות': {"ipa": 'zxˈijɔjs', "variants": ['zəxˈujɔjs'], "pointed": 'זְכֻיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
     'זכרת': {"ipa": 'zˈuxart', "variants": [], "pointed": 'זָכַרְתְּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 5
     'זכרתני': {"ipa": 'zxartˈani', "variants": ['zəxartˈani'], "pointed": 'זְכַרְתַּנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
-    'חדריו': {"ipa": 'xadurˈuji', "variants": ['xadˈurujv'], "pointed": 'חֲדָרָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
+    'חדריו': {"ipa": 'xadˈurujv', "variants": [], "pointed": 'חֲדָרָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 5
     'חולק': {"ipa": 'xˈɔjlajk', "variants": [], "pointed": 'חוֹלֵק', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 5
     'חושים': {"ipa": 'xˈiʃim', "variants": ['xˈuʃim'], "pointed": 'חוּשִׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'חזי': {"ipa": 'xˈazi', "variants": [], "pointed": 'חֲזִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
@@ -1194,7 +1194,7 @@ SEFARIA_POINTED_LK = {
     'כּפֿל': {"ipa": 'kˈɛfəl', "variants": ['kˈɛfɛl'], "pointed": 'כֶפֶל', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 0.864},  # freq 5
     'כנרת': {"ipa": 'kinˈɛrɛs', "variants": [], "pointed": 'כִּנֶּרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 2, "dominance": 1.0},  # freq 5
     'כצאת': {"ipa": 'kʦajs', "variants": ['kəʦˈajs'], "pointed": 'כְּצֵאת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 5
-    'כקדם': {"ipa": 'kˈɛdəm', "variants": ['kəkˈɛdɛm'], "pointed": 'כְּקֶדֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 5
+    'כקדם': {"ipa": 'kəkˈɛdɛm', "variants": [], "pointed": 'כְּקֶדֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 10, "dominance": 1.0},  # freq 5
     'כתבים': {"ipa": 'ksˈivim', "variants": ['kəsˈuvim'], "pointed": 'כְּתֻבִים', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 5
     'כתיב': {"ipa": 'ksiv', "variants": ['kəsˈiv'], "pointed": 'כְּתִיב', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
     'כתמר': {"ipa": 'katˈumur', "variants": [], "pointed": 'כַּתָּמָר', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 0.8},  # freq 5
@@ -1202,18 +1202,18 @@ SEFARIA_POINTED_LK = {
     'לבקש': {"ipa": 'lvˈakajʃ', "variants": ['ləvˈakajʃ'], "pointed": 'לְבַקֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 1.0},  # freq 5
     'להחזיק': {"ipa": 'ləhaxˈazik', "variants": [], "pointed": 'לְהַחֲזִיק', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 2, "dominance": 1.0},  # freq 5
     'להתפלל': {"ipa": 'ləhispˈalajl', "variants": [], "pointed": 'לְהִתְפַּלֵּל', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 12, "dominance": 1.0},  # freq 5
-    'ליצחק': {"ipa": 'lˈiʦxuk', "variants": ['ləjˈiʦxuk'], "pointed": 'לְיִצְחָק', "register": 'merged', "why": 'default-embedded', "n_sources": 32, "dominance": 1.0},  # freq 5
+    'ליצחק': {"ipa": 'ləjˈiʦxuk', "variants": [], "pointed": 'לְיִצְחָק', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 32, "dominance": 1.0},  # freq 5
     'ללכת': {"ipa": 'lulˈɛxɛs', "variants": [], "pointed": 'לָלֶכֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 86, "dominance": 0.989},  # freq 5
     'למחזיקים': {"ipa": 'lamaxazˈikim', "variants": [], "pointed": 'לַמַּחֲזִיקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 5
     'לקראתי': {"ipa": 'likrˈusi', "variants": [], "pointed": 'לִקְרָאתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 8, "dominance": 1.0},  # freq 5
     'לשלם': {"ipa": 'lʃˈalajm', "variants": ['ləʃˈalajm'], "pointed": 'לְשַׁלֵּם', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.818},  # freq 5
     'לתוך': {"ipa": 'lsɔjx', "variants": ['ləsˈɔjx'], "pointed": 'לְתוֹךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 163, "dominance": 1.0},  # freq 5
-    'מאימתי': {"ipa": 'majajmˈusaj', "variants": [], "pointed": 'מֵאֵימָתַי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 30, "dominance": 1.0},  # freq 5
+    'מאימתי': {"ipa": 'majajmˈusaj', "variants": [], "pointed": 'מֵאֵימָתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 30, "dominance": 1.0},  # freq 5
     'מאירות': {"ipa": 'mˈirɔjs', "variants": ['məˈirɔjs'], "pointed": 'מְאִירוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
     'מדברת': {"ipa": 'mdˈabərəs', "variants": ['mədabˈɛrɛs'], "pointed": 'מְדַבֶּרֶת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 5
-    'מדותיו': {"ipa": 'midɔjsˈuji', "variants": ['midˈɔjsujv'], "pointed": 'מִדּוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 5
+    'מדותיו': {"ipa": 'midˈɔjsujv', "variants": [], "pointed": 'מִדּוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 5
     'מופֿת': {"ipa": 'mˈɔjfajs', "variants": [], "pointed": 'מוֹפֵת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 5
-    'מופתי': {"ipa": 'mˈɔjfsaː', "variants": ['mˈɔjfəsaj'], "pointed": 'מוֹפְתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
+    'מופתי': {"ipa": 'mˈɔjfəsaj', "variants": [], "pointed": 'מוֹפְתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 5
     'מותו': {"ipa": 'mˈɔjsɔj', "variants": [], "pointed": 'מוֹתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 5
     'מחתן': {"ipa": 'majxˈusun', "variants": [], "pointed": 'מֵחָתָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'מך': {"ipa": 'mux', "variants": [], "pointed": 'מָךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
@@ -1223,7 +1223,7 @@ SEFARIA_POINTED_LK = {
     'מסתכל': {"ipa": 'mistˈakajl', "variants": [], "pointed": 'מִסְתַּכֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'מראשית': {"ipa": 'majrˈajʃis', "variants": [], "pointed": 'מֵרֵאשִׁית', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 5
     'מרדות': {"ipa": 'mˈardis', "variants": ['mˈardus'], "pointed": 'מַרְדּוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
-    'משאלות': {"ipa": 'miʃˈalis', "variants": ['mˈiʃalvs'], "pointed": 'מִשְׁאֲלות', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
+    'משאלות': {"ipa": 'mˈiʃalvs', "variants": [], "pointed": 'מִשְׁאֲלות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 5
     'משמעות': {"ipa": 'maʃmˈuɔjs', "variants": [], "pointed": 'מַשְׁמָעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 5
     'משנת': {"ipa": 'mˈiʃnas', "variants": [], "pointed": 'מִשְּׁנַת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 5
     'מתוק': {"ipa": 'mˈusɔjk', "variants": [], "pointed": 'מָתוֹק', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 5
@@ -1265,7 +1265,7 @@ SEFARIA_POINTED_LK = {
     'תּמים': {"ipa": 'tˈumim', "variants": [], "pointed": 'תָּמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 56, "dominance": 0.918},  # freq 5
     'תּשׂא': {"ipa": 'tˈisu', "variants": [], "pointed": 'תִּשָּׂא', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 1.0},  # freq 5
     'תבות': {"ipa": 'tˈajvɔjs', "variants": [], "pointed": 'תֵּבוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
-    'תהיינה': {"ipa": 'tihjˈɛjnu', "variants": ['tihˈajnə'], "pointed": 'תִּהְיֶינָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 28, "dominance": 1.0},  # freq 5
+    'תהיינה': {"ipa": 'tihjˈɛjnu', "variants": [], "pointed": 'תִּהְיֶינָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 28, "dominance": 1.0},  # freq 5
     'תוקד': {"ipa": 'tˈikad', "variants": ['tˈukad'], "pointed": 'תּוּקַד', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 5
     'תחזה': {"ipa": 'təxˈɛzə', "variants": ['tɛxˈɛzɛ'], "pointed": 'תֶחֱזֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 5
     'תחלת': {"ipa": 'txˈilas', "variants": ['təxˈilas'], "pointed": 'תְּחִלַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 5
@@ -1279,14 +1279,14 @@ SEFARIA_POINTED_LK = {
     'אבותיך': {"ipa": 'avɔjsˈajxu', "variants": ['avɔjsˈɛjxu'], "pointed": 'אֲבוֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 4
     'אבטח': {"ipa": 'ˈɛvtax', "variants": [], "pointed": 'אֶבְטַח', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 4
     'אבתיך': {"ipa": 'avɔjsˈajxu', "variants": ['avɔjsˈɛjxu'], "pointed": 'אֲבֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 1.0},  # freq 4
-    'אותן': {"ipa": 'ˈɔjsun', "variants": [], "pointed": 'אוֹתָן', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 78, "dominance": 1.0},  # freq 4
+    'אותן': {"ipa": 'ˈɔjsun', "variants": [], "pointed": 'אוֹתָן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 78, "dominance": 1.0},  # freq 4
     'אחוז': {"ipa": 'ˈuxiz', "variants": ['ˈuxuz'], "pointed": 'אָחוּז', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'אחורי': {"ipa": 'axˈɔjraj', "variants": [], "pointed": 'אֲחוֹרֵי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 4
     'איתם': {"ipa": 'ˈajsum', "variants": [], "pointed": 'אֵיתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 4
     'אפחד': {"ipa": 'ˈɛfxud', "variants": [], "pointed": 'אֶפְחָד', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 4
     'ארחות': {"ipa": 'ˈurxɔjs', "variants": [], "pointed": 'אׇרְחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.867},  # freq 4
     'אשמח': {"ipa": 'ˈɛsmax', "variants": [], "pointed": 'אֶשְׂמַח', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 4
-    'אתות': {"ipa": 'ˈɔjsɔjs', "variants": [], "pointed": 'אֹתוֹת', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 3, "dominance": 1.0},  # freq 4
+    'אתות': {"ipa": 'ˈɔjsɔjs', "variants": [], "pointed": 'אֹתוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 4
     'בהעלתך': {"ipa": 'bəhaalˈɔjsəxu', "variants": [], "pointed": 'בְּהַעֲלֹתְךָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 4
     'בוטח': {"ipa": 'bɔjtˈajxa', "variants": [], "pointed": 'בּוֹטֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 0.952},  # freq 4
     'בחצות': {"ipa": 'bxˈiʦɔjs', "variants": ['bəxˈuʦɔjs'], "pointed": 'בְּחֻצוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
@@ -1302,11 +1302,11 @@ SEFARIA_POINTED_LK = {
     'בקדש': {"ipa": 'bakˈɔjdɛʃ', "variants": ['bakˈɔjdəʃ'], "pointed": 'בַּקֹּדֶשׁ', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 49, "dominance": 0.803},  # freq 4
     'ברה': {"ipa": 'bˈurə', "variants": ['bˈuru'], "pointed": 'בָּרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.9},  # freq 4
     'בריאות': {"ipa": 'brˈiɔjs', "variants": ['bərˈiɔjs'], "pointed": 'בְּרִיאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
-    'בריות': {"ipa": 'brˈiɔjs', "variants": ['bərˈijɔjs'], "pointed": 'בְּרִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
+    'בריות': {"ipa": 'bərˈijɔjs', "variants": [], "pointed": 'בְּרִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 4
     'בשכבה': {"ipa": 'bʃˈixvuh', "variants": ['bəʃˈixvu'], "pointed": 'בְּשִׁכְבָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
     'גבֿורות': {"ipa": 'ɡvˈirɔjs', "variants": ['ɡəvˈurɔjs'], "pointed": 'גְּבוּרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 4
     'גזרה': {"ipa": 'ɡzˈajrə', "variants": ['ɡəzˈajru'], "pointed": 'גְּזֵרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 4
-    'גיורת': {"ipa": 'ɡijˈɔjrɛs', "variants": [], "pointed": 'גִיּוֹרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 5, "dominance": 1.0},  # freq 4
+    'גיורת': {"ipa": 'ɡijˈɔjrɛs', "variants": [], "pointed": 'גִיּוֹרֶת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 4
     'גיחזי': {"ipa": 'ɡajxˈazi', "variants": [], "pointed": 'גֵּיחֲזִי', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 4
     'גסה': {"ipa": 'ɡˈasə', "variants": ['ɡˈasu'], "pointed": 'גַסָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 4
     'דכל': {"ipa": 'dəxˈul', "variants": ['dxul'], "pointed": 'דְכָל', "register": 'wh', "why": 'quoted-span-share', "n_sources": 54, "dominance": 1.0},  # freq 4
@@ -1317,7 +1317,7 @@ SEFARIA_POINTED_LK = {
     'החלום': {"ipa": 'haxˈalɔjm', "variants": [], "pointed": 'הַחֲלוֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 4
     'החמור': {"ipa": 'haxˈamɔjr', "variants": [], "pointed": 'הַחֲמוֹר', "register": 'merged', "why": 'default-embedded', "n_sources": 35, "dominance": 0.921},  # freq 4
     'הטובות': {"ipa": 'hatˈɔjvɔjs', "variants": [], "pointed": 'הַטּוֹבוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 4
-    'היתרים': {"ipa": 'hajsˈurim', "variants": [], "pointed": 'הַיְתָרִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 4
+    'היתרים': {"ipa": 'hajsˈurim', "variants": [], "pointed": 'הַיְתָרִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 4
     'הכתוב': {"ipa": 'hakˈusiv', "variants": ['hakˈusuv'], "pointed": 'הַכָּתוּב', "register": 'merged', "why": 'default-embedded', "n_sources": 33, "dominance": 1.0},  # freq 4
     'המאחרים': {"ipa": 'hamaxˈarim', "variants": [], "pointed": 'הַמְאַחֲרִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 4
     'המדברים': {"ipa": 'hamdˈabrim', "variants": [], "pointed": 'הַמְדַבְּרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
@@ -1329,7 +1329,7 @@ SEFARIA_POINTED_LK = {
     'הצדקה': {"ipa": 'haʦdˈukə', "variants": ['haʦdˈuku'], "pointed": 'הַצְּדָקָה', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 4
     'הקצה': {"ipa": 'hakˈuʦə', "variants": ['hakˈuʦɛ'], "pointed": 'הַקָּצֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 4
     'הרנה': {"ipa": 'hurˈinə', "variants": ['hurˈinu'], "pointed": 'הָרִנָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 4
-    'השוחט': {"ipa": 'haʃˈɔjxajt', "variants": [], "pointed": 'הַשּׁוֹחֵט', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 62, "dominance": 1.0},  # freq 4
+    'השוחט': {"ipa": 'haʃˈɔjxajt', "variants": [], "pointed": 'הַשּׁוֹחֵט', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 62, "dominance": 1.0},  # freq 4
     'התלמידים': {"ipa": 'hatalmˈidim', "variants": [], "pointed": 'הַתַּלְמִידִים', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 4
     'ואשתו': {"ipa": 'vˈiʃtɔj', "variants": ['vəˈiʃtɔj'], "pointed": 'וְאִשְׁתּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 4
     'ובהמתך': {"ipa": 'uvəhɛmtˈɛxu', "variants": [], "pointed": 'וּבְהֶמְתֶּךָ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 2, "dominance": 1.0},  # freq 4
@@ -1337,8 +1337,8 @@ SEFARIA_POINTED_LK = {
     'והגדת': {"ipa": 'vəhiɡˈadtu', "variants": [], "pointed": 'וְהִגַּדְתָּ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 4, "dominance": 1.0},  # freq 4
     'והגית': {"ipa": 'vəhuɡˈisu', "variants": [], "pointed": 'וְהָגִיתָ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 4
     'והתחזקתם': {"ipa": 'vəhisxazˈaktɛm', "variants": [], "pointed": 'וְהִתְחַזַּקְתֶּם', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 4
-    'ויחזו': {"ipa": 'vaəxˈɛzi', "variants": ['vajɛxˈɛzu'], "pointed": 'וַיֶּחֱזוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 4
-    'וינוחו': {"ipa": 'vunˈixi', "variants": ['vəjunˈuxu'], "pointed": 'וְיָנוּחוּ', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 7, "dominance": 0.875},  # freq 4
+    'ויחזו': {"ipa": 'vajɛxˈɛzu', "variants": [], "pointed": 'וַיֶּחֱזוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 4
+    'וינוחו': {"ipa": 'vəjunˈuxu', "variants": [], "pointed": 'וְיָנוּחוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 0.875},  # freq 4
     'ולקחת': {"ipa": 'vlukˈaxtu', "variants": ['vəlukˈaxtu'], "pointed": 'וְלָקַחְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 0.896},  # freq 4
     'ולקחתי': {"ipa": 'vlukˈaxti', "variants": ['vəlukˈaxti'], "pointed": 'וְלָקַחְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 4
     'ולרחמים': {"ipa": 'uləraxˈamim', "variants": ['ilraxˈamim'], "pointed": 'וּלְרַחֲמִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 15, "dominance": 1.0},  # freq 4
@@ -1385,33 +1385,33 @@ SEFARIA_POINTED_LK = {
     'ינוח': {"ipa": 'junˈixa', "variants": ['junˈuxa'], "pointed": 'יָנוּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 4
     'יצמחו': {"ipa": 'jiʦmˈuxi', "variants": ['jiʦmˈuxu'], "pointed": 'יִצְמָחוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'יקרחו': {"ipa": 'jˈikrəxu', "variants": ['jˈikrxi'], "pointed": 'יִקְרְחוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 4
-    'יתגבר': {"ipa": 'jizɡˈabur', "variants": ['jisɡˈabur'], "pointed": 'יִתְגַּבָּר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
+    'יתגבר': {"ipa": 'jisɡˈabur', "variants": [], "pointed": 'יִתְגַּבָּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 4
     'כדמותנו': {"ipa": 'kidmisˈajni', "variants": ['kidmusˈajnu'], "pointed": 'כִּדְמוּתֵנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'כזמן': {"ipa": 'kˈizman', "variants": [], "pointed": 'כִּזְמַן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'כמות': {"ipa": 'kmɔjs', "variants": ['kəmˈɔjs'], "pointed": 'כְּמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.857},  # freq 4
     'כפתור': {"ipa": 'kˈaftɔjr', "variants": [], "pointed": 'כַפְתּוֹר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'להחזיר': {"ipa": 'ləhaxˈazir', "variants": [], "pointed": 'לְהַחֲזִיר', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 9, "dominance": 1.0},  # freq 4
     'להעלות': {"ipa": 'ləhaˈalɔjs', "variants": [], "pointed": 'לְהַעֲלוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 25, "dominance": 1.0},  # freq 4
-    'לויתן': {"ipa": 'livˈusun', "variants": ['livjˈusun'], "pointed": 'לִוְיָתָן', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 4
+    'לויתן': {"ipa": 'livjˈusun', "variants": [], "pointed": 'לִוְיָתָן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 10, "dominance": 1.0},  # freq 4
     'לזמר': {"ipa": 'lzˈamajr', "variants": ['ləzˈamajr'], "pointed": 'לְזַמֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'לחטאת': {"ipa": 'lxˈatus', "variants": ['ləxˈatus'], "pointed": 'לְחַטָּאת', "register": 'merged', "why": 'default-embedded', "n_sources": 72, "dominance": 0.889},  # freq 4
     'לשמח': {"ipa": 'lismˈɔjxa', "variants": [], "pointed": 'לִשְׂמֹחַ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 4
     'לשתות': {"ipa": 'lˈiʃtɔjs', "variants": [], "pointed": 'לִשְׁתּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 31, "dominance": 1.0},  # freq 4
-    'מאחר': {"ipa": 'majˈaxar', "variants": [], "pointed": 'מֵאַחַר', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 13, "dominance": 0.929},  # freq 4
+    'מאחר': {"ipa": 'majˈaxar', "variants": [], "pointed": 'מֵאַחַר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 0.929},  # freq 4
     'מאכלת': {"ipa": 'maaxˈɔjlɛs', "variants": [], "pointed": 'מַאֲכֹלֶת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 4
     'מדינת': {"ipa": 'mdˈinas', "variants": ['mədˈinas'], "pointed": 'מְדִינַת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 4
     'מדעת': {"ipa": 'midˈaas', "variants": [], "pointed": 'מִדַּעַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 10, "dominance": 1.0},  # freq 4
     'מדעתו': {"ipa": 'midˈatɔj', "variants": [], "pointed": 'מִדַּעְתּוֹ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 4
     'מזבחות': {"ipa": 'mˈizbxɔjs', "variants": ['mˈizbəxɔjs'], "pointed": 'מִזְבְּחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 4
-    'מחיל': {"ipa": 'majxˈajil', "variants": [], "pointed": 'מֵחַיִל', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 4
+    'מחיל': {"ipa": 'majxˈajil', "variants": [], "pointed": 'מֵחַיִל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 4
     'מחסי': {"ipa": 'mˈaxsi', "variants": [], "pointed": 'מַחְסִי', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.867},  # freq 4
     'מחריב': {"ipa": 'maxˈariv', "variants": [], "pointed": 'מַחֲרִיב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'מיתות': {"ipa": 'mˈisɔjs', "variants": [], "pointed": 'מִיתוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 4
     'מלאכת': {"ipa": 'mlˈɛxəs', "variants": ['məlˈɛxɛs'], "pointed": 'מְלֶאכֶת', "register": 'merged', "why": 'default-embedded', "n_sources": 42, "dominance": 1.0},  # freq 4
     'מליח': {"ipa": 'mulˈixa', "variants": [], "pointed": 'מָלִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 4
     'מלכויות': {"ipa": 'malxˈijɔjs', "variants": ['malxˈujɔjs'], "pointed": 'מַלְכוּיוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 4
-    'מלקט': {"ipa": 'mlˈakaːt', "variants": ['məlˈakajt'], "pointed": 'מְלַקֵּט', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 4
-    'ממסגר': {"ipa": 'mimˈazɡajr', "variants": ['mimˈasɡajr'], "pointed": 'מִמַּסְגֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
+    'מלקט': {"ipa": 'məlˈakajt', "variants": [], "pointed": 'מְלַקֵּט', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 4
+    'ממסגר': {"ipa": 'mimˈasɡajr', "variants": [], "pointed": 'מִמַּסְגֵּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 4
     'מנורת': {"ipa": 'mnˈɔjras', "variants": ['mənˈɔjras'], "pointed": 'מְנוֹרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 4
     'מנחמכם': {"ipa": 'mnaxˈɛmxəm', "variants": ['mənaxˈɛmxɛm'], "pointed": 'מְנַחֶמְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'מנס': {"ipa": 'mˈinajs', "variants": [], "pointed": 'מִנֵּס', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
@@ -1434,7 +1434,7 @@ SEFARIA_POINTED_LK = {
     'נעילת': {"ipa": 'nˈilas', "variants": ['nəˈilas'], "pointed": 'נְעִילַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'נצחי': {"ipa": 'nˈiʦxi', "variants": [], "pointed": 'נִצְחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'נרצה': {"ipa": 'nˈirʦə', "variants": ['nˈirʦu'], "pointed": 'נִרְצָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
-    'נשברה': {"ipa": 'nˈiʒbrə', "variants": ['nˈiʃbəru'], "pointed": 'נִשְׁבְּרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 0.852},  # freq 4
+    'נשברה': {"ipa": 'nˈiʃbəru', "variants": [], "pointed": 'נִשְׁבְּרָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 23, "dominance": 0.852},  # freq 4
     'נשפך': {"ipa": 'nˈiʃpax', "variants": [], "pointed": 'נִשְׁפַּךְ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 10, "dominance": 0.909},  # freq 4
     'נתחכמה': {"ipa": 'nisxˈakmə', "variants": ['nisxˈakmu'], "pointed": 'נִתְחַכְּמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
     'סותה': {"ipa": 'sisˈɔjə', "variants": ['sˈusɔj'], "pointed": 'סוּתֹה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 4
@@ -1474,7 +1474,7 @@ SEFARIA_POINTED_LK = {
     'תּבואה': {"ipa": 'tvˈiə', "variants": ['təvˈuu'], "pointed": 'תְּבוּאָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 30, "dominance": 1.0},  # freq 4
     'תבן': {"ipa": 'tˈɛvən', "variants": ['tˈɛvɛn'], "pointed": 'תֶּבֶן', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 4
     'תהו': {"ipa": 'tˈɔjhi', "variants": ['tˈɔjhu'], "pointed": 'תֹּהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.929},  # freq 4
-    'תהיין': {"ipa": 'tihˈajnu', "variants": ['tihjˈɛjnu'], "pointed": 'תִּהְיֶיןָ', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 4
+    'תהיין': {"ipa": 'tihjˈɛjnu', "variants": [], "pointed": 'תִּהְיֶיןָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 1.0},  # freq 4
     'תוליד': {"ipa": 'tˈɔjlid', "variants": [], "pointed": 'תּוֹלִיד', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 4
     'תורתי': {"ipa": 'tɔjrˈusi', "variants": [], "pointed": 'תּוֹרָתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 16, "dominance": 0.941},  # freq 4
     'תושב': {"ipa": 'tˈiʃuv', "variants": ['tˈuʃuv'], "pointed": 'תּוּשָׁב', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 4
@@ -1498,7 +1498,7 @@ SEFARIA_POINTED_LK = {
     'אחישנה': {"ipa": 'axiʃˈɛnə', "variants": ['axiʃˈɛnu'], "pointed": 'אֲחִישֶׁנָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'אחריה': {"ipa": 'axarˈajhu', "variants": ['axarˈɛjhu'], "pointed": 'אַחֲרֶיהָ', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 1.0},  # freq 3
     'איתמר': {"ipa": 'isˈumur', "variants": [], "pointed": 'אִיתָמָר', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 3
-    'אכזריות': {"ipa": 'axzrˈiis', "variants": ['axzərˈijus'], "pointed": 'אַכְזְרִיּוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
+    'אכזריות': {"ipa": 'axzərˈijus', "variants": [], "pointed": 'אַכְזְרִיּוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 3
     'אכלתם': {"ipa": 'axˈaltɛm', "variants": ['axˈaltəm'], "pointed": 'אֲכַלְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 3
     'אמונות': {"ipa": 'əmˈinɔjs', "variants": ['ɛmˈunɔjs'], "pointed": 'אֱמוּנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'אמרתּי': {"ipa": 'umˈarti', "variants": [], "pointed": 'אָמַרְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 92, "dominance": 0.939},  # freq 3
@@ -1514,7 +1514,7 @@ SEFARIA_POINTED_LK = {
     'בטלות': {"ipa": 'btˈajlɔjs', "variants": ['bətˈajlɔjs'], "pointed": 'בְטֵלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'ביתן': {"ipa": 'bˈisan', "variants": [], "pointed": 'בִּיתַן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'במחשבה': {"ipa": 'bmaxaʃˈuvə', "variants": ['bəmaxaʃˈuvu'], "pointed": 'בְּמַחֲשָׁבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 3
-    'במצותיך': {"ipa": 'bmiʦɔjsˈajxu', "variants": ['bəmiʦvɔjsˈɛjxu'], "pointed": 'בְּמִצְוֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 3
+    'במצותיך': {"ipa": 'bəmiʦvɔjsˈɛjxu', "variants": [], "pointed": 'בְּמִצְוֹתֶיךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 17, "dominance": 1.0},  # freq 3
     'במקצת': {"ipa": 'bmˈikʦus', "variants": ['bəmˈikʦus'], "pointed": 'בְּמִקְצָת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 3
     'במרה': {"ipa": 'bmˈurə', "variants": ['bəmˈuru'], "pointed": 'בְּמָרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'בנגב': {"ipa": 'banˈɛɡəv', "variants": ['banˈɛɡɛv'], "pointed": 'בַּנֶּגֶב', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 0.875},  # freq 3
@@ -1541,10 +1541,10 @@ SEFARIA_POINTED_LK = {
     'החיצונים': {"ipa": 'haxiʦˈɔjnim', "variants": [], "pointed": 'הַחִיצוֹנִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 8, "dominance": 1.0},  # freq 3
     'החר': {"ipa": 'hˈaxɔjr', "variants": [], "pointed": 'הַחֹר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'הטבחים': {"ipa": 'hatabˈuxim', "variants": [], "pointed": 'הַטַּבָּחִים', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 3
-    'הידעת': {"ipa": 'hajudˈatu', "variants": [], "pointed": 'הֲיָדַעְתָּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 5, "dominance": 1.0},  # freq 3
+    'הידעת': {"ipa": 'hajudˈatu', "variants": [], "pointed": 'הֲיָדַעְתָּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 3
     'היכלות': {"ipa": 'hajxˈulɔjs', "variants": [], "pointed": 'הֵיכָלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'הירח': {"ipa": 'hajurˈajxa', "variants": [], "pointed": 'הַיָּרֵחַ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 3
-    'הישועות': {"ipa": 'hʃiˈɛɔjs', "variants": ['hajʃˈuɔjs'], "pointed": 'הַיְשׁוּעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
+    'הירח': {"ipa": 'hajurˈajxa', "variants": [], "pointed": 'הַיָּרֵחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 3
+    'הישועות': {"ipa": 'hajʃˈuɔjs', "variants": [], "pointed": 'הַיְשׁוּעוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 3
     'הכבדתי': {"ipa": 'hixbˈadti', "variants": [], "pointed": 'הִכְבַּדְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'המזרח': {"ipa": 'hamˈizrux', "variants": [], "pointed": 'הַמִּזְרָח', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 3
     'המחנה': {"ipa": 'hamaxˈanə', "variants": ['hamaxˈanɛ'], "pointed": 'הַמַּחֲנֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 69, "dominance": 1.0},  # freq 3
@@ -1556,10 +1556,10 @@ SEFARIA_POINTED_LK = {
     'העתידות': {"ipa": 'huasˈidɔjs', "variants": [], "pointed": 'הָעֲתִידוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 3
     'הקמח': {"ipa": 'hakˈɛmax', "variants": [], "pointed": 'הַקֶּמַח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 3
     'הקנה': {"ipa": 'hakˈunə', "variants": ['hakˈunɛ'], "pointed": 'הַקָּנֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.8},  # freq 3
-    'הקץ': {"ipa": 'hˈakajʦ', "variants": ['hˈakaːʦ'], "pointed": 'הַקֵּץ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 0.857},  # freq 3
+    'הקץ': {"ipa": 'hˈakajʦ', "variants": [], "pointed": 'הַקֵּץ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 0.857},  # freq 3
     'הריח': {"ipa": 'hurˈajxa', "variants": [], "pointed": 'הָרֵיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'השב': {"ipa": 'hˈuʃajv', "variants": [], "pointed": 'הָשֵׁב', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 0.893},  # freq 3
-    'השבועות': {"ipa": 'haʃuviˈɛis', "variants": ['haʃˈuvuvs'], "pointed": 'הַשָׁבוּעות', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 3
+    'השבועות': {"ipa": 'haʃˈuvuvs', "variants": [], "pointed": 'הַשָׁבוּעות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 3
     'השביעית': {"ipa": 'haʃvˈiis', "variants": [], "pointed": 'הַשְּׁבִיעִית', "register": 'merged', "why": 'default-embedded', "n_sources": 22, "dominance": 1.0},  # freq 3
     'השדה': {"ipa": 'hasˈudə', "variants": ['hasˈudɛ'], "pointed": 'הַשָּׂדֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 163, "dominance": 0.953},  # freq 3
     'השמח': {"ipa": 'hasumˈajxa', "variants": [], "pointed": 'הַשָּׂמֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
@@ -1575,29 +1575,29 @@ SEFARIA_POINTED_LK = {
     'ואותו': {"ipa": 'vˈɔjsɔj', "variants": ['vəˈɔjsɔj'], "pointed": 'וְאוֹתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 3
     'ואמונתך': {"ipa": 'vɛɛmunˈusəxu', "variants": [], "pointed": 'וֶאֱמוּנָתְךָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 3
     'ובחצרות': {"ipa": 'ivxˈaʦrɔjs', "variants": ['uvəxˈaʦrɔjs'], "pointed": 'וּבְחַצְרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'ובנותיו': {"ipa": 'ivnɔjsˈuji', "variants": ['uvənˈɔjsujv'], "pointed": 'וּבְנוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
+    'ובנותיו': {"ipa": 'uvənˈɔjsujv', "variants": [], "pointed": 'וּבְנוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 3
     'ובערת': {"ipa": 'uviˈartu', "variants": [], "pointed": 'וּבִעַרְתָּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 10, "dominance": 1.0},  # freq 3
     'ובקשתם': {"ipa": 'ivikˈaʃtəm', "variants": ['uvikˈaʃtɛm'], "pointed": 'וּבִקַּשְׁתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 3
     'וברח': {"ipa": 'ivˈurax', "variants": ['uvˈurax'], "pointed": 'וּבָרַח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
     'וברחמיך': {"ipa": 'ivraxamˈajxu', "variants": ['uvəraxamˈɛjxu'], "pointed": 'וּבְרַחֲמֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'ובשעת': {"ipa": 'ivˈiʃas', "variants": ['uvˈiʃas'], "pointed": 'וּבִשְׁעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 3
-    'והודאות': {"ipa": 'vəhvdˈuvs', "variants": [], "pointed": 'וְהודָאות', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 12, "dominance": 1.0},  # freq 3
+    'והודאות': {"ipa": 'vəhvdˈuvs', "variants": [], "pointed": 'וְהודָאות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 12, "dominance": 1.0},  # freq 3
     'והייתה': {"ipa": 'vəhujˈisu', "variants": [], "pointed": 'וְהָיִיתָה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'והיתה': {"ipa": 'vəhˈujəsu', "variants": [], "pointed": 'וְהָיְתָה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 114, "dominance": 0.991},  # freq 3
+    'והיתה': {"ipa": 'vəhˈujəsu', "variants": [], "pointed": 'וְהָיְתָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 114, "dominance": 0.991},  # freq 3
     'וחדוה': {"ipa": 'vxˈɛdvə', "variants": ['vəxˈɛdvu'], "pointed": 'וְחֶדְוָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
     'וחזרת': {"ipa": 'vaxazˈɛrɛs', "variants": [], "pointed": 'וַחֲזֶרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 2, "dominance": 1.0},  # freq 3
     'וחיים': {"ipa": 'vəxˈajim', "variants": [], "pointed": 'וְחַיִּים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 43, "dominance": 1.0},  # freq 3
     'וידעתם': {"ipa": 'vidˈatɛm', "variants": [], "pointed": 'וִידַעְתֶּם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 40, "dominance": 1.0},  # freq 3
-    'ויזרח': {"ipa": 'vaˈizrax', "variants": ['vajˈizrax'], "pointed": 'וַיִּזְרַח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
-    'ויחץ': {"ipa": 'vaˈaxaʦ', "variants": ['vajˈaxaʦ'], "pointed": 'וַיַּחַץ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
-    'וישתבח': {"ipa": 'viʃtˈabax', "variants": ['vəjiʃtˈabax'], "pointed": 'וְיִשְׁתַּבַּח', "register": 'merged', "why": 'default-embedded', "n_sources": 45, "dominance": 1.0},  # freq 3
-    'ויתגדל': {"ipa": 'vizɡˈadajl', "variants": ['vəjisɡˈadajl'], "pointed": 'וְיִתְגַּדֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'ויתום': {"ipa": 'vˈusɔjm', "variants": ['vəjˈusɔjm'], "pointed": 'וְיָתוֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 3
-    'ויתרומם': {"ipa": 'vəjisrˈɔjmam', "variants": ['visrˈɔjmam'], "pointed": 'וְיִתְרוֹמַם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 50, "dominance": 0.943},  # freq 3
+    'ויזרח': {"ipa": 'vajˈizrax', "variants": [], "pointed": 'וַיִּזְרַח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 3
+    'ויחץ': {"ipa": 'vajˈaxaʦ', "variants": [], "pointed": 'וַיַּחַץ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 3
+    'וישתבח': {"ipa": 'vəjiʃtˈabax', "variants": [], "pointed": 'וְיִשְׁתַּבַּח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 45, "dominance": 1.0},  # freq 3
+    'ויתגדל': {"ipa": 'vəjisɡˈadajl', "variants": [], "pointed": 'וְיִתְגַּדֵּל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 3
+    'ויתום': {"ipa": 'vəjˈusɔjm', "variants": [], "pointed": 'וְיָתוֹם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 3
+    'ויתרומם': {"ipa": 'vəjisrˈɔjmam', "variants": [], "pointed": 'וְיִתְרוֹמַם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 50, "dominance": 0.943},  # freq 3
     'ולחם': {"ipa": 'vəlˈɛxɛm', "variants": ['vlˈɛxəm'], "pointed": 'וְלֶחֶם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 27, "dominance": 0.964},  # freq 3
     'ולחסד': {"ipa": 'uləxˈɛsɛd', "variants": ['ilxˈɛsəd'], "pointed": 'וּלְחֶסֶד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 14, "dominance": 1.0},  # freq 3
     'ולעשות': {"ipa": 'vəlaˈasɔjs', "variants": [], "pointed": 'וְלַעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 25, "dominance": 0.806},  # freq 3
-    'ומחית': {"ipa": 'umˈixjas', "variants": ['imˈixas'], "pointed": 'וּמִחְיַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 13, "dominance": 0.929},  # freq 3
+    'ומחית': {"ipa": 'umˈixjas', "variants": [], "pointed": 'וּמִחְיַת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 0.929},  # freq 3
     'ומצמיח': {"ipa": 'imaʦmˈixa', "variants": ['umaʦmˈixa'], "pointed": 'וּמַצְמִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 3
     'ומקרבן': {"ipa": 'imkˈurvun', "variants": ['uməkˈurəvun'], "pointed": 'וּמְקָרְבָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'ומשיח': {"ipa": 'imuʃˈixa', "variants": ['umuʃˈixa'], "pointed": 'וּמָשִׁיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
@@ -1609,7 +1609,7 @@ SEFARIA_POINTED_LK = {
     'ורחם': {"ipa": 'vrˈaxajm', "variants": ['vərˈaxajm'], "pointed": 'וְרַחֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 0.84},  # freq 3
     'ורחמתי': {"ipa": 'vrixˈamti', "variants": ['vərixˈamti'], "pointed": 'וְרִחַמְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
     'ורחץ': {"ipa": 'vrˈuxaʦ', "variants": ['vərˈuxaʦ'], "pointed": 'וְרָחַץ', "register": 'merged', "why": 'default-embedded', "n_sources": 22, "dominance": 0.917},  # freq 3
-    'ורפאתיו': {"ipa": 'irfusˈii', "variants": ['urəfˈusiv'], "pointed": 'וּרְפָאתִיו', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
+    'ורפאתיו': {"ipa": 'urəfˈusiv', "variants": [], "pointed": 'וּרְפָאתִיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 3
     'ושחט': {"ipa": 'vəʃˈuxat', "variants": ['vʃˈuxat'], "pointed": 'וְשָׁחַט', "register": 'wh', "why": 'quoted-span-share', "n_sources": 23, "dominance": 0.885},  # freq 3
     'ושכינתיה': {"ipa": 'iʃxˈintajh', "variants": ['uʃəxˈintaj'], "pointed": 'וּשְׁכִינְתֵּיהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'ושכנת': {"ipa": 'vʃˈuxant', "variants": ['vəʃˈuxant'], "pointed": 'וְשָׁכַנְתְּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
@@ -1623,7 +1623,7 @@ SEFARIA_POINTED_LK = {
     'ותרועת': {"ipa": 'isrˈias', "variants": ['usərˈuas'], "pointed": 'וּתְרוּעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'חביבין': {"ipa": 'xavˈivin', "variants": [], "pointed": 'חֲבִיבִין', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
     'חבילה': {"ipa": 'xavˈilə', "variants": ['xavˈilu'], "pointed": 'חֲבִילָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
-    'חגי': {"ipa": 'xˈaɡaː', "variants": ['xˈaɡaj'], "pointed": 'חַגַּי', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.846},  # freq 3
+    'חגי': {"ipa": 'xˈaɡaj', "variants": [], "pointed": 'חַגַּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 0.846},  # freq 3
     'חדוש': {"ipa": 'xˈidiʃ', "variants": ['xˈiduʃ'], "pointed": 'חִדּוּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
     'חזירים': {"ipa": 'xazˈirim', "variants": [], "pointed": 'חֲזִירִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'חטאתיכם': {"ipa": 'xatɔjsˈajxəm', "variants": ['xatɔjsˈajxɛm'], "pointed": 'חַטֹּאתֵיכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 3
@@ -1685,7 +1685,7 @@ SEFARIA_POINTED_LK = {
     'למספרם': {"ipa": 'lmispˈurum', "variants": ['ləmispˈurum'], "pointed": 'לְמִסְפָּרָם', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
     'לנגד': {"ipa": 'lnˈɛɡəd', "variants": ['lənˈɛɡɛd'], "pointed": 'לְנֶגֶד', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 3
     'לנחם': {"ipa": 'lnˈaxajm', "variants": ['lənˈaxajm'], "pointed": 'לְנַחֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'מאתי': {"ipa": 'majˈiti', "variants": [], "pointed": 'מֵאִתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 13, "dominance": 1.0},  # freq 3
+    'מאתי': {"ipa": 'majˈiti', "variants": [], "pointed": 'מֵאִתִּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 1.0},  # freq 3
     'מבל': {"ipa": 'mˈibal', "variants": [], "pointed": 'מִבַּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'מבקש': {"ipa": 'mvˈakajʃ', "variants": ['məvˈakajʃ'], "pointed": 'מְבַקֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 0.867},  # freq 3
     'מגדף': {"ipa": 'mɡˈadajf', "variants": ['məɡˈadajf'], "pointed": 'מְגַדֵּף', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
@@ -1703,7 +1703,7 @@ SEFARIA_POINTED_LK = {
     'מלדת': {"ipa": 'milˈɛdɛs', "variants": [], "pointed": 'מִלֶּדֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 3, "dominance": 1.0},  # freq 3
     'ממונות': {"ipa": 'mumˈɔjnɔjs', "variants": [], "pointed": 'מָמוֹנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 1.0},  # freq 3
     'מנשק': {"ipa": 'minˈajʃək', "variants": ['minˈajʃɛk'], "pointed": 'מִנֵּשֶׁק', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'מעתה': {"ipa": 'majˈatu', "variants": [], "pointed": 'מֵעַתָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 46, "dominance": 0.939},  # freq 3
+    'מעתה': {"ipa": 'majˈatu', "variants": [], "pointed": 'מֵעַתָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 46, "dominance": 0.939},  # freq 3
     'מפה': {"ipa": 'mipˈɔjə', "variants": ['mˈipɔj'], "pointed": 'מִפֹּה', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 3
     'מצד': {"ipa": 'mˈiʦad', "variants": [], "pointed": 'מִצַּד', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 1.0},  # freq 3
     'מקברות': {"ipa": 'mikˈivrɔjs', "variants": [], "pointed": 'מִקִּבְרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
@@ -1721,12 +1721,12 @@ SEFARIA_POINTED_LK = {
     'נצחון': {"ipa": 'niʦˈuxɔjn', "variants": [], "pointed": 'נִצָּחוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
     'נצטוו': {"ipa": 'niʦtaˈuu', "variants": [], "pointed": 'נִצְטַוּוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 3
     'נשאתי': {"ipa": 'nusˈusi', "variants": [], "pointed": 'נָשָׂאתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 1.0},  # freq 3
-    'נשבעת': {"ipa": 'niʃbˈatu', "variants": [], "pointed": 'נִשְׁבַּעְתָּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 19, "dominance": 0.95},  # freq 3
-    'נתניה': {"ipa": 'nsˈanu', "variants": ['nəsˈanju'], "pointed": 'נְתַנְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 3
+    'נשבעת': {"ipa": 'niʃbˈatu', "variants": [], "pointed": 'נִשְׁבַּעְתָּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 19, "dominance": 0.95},  # freq 3
+    'נתניה': {"ipa": 'nəsˈanju', "variants": [], "pointed": 'נְתַנְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 14, "dominance": 1.0},  # freq 3
     'נתת': {"ipa": 'nusˈatu', "variants": [], "pointed": 'נָתַתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 0.808},  # freq 3
     'עשׂרת': {"ipa": 'asˈɛrɛs', "variants": [], "pointed": 'עֲשֶׂרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 39, "dominance": 0.929},  # freq 3
     'עשרות': {"ipa": 'asˈurɔjs', "variants": [], "pointed": 'עֲשָׂרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'עשתה': {"ipa": 'ˈusə', "variants": ['ˈusəsu'], "pointed": 'עָשְׂתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 0.844},  # freq 3
+    'עשתה': {"ipa": 'ˈusəsu', "variants": [], "pointed": 'עָשְׂתָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 27, "dominance": 0.844},  # freq 3
     'פּשתן': {"ipa": 'pˈiʃtun', "variants": [], "pointed": 'פִּשְׁתָּן', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 3
     'פֿינחס': {"ipa": 'pˈinxus', "variants": [], "pointed": 'פִּינְחָס', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 3
     'פז': {"ipa": 'puz', "variants": [], "pointed": 'פָּז', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 3
@@ -1735,7 +1735,7 @@ SEFARIA_POINTED_LK = {
     'פסת': {"ipa": 'pˈisas', "variants": [], "pointed": 'פִסַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'פרשות': {"ipa": 'prˈisɔjs', "variants": ['pərˈusɔjs'], "pointed": 'פְּרֻשׂוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'פשעתי': {"ipa": 'puʃˈati', "variants": [], "pointed": 'פָּשַׁעְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 3
-    'פתגם': {"ipa": 'pˈizɡum', "variants": ['pˈisɡum'], "pointed": 'פִּתְגָם', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
+    'פתגם': {"ipa": 'pˈisɡum', "variants": [], "pointed": 'פִּתְגָם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 3
     'צאתך': {"ipa": 'ʦˈajsxu', "variants": [], "pointed": 'צֵאתְךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.923},  # freq 3
     'צהר': {"ipa": 'ʦˈɔjhar', "variants": [], "pointed": 'צֹהַר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
     'קראתי': {"ipa": 'kurˈusi', "variants": [], "pointed": 'קָרָאתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 28, "dominance": 1.0},  # freq 3
@@ -1755,8 +1755,8 @@ SEFARIA_POINTED_LK = {
     'שפתו': {"ipa": 'sfˈusɔj', "variants": ['səfˈusɔj'], "pointed": 'שְׂפָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 3
     'שפתינו': {"ipa": 'sfusˈajni', "variants": ['səfusˈajnu'], "pointed": 'שְׂפָתֵינוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 3
     'שתרחמני': {"ipa": 'ʃətraxamˈajni', "variants": ['ʃɛtraxamˈajni'], "pointed": 'שֶׁתְּרַחֲמֵנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
-    'תּהיה': {"ipa": 'tˈihə', "variants": ['tˈihjɛ'], "pointed": 'תִּהְיֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 189, "dominance": 0.995},  # freq 3
-    'תּו': {"ipa": 'tˈui', "variants": ['tuv'], "pointed": 'תָּו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
+    'תּהיה': {"ipa": 'tˈihjɛ', "variants": [], "pointed": 'תִּהְיֶה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 189, "dominance": 0.995},  # freq 3
+    'תּו': {"ipa": 'tuv', "variants": [], "pointed": 'תָּו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 3
     'תּעשׂר': {"ipa": 'tˈasajr', "variants": ['təˈasajr'], "pointed": 'תְּעַשֵּׂר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
     'תּרומה': {"ipa": 'trˈimə', "variants": ['tərˈumu'], "pointed": 'תְּרוּמָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 247, "dominance": 1.0},  # freq 3
     'תּרועה': {"ipa": 'trˈiə', "variants": ['tərˈuu'], "pointed": 'תְּרוּעָה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 24, "dominance": 1.0},  # freq 3
@@ -1775,10 +1775,10 @@ SEFARIA_POINTED_LK = {
     'תוכה': {"ipa": 'tˈɔjxuh', "variants": ['tˈɔjxu'], "pointed": 'תּוֹכָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 3
     'תורים': {"ipa": 'tˈɔjrim', "variants": [], "pointed": 'תּוֹרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
     'תינוק': {"ipa": 'tˈinɔjk', "variants": [], "pointed": 'תִּינוֹק', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 3
-    'תישים': {"ipa": 'tˈuʃim', "variants": ['təjˈuʃim'], "pointed": 'תְּיָשִׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
+    'תישים': {"ipa": 'təjˈuʃim', "variants": [], "pointed": 'תְּיָשִׁים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 3
     'תלין': {"ipa": 'tˈulin', "variants": [], "pointed": 'תָּלִין', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 3
-    'תלמידיו': {"ipa": 'talmidˈuji', "variants": ['talmˈidujv'], "pointed": 'תַּלְמִידָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 3
-    'תלפיות': {"ipa": 'talpˈiɔjs', "variants": ['talpˈijɔjs'], "pointed": 'תַּלְפִּיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 3
+    'תלמידיו': {"ipa": 'talmˈidujv', "variants": [], "pointed": 'תַּלְמִידָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 8, "dominance": 1.0},  # freq 3
+    'תלפיות': {"ipa": 'talpˈijɔjs', "variants": [], "pointed": 'תַּלְפִּיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 3
     'תמות': {"ipa": 'tˈumis', "variants": ['tˈumus'], "pointed": 'תָּמוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 44, "dominance": 1.0},  # freq 3
     'תמידין': {"ipa": 'tmˈidin', "variants": ['təmˈidin'], "pointed": 'תְּמִידִין', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 3
     'תמצית': {"ipa": 'tˈamʦis', "variants": [], "pointed": 'תַּמְצִית', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 3
@@ -1807,7 +1807,7 @@ SEFARIA_POINTED_LK = {
     'אהבתנו': {"ipa": 'ahavtˈuni', "variants": ['ahavtˈunu'], "pointed": 'אֲהַבְתָּנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'אחאב': {"ipa": 'ˈaxuv', "variants": [], "pointed": 'אַחְאָב', "register": 'merged', "why": 'default-embedded', "n_sources": 83, "dominance": 1.0},  # freq 2
     'אחיעזר': {"ipa": 'axiˈɛzɛr', "variants": [], "pointed": 'אֲחִיעֶזֶר', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 6, "dominance": 1.0},  # freq 2
-    'אחריהן': {"ipa": 'axarˈajhɛn', "variants": [], "pointed": 'אַחֲרֵיהֶן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 16, "dominance": 0.941},  # freq 2
+    'אחריהן': {"ipa": 'axarˈajhɛn', "variants": [], "pointed": 'אַחֲרֵיהֶן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 0.941},  # freq 2
     'אלמדכם': {"ipa": 'alamˈɛdxəm', "variants": ['alamˈɛdxɛm'], "pointed": 'אֲלַמֶּדְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'אסתּר': {"ipa": 'ˈɛstajr', "variants": [], "pointed": 'אֶסְתֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 45, "dominance": 0.957},  # freq 2
     'אפרת': {"ipa": 'ˈɛfrus', "variants": [], "pointed": 'אֶפְרָת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
@@ -1832,12 +1832,12 @@ SEFARIA_POINTED_LK = {
     'בחפזון': {"ipa": 'bxipˈuzɔjn', "variants": ['bəxipˈuzɔjn'], "pointed": 'בְּחִפָּזוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'בחרפה': {"ipa": 'bxˈɛrpə', "variants": ['bəxˈɛrpu'], "pointed": 'בְּחֶרְפָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'בטבת': {"ipa": 'btˈajvajs', "variants": ['bətˈajvajs'], "pointed": 'בְּטֵבֵת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'ביחיד': {"ipa": 'bˈuxid', "variants": ['bəjˈuxid'], "pointed": 'בְּיָחִיד', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
-    'ביראת': {"ipa": 'bˈiras', "variants": ['bəjˈiras'], "pointed": 'בְּיִרְאַת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'ביחיד': {"ipa": 'bəjˈuxid', "variants": [], "pointed": 'בְּיָחִיד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'ביראת': {"ipa": 'bəjˈiras', "variants": [], "pointed": 'בְּיִרְאַת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
     'ביתי': {"ipa": 'bˈajsi', "variants": [], "pointed": 'בֵּיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 38, "dominance": 1.0},  # freq 2
     'בכן': {"ipa": 'bxajn', "variants": ['bəxˈajn'], "pointed": 'בְּכֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'בלבבם': {"ipa": 'bilvˈuvum', "variants": [], "pointed": 'בִּלְבָבָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 2
-    'במצותיו': {"ipa": 'bmiʦɔjsˈuji', "variants": ['bəmiʦvˈɔjsujv'], "pointed": 'בְּמִצְוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 0.955},  # freq 2
+    'במצותיו': {"ipa": 'bəmiʦvˈɔjsujv', "variants": [], "pointed": 'בְּמִצְוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 21, "dominance": 0.955},  # freq 2
     'בנותיה': {"ipa": 'bənɔjsˈɛjhu', "variants": ['bnɔjsˈajhu'], "pointed": 'בְּנוֹתֶיהָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 7, "dominance": 1.0},  # freq 2
     'בנחמת': {"ipa": 'bnəxˈumas', "variants": ['bənɛxˈumas'], "pointed": 'בְּנֶחָמַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'בנחת': {"ipa": 'bnˈaxas', "variants": ['bənˈaxas'], "pointed": 'בְּנַחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
@@ -1851,17 +1851,17 @@ SEFARIA_POINTED_LK = {
     'בצאתי': {"ipa": 'bʦˈajsi', "variants": ['bəʦˈajsi'], "pointed": 'בְּצֵאתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
     'בקנקן': {"ipa": 'bakˈankan', "variants": [], "pointed": 'בַּקַּנְקַן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'בקרב': {"ipa": 'bkˈɛrəv', "variants": ['bəkˈɛrɛv'], "pointed": 'בְּקֶרֶב', "register": 'merged', "why": 'default-embedded', "n_sources": 61, "dominance": 0.897},  # freq 2
-    'בקרית': {"ipa": 'bəkˈirjas', "variants": ['bkˈiras'], "pointed": 'בְּקִרְיַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 2
-    'בקרניו': {"ipa": 'bkarnˈuji', "variants": ['bəkˈarnujv'], "pointed": 'בְּקַרְנָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
+    'בקרית': {"ipa": 'bəkˈirjas', "variants": [], "pointed": 'בְּקִרְיַת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 2
+    'בקרניו': {"ipa": 'bəkˈarnujv', "variants": [], "pointed": 'בְּקַרְנָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 2
     'בראותם': {"ipa": 'birˈɔjsum', "variants": [], "pointed": 'בִּרְאוֹתָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ברכך': {"ipa": 'bajrˈaxu', "variants": ['bajrˈaxxu'], "pointed": 'בֵּרַכְךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 2
-    'ברכתו': {"ipa": 'bajrˈaxti', "variants": ['bˈajraxtv'], "pointed": 'בֵּרַכְתּו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'ברכך': {"ipa": 'bajrˈaxxu', "variants": [], "pointed": 'בֵּרַכְךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 2
+    'ברכתו': {"ipa": 'bˈajraxtv', "variants": [], "pointed": 'בֵּרַכְתּו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'ברכתני': {"ipa": 'bajraxtˈuni', "variants": [], "pointed": 'בֵּרַכְתָּנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'ברנה': {"ipa": 'brˈinə', "variants": ['bərˈinu'], "pointed": 'בְּרִנָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 2
     'ברשותי': {"ipa": 'birʃˈisi', "variants": ['birʃˈusi'], "pointed": 'בִּרְשׁוּתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'בשבועות': {"ipa": 'baʃviˈɛɔjs', "variants": ['baʃvˈuɔjs'], "pointed": 'בַּשְּׁבוּעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'בשביעית': {"ipa": 'baʃvˈiis', "variants": [], "pointed": 'בַּשְּׁבִיעִית', "register": 'merged', "why": 'default-embedded', "n_sources": 53, "dominance": 0.981},  # freq 2
-    'בשבעותיכם': {"ipa": 'bʃuviisˈajxəm', "variants": ['bəʃuvuvsˈajxɛm'], "pointed": 'בְּשָׁבֻעותֵיכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'בשבעותיכם': {"ipa": 'bəʃuvuvsˈajxɛm', "variants": [], "pointed": 'בְּשָׁבֻעותֵיכֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'בשמם': {"ipa": 'bˈiʃmum', "variants": [], "pointed": 'בִּשְׁמָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'בשנותו': {"ipa": 'bʃanˈɔjsɔj', "variants": ['bəʃanˈɔjsɔj'], "pointed": 'בְּשַׁנּוֹתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'בשפֿר': {"ipa": 'baʃˈɔjfur', "variants": [], "pointed": 'בַּשֹּׁפָר', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -1891,10 +1891,10 @@ SEFARIA_POINTED_LK = {
     'החברים': {"ipa": 'haxavˈajrim', "variants": [], "pointed": 'הַחֲבֵרִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 2
     'החוטא': {"ipa": 'haxˈɔjtaj', "variants": [], "pointed": 'הַחוֹטֵא', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'החוצה': {"ipa": 'haxˈiʦə', "variants": ['haxˈuʦu'], "pointed": 'הַחוּצָה', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 2
-    'החיה': {"ipa": 'haxˈaju', "variants": [], "pointed": 'הַחַיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 34, "dominance": 0.85},  # freq 2
-    'החיות': {"ipa": 'haxˈajɔjs', "variants": ['haxˈaːɔjs'], "pointed": 'הַחַיּוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 7, "dominance": 1.0},  # freq 2
+    'החיה': {"ipa": 'haxˈaju', "variants": [], "pointed": 'הַחַיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 34, "dominance": 0.85},  # freq 2
+    'החיות': {"ipa": 'haxˈajɔjs', "variants": [], "pointed": 'הַחַיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 2
     'החקים': {"ipa": 'haxˈikim', "variants": ['haxˈukim'], "pointed": 'הַחֻקִּים', "register": 'merged', "why": 'default-embedded', "n_sources": 19, "dominance": 1.0},  # freq 2
-    'החשבון': {"ipa": 'haxˈɛʒbɔjn', "variants": ['haxˈɛʃbɔjn'], "pointed": 'הַחֶשְׁבּוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
+    'החשבון': {"ipa": 'haxˈɛʃbɔjn', "variants": [], "pointed": 'הַחֶשְׁבּוֹן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 2
     'הטהורות': {"ipa": 'hathˈɔjrɔjs', "variants": [], "pointed": 'הַטְּהוֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'הכח': {"ipa": 'hakˈɔjxa', "variants": [], "pointed": 'הַכֹּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'הכנענית': {"ipa": 'haknaˈanis', "variants": [], "pointed": 'הַכְּנַעֲנִית', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -1906,15 +1906,15 @@ SEFARIA_POINTED_LK = {
     'המזלג': {"ipa": 'hamˈazlajɡ', "variants": [], "pointed": 'הַמַּזְלֵג', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'המחבר': {"ipa": 'hamxˈibur', "variants": ['hamxˈubur'], "pointed": 'הַמְחֻבָּר', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 2
     'המחזיק': {"ipa": 'hamaxˈazik', "variants": [], "pointed": 'הַמַּחֲזִיק', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'המחיה': {"ipa": 'hamˈixu', "variants": ['hamˈixju'], "pointed": 'הַמִּחְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 20, "dominance": 1.0},  # freq 2
-    'המכחישים': {"ipa": 'hamaxˈiʃim', "variants": ['hamaxxˈiʃim'], "pointed": 'הַמַּכְחִישִׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'המחיה': {"ipa": 'hamˈixju', "variants": [], "pointed": 'הַמִּחְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 20, "dominance": 1.0},  # freq 2
+    'המכחישים': {"ipa": 'hamaxxˈiʃim', "variants": [], "pointed": 'הַמַּכְחִישִׁים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'המלח': {"ipa": 'hamˈɛlax', "variants": [], "pointed": 'הַמֶּלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 1.0},  # freq 2
     'המנהג': {"ipa": 'hamnˈahajɡ', "variants": [], "pointed": 'הַמְּנַהֵג', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'המנחה': {"ipa": 'hamˈinxə', "variants": ['hamˈinxu'], "pointed": 'הַמִּנְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 59, "dominance": 1.0},  # freq 2
-    'המשבר': {"ipa": 'hamˈaʒbajr', "variants": ['hamˈaʃbajr'], "pointed": 'הַמַּשְׁבֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'המשבר': {"ipa": 'hamˈaʃbajr', "variants": [], "pointed": 'הַמַּשְׁבֵּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'המשחה': {"ipa": 'hamˈiʃxə', "variants": ['hamˈiʃxu'], "pointed": 'הַמִּשְׁחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 1.0},  # freq 2
     'המשחית': {"ipa": 'hamˈaʃxis', "variants": [], "pointed": 'הַמַּשְׁחִית', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.9},  # freq 2
-    'המתגאה': {"ipa": 'hamisɡˈuɛ', "variants": [], "pointed": 'הַמִּתְגָּאֶה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'המתגאה': {"ipa": 'hamisɡˈuɛ', "variants": [], "pointed": 'הַמִּתְגָּאֶה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'המתפלל': {"ipa": 'hamispˈalajl', "variants": [], "pointed": 'הַמִּתְפַּלֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'הנגלה': {"ipa": 'haniɡlˈɔjə', "variants": ['hanˈiɡlɔj'], "pointed": 'הֲנִגְלֹה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'הנזכרות': {"ipa": 'hanizkˈurɔjs', "variants": [], "pointed": 'הַנִּזְכָּרוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -1923,7 +1923,7 @@ SEFARIA_POINTED_LK = {
     'הסליחה': {"ipa": 'haslˈɛxə', "variants": ['haslˈixu'], "pointed": 'הַסְּלִיחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'הסנדלר': {"ipa": 'hasˈandlur', "variants": ['hasˈandəlur'], "pointed": 'הַסַּנְדְּלָר', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'העתיד': {"ipa": 'hɛˈusid', "variants": [], "pointed": 'הֶעָתִיד', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'הפסגה': {"ipa": 'hapˈizɡə', "variants": ['hapˈisɡu'], "pointed": 'הַפִּסְגָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 2
+    'הפסגה': {"ipa": 'hapˈisɡu', "variants": [], "pointed": 'הַפִּסְגָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 8, "dominance": 1.0},  # freq 2
     'הפרט': {"ipa": 'hˈaprut', "variants": [], "pointed": 'הַפְּרָט', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'הפתח': {"ipa": 'hapˈɛsax', "variants": [], "pointed": 'הַפֶּתַח', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 0.964},  # freq 2
     'הקרבֿה': {"ipa": 'hakrˈɔjvə', "variants": ['hakrˈɔjvu'], "pointed": 'הַקְּרֹבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -1939,7 +1939,7 @@ SEFARIA_POINTED_LK = {
     'התחננתי': {"ipa": 'hisxanˈanti', "variants": [], "pointed": 'הִתְחַנַּנְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 2
     'התלוי': {"ipa": 'hatˈuluj', "variants": ['hatˈulij'], "pointed": 'הַתָּלוּי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
     'התקוה': {"ipa": 'hatˈikvə', "variants": ['hatˈikvu'], "pointed": 'הַתִּקְוָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'התשבי': {"ipa": 'hatˈiʒbi', "variants": ['hatˈiʃbi'], "pointed": 'הַתִּשְׁבִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'התשבי': {"ipa": 'hatˈiʃbi', "variants": [], "pointed": 'הַתִּשְׁבִּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
     'ואבדתם': {"ipa": 'vaavˈadtɛm', "variants": ['vaavˈadtəm'], "pointed": 'וַאֲבַדְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 10, "dominance": 0.833},  # freq 2
     'ואחות': {"ipa": 'vaˈaxɔjs', "variants": [], "pointed": 'וַאֲחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 2
     'וארשתיך': {"ipa": 'vajrˈastix', "variants": ['vəajrˈastix'], "pointed": 'וְאֵרַשְׂתִּיךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
@@ -1972,31 +1972,31 @@ SEFARIA_POINTED_LK = {
     'וזבחת': {"ipa": 'vzuvˈaxtu', "variants": ['vəzuvˈaxtu'], "pointed": 'וְזָבַחְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
     'וזמרת': {"ipa": 'vzˈimrus', "variants": ['vəzˈimrus'], "pointed": 'וְזִמְרָת', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.8},  # freq 2
     'וזרקתי': {"ipa": 'vzurˈakti', "variants": ['vəzurˈakti'], "pointed": 'וְזָרַקְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 2
-    'וחוה': {"ipa": 'vxˈai', "variants": ['vəxˈavu'], "pointed": 'וְחַוָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'וחוה': {"ipa": 'vəxˈavu', "variants": [], "pointed": 'וְחַוָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'וחוזר': {"ipa": 'vxˈɔjzajr', "variants": ['vəxˈɔjzajr'], "pointed": 'וְחוֹזֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 2
     'וחזרה': {"ipa": 'vxˈuzrə', "variants": ['vəxˈuzəru'], "pointed": 'וְחָזְרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 2
     'וחרה': {"ipa": 'vxˈurə', "variants": ['vəxˈuru'], "pointed": 'וְחָרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 2
     'וחרפה': {"ipa": 'vxˈɛrpə', "variants": ['vəxˈɛrpu'], "pointed": 'וְחֶרְפָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'וחתום': {"ipa": 'vxˈusɔjm', "variants": ['vəxˈusɔjm'], "pointed": 'וְחָתוֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'וטובותיך': {"ipa": 'vətɔjvɔjsˈɛjxu', "variants": ['vtɔjvɔjsˈajxu'], "pointed": 'וְטוֹבוֹתֶיךָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 10, "dominance": 1.0},  # freq 2
-    'ויזבחו': {"ipa": 'vajˈizbəxu', "variants": ['vaˈizbxi'], "pointed": 'וַיִּזְבְּחוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 13, "dominance": 0.867},  # freq 2
-    'ויזתא': {"ipa": 'vazˈusu', "variants": ['vajzˈusu'], "pointed": 'וַיְזָתָא', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ויחזקני': {"ipa": 'vajxazkˈajni', "variants": ['vaxazkˈajni'], "pointed": 'וַיְחַזְּקֵנִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ויחצו': {"ipa": 'vaajxˈuʦi', "variants": ['vajajxˈuʦu'], "pointed": 'וַיֵּחָצוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'ויחרד': {"ipa": 'vajɛxˈɛrad', "variants": ['vaəxˈɛrad'], "pointed": 'וַיֶּחֱרַד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 2
-    'ויחשבה': {"ipa": 'vaaxʃvˈɛhu', "variants": ['vajaxʃəvˈɛhu'], "pointed": 'וַיַּחְשְׁבֶהָ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
-    'וימתקו': {"ipa": 'vaˈimtki', "variants": ['vajˈimtəku'], "pointed": 'וַיִּמְתְּקוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ויניח': {"ipa": 'vanˈixa', "variants": ['vəjanˈixa'], "pointed": 'וְיַנִּיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'ויצליח': {"ipa": 'vaʦlˈixa', "variants": ['vəjaʦlˈixa'], "pointed": 'וְיַצְלִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'וישחטו': {"ipa": 'vaiʃxˈati', "variants": ['vajiʃxˈatu'], "pointed": 'וַיִּשְׁחֲטוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 2
-    'וישכחהו': {"ipa": 'vaiʃkuxˈajhi', "variants": ['vajiʃkuxˈajhu'], "pointed": 'וַיִּשְׁכָּחֵהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'וישתו': {"ipa": 'vaˈiʃti', "variants": ['vajˈiʃtu'], "pointed": 'וַיִּשְׁתּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.857},  # freq 2
-    'ויתהדר': {"ipa": 'vəjishˈadur', "variants": ['vishˈadur'], "pointed": 'וְיִתְהַדָּר', "register": 'wh', "why": 'quoted-span-share', "n_sources": 41, "dominance": 0.953},  # freq 2
+    'ויזבחו': {"ipa": 'vajˈizbəxu', "variants": [], "pointed": 'וַיִּזְבְּחוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 0.867},  # freq 2
+    'ויזתא': {"ipa": 'vajzˈusu', "variants": [], "pointed": 'וַיְזָתָא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'ויחזקני': {"ipa": 'vajxazkˈajni', "variants": [], "pointed": 'וַיְחַזְּקֵנִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'ויחצו': {"ipa": 'vajajxˈuʦu', "variants": [], "pointed": 'וַיֵּחָצוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'ויחרד': {"ipa": 'vajɛxˈɛrad', "variants": [], "pointed": 'וַיֶּחֱרַד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'ויחשבה': {"ipa": 'vajaxʃəvˈɛhu', "variants": [], "pointed": 'וַיַּחְשְׁבֶהָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 2
+    'וימתקו': {"ipa": 'vajˈimtəku', "variants": [], "pointed": 'וַיִּמְתְּקוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'ויניח': {"ipa": 'vəjanˈixa', "variants": [], "pointed": 'וְיַנִּיחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'ויצליח': {"ipa": 'vəjaʦlˈixa', "variants": [], "pointed": 'וְיַצְלִיחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'וישחטו': {"ipa": 'vajiʃxˈatu', "variants": [], "pointed": 'וַיִּשְׁחֲטוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 12, "dominance": 1.0},  # freq 2
+    'וישכחהו': {"ipa": 'vajiʃkuxˈajhu', "variants": [], "pointed": 'וַיִּשְׁכָּחֵהוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'וישתו': {"ipa": 'vajˈiʃtu', "variants": [], "pointed": 'וַיִּשְׁתּוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 12, "dominance": 0.857},  # freq 2
+    'ויתהדר': {"ipa": 'vəjishˈadur', "variants": [], "pointed": 'וְיִתְהַדָּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 41, "dominance": 0.953},  # freq 2
     'וכתבנו': {"ipa": 'vxusvˈajni', "variants": ['vəxusəvˈajnu'], "pointed": 'וְכָתְבֵנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 2
     'ולבהמתך': {"ipa": 'vlivhˈɛmtxu', "variants": ['vəlivhˈɛmtəxu'], "pointed": 'וְלִבְהֶמְתְּךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'ולזמרם': {"ipa": 'ilzˈimrum', "variants": ['uləzˈimrum'], "pointed": 'וּלְזִמְרָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ולחיה': {"ipa": 'vəlaxˈaju', "variants": [], "pointed": 'וְלַחַיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 2
-    'ולחיותם': {"ipa": 'ilxaːˈɔjsum', "variants": ['uləxajˈɔjsum'], "pointed": 'וּלְחַיּוֹתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'ולחיה': {"ipa": 'vəlaxˈaju', "variants": [], "pointed": 'וְלַחַיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 2
+    'ולחיותם': {"ipa": 'uləxajˈɔjsum', "variants": [], "pointed": 'וּלְחַיּוֹתָם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'ולשמוח': {"ipa": 'vlismˈɔjxa', "variants": ['vəlismˈɔjxa'], "pointed": 'וְלִשְׂמוֹחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'ולתהלה': {"ipa": 'vlishˈilə', "variants": ['vəlishˈilu'], "pointed": 'וְלִתְהִלָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
     'ומוחל': {"ipa": 'imˈɔjxajl', "variants": ['umˈɔjxajl'], "pointed": 'וּמוֹחֵל', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
@@ -2017,12 +2017,12 @@ SEFARIA_POINTED_LK = {
     'ונתנם': {"ipa": 'insˈunum', "variants": ['unəsˈunum'], "pointed": 'וּנְתָנָם', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 2
     'ונתתה': {"ipa": 'vnusˈatə', "variants": ['vənusˈatu'], "pointed": 'וְנָתַתָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 1.0},  # freq 2
     'וסמכת': {"ipa": 'vsumˈaxtu', "variants": ['vəsumˈaxtu'], "pointed": 'וְסָמַכְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ועשתה': {"ipa": 'vəˈusəsu', "variants": ['vˈusə'], "pointed": 'וְעָשְׂתָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'ועשתה': {"ipa": 'vəˈusəsu', "variants": [], "pointed": 'וְעָשְׂתָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
     'וצלחה': {"ipa": 'vʦˈulxə', "variants": ['vəʦˈuləxu'], "pointed": 'וְצָלְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'וצמח': {"ipa": 'vʦˈɛmax', "variants": ['vəʦˈɛmax'], "pointed": 'וְצֶמַח', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'וצרת': {"ipa": 'vəʦˈartu', "variants": ['vʦˈartu'], "pointed": 'וְצַרְתָּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 0.8},  # freq 2
     'וקדשתנו': {"ipa": 'vəkidaʃtˈunu', "variants": ['vkidaʃtˈuni'], "pointed": 'וְקִדַּשְׁתָּנוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 2
-    'ורוממתנו': {"ipa": 'vərvmamtˈunu', "variants": ['vrimamtˈuni'], "pointed": 'וְרומַמְתָּנוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 2
+    'ורוממתנו': {"ipa": 'vərvmamtˈunu', "variants": [], "pointed": 'וְרומַמְתָּנוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 2
     'ורחימו': {"ipa": 'urəxˈimu', "variants": ['irxˈimi'], "pointed": 'וּרְחִימוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 2
     'וריח': {"ipa": 'vrˈajxa', "variants": ['vərˈajxa'], "pointed": 'וְרֵיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 2
     'ורצית': {"ipa": 'vəruʦˈisu', "variants": ['vruʦˈisu'], "pointed": 'וְרָצִיתָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -2032,8 +2032,8 @@ SEFARIA_POINTED_LK = {
     'ושמחתם': {"ipa": 'ismˈaxtəm', "variants": ['usəmˈaxtɛm'], "pointed": 'וּשְׂמַחְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'ושמרת': {"ipa": 'vəʃumˈartu', "variants": ['vʃumˈartu'], "pointed": 'וְשָׁמַרְתָּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 14, "dominance": 0.933},  # freq 2
     'ושמת': {"ipa": 'vsˈamtu', "variants": ['vəsˈamtu'], "pointed": 'וְשַׂמְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 0.875},  # freq 2
-    'ושנותי': {"ipa": 'iʃnˈɔjsaː', "variants": ['uʃənˈɔjsaj'], "pointed": 'וּשְׁנוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'ושתיה': {"ipa": 'uʃəsˈiju', "variants": [], "pointed": 'וּשְׁתִיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'ושנותי': {"ipa": 'uʃənˈɔjsaj', "variants": [], "pointed": 'וּשְׁנוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'ושתיה': {"ipa": 'uʃəsˈiju', "variants": [], "pointed": 'וּשְׁתִיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'ותגיד': {"ipa": 'vsˈaɡajd', "variants": ['vəsˈaɡajd'], "pointed": 'וְתַגֵּיד', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'ותהם': {"ipa": 'vatˈajhɔjm', "variants": [], "pointed": 'וַתֵּהֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'ותחשב': {"ipa": 'vatajxˈuʃəv', "variants": ['vatajxˈuʃɛv'], "pointed": 'וַתֵּחָשֶׁב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -2060,21 +2060,21 @@ SEFARIA_POINTED_LK = {
     'חובתו': {"ipa": 'xɔjvˈusɔj', "variants": [], "pointed": 'חוֹבָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 2
     'חולת': {"ipa": 'xˈɔjlas', "variants": [], "pointed": 'חוֹלַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'חומות': {"ipa": 'xˈɔjmɔjs', "variants": [], "pointed": 'חוֹמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
-    'חונה': {"ipa": 'xˈinə', "variants": ['xvnɛ'], "pointed": 'חונֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'חונה': {"ipa": 'xvnɛ', "variants": [], "pointed": 'חונֶה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'חונן': {"ipa": 'xˈɔjnajn', "variants": [], "pointed": 'חוֹנֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 2
     'חוננתנו': {"ipa": 'xɔjnantˈuni', "variants": ['xɔjnantˈunu'], "pointed": 'חוֹנַנְתָּנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'חוסה': {"ipa": 'xˈusu', "variants": ['xˈisə'], "pointed": 'חוּסָה', "register": 'wh', "why": 'audio-prefers-wh', "n_sources": 9, "dominance": 1.0},  # freq 2
     'חוסי': {"ipa": 'xˈɔjsaj', "variants": [], "pointed": 'חוֹסֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'חוצות': {"ipa": 'xˈuʦɔjs', "variants": ['xˈiʦɔjs'], "pointed": 'חוּצוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 14, "dominance": 1.0},  # freq 2
     'חושה': {"ipa": 'xˈiʃə', "variants": ['xˈuʃu'], "pointed": 'חוּשָׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 2
-    'חות': {"ipa": 'xˈaɔjs', "variants": [], "pointed": 'חַוֺּת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'חות': {"ipa": 'xˈaɔjs', "variants": [], "pointed": 'חַוֺּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
     'חזקים': {"ipa": 'xazˈukim', "variants": [], "pointed": 'חֲזָקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'חטאיכם': {"ipa": 'xatuˈajxɛm', "variants": [], "pointed": 'חֲטָאֵיכֶם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 2
     'חטאתכם': {"ipa": 'xatˈasxɛm', "variants": ['xatˈasxəm'], "pointed": 'חַטַּאתְכֶם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 2
-    'חיא': {"ipa": 'xˈua', "variants": ['xˈaju'], "pointed": 'חַיָּא', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
+    'חיא': {"ipa": 'xˈaju', "variants": [], "pointed": 'חַיָּא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 2
     'חיון': {"ipa": 'xˈajvun', "variants": [], "pointed": 'חֵיוָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'חייה': {"ipa": 'xajˈɛjhu', "variants": [], "pointed": 'חַיֶּיהָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'חיץ': {"ipa": 'xˈajiʦ', "variants": [], "pointed": 'חַיִץ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'חייה': {"ipa": 'xajˈɛjhu', "variants": [], "pointed": 'חַיֶּיהָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'חיץ': {"ipa": 'xˈajiʦ', "variants": [], "pointed": 'חַיִץ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'חיק': {"ipa": 'xajk', "variants": [], "pointed": 'חֵיק', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'חיקו': {"ipa": 'xˈajkɔj', "variants": [], "pointed": 'חֵיקוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
     'חכמתו': {"ipa": 'xuxmˈusɔj', "variants": ['xuxəmˈusɔj'], "pointed": 'חָכְמָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 2
@@ -2085,7 +2085,7 @@ SEFARIA_POINTED_LK = {
     'חנא': {"ipa": 'xˈinu', "variants": [], "pointed": 'חִנָּא', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 2
     'חנון': {"ipa": 'xˈanin', "variants": ['xˈanun'], "pointed": 'חַנּוּן', "register": 'merged', "why": 'default-embedded', "n_sources": 50, "dominance": 0.833},  # freq 2
     'חנכה': {"ipa": 'xanˈikə', "variants": ['xanˈuku'], "pointed": 'חֲנֻכָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 2
-    'חנניא': {"ipa": 'xananˈua', "variants": ['xanˈanju'], "pointed": 'חֲנַנְיָא', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 2
+    'חנניא': {"ipa": 'xanˈanju', "variants": [], "pointed": 'חֲנַנְיָא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 10, "dominance": 1.0},  # freq 2
     'חנף': {"ipa": 'xˈunajf', "variants": [], "pointed": 'חָנֵף', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 2
     'חנק': {"ipa": 'xˈɛnək', "variants": ['xˈɛnɛk'], "pointed": 'חֶנֶק', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'חפני': {"ipa": 'xˈufni', "variants": [], "pointed": 'חׇפְנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 2
@@ -2162,13 +2162,13 @@ SEFARIA_POINTED_LK = {
     'לחננה': {"ipa": 'ləxˈɛnnu', "variants": ['lxˈɛnnuh'], "pointed": 'לְחֶנְנָהּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 2
     'לחפשי': {"ipa": 'laxˈufʃi', "variants": [], "pointed": 'לַחׇפְשִׁי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'לחצרות': {"ipa": 'lxˈaʦrɔjs', "variants": ['ləxˈaʦrɔjs'], "pointed": 'לְחַצְרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 0.909},  # freq 2
-    'ליפתח': {"ipa": 'lˈiftux', "variants": ['ləjˈiftux'], "pointed": 'לְיִפְתָּח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'ליפתח': {"ipa": 'ləjˈiftux', "variants": [], "pointed": 'לְיִפְתָּח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'ליציאת': {"ipa": 'liʦˈias', "variants": [], "pointed": 'לִיצִיאַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'לכלם': {"ipa": 'lxˈilum', "variants": ['ləxˈulum'], "pointed": 'לְכֻלָּם', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 2
     'למזל': {"ipa": 'lmˈazul', "variants": ['ləmˈazul'], "pointed": 'לְמַזָּל', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'למחזא': {"ipa": 'lməxˈɛzaj', "variants": ['ləmɛxˈɛzaj'], "pointed": 'לְמֶחֱזֵא', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'למחנה': {"ipa": 'lamaxˈanə', "variants": ['lamaxˈanɛ'], "pointed": 'לַמַּחֲנֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 0.85},  # freq 2
-    'למיחלים': {"ipa": 'lamjaxˈalim', "variants": ['lamaxˈalim'], "pointed": 'לַמְיַחֲלִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'למיחלים': {"ipa": 'lamjaxˈalim', "variants": [], "pointed": 'לַמְיַחֲלִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'למנוחה': {"ipa": 'limnˈixə', "variants": ['limnˈuxu'], "pointed": 'לִמְנוּחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
     'לן': {"ipa": 'lun', "variants": [], "pointed": 'לָן', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 2
     'לנוח': {"ipa": 'lunˈixa', "variants": ['lunˈuxa'], "pointed": 'לָנוּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
@@ -2195,7 +2195,7 @@ SEFARIA_POINTED_LK = {
     'מחברו': {"ipa": 'majxavˈajrɔj', "variants": [], "pointed": 'מֵחֲבֵרוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 50, "dominance": 0.98},  # freq 2
     'מחו': {"ipa": 'mˈixi', "variants": ['mˈixu'], "pointed": 'מִחוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 2
     'מחולל': {"ipa": 'mxˈɔjlajl', "variants": ['məxˈɔjlajl'], "pointed": 'מְחוֹלֵל', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'מחות': {"ipa": 'majxˈaɔjs', "variants": [], "pointed": 'מֵחַוֺּת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'מחות': {"ipa": 'majxˈaɔjs', "variants": [], "pointed": 'מֵחַוֺּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'מחזיקים': {"ipa": 'maxazˈikim', "variants": [], "pointed": 'מַחֲזִיקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
     'מחזקים': {"ipa": 'mxˈazkim', "variants": ['məxˈazkim'], "pointed": 'מְחַזְּקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'מחלליה': {"ipa": 'mxallˈajhu', "variants": ['məxallˈɛjhu'], "pointed": 'מְחַלְלֶיהָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -2204,7 +2204,7 @@ SEFARIA_POINTED_LK = {
     'מחנכין': {"ipa": 'mxˈanxin', "variants": ['məxˈanxin'], "pointed": 'מְחַנְּכִין', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'מחתה': {"ipa": 'mxˈitə', "variants": ['məxˈitu'], "pointed": 'מְחִתָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 2
     'מט': {"ipa": 'mut', "variants": [], "pointed": 'מָט', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'מיחד': {"ipa": 'mˈixud', "variants": ['məjˈuxud'], "pointed": 'מְיֻחָד', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
+    'מיחד': {"ipa": 'məjˈuxud', "variants": [], "pointed": 'מְיֻחָד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 2
     'מכף': {"ipa": 'mˈikaf', "variants": [], "pointed": 'מִכַּף', "register": 'merged', "why": 'default-embedded', "n_sources": 22, "dominance": 1.0},  # freq 2
     'מכר': {"ipa": 'mˈuxar', "variants": [], "pointed": 'מָכַר', "register": 'merged', "why": 'default-embedded', "n_sources": 65, "dominance": 0.844},  # freq 2
     'מלאכתו': {"ipa": 'mlˈaxtɔj', "variants": ['məlˈaxtɔj'], "pointed": 'מְלַאכְתּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 2
@@ -2219,13 +2219,13 @@ SEFARIA_POINTED_LK = {
     'מנח': {"ipa": 'mˈinux', "variants": ['mˈunux'], "pointed": 'מֻנָּח', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 0.875},  # freq 2
     'מנחתם': {"ipa": 'minxˈusum', "variants": [], "pointed": 'מִנְחָתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
     'מסתופף': {"ipa": 'mistˈɔjfajf', "variants": [], "pointed": 'מִסְתּוֹפֵף', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'מעשות': {"ipa": 'majˈasɔjs', "variants": [], "pointed": 'מֵעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 1.0},  # freq 2
+    'מעשות': {"ipa": 'majˈasɔjs', "variants": [], "pointed": 'מֵעֲשׂוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 2
     'מפּלל': {"ipa": 'mfˈalajl', "variants": ['məfˈalajl'], "pointed": 'מְפַלֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'מפלת': {"ipa": 'mapˈɔjlɛs', "variants": [], "pointed": 'מַפֹּלֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 4, "dominance": 0.8},  # freq 2
     'מפקפק': {"ipa": 'mfˈakpajk', "variants": ['məfˈakpajk'], "pointed": 'מְפַקְפֵּק', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'מצאתי': {"ipa": 'muʦˈusi', "variants": [], "pointed": 'מָצָאתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 46, "dominance": 1.0},  # freq 2
     'מצדך': {"ipa": 'miʦˈidxu', "variants": [], "pointed": 'מִצִּדְּךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 2
-    'מצותיו': {"ipa": 'miʦisˈuji', "variants": ['miʦvˈɔjsujv'], "pointed": 'מִצְוֺתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 25, "dominance": 1.0},  # freq 2
+    'מצותיו': {"ipa": 'miʦvˈɔjsujv', "variants": [], "pointed": 'מִצְוֺתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 25, "dominance": 1.0},  # freq 2
     'מצמיח': {"ipa": 'maʦmˈixa', "variants": [], "pointed": 'מַצְמִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 2
     'מקבלה': {"ipa": 'mkˈabluh', "variants": ['məkˈablu'], "pointed": 'מְקַבְּלָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'מקדם': {"ipa": 'mikˈɛdəm', "variants": ['mikˈɛdɛm'], "pointed": 'מִקֶּדֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 48, "dominance": 1.0},  # freq 2
@@ -2241,12 +2241,12 @@ SEFARIA_POINTED_LK = {
     'מרנן': {"ipa": 'murˈunun', "variants": [], "pointed": 'מָרָנָן', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'מרעיתו': {"ipa": 'marˈisɔj', "variants": [], "pointed": 'מַרְעִיתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'מרקד': {"ipa": 'mrˈakajd', "variants": ['mərˈakajd'], "pointed": 'מְרַקֵּד', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'משבצות': {"ipa": 'mˈiʃbəʦɔjs', "variants": ['mˈiʒbʦɔjs'], "pointed": 'מִשְׁבְּצוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'משבצות': {"ipa": 'mˈiʃbəʦɔjs', "variants": [], "pointed": 'מִשְׁבְּצוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'משלחת': {"ipa": 'miʃlˈaxas', "variants": [], "pointed": 'מִשְׁלַחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'משלמה': {"ipa": 'miʃlɔjmˈɔjə', "variants": ['miʃlˈɔjmɔj'], "pointed": 'מִשְּׁלֹמֹה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'משנברא': {"ipa": 'miʃənˈivru', "variants": ['miʃɛnˈivru'], "pointed": 'מִשֶּׁנִּבְרָא', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'משפחתו': {"ipa": 'miʃpˈaxtɔj', "variants": [], "pointed": 'מִשְׁפַּחְתּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
-    'משתגע': {"ipa": 'miʃtaɡˈaja', "variants": [], "pointed": 'מִשְׁתַּגֵּעַ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'משתגע': {"ipa": 'miʃtaɡˈaja', "variants": [], "pointed": 'מִשְׁתַּגֵּעַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'מתּנות': {"ipa": 'matˈunɔjs', "variants": [], "pointed": 'מַתָּנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 0.882},  # freq 2
     'מתה': {"ipa": 'mˈajsə', "variants": ['mˈajsu'], "pointed": 'מֵתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 49, "dominance": 1.0},  # freq 2
     'מתון': {"ipa": 'mˈitin', "variants": ['mˈitun'], "pointed": 'מִתּוּן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -2265,7 +2265,7 @@ SEFARIA_POINTED_LK = {
     'נטיעות': {"ipa": 'ntiˈɛɔjs', "variants": ['nətˈiɔjs'], "pointed": 'נְטִיעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'נטמן': {"ipa": 'nˈitmun', "variants": [], "pointed": 'נִטְמָן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'נטרתי': {"ipa": 'nutˈurti', "variants": ['nutˈurəti'], "pointed": 'נָטָרְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'נירות': {"ipa": 'nˈurɔjs', "variants": ['nəjˈurɔjs'], "pointed": 'נְיָרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
+    'נירות': {"ipa": 'nəjˈurɔjs', "variants": [], "pointed": 'נְיָרוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 2
     'נמשלה': {"ipa": 'nˈimʃəlu', "variants": ['nˈimʃlə'], "pointed": 'נִמְשְׁלָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
     'נסב': {"ipa": 'nˈusɔjv', "variants": [], "pointed": 'נָסֹב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'נסמך': {"ipa": 'nˈismax', "variants": [], "pointed": 'נִסְמַךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -2276,7 +2276,7 @@ SEFARIA_POINTED_LK = {
     'נקיתי': {"ipa": 'nikˈajsi', "variants": [], "pointed": 'נִקֵּיתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 2
     'נקשן': {"ipa": 'nˈukʃun', "variants": ['nˈukəʃun'], "pointed": 'נָקְשָׁן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'נשמתי': {"ipa": 'niʃmˈusi', "variants": [], "pointed": 'נִשְׁמָתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 2
-    'נתגאה': {"ipa": 'nizɡˈuə', "variants": ['nisɡˈuu'], "pointed": 'נִתְגָּאָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'נתגאה': {"ipa": 'nisɡˈuu', "variants": [], "pointed": 'נִתְגָּאָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'נתון': {"ipa": 'nˈusin', "variants": ['nˈusun'], "pointed": 'נָתוּן', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 2
     'נתיבותיה': {"ipa": 'nsivɔjsˈajhu', "variants": ['nəsivɔjsˈɛjhu'], "pointed": 'נְתִיבוֹתֶיהָ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'סח': {"ipa": 'sux', "variants": [], "pointed": 'סָח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
@@ -2290,7 +2290,7 @@ SEFARIA_POINTED_LK = {
     'עדית': {"ipa": 'ˈidis', "variants": [], "pointed": 'עִדִּית', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'עדתו': {"ipa": 'adˈusɔj', "variants": [], "pointed": 'עֲדָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'עויתי': {"ipa": 'uvˈisi', "variants": [], "pointed": 'עָוִיתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 2
-    'עונותיהם': {"ipa": 'aɔjnɔjsˈajhɛm', "variants": ['ainɔjsˈajhəm'], "pointed": 'עֲוֺנוֹתֵיהֶם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'עונותיהם': {"ipa": 'aɔjnɔjsˈajhɛm', "variants": [], "pointed": 'עֲוֺנוֹתֵיהֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'עזבתני': {"ipa": 'azavtˈuni', "variants": [], "pointed": 'עֲזַבְתָּנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'עמיתך': {"ipa": 'amisˈɛxu', "variants": [], "pointed": 'עֲמִיתֶךָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 0.8},  # freq 2
     'עצלות': {"ipa": 'ˈaʦlis', "variants": ['ˈaʦlus'], "pointed": 'עַצְלוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
@@ -2308,7 +2308,7 @@ SEFARIA_POINTED_LK = {
     'פרישות': {"ipa": 'prˈiʃis', "variants": ['pərˈiʃus'], "pointed": 'פְּרִישׁוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'פשטה': {"ipa": 'pʃˈɔjtə', "variants": ['pəʃˈɔjtu'], "pointed": 'פְּשֹׁטָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'פתואל': {"ipa": 'psˈiajl', "variants": ['pəsˈuajl'], "pointed": 'פְּתוּאֵל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'פתחיה': {"ipa": 'psˈaxu', "variants": ['pəsˈaxju'], "pointed": 'פְּתַחְיָה', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 2
+    'פתחיה': {"ipa": 'pəsˈaxju', "variants": [], "pointed": 'פְּתַחְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 0.833},  # freq 2
     'צאתכם': {"ipa": 'ʦˈajsxəm', "variants": ['ʦˈajsxɛm'], "pointed": 'צֵאתְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'צאתם': {"ipa": 'ʦˈajsum', "variants": [], "pointed": 'צֵאתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'צחה': {"ipa": 'ʦixˈajə', "variants": ['ʦˈixaj'], "pointed": 'צִחֵה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -2318,11 +2318,11 @@ SEFARIA_POINTED_LK = {
     'קהלות': {"ipa": 'kəhˈilɔjs', "variants": [], "pointed": 'קְהִלּוֹת', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 11, "dominance": 1.0},  # freq 2
     'קלפה': {"ipa": 'klˈipə', "variants": ['kəlˈipu'], "pointed": 'קְלִפָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'קש': {"ipa": 'kaʃ', "variants": [], "pointed": 'קַשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 0.909},  # freq 2
-    'רבֿותי': {"ipa": 'rabˈɔjsaː', "variants": ['rabˈɔjsaj'], "pointed": 'רַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'רבֿותי': {"ipa": 'rabˈɔjsaj', "variants": [], "pointed": 'רַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'רבֿית': {"ipa": 'rˈibis', "variants": [], "pointed": 'רִבִּית', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 2
-    'רבותּי': {"ipa": 'rabˈɔjsaː', "variants": ['rabˈɔjsaj'], "pointed": 'רַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'רבותֿי': {"ipa": 'rabˈɔjsaː', "variants": ['rabˈɔjsaj'], "pointed": 'רַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'רבותיו': {"ipa": 'rabɔjsˈuji', "variants": ['rabˈɔjsujv'], "pointed": 'רַבּוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'רבותּי': {"ipa": 'rabˈɔjsaj', "variants": [], "pointed": 'רַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'רבותֿי': {"ipa": 'rabˈɔjsaj', "variants": [], "pointed": 'רַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'רבותיו': {"ipa": 'rabˈɔjsujv', "variants": [], "pointed": 'רַבּוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'רד': {"ipa": 'rajd', "variants": [], "pointed": 'רֵד', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.857},  # freq 2
     'רוחי': {"ipa": 'rˈixi', "variants": ['rˈuxi'], "pointed": 'רוּחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 46, "dominance": 0.979},  # freq 2
     'רוממות': {"ipa": 'rˈɔjmmɔjs', "variants": ['rˈɔjməmɔjs'], "pointed": 'רוֹמְמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -2353,7 +2353,7 @@ SEFARIA_POINTED_LK = {
     'שפֿחות': {"ipa": 'ʃfˈuxɔjs', "variants": ['ʃəfˈuxɔjs'], "pointed": 'שְׁפָחוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'שפיכות': {"ipa": 'ʃfˈixis', "variants": ['ʃəfˈixus'], "pointed": 'שְׁפִיכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'שפן': {"ipa": 'ʃˈufun', "variants": [], "pointed": 'שָׁפָן', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 1.0},  # freq 2
-    'שפתיו': {"ipa": 'sfusˈuji', "variants": ['səfˈusujv'], "pointed": 'שְׂפָתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 2
+    'שפתיו': {"ipa": 'səfˈusujv', "variants": [], "pointed": 'שְׂפָתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 14, "dominance": 1.0},  # freq 2
     'שרד': {"ipa": 'srud', "variants": ['sərˈud'], "pointed": 'שְׂרָד', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'שרוח': {"ipa": 'ʃɛrˈuxa', "variants": ['ʃərˈixa'], "pointed": 'שֶׁרוּחַ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 2
     'ששמם': {"ipa": 'ʃəʃˈumajm', "variants": ['ʃɛʃˈumajm'], "pointed": 'שֶׁשָּׁמֵם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
@@ -2366,7 +2366,7 @@ SEFARIA_POINTED_LK = {
     'תּחת': {"ipa": 'tˈaxas', "variants": [], "pointed": 'תַּחַת', "register": 'merged', "why": 'default-embedded', "n_sources": 367, "dominance": 0.958},  # freq 2
     'תּכו': {"ipa": 'tˈiki', "variants": ['tˈuku'], "pointed": 'תֻּכּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'תּמימים': {"ipa": 'tmˈimim', "variants": ['təmˈimim'], "pointed": 'תְּמִימִים', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 2
-    'תּנאי': {"ipa": 'tnaː', "variants": ['tənˈaj'], "pointed": 'תְּנַאי', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 0.941},  # freq 2
+    'תּנאי': {"ipa": 'tənˈaj', "variants": [], "pointed": 'תְּנַאי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 0.941},  # freq 2
     'תּקיעות': {"ipa": 'tkiˈɛɔjs', "variants": ['təkˈiɔjs'], "pointed": 'תְּקִיעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'תּרח': {"ipa": 'tˈɛrax', "variants": [], "pointed": 'תֶּרַח', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 2
     'תאנים': {"ipa": 'tˈajnim', "variants": ['təˈajnim'], "pointed": 'תְּאֵנִים', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 0.977},  # freq 2
@@ -2379,15 +2379,15 @@ SEFARIA_POINTED_LK = {
     'תגנבו': {"ipa": 'tiɡnˈɔjvi', "variants": ['tiɡnˈɔjvu'], "pointed": 'תִּגְנֹבוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תדרשו': {"ipa": 'tˈidrʃi', "variants": ['tˈidrəʃu'], "pointed": 'תִּדְרְשׁוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'תהלתו': {"ipa": 'təhilˈusɔj', "variants": [], "pointed": 'תְּהִלָּתוֹ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 16, "dominance": 1.0},  # freq 2
-    'תובע': {"ipa": 'tɔjvˈaja', "variants": [], "pointed": 'תּוֹבֵעַ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'תובע': {"ipa": 'tɔjvˈaja', "variants": [], "pointed": 'תּוֹבֵעַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תוכיח': {"ipa": 'tɔjxˈixa', "variants": [], "pointed": 'תּוֹכִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
     'תולעת': {"ipa": 'tɔjlˈaas', "variants": [], "pointed": 'תּוֹלַעַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 15, "dominance": 0.938},  # freq 2
     'תומם': {"ipa": 'tˈɔjmim', "variants": [], "pointed": 'תוֹמִם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תוסיפו': {"ipa": 'tɔjsˈifi', "variants": ['tɔjsˈifu'], "pointed": 'תּוֹסִיפוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 2
     'תוקעים': {"ipa": 'tˈɔjkim', "variants": ['tˈɔjkəim'], "pointed": 'תוֹקְעִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'תורא': {"ipa": 'tiˈiraj', "variants": ['tivˈuraj'], "pointed": 'תִּוָּרֵא', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
+    'תורא': {"ipa": 'tivˈuraj', "variants": [], "pointed": 'תִּוָּרֵא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 2
     'תורישו': {"ipa": 'tɔjrˈiʃu', "variants": ['tɔjrˈiʃi'], "pointed": 'תוֹרִישׁוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 2
-    'תורתינו': {"ipa": 'tvrusˈajnu', "variants": ['tirusˈajni'], "pointed": 'תּורָתֵינוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 2
+    'תורתינו': {"ipa": 'tvrusˈajnu', "variants": [], "pointed": 'תּורָתֵינוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 2
     'תחום': {"ipa": 'txim', "variants": ['təxˈum'], "pointed": 'תְּחוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
     'תחומין': {"ipa": 'txˈimin', "variants": ['təxˈumin'], "pointed": 'תְחוּמִין', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תחזינה': {"ipa": 'təxəzˈajnə', "variants": ['tɛxɛzˈɛjnu'], "pointed": 'תֶּחֱזֶינָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 2
@@ -2402,7 +2402,7 @@ SEFARIA_POINTED_LK = {
     'תעבור': {"ipa": 'taˈavɔjr', "variants": [], "pointed": 'תַּעֲבוֹר', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 2
     'תעזבנו': {"ipa": 'taazvˈajnu', "variants": [], "pointed": 'תַּעַזְבֵנוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 0.818},  # freq 2
     'תעלם': {"ipa": 'tˈalajm', "variants": [], "pointed": 'תַּעְלֵם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 2
-    'תעמוד': {"ipa": 'tˈamid', "variants": ['tˈaamvd'], "pointed": 'תַּעֲמוד', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
+    'תעמוד': {"ipa": 'tˈaamvd', "variants": [], "pointed": 'תַּעֲמוד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תענו': {"ipa": 'tˈani', "variants": ['təˈanu'], "pointed": 'תְּעַנּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 2
     'תעשון': {"ipa": 'taˈasun', "variants": [], "pointed": 'תַּעֲשׂוּן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 14, "dominance": 1.0},  # freq 2
     'תפארתו': {"ipa": 'tifˈartɔj', "variants": [], "pointed": 'תִּפְאַרְתּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 2
@@ -2441,8 +2441,8 @@ SEFARIA_POINTED_LK = {
     'אחריהם': {"ipa": 'axarˈajhəm', "variants": ['axarˈajhɛm'], "pointed": 'אַחֲרֵיהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 58, "dominance": 0.951},  # freq 1
     'אחרת': {"ipa": 'axˈɛrɛs', "variants": [], "pointed": 'אַחֶרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 56, "dominance": 1.0},  # freq 1
     'אילנות': {"ipa": 'ilˈunɔjs', "variants": [], "pointed": 'אִילָנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
-    'אימתי': {"ipa": 'ajmˈusaː', "variants": ['ajmˈusaj'], "pointed": 'אֵימָתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 53, "dominance": 0.964},  # freq 1
-    'איתי': {"ipa": 'ˈisaː', "variants": ['ˈisaj'], "pointed": 'אִיתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 1
+    'אימתי': {"ipa": 'ajmˈusaj', "variants": [], "pointed": 'אֵימָתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 53, "dominance": 0.964},  # freq 1
+    'איתי': {"ipa": 'ˈisaj', "variants": [], "pointed": 'אִיתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 13, "dominance": 1.0},  # freq 1
     'אלוהות': {"ipa": 'əlˈɔjhɔjs', "variants": ['ɛlˈɔjhɔjs'], "pointed": 'אֱלוֹהוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'אמותה': {"ipa": 'umˈisə', "variants": ['umˈusu'], "pointed": 'אָמוּתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'אמחה': {"ipa": 'ˈɛmxə', "variants": ['ˈɛmxɛ'], "pointed": 'אֶמְחֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2451,7 +2451,7 @@ SEFARIA_POINTED_LK = {
     'אפתנו': {"ipa": 'afatˈɛni', "variants": ['afatˈɛnu'], "pointed": 'אֲפַתֶּנּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ארבות': {"ipa": 'arˈubɔjs', "variants": ['arˈibɔjs'], "pointed": 'אֲרֻבּוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 11, "dominance": 0.917},  # freq 1
     'ארחי': {"ipa": 'ˈurxi', "variants": [], "pointed": 'אׇרְחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'אשדות': {"ipa": 'ˈaʒdɔjs', "variants": ['ˈaʃdɔjs'], "pointed": 'אַשְׁדּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'אשדות': {"ipa": 'ˈaʃdɔjs', "variants": [], "pointed": 'אַשְׁדּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'אתהן': {"ipa": 'ˈɛshən', "variants": ['ˈɛshɛn'], "pointed": 'אֶתְהֶן', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 1
     'אתון': {"ipa": 'ˈatin', "variants": ['ˈatun'], "pointed": 'אַתּוּן', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
     'אתונות': {"ipa": 'asˈɔjnɔjs', "variants": [], "pointed": 'אֲתוֹנוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2476,7 +2476,7 @@ SEFARIA_POINTED_LK = {
     'בגדר': {"ipa": 'bɡˈudajr', "variants": ['bəɡˈudajr'], "pointed": 'בְגָדֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בגחלתן': {"ipa": 'bɡaxˈaltun', "variants": ['bəɡaxˈaltun'], "pointed": 'בְּגַחַלְתָּן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בגלותי': {"ipa": 'bɡulˈisi', "variants": ['bəɡulˈusi'], "pointed": 'בְּגָלוּתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'בדבריו': {"ipa": 'bidvurˈuji', "variants": ['bidvˈurujv'], "pointed": 'בִּדְבָרָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'בדבריו': {"ipa": 'bidvˈurujv', "variants": [], "pointed": 'בִּדְבָרָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
     'בדן': {"ipa": 'bdun', "variants": ['bədˈun'], "pointed": 'בְּדָן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
     'בזמנה': {"ipa": 'bizmˈanuh', "variants": ['bizmˈanu'], "pointed": 'בִזְמַנָּהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בחבלים': {"ipa": 'baxavˈulim', "variants": [], "pointed": 'בַּחֲבָלִים', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
@@ -2484,10 +2484,10 @@ SEFARIA_POINTED_LK = {
     'בחון': {"ipa": 'bˈuxɔjn', "variants": [], "pointed": 'בָּחוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בחורב': {"ipa": 'bxˈɔjrajv', "variants": ['bəxˈɔjrajv'], "pointed": 'בְּחוֹרֵב', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'בחורותיך': {"ipa": 'bxirɔjsˈajxu', "variants": ['bəxurɔjsˈɛjxu'], "pointed": 'בְחוּרוֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'בחוריו': {"ipa": 'baxirˈuji', "variants": ['baxˈurujv'], "pointed": 'בַּחוּרָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'בחוריו': {"ipa": 'baxˈurujv', "variants": [], "pointed": 'בַּחוּרָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'בחזירתו': {"ipa": 'baxazirˈusɔj', "variants": [], "pointed": 'בַּחֲזִירָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'בחטאתה': {"ipa": 'bxatˈusuh', "variants": ['bəxatˈusu'], "pointed": 'בְּחַטָּאתָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'בחייכון': {"ipa": 'bəxajˈajxɔjn', "variants": [], "pointed": 'בְּחַיֵּיכוֹן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 42, "dominance": 1.0},  # freq 1
+    'בחייכון': {"ipa": 'bəxajˈajxɔjn', "variants": [], "pointed": 'בְּחַיֵּיכוֹן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 42, "dominance": 1.0},  # freq 1
     'בחכמתו': {"ipa": 'bxuxmˈusɔj', "variants": ['bəxuxmˈusɔj'], "pointed": 'בְּחׇכְמָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'בחלקם': {"ipa": 'bxˈalkum', "variants": ['bəxˈalkum'], "pointed": 'בְּחַלְּקָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בחלקת': {"ipa": 'bxˈɛlkas', "variants": ['bəxˈɛlkas'], "pointed": 'בְּחֶלְקַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
@@ -2495,15 +2495,15 @@ SEFARIA_POINTED_LK = {
     'בחצריך': {"ipa": 'baxaʦajrˈajxu', "variants": ['baxaʦajrˈɛjxu'], "pointed": 'בַּחֲצֵרֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בחרבו': {"ipa": 'bxˈarbɔj', "variants": ['bəxˈarbɔj'], "pointed": 'בְּחַרְבּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בחרן': {"ipa": 'bəxˈurun', "variants": ['bxˈurun'], "pointed": 'בְּחָרָן', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'בחשאי': {"ipa": 'baxˈaʃaː', "variants": ['baxˈaʃaj'], "pointed": 'בַּחֲשַׁאי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'בחשאי': {"ipa": 'baxˈaʃaj', "variants": [], "pointed": 'בַּחֲשַׁאי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'בטובתו': {"ipa": 'btɔjvˈusɔj', "variants": ['bətɔjvˈusɔj'], "pointed": 'בְטוֹבָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ביותר': {"ipa": 'bjˈɔjsajr', "variants": ['bəjˈɔjsajr'], "pointed": 'בְּיוֹתֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'ביחודא': {"ipa": 'bixˈidu', "variants": ['bəjixˈudu'], "pointed": 'בְּיִחוּדָא', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
-    'ביחידים': {"ipa": 'bajxˈidim', "variants": [], "pointed": 'בַּיְּחִידִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'בילדותיך': {"ipa": 'bəjaldusˈɛjxu', "variants": ['baldisˈajxu'], "pointed": 'בְּיַלְדוּתֶיךָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ביחודא': {"ipa": 'bəjixˈudu', "variants": [], "pointed": 'בְּיִחוּדָא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'ביחידים': {"ipa": 'bajxˈidim', "variants": [], "pointed": 'בַּיְּחִידִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'בילדותיך': {"ipa": 'bəjaldusˈɛjxu', "variants": [], "pointed": 'בְּיַלְדוּתֶיךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בינת': {"ipa": 'bˈinas', "variants": [], "pointed": 'בִינַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ביראתך': {"ipa": 'birusˈɛxu', "variants": ['bəjirusˈɛxu'], "pointed": 'בְּיִרְאָתֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
-    'בירח': {"ipa": 'bˈɛrax', "variants": ['bəjˈɛrax'], "pointed": 'בְּיֶרַח', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'ביראתך': {"ipa": 'bəjirusˈɛxu', "variants": [], "pointed": 'בְּיִרְאָתֶךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 1
+    'בירח': {"ipa": 'bəjˈɛrax', "variants": [], "pointed": 'בְּיֶרַח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
     'בישועתך': {"ipa": 'biʃiusˈɛxu', "variants": ['biʃuusˈɛxu'], "pointed": 'בִּישׁוּעָתֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 27, "dominance": 0.931},  # freq 1
     'בכחו': {"ipa": 'bxˈɔjxɔj', "variants": ['bəxˈɔjxɔj'], "pointed": 'בְּכֹחוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'בכיתי': {"ipa": 'buxˈisi', "variants": [], "pointed": 'בָכִיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2524,11 +2524,11 @@ SEFARIA_POINTED_LK = {
     'במלחמה': {"ipa": 'bamilxˈumə', "variants": ['bamilxˈumu'], "pointed": 'בַּמִּלְחָמָה', "register": 'merged', "why": 'default-embedded', "n_sources": 38, "dominance": 0.974},  # freq 1
     'במקם': {"ipa": 'bmˈukɔjm', "variants": ['bəmˈukɔjm'], "pointed": 'בְּמָקֹם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'במרבה': {"ipa": 'bimrˈibə', "variants": ['bimrˈubɛ'], "pointed": 'בִּמְרֻבֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'במרדכי': {"ipa": 'bmurdˈuxaː', "variants": ['bəmurdˈuxaj'], "pointed": 'בְּמׇרְדֳּכַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'במרדכי': {"ipa": 'bəmurdˈuxaj', "variants": [], "pointed": 'בְּמׇרְדֳּכַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'במרחב': {"ipa": 'bamˈɛrxuv', "variants": [], "pointed": 'בַּמֶּרְחָב', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'במשה': {"ipa": 'bmˈɔjʃə', "variants": ['bəmˈɔjʃɛ'], "pointed": 'בְּמֹשֶׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'בנגינות': {"ipa": 'binɡˈinɔjs', "variants": [], "pointed": 'בִּנְגִינוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
-    'בנותיו': {"ipa": 'bənˈɔjsujv', "variants": ['bnɔjsˈuji'], "pointed": 'בְּנוֹתָיו', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'בנותיו': {"ipa": 'bənˈɔjsujv', "variants": [], "pointed": 'בְּנוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בנחלים': {"ipa": 'banxˈulim', "variants": [], "pointed": 'בַּנְּחָלִים', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'בנר': {"ipa": 'bnajr', "variants": ['bənˈajr'], "pointed": 'בְּנֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'בסך': {"ipa": 'bˈasux', "variants": [], "pointed": 'בַּסָּךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2547,14 +2547,14 @@ SEFARIA_POINTED_LK = {
     'בקרבנו': {"ipa": 'bkirbˈajni', "variants": ['bəkirbˈajnu'], "pointed": 'בְּקִרְבֵּנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
     'בקשתך': {"ipa": 'bakuʃˈusajx', "variants": [], "pointed": 'בַּקָּשָׁתֵךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
     'ברבות': {"ipa": 'bˈirvɔjs', "variants": [], "pointed": 'בִּרְבוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'בריותיך': {"ipa": 'briɔjsˈajxu', "variants": ['bərijɔjsˈɛjxu'], "pointed": 'בְּרִיּוֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'בריותיך': {"ipa": 'bərijɔjsˈɛjxu', "variants": [], "pointed": 'בְּרִיּוֹתֶיךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ברכם': {"ipa": 'bˈurəxajm', "variants": ['bˈurxajm'], "pointed": 'בָּרְכֵם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 1
     'ברכתא': {"ipa": 'birxˈusu', "variants": [], "pointed": 'בִּרְכָתָא', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 1.0},  # freq 1
     'ברכתך': {"ipa": 'birxusˈɛxu', "variants": [], "pointed": 'בִּרְכָתֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 1
     'בש': {"ipa": 'bɔjʃ', "variants": [], "pointed": 'בֹּשׁ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'בשבועת': {"ipa": 'biʃvˈias', "variants": ['biʃvˈuas'], "pointed": 'בִּשְׁבוּעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'בשבטך': {"ipa": 'bʃivtˈɛxu', "variants": ['bəʃivtˈɛxu'], "pointed": 'בְשִׁבְטֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'בשגגה': {"ipa": 'biʒɡˈuɡə', "variants": ['biʃɡˈuɡu'], "pointed": 'בִּשְׁגָגָה', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 1
+    'בשגגה': {"ipa": 'biʃɡˈuɡu', "variants": [], "pointed": 'בִּשְׁגָגָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 15, "dominance": 1.0},  # freq 1
     'בשיבתו': {"ipa": 'bʃivˈusɔj', "variants": ['bəʃivˈusɔj'], "pointed": 'בְּשִׁיבָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בשיחי': {"ipa": 'bsˈixi', "variants": ['bəsˈixi'], "pointed": 'בְּשִׂיחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'בשליח': {"ipa": 'baʃulˈixa', "variants": [], "pointed": 'בַּשָּׁלִיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2568,7 +2568,7 @@ SEFARIA_POINTED_LK = {
     'בתבניתם': {"ipa": 'bsavnˈisum', "variants": ['bəsavnˈisum'], "pointed": 'בְּתַבְנִיתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'בתה': {"ipa": 'bˈitu', "variants": ['bˈituh'], "pointed": 'בִּתָּהּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 21, "dominance": 0.955},  # freq 1
     'בתוכו': {"ipa": 'bsˈɔjxɔj', "variants": ['bəsˈɔjxɔj'], "pointed": 'בְּתוֹכוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 43, "dominance": 1.0},  # freq 1
-    'בתוככם': {"ipa": 'bsˈɔjxəm', "variants": ['bəsˈɔjxəxɛm'], "pointed": 'בְּתוֹכְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 1
+    'בתוככם': {"ipa": 'bəsˈɔjxəxɛm', "variants": [], "pointed": 'בְּתוֹכְכֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 14, "dominance": 1.0},  # freq 1
     'בתוכנו': {"ipa": 'bsɔjxˈajni', "variants": ['bəsɔjxˈajnu'], "pointed": 'בְּתוֹכֵנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 1
     'בתורתי': {"ipa": 'bsɔjrˈusi', "variants": ['bəsɔjrˈusi'], "pointed": 'בְּתוֹרָתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'בתחתית': {"ipa": 'bsˈaxtis', "variants": ['bəsˈaxtis'], "pointed": 'בְּתַחְתִּית', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2602,7 +2602,7 @@ SEFARIA_POINTED_LK = {
     'דקלה': {"ipa": 'dˈiklə', "variants": ['dˈiklu'], "pointed": 'דִּקְלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'האמנתי': {"ipa": 'hɛɛmˈanti', "variants": [], "pointed": 'הֶאֱמַנְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 0.9},  # freq 1
     'האפרוחים': {"ipa": 'huɛfrˈɔjxim', "variants": [], "pointed": 'הָאֶפְרוֹחִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'הבֿית': {"ipa": 'habˈajis', "variants": [], "pointed": 'הַבַּיִת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 417, "dominance": 0.808},  # freq 1
+    'הבֿית': {"ipa": 'habˈajis', "variants": [], "pointed": 'הַבַּיִת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 417, "dominance": 0.808},  # freq 1
     'הבחירה': {"ipa": 'habxˈiru', "variants": ['habxˈirə'], "pointed": 'הַבְּחִירָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 1
     'הבנות': {"ipa": 'habˈunɔjs', "variants": [], "pointed": 'הַבָּנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'הברות': {"ipa": 'habˈɔjrɔjs', "variants": [], "pointed": 'הַבֹּרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2616,7 +2616,7 @@ SEFARIA_POINTED_LK = {
     'הדגה': {"ipa": 'hadˈuɡə', "variants": ['hadˈuɡu'], "pointed": 'הַדָּגָה', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
     'הדיוטות': {"ipa": 'hədjˈɔjtɔjs', "variants": ['hɛdjˈɔjtɔjs'], "pointed": 'הֶדְיוֹטוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'הדף': {"ipa": 'hˈadaf', "variants": [], "pointed": 'הַדַּף', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'ההודאות': {"ipa": 'hˈahvduvs', "variants": ['hahidˈuis'], "pointed": 'הַהודָאות', "register": 'wh', "why": 'quoted-span-share', "n_sources": 11, "dominance": 1.0},  # freq 1
+    'ההודאות': {"ipa": 'hˈahvduvs', "variants": [], "pointed": 'הַהודָאות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 1.0},  # freq 1
     'ההם': {"ipa": 'hˈuhajm', "variants": [], "pointed": 'הָהֵם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 60, "dominance": 1.0},  # freq 1
     'הולכת': {"ipa": 'hɔjlˈɛxɛs', "variants": [], "pointed": 'הוֹלֶכֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הוצאת': {"ipa": 'hɔjʦˈajsu', "variants": [], "pointed": 'הוֹצֵאתָ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.889},  # freq 1
@@ -2634,12 +2634,12 @@ SEFARIA_POINTED_LK = {
     'החתימה': {"ipa": 'haxasˈimə', "variants": ['haxasˈimu'], "pointed": 'הַחֲתִימָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הטף': {"ipa": 'hˈataf', "variants": [], "pointed": 'הַטַּף', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
     'הטפֿח': {"ipa": 'hatˈɛfax', "variants": [], "pointed": 'הַטֶּפַח', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'היותר': {"ipa": 'haːˈɔjsajr', "variants": ['hajˈɔjsajr'], "pointed": 'הַיּוֹתֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'היחידים': {"ipa": 'hajxˈidim', "variants": [], "pointed": 'הַיְחִידִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'היותר': {"ipa": 'hajˈɔjsajr', "variants": [], "pointed": 'הַיּוֹתֵר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'היחידים': {"ipa": 'hajxˈidim', "variants": [], "pointed": 'הַיְחִידִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'הייתי': {"ipa": 'hujˈisi', "variants": [], "pointed": 'הָיִיתִי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 86, "dominance": 1.0},  # freq 1
     'הייתם': {"ipa": 'hɛjˈisɛm', "variants": [], "pointed": 'הֱיִיתֶם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 16, "dominance": 1.0},  # freq 1
-    'הימנית': {"ipa": 'hajmˈunis', "variants": [], "pointed": 'הַיְמָנִית', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 33, "dominance": 1.0},  # freq 1
-    'היתּר': {"ipa": 'hajˈusajr', "variants": [], "pointed": 'הַיָּתֵר', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'הימנית': {"ipa": 'hajmˈunis', "variants": [], "pointed": 'הַיְמָנִית', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 33, "dominance": 1.0},  # freq 1
+    'היתּר': {"ipa": 'hajˈusajr', "variants": [], "pointed": 'הַיָּתֵר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'הכבד': {"ipa": 'hakˈuvajd', "variants": [], "pointed": 'הַכָּבֵד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 26, "dominance": 0.867},  # freq 1
     'הכלכלה': {"ipa": 'hakalkˈulə', "variants": ['hakalkˈulu'], "pointed": 'הַכַּלְכָּלָה', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 1
     'הכנס': {"ipa": 'hikˈunajs', "variants": [], "pointed": 'הִכָּנֵס', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2651,7 +2651,7 @@ SEFARIA_POINTED_LK = {
     'הלשכה': {"ipa": 'halˈiʃkə', "variants": ['halˈiʃku'], "pointed": 'הַלִּשְׁכָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 1
     'המגלה': {"ipa": 'hamɡˈilə', "variants": ['hamɡˈilu'], "pointed": 'הַמְּגִלָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 1.0},  # freq 1
     'המגן': {"ipa": 'hamˈuɡajn', "variants": [], "pointed": 'הַמָּגֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'המדינית': {"ipa": 'hamidˈunis', "variants": ['hamidjˈunis'], "pointed": 'הַמִּדְיָנִית', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'המדינית': {"ipa": 'hamidjˈunis', "variants": [], "pointed": 'הַמִּדְיָנִית', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'המועדות': {"ipa": 'hamɔjˈadɔjs', "variants": [], "pointed": 'הַמּוֹעֲדוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
     'המח': {"ipa": 'hamˈɔjxa', "variants": [], "pointed": 'הַמֹּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'המחט': {"ipa": 'hamˈaxat', "variants": [], "pointed": 'הַמַּחַט', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2665,7 +2665,7 @@ SEFARIA_POINTED_LK = {
     'המנגן': {"ipa": 'hamnˈaɡajn', "variants": [], "pointed": 'הַמְנַגֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'המספר': {"ipa": 'hamˈispur', "variants": [], "pointed": 'הַמִּסְפָּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'המצב': {"ipa": 'hamˈaʦuv', "variants": [], "pointed": 'הַמַּצָּב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'המצריות': {"ipa": 'hamiʦrˈiɔjs', "variants": ['hamiʦrˈijɔjs'], "pointed": 'הַמִּצְרִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'המצריות': {"ipa": 'hamiʦrˈijɔjs', "variants": [], "pointed": 'הַמִּצְרִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'המקבלים': {"ipa": 'hamkˈablim', "variants": [], "pointed": 'הַמְקַבְּלִים', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'המקלות': {"ipa": 'hamˈaklɔjs', "variants": [], "pointed": 'הַמַּקְלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'המרה': {"ipa": 'hamˈurə', "variants": ['hamˈuru'], "pointed": 'הַמָּרָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2674,7 +2674,7 @@ SEFARIA_POINTED_LK = {
     'המשמר': {"ipa": 'hamˈiʃmur', "variants": [], "pointed": 'הַמִּשְׁמָר', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'המשפּטים': {"ipa": 'hamiʃpˈutim', "variants": [], "pointed": 'הַמִּשְׁפָּטִים', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'המשרת': {"ipa": 'hamˈasrajs', "variants": [], "pointed": 'הַמַּשְׂרֵת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'המתגבר': {"ipa": 'hamizɡˈabajr', "variants": ['hamisɡˈabajr'], "pointed": 'הַמִּתְגַּבֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'המתגבר': {"ipa": 'hamisɡˈabajr', "variants": [], "pointed": 'הַמִּתְגַּבֵּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'הנגר': {"ipa": 'hanˈɛɡɛr', "variants": [], "pointed": 'הַנֶּגֶר', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 4, "dominance": 1.0},  # freq 1
     'הנחלתנו': {"ipa": 'hinxaltˈuni', "variants": ['hinxaltˈunu'], "pointed": 'הִנְחַלְתָּנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הנחש': {"ipa": 'hanˈuxuʃ', "variants": [], "pointed": 'הַנָּחָשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 1
@@ -2698,7 +2698,7 @@ SEFARIA_POINTED_LK = {
     'הפסדה': {"ipa": 'hɛfsˈajdu', "variants": ['həfsˈajduh'], "pointed": 'הֶפְסֵדָהּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הפרה': {"ipa": 'hapˈuru', "variants": ['hapˈurə'], "pointed": 'הַפָּרָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 24, "dominance": 0.96},  # freq 1
     'הצלח': {"ipa": 'hˈaʦlax', "variants": [], "pointed": 'הַצְלַח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'הצפרדע': {"ipa": 'haʦfardˈaja', "variants": [], "pointed": 'הַצְּפַרְדֵּעַ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'הצפרדע': {"ipa": 'haʦfardˈaja', "variants": [], "pointed": 'הַצְּפַרְדֵּעַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הצפרדעים': {"ipa": 'haʦfˈardim', "variants": ['haʦfˈardəim'], "pointed": 'הַצְפַרְדְּעִים', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
     'הקבר': {"ipa": 'hakˈɛvɛr', "variants": [], "pointed": 'הַקֶּבֶר', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 10, "dominance": 0.833},  # freq 1
     'הקדמני': {"ipa": 'hakadmˈɔjni', "variants": [], "pointed": 'הַקַּדְמֹנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
@@ -2712,7 +2712,7 @@ SEFARIA_POINTED_LK = {
     'הרחם': {"ipa": 'hurˈuxum', "variants": [], "pointed": 'הָרָחָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הרחק': {"ipa": 'hˈarxajk', "variants": [], "pointed": 'הַרְחֵק', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.889},  # freq 1
     'הרעותי': {"ipa": 'harajˈɔjsi', "variants": [], "pointed": 'הֲרֵעוֹתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'הרעת': {"ipa": 'harajˈɔjsu', "variants": [], "pointed": 'הֲרֵעֹתָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'הרעת': {"ipa": 'harajˈɔjsu', "variants": [], "pointed": 'הֲרֵעֹתָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'הרף': {"ipa": 'hˈɛrɛf', "variants": ['hˈɛrəf'], "pointed": 'הֶרֶף', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'השבט': {"ipa": 'haʃˈajvət', "variants": ['haʃˈajvɛt'], "pointed": 'הַשֵּׁבֶט', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 0.818},  # freq 1
     'השח': {"ipa": 'hˈajʃax', "variants": [], "pointed": 'הֵשַׁח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2723,7 +2723,7 @@ SEFARIA_POINTED_LK = {
     'השעות': {"ipa": 'haʃˈuɔjs', "variants": [], "pointed": 'הַשָּׁעוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 1
     'השפות': {"ipa": 'hˈuʃfɔjs', "variants": ['hˈuʃəfɔjs'], "pointed": 'הָשְׁפוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'השקה': {"ipa": 'hˈiʃkuh', "variants": ['hˈiʃku'], "pointed": 'הִשְׁקָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'השקט': {"ipa": 'hˈaʃkaːt', "variants": ['hˈaʃkajt'], "pointed": 'הַשְׁקֵט', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'השקט': {"ipa": 'hˈaʃkajt', "variants": [], "pointed": 'הַשְׁקֵט', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
     'השרפֿה': {"ipa": 'hasrˈajfə', "variants": ['hasrˈajfu'], "pointed": 'הַשְּׂרֵפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 1
     'השש': {"ipa": 'hˈaʃajʃ', "variants": [], "pointed": 'הַשֵּׁשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'השתא': {"ipa": 'hˈaʃtu', "variants": [], "pointed": 'הַשְׁתָּא', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
@@ -2762,8 +2762,8 @@ SEFARIA_POINTED_LK = {
     'ובהשכל': {"ipa": 'uvəhˈaskajl', "variants": [], "pointed": 'וּבְהַשְׂכֵּל', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ובוטח': {"ipa": 'ivɔjtˈajxa', "variants": ['uvɔjtˈajxa'], "pointed": 'וּבוֹטֵחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'ובחורים': {"ipa": 'ivaxˈirim', "variants": ['uvaxˈurim'], "pointed": 'וּבַחוּרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ובחיי': {"ipa": 'uvəxˈajaj', "variants": [], "pointed": 'וּבְחַיֵּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 42, "dominance": 1.0},  # freq 1
-    'ובמקהלות': {"ipa": 'ivmakhˈalis', "variants": ['uvəmˈakhalvs'], "pointed": 'וּבְמַקְהֲלות', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ובחיי': {"ipa": 'uvəxˈajaj', "variants": [], "pointed": 'וּבְחַיֵּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 42, "dominance": 1.0},  # freq 1
+    'ובמקהלות': {"ipa": 'uvəmˈakhalvs', "variants": [], "pointed": 'וּבְמַקְהֲלות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ובנפלאות': {"ipa": 'uvəniflˈuɔjs', "variants": ['ivniflˈuɔjs'], "pointed": 'וּבְנִפְלָאוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ובעזות': {"ipa": 'ivˈazis', "variants": ['uvəˈazus'], "pointed": 'וּבְעַזוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ובריתי': {"ipa": 'ivrˈisi', "variants": ['uvərˈisi'], "pointed": 'וּבְרִיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2780,15 +2780,15 @@ SEFARIA_POINTED_LK = {
     'והארכת': {"ipa": 'vəhaarˈaxtu', "variants": [], "pointed": 'וְהַאֲרַכְתָּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
     'והברית': {"ipa": 'vəhˈabris', "variants": [], "pointed": 'וְהַבְּרִית', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'והורדתם': {"ipa": 'vəhɔjrˈadtɛm', "variants": [], "pointed": 'וְהוֹרַדְתֶּם', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'והחיות': {"ipa": 'vəhaxˈajɔjs', "variants": [], "pointed": 'וְהַחַיּוֹת', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'והחיל': {"ipa": 'vəhaxˈajil', "variants": [], "pointed": 'וְהַחַיִל', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'והחיות': {"ipa": 'vəhaxˈajɔjs', "variants": [], "pointed": 'וְהַחַיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'והחיל': {"ipa": 'vəhaxˈajil', "variants": [], "pointed": 'וְהַחַיִל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'והחליצנו': {"ipa": 'vəhaxaliʦˈajnu', "variants": [], "pointed": 'וְהַחֲלִיצֵנוּ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 2, "dominance": 1.0},  # freq 1
     'והכעסתי': {"ipa": 'vəhixˈasti', "variants": [], "pointed": 'וְהִכְעַסְתִּי', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'והנגלת': {"ipa": 'vəhanˈiɡlɔjs', "variants": [], "pointed": 'וְהַנִּגְלֹת', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'והניחה': {"ipa": 'vəhinˈixu', "variants": [], "pointed": 'וְהִנִּיחָהּ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 4, "dominance": 0.8},  # freq 1
     'והקימותי': {"ipa": 'vahakimˈɔjsi', "variants": [], "pointed": 'וַהֲקִימוֹתִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
     'והתאוה': {"ipa": 'vəhataˈavu', "variants": [], "pointed": 'וְהַתַּאֲוָה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'והתבוננת': {"ipa": 'vəhisbɔjnˈantu', "variants": [], "pointed": 'וְהִתְבּוֹנַנְתָּ', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'והתבוננת': {"ipa": 'vəhisbɔjnˈantu', "variants": [], "pointed": 'וְהִתְבּוֹנַנְתָּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'והתקדשתי': {"ipa": 'vəhiskadˈiʃti', "variants": [], "pointed": 'וְהִתְקַדִּשְׁתִּי', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'וזבחים': {"ipa": 'uzəvˈuxim', "variants": ['izvˈuxim'], "pointed": 'וּזְבָחִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
     'וזכרת': {"ipa": 'vzuxˈartu', "variants": ['vəzuxˈartu'], "pointed": 'וְזָכַרְתָּ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 0.889},  # freq 1
@@ -2803,7 +2803,7 @@ SEFARIA_POINTED_LK = {
     'וחמשה': {"ipa": 'vaxamˈiʃə', "variants": ['vaxamˈiʃu'], "pointed": 'וַחֲמִשָּׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 93, "dominance": 0.979},  # freq 1
     'וחמשים': {"ipa": 'vaxamˈiʃim', "variants": [], "pointed": 'וַחֲמִשִּׁים', "register": 'merged', "why": 'default-embedded', "n_sources": 48, "dominance": 0.98},  # freq 1
     'וחנן': {"ipa": 'vxˈunun', "variants": ['vəxˈunun'], "pointed": 'וְחָנָן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'וחסדיו': {"ipa": 'vaxasudˈuji', "variants": ['vaxasˈudujv'], "pointed": 'וַחֲסָדָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'וחסדיו': {"ipa": 'vaxasˈudujv', "variants": [], "pointed": 'וַחֲסָדָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'וחסדיך': {"ipa": 'vaxasudˈajxu', "variants": ['vaxasudˈɛjxu'], "pointed": 'וַחֲסָדֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 1
     'וחסור': {"ipa": 'vxˈusɔjr', "variants": ['vəxˈusɔjr'], "pointed": 'וְחָסוֹר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'וחסרונן': {"ipa": 'vəxɛsrˈɔjnun', "variants": ['vxəsrˈɔjnun'], "pointed": 'וְחֶסְרוֹנָן', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2814,22 +2814,22 @@ SEFARIA_POINTED_LK = {
     'וחתם': {"ipa": 'vaxˈasɔjm', "variants": [], "pointed": 'וַחֲתֹם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'וטהרתם': {"ipa": 'utəhˈartɛm', "variants": [], "pointed": 'וּטְהַרְתֶּם', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 9, "dominance": 1.0},  # freq 1
     'וטובתם': {"ipa": 'vtɔjvˈusum', "variants": ['vətɔjvˈusum'], "pointed": 'וְטוֹבָתָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'וידעתי': {"ipa": 'vəjudˈati', "variants": [], "pointed": 'וְיָדַעְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'ויחיד': {"ipa": 'vəjˈuxid', "variants": ['vˈuxid'], "pointed": 'וְיָחִיד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'ויחשך': {"ipa": 'vajˈaxʃix', "variants": ['vaˈaxʃix'], "pointed": 'וַיַּחְשִׁךְ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'וילקח': {"ipa": 'vəjilˈukax', "variants": ['vilˈukax'], "pointed": 'וְיִלָּקַח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'וימות': {"ipa": 'vəjˈumus', "variants": ['vˈumis'], "pointed": 'וְיָמוּת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'וינחום': {"ipa": 'vaanˈixim', "variants": ['vajanˈixum'], "pointed": 'וַיַּנִּחוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'וירשת': {"ipa": 'vəjurˈaʃtu', "variants": ['vurˈaʃtu'], "pointed": 'וְיָרַשְׁתָּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'וידעתי': {"ipa": 'vəjudˈati', "variants": [], "pointed": 'וְיָדַעְתִּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'ויחיד': {"ipa": 'vəjˈuxid', "variants": [], "pointed": 'וְיָחִיד', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'ויחשך': {"ipa": 'vajˈaxʃix', "variants": [], "pointed": 'וַיַּחְשִׁךְ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'וילקח': {"ipa": 'vəjilˈukax', "variants": [], "pointed": 'וְיִלָּקַח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'וימות': {"ipa": 'vəjˈumus', "variants": [], "pointed": 'וְיָמוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'וינחום': {"ipa": 'vajanˈixum', "variants": [], "pointed": 'וַיַּנִּחוּם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'וירשת': {"ipa": 'vəjurˈaʃtu', "variants": [], "pointed": 'וְיָרַשְׁתָּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'וירשתם': {"ipa": 'virˈiʃtɛm', "variants": ['virˈiʃtəm'], "pointed": 'וִירִשְׁתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 8, "dominance": 0.8},  # freq 1
     'וישחקו': {"ipa": 'visaxˈaku', "variants": ['visaxˈaki'], "pointed": 'וִישַׂחֲקוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'וישלחהו': {"ipa": 'vaʃalxˈajhi', "variants": ['vajʃalxˈajhu'], "pointed": 'וַיְשַׁלְּחֵהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
+    'וישלחהו': {"ipa": 'vajʃalxˈajhu', "variants": [], "pointed": 'וַיְשַׁלְּחֵהוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 0.8},  # freq 1
     'ויתומים': {"ipa": 'visˈɔjmim', "variants": [], "pointed": 'וִיתוֹמִים', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'ויתילדו': {"ipa": 'vajisjˈaldu', "variants": ['vaisˈaldi'], "pointed": 'וַיִּתְיַלְדוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ויתנו': {"ipa": 'vajˈitnu', "variants": ['vaˈitni'], "pointed": 'וַיִּתְּנוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 55, "dominance": 0.809},  # freq 1
-    'ויתנכר': {"ipa": 'vaisnˈakajr', "variants": ['vajisnˈakajr'], "pointed": 'וַיִּתְנַכֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ויתעצב': {"ipa": 'vaisˈaʦajv', "variants": ['vajisˈaʦajv'], "pointed": 'וַיִּתְעַצֵּב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ויתר': {"ipa": 'vəjˈɛsɛr', "variants": ['vˈɛsər'], "pointed": 'וְיֶתֶר', "register": 'wh', "why": 'quoted-span-share', "n_sources": 56, "dominance": 0.918},  # freq 1
+    'ויתילדו': {"ipa": 'vajisjˈaldu', "variants": [], "pointed": 'וַיִּתְיַלְדוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ויתנו': {"ipa": 'vajˈitnu', "variants": [], "pointed": 'וַיִּתְּנוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 55, "dominance": 0.809},  # freq 1
+    'ויתנכר': {"ipa": 'vajisnˈakajr', "variants": [], "pointed": 'וַיִּתְנַכֵּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ויתעצב': {"ipa": 'vajisˈaʦajv', "variants": [], "pointed": 'וַיִּתְעַצֵּב', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ויתר': {"ipa": 'vəjˈɛsɛr', "variants": [], "pointed": 'וְיֶתֶר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 56, "dominance": 0.918},  # freq 1
     'וכבדתו': {"ipa": 'vxibˈadtɔj', "variants": ['vəxibˈadtɔj'], "pointed": 'וְכִבַּדְתּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'וכותב': {"ipa": 'vəxˈɔjsajv', "variants": ['vxˈɔjsajv'], "pointed": 'וְכוֹתֵב', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'וכזאת': {"ipa": 'vxˈuzɔjs', "variants": ['vəxˈuzɔjs'], "pointed": 'וְכָזֹאת', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
@@ -2842,13 +2842,13 @@ SEFARIA_POINTED_LK = {
     'ולגדלם': {"ipa": 'uləɡˈadlum', "variants": ['ilɡˈadlum'], "pointed": 'וּלְגַדְּלָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ולגדלתו': {"ipa": 'vliɡdilˈusɔj', "variants": ['vəliɡdulˈusɔj'], "pointed": 'וְלִגְדֻלָּתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'ולגשת': {"ipa": 'vlˈuɡəʃəs', "variants": ['vəluɡˈɛʃɛs'], "pointed": 'וְלָגֶשֶׁת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ולהחיות': {"ipa": 'uləhaxˈajɔjs', "variants": [], "pointed": 'וּלְהַחֲיוֹת', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'ולהחיות': {"ipa": 'uləhaxˈajɔjs', "variants": [], "pointed": 'וּלְהַחֲיוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
     'ולהיות': {"ipa": 'vlˈihjɔjs', "variants": ['vəlˈihjɔjs'], "pointed": 'וְלִהְיוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'ולזות': {"ipa": 'ˈilzis', "variants": ['ˈuləzus'], "pointed": 'וּלְזוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ולחיים': {"ipa": 'uləxujˈajim', "variants": [], "pointed": 'וּלְחָיַיִם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'ולחיים': {"ipa": 'uləxujˈajim', "variants": [], "pointed": 'וּלְחָיַיִם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'וללכת': {"ipa": 'vəlulˈɛxɛs', "variants": ['vlˈuləxəs'], "pointed": 'וְלָלֶכֶת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'ולמדתם': {"ipa": 'vlimˈadtəm', "variants": ['vəlimˈadtɛm'], "pointed": 'וְלִמַּדְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 0.857},  # freq 1
-    'ולמקללי': {"ipa": 'vlimkˈallaː', "variants": ['vəlimkˈallaj'], "pointed": 'וְלִמְקַלְלַי', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 1
+    'ולמקללי': {"ipa": 'vəlimkˈallaj', "variants": [], "pointed": 'וְלִמְקַלְלַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 10, "dominance": 1.0},  # freq 1
     'ולמקנהו': {"ipa": 'ilmiknˈajhi', "variants": ['uləmiknˈajhu'], "pointed": 'וּלְמִקְנֵהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ולרחבה': {"ipa": 'ilrˈuxbuh', "variants": ['ulərˈuxbu'], "pointed": 'וּלְרׇחְבָּהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ולשבח': {"ipa": 'uləʃˈɛvax', "variants": ['ilʃˈɛvax'], "pointed": 'וּלְשֶׁבַח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2869,7 +2869,7 @@ SEFARIA_POINTED_LK = {
     'וממשלתך': {"ipa": 'iməmʃˈaltxu', "variants": ['umɛmʃˈaltəxu'], "pointed": 'וּמֶמְשַׁלְתְּךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 1
     'ומעונתו': {"ipa": 'uməɔjnˈusɔj', "variants": ['iməɔjnˈusɔj'], "pointed": 'וּמְעוֹנָתוֹ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ומעשׂרות': {"ipa": 'umaˈasrɔjs', "variants": [], "pointed": 'וּמַעַשְׂרוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 6, "dominance": 1.0},  # freq 1
-    'ומרגליות': {"ipa": 'imarɡulˈiɔjs', "variants": ['umarɡulˈijɔjs'], "pointed": 'וּמַרְגָּלִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'ומרגליות': {"ipa": 'umarɡulˈijɔjs', "variants": [], "pointed": 'וּמַרְגָּלִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
     'ומשחת': {"ipa": 'umuʃˈaxtu', "variants": ['imuʃˈaxtu'], "pointed": 'וּמָשַׁחְתָּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 11, "dominance": 0.917},  # freq 1
     'ומשפחת': {"ipa": 'umiʃpˈaxas', "variants": ['imiʃpˈaxas'], "pointed": 'וּמִשְׁפַּחַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 0.833},  # freq 1
     'ומשתה': {"ipa": 'imˈiʃtə', "variants": ['umˈiʃtɛ'], "pointed": 'וּמִשְׁתֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
@@ -2888,7 +2888,7 @@ SEFARIA_POINTED_LK = {
     'ונשאתני': {"ipa": 'insusˈani', "variants": ['unəsusˈani'], "pointed": 'וּנְשָׂאתַנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ונשמרתם': {"ipa": 'vniʃmˈartəm', "variants": ['vəniʃmˈartɛm'], "pointed": 'וְנִשְׁמַרְתֶּם', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'ונשתה': {"ipa": 'vnˈiʃtə', "variants": ['vənˈiʃtɛ'], "pointed": 'וְנִשְׁתֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'וסיעתא': {"ipa": 'vəsijˈatu', "variants": [], "pointed": 'וְסִיַּעְתָּא', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'וסיעתא': {"ipa": 'vəsijˈatu', "variants": [], "pointed": 'וְסִיַּעְתָּא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'וסלח': {"ipa": 'vəsˈalux', "variants": ['vsˈalux'], "pointed": 'וְסַלָּח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 27, "dominance": 1.0},  # freq 1
     'וספרתם': {"ipa": 'usəfˈartɛm', "variants": ['isfˈartəm'], "pointed": 'וּסְפַרְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 1
     'וסרתם': {"ipa": 'vəsˈartɛm', "variants": ['vsˈartəm'], "pointed": 'וְסַרְתֶּם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 8, "dominance": 1.0},  # freq 1
@@ -2905,11 +2905,11 @@ SEFARIA_POINTED_LK = {
     'ורחמן': {"ipa": 'vraxˈamun', "variants": ['vəraxˈamun'], "pointed": 'וְרַחֲמָן', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'ושארית': {"ipa": 'iʃˈajris', "variants": ['uʃəˈajris'], "pointed": 'וּשְׁאֵרִית', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ושבועות': {"ipa": 'iʃviˈɛɔjs', "variants": ['uʃəvˈuɔjs'], "pointed": 'וּשְׁבוּעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ושוחט': {"ipa": 'vʃˈɔjxaːt', "variants": ['vəʃˈɔjxajt'], "pointed": 'וְשׁוֹחֵט', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ושוחט': {"ipa": 'vəʃˈɔjxajt', "variants": [], "pointed": 'וְשׁוֹחֵט', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ושמרתיך': {"ipa": 'iʃmartˈixu', "variants": ['uʃəmartˈixu'], "pointed": 'וּשְׁמַרְתִּיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ושנות': {"ipa": 'ˈiʃnɔjs', "variants": ['ˈuʃənɔjs'], "pointed": 'וּשְׁנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'ושפטתי': {"ipa": 'vʃufˈati', "variants": ['vəʃufˈatti'], "pointed": 'וְשָׁפַטְתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'ושתים': {"ipa": 'uʃətˈajim', "variants": [], "pointed": 'וּשְׁתַּיִם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 61, "dominance": 0.859},  # freq 1
+    'ושפטתי': {"ipa": 'vəʃufˈatti', "variants": [], "pointed": 'וְשָׁפַטְתִּי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'ושתים': {"ipa": 'uʃətˈajim', "variants": [], "pointed": 'וּשְׁתַּיִם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 61, "dominance": 0.859},  # freq 1
     'ותאנה': {"ipa": 'isˈajnə', "variants": ['usəˈajnu'], "pointed": 'וּתְאֵנָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ותאנים': {"ipa": 'isˈajnim', "variants": ['usəˈajnim'], "pointed": 'וּתְאֵנִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ותבכו': {"ipa": 'vatˈivki', "variants": ['vatˈivku'], "pointed": 'וַתִּבְכּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -2919,12 +2919,12 @@ SEFARIA_POINTED_LK = {
     'ותורות': {"ipa": 'vəsˈɔjrɔjs', "variants": ['vsˈɔjrɔjs'], "pointed": 'וְתוֹרוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ותורת': {"ipa": 'vəsˈɔjras', "variants": ['vsˈɔjras'], "pointed": 'וְתוֹרַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
     'ותזכו': {"ipa": 'vsˈizki', "variants": ['vəsˈizku'], "pointed": 'וְתִזְכּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'ותחיין': {"ipa": 'vatxajˈɛjnu', "variants": [], "pointed": 'וַתְּחַיֶּיןָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'ותחיין': {"ipa": 'vatxajˈɛjnu', "variants": [], "pointed": 'וַתְּחַיֶּיןָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ותיראן': {"ipa": 'vatirˈɛnu', "variants": [], "pointed": 'וַתִּירֶאןָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ותירוש': {"ipa": 'vsˈirɔjʃ', "variants": ['vəsˈirɔjʃ'], "pointed": 'וְתִירוֹשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 1
     'ותכבד': {"ipa": 'vatˈixbad', "variants": [], "pointed": 'וַתִּכְבַּד', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
     'ותכס': {"ipa": 'vˈatxas', "variants": [], "pointed": 'וַתְּכַס', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
-    'ותלמי': {"ipa": 'vsˈalmaː', "variants": ['vəsˈalmaj'], "pointed": 'וְתַלְמַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ותלמי': {"ipa": 'vəsˈalmaj', "variants": [], "pointed": 'וְתַלְמַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ותנוח': {"ipa": 'vsunˈixa', "variants": ['vəsunˈuxa'], "pointed": 'וְתָנוּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ותעל': {"ipa": 'vatˈaal', "variants": [], "pointed": 'וַתַּעַל', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 13, "dominance": 0.867},  # freq 1
     'ותף': {"ipa": 'vsɔjf', "variants": ['vəsˈɔjf'], "pointed": 'וְתֹף', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -2946,7 +2946,7 @@ SEFARIA_POINTED_LK = {
     'זכותיה': {"ipa": 'zxˈisajh', "variants": ['zəxˈusaj'], "pointed": 'זְכוּתֵיהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'זמרת': {"ipa": 'zəmˈirɔjs', "variants": ['zmˈirɔjs'], "pointed": 'זְמִרֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'זעקתּי': {"ipa": 'zuˈakti', "variants": [], "pointed": 'זָעַקְתִּי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'זרועותיו': {"ipa": 'zrɔjəɔjsˈuji', "variants": ['zərɔjˈɔjsujv'], "pointed": 'זְרוֹעוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'זרועותיו': {"ipa": 'zərɔjˈɔjsujv', "variants": [], "pointed": 'זְרוֹעוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'זרעות': {"ipa": 'zrˈɔjɔjs', "variants": ['zərˈɔjɔjs'], "pointed": 'זְרֹעוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'חב': {"ipa": 'xuv', "variants": [], "pointed": 'חָב', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'חבֿרון': {"ipa": 'xˈɛvrɔjn', "variants": [], "pointed": 'חֶבְרוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 1
@@ -2975,13 +2975,13 @@ SEFARIA_POINTED_LK = {
     'חח': {"ipa": 'xux', "variants": [], "pointed": 'חָח', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חטאתה': {"ipa": 'xatˈusuh', "variants": ['xatˈusu'], "pointed": 'חַטָּאתָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'חטאתינו': {"ipa": 'xatɔjsˈajni', "variants": ['xatɔjsˈajnu'], "pointed": 'חַטֹּאתֵינוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
-    'חיב': {"ipa": 'xˈajuv', "variants": [], "pointed": 'חַיָּב', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 556, "dominance": 1.0},  # freq 1
-    'חייהם': {"ipa": 'xajˈajhɛm', "variants": [], "pointed": 'חַיֵּיהֶם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'חייכם': {"ipa": 'xajˈajxɛm', "variants": [], "pointed": 'חַיֵּיכֶם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'חיב': {"ipa": 'xˈajuv', "variants": [], "pointed": 'חַיָּב', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 556, "dominance": 1.0},  # freq 1
+    'חייהם': {"ipa": 'xajˈajhɛm', "variants": [], "pointed": 'חַיֵּיהֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'חייכם': {"ipa": 'xajˈajxɛm', "variants": [], "pointed": 'חַיֵּיכֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חילי': {"ipa": 'xˈajli', "variants": [], "pointed": 'חֵילִי', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
-    'חיני': {"ipa": 'xajˈajni', "variants": [], "pointed": 'חַיֵּנִי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 1.0},  # freq 1
-    'חיתך': {"ipa": 'xajˈusəxu', "variants": [], "pointed": 'חַיָּתְךָ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'חכינאי': {"ipa": 'xaxˈinaː', "variants": ['xaxˈinaj'], "pointed": 'חֲכִינַאי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'חיני': {"ipa": 'xajˈajni', "variants": [], "pointed": 'חַיֵּנִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 1
+    'חיתך': {"ipa": 'xajˈusəxu', "variants": [], "pointed": 'חַיָּתְךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'חכינאי': {"ipa": 'xaxˈinaj', "variants": [], "pointed": 'חֲכִינַאי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'חכמיה': {"ipa": 'xaxumˈajhu', "variants": ['xaxumˈɛjhu'], "pointed": 'חֲכָמֶיהָ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'חלאים': {"ipa": 'xalˈuim', "variants": [], "pointed": 'חֲלָאִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חלבים': {"ipa": 'xalˈuvim', "variants": [], "pointed": 'חֲלָבִים', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
@@ -3002,14 +3002,14 @@ SEFARIA_POINTED_LK = {
     'חמישי': {"ipa": 'xamˈiʃi', "variants": [], "pointed": 'חֲמִישִׁי', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
     'חמשית': {"ipa": 'xamˈiʃis', "variants": [], "pointed": 'חֲמִשִּׁית', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'חמתו': {"ipa": 'xamˈusɔj', "variants": [], "pointed": 'חֲמָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 1
-    'חניכיו': {"ipa": 'xanˈixujv', "variants": ['xanixˈuji'], "pointed": 'חֲנִיכָיו', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'חניכיו': {"ipa": 'xanˈixujv', "variants": [], "pointed": 'חֲנִיכָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חנפֿים': {"ipa": 'xanˈajfim', "variants": [], "pointed": 'חֲנֵפִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חסי': {"ipa": 'xˈɔjsaj', "variants": [], "pointed": 'חֹסֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חצבה': {"ipa": 'xˈuʦvə', "variants": ['xˈuʦəvu'], "pointed": 'חָצְבָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חצצרות': {"ipa": 'xaʦˈɔjʦrɔjs', "variants": ['xaʦˈɔjʦərɔjs'], "pointed": 'חֲצֹצְרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'חצרים': {"ipa": 'xaʦˈajrim', "variants": [], "pointed": 'חֲצֵרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'חקוק': {"ipa": 'xˈukik', "variants": ['xˈukuk'], "pointed": 'חָקוּק', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'חקותי': {"ipa": 'xukˈɔjsaj', "variants": ['xikˈɔjsaː'], "pointed": 'חֻקּוֹתַי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 10, "dominance": 1.0},  # freq 1
+    'חקותי': {"ipa": 'xukˈɔjsaj', "variants": [], "pointed": 'חֻקּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 10, "dominance": 1.0},  # freq 1
     'חקר': {"ipa": 'xˈajkər', "variants": ['xˈajkɛr'], "pointed": 'חֵקֶר', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.857},  # freq 1
     'חקרי': {"ipa": 'xˈikraj', "variants": [], "pointed": 'חִקְרֵי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'חרבי': {"ipa": 'xˈarbi', "variants": [], "pointed": 'חַרְבִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 0.923},  # freq 1
@@ -3031,7 +3031,7 @@ SEFARIA_POINTED_LK = {
     'יונית': {"ipa": 'jvˈunis', "variants": ['jəvˈunis'], "pointed": 'יְוָנִית', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 1
     'יונתי': {"ipa": 'jɔjnˈusi', "variants": [], "pointed": 'יוֹנָתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'יחדשהו': {"ipa": 'jxadʃˈajhi', "variants": ['jəxadʃˈajhu'], "pointed": 'יְחַדְּשֵׁהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'יחו': {"ipa": 'jxˈai', "variants": ['jəxˈav'], "pointed": 'יְחַו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'יחו': {"ipa": 'jəxˈav', "variants": [], "pointed": 'יְחַו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'יחודו': {"ipa": 'jixˈidɔj', "variants": ['jixˈudɔj'], "pointed": 'יִחוּדוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'יחוננו': {"ipa": 'jxɔjnˈuni', "variants": ['jəxɔjnˈunu'], "pointed": 'יְחוֹנָּנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'יחורו': {"ipa": 'jəxəvˈuri', "variants": ['jɛxɛvˈuru'], "pointed": 'יֶחֱוָרוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3142,11 +3142,11 @@ SEFARIA_POINTED_LK = {
     'לזקן': {"ipa": 'lzˈukajn', "variants": ['ləzˈukajn'], "pointed": 'לְזָקֵן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'לחדשי': {"ipa": 'ləxˈudʃaj', "variants": ['lxˈudʃaj'], "pointed": 'לְחׇדְשֵׁי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 1
     'לחוץ': {"ipa": 'lˈaxiʦ', "variants": ['lˈaxuʦ'], "pointed": 'לַחוּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 24, "dominance": 0.889},  # freq 1
-    'לחושי': {"ipa": 'lxˈiʃaː', "variants": ['ləxˈuʃaj'], "pointed": 'לְחוּשַׁי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'לחושי': {"ipa": 'ləxˈuʃaj', "variants": [], "pointed": 'לְחוּשַׁי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'לחזק': {"ipa": 'lxˈazajk', "variants": ['ləxˈazajk'], "pointed": 'לְחַזֵּק', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'לחכמים': {"ipa": 'laxaxˈumim', "variants": [], "pointed": 'לַחֲכָמִים', "register": 'wh', "why": 'quoted-span-share', "n_sources": 7, "dominance": 1.0},  # freq 1
     'לחסד': {"ipa": 'ləxˈɛsɛd', "variants": ['lxˈɛsəd'], "pointed": 'לְחֶסֶד', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'לחסדו': {"ipa": 'lxˈazdɔj', "variants": ['ləxˈasdɔj'], "pointed": 'לְחַסְדּוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'לחסדו': {"ipa": 'ləxˈasdɔj', "variants": [], "pointed": 'לְחַסְדּוֹ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
     'לחרות': {"ipa": 'lxˈajris', "variants": ['ləxˈajrus'], "pointed": 'לְחֵרוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 1
     'לחרותנו': {"ipa": 'lxajrisˈajni', "variants": ['ləxajrusˈajnu'], "pointed": 'לְחֵרוּתֵנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'לטוטפת': {"ipa": 'ltɔjtˈufɔjs', "variants": ['lətɔjtˈufɔjs'], "pointed": 'לְטוֹטָפֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 1
@@ -3159,7 +3159,7 @@ SEFARIA_POINTED_LK = {
     'למהר': {"ipa": 'lmˈahajr', "variants": ['ləmˈahajr'], "pointed": 'לְמַהֵר', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'למוצאות': {"ipa": 'lmɔjʦˈuɔjs', "variants": ['ləmɔjʦˈuɔjs'], "pointed": 'לְמוֹצָאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'למחול': {"ipa": 'lmˈuxɔjl', "variants": ['ləmˈuxɔjl'], "pointed": 'לְמָחוֹל', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'למלאות': {"ipa": 'lmalˈɔjis', "variants": ['ləmˈalɔjvs'], "pointed": 'לְמַלֹּאות', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 0.8},  # freq 1
+    'למלאות': {"ipa": 'ləmˈalɔjvs', "variants": [], "pointed": 'לְמַלֹּאות', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 0.8},  # freq 1
     'למלכות': {"ipa": 'lmˈalxis', "variants": ['ləmˈalxus'], "pointed": 'לְמַלְכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 1
     'למפתח': {"ipa": 'lamaftˈajxa', "variants": [], "pointed": 'לַמַּפְתֵּחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'למקדשך': {"ipa": 'lmikdˈuʃajx', "variants": ['ləmikdˈuʃajx'], "pointed": 'לְמִקְדָּשֵׁךְ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3171,8 +3171,8 @@ SEFARIA_POINTED_LK = {
     'לנגדך': {"ipa": 'lnəɡdˈɛxu', "variants": ['lənɛɡdˈɛxu'], "pointed": 'לְנֶגְדֶּךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'לנחמו': {"ipa": 'lnaxˈamɔj', "variants": ['lənaxˈamɔj'], "pointed": 'לְנַחֲמוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
     'לנסות': {"ipa": 'lnˈasɔjs', "variants": ['lənˈasɔjs'], "pointed": 'לְנַסּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'לנפלאותיו': {"ipa": 'lniflɔjsˈuji', "variants": ['lənifləˈɔjsujv'], "pointed": 'לְנִפְלְאוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'לנשברי': {"ipa": 'lənˈiʃbəraj', "variants": ['lnˈiʒbraj'], "pointed": 'לְנִשְׁבְּרֵי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'לנפלאותיו': {"ipa": 'lənifləˈɔjsujv', "variants": [], "pointed": 'לְנִפְלְאוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'לנשברי': {"ipa": 'lənˈiʃbəraj', "variants": [], "pointed": 'לְנִשְׁבְּרֵי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'לסיחון': {"ipa": 'lsˈixɔjn', "variants": ['ləsˈixɔjn'], "pointed": 'לְסִיחוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
     'לסלוח': {"ipa": 'lislˈɔjxa', "variants": [], "pointed": 'לִסְלוֹחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'לעבודת': {"ipa": 'laavˈɔjdas', "variants": [], "pointed": 'לַעֲבוֹדַת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 1
@@ -3205,9 +3205,9 @@ SEFARIA_POINTED_LK = {
     'לתור': {"ipa": 'lˈusir', "variants": ['lˈusur'], "pointed": 'לָתוּר', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
     'לתורתך': {"ipa": 'lsɔjrusˈɛxu', "variants": ['ləsɔjrusˈɛxu'], "pointed": 'לְתוֹרָתֶךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'לתחום': {"ipa": 'lˈatxim', "variants": ['lˈatxum'], "pointed": 'לַתְּחוּם', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 1.0},  # freq 1
-    'מאחורי': {"ipa": 'majaxˈɔjraj', "variants": [], "pointed": 'מֵאֲחוֹרֵי', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'מאחרים': {"ipa": 'majaxˈajrim', "variants": [], "pointed": 'מֵאֲחֵרִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'מאתכם': {"ipa": 'majˈitxɛm', "variants": [], "pointed": 'מֵאִתְּכֶם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'מאחורי': {"ipa": 'majaxˈɔjraj', "variants": [], "pointed": 'מֵאֲחוֹרֵי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'מאחרים': {"ipa": 'majaxˈajrim', "variants": [], "pointed": 'מֵאֲחֵרִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'מאתכם': {"ipa": 'majˈitxɛm', "variants": [], "pointed": 'מֵאִתְּכֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'מבֿן': {"ipa": 'mˈibən', "variants": ['mˈibɛn'], "pointed": 'מִבֶּן', "register": 'merged', "why": 'default-embedded', "n_sources": 54, "dominance": 1.0},  # freq 1
     'מבֿקש': {"ipa": 'mvˈakajʃ', "variants": ['məvˈakajʃ'], "pointed": 'מְבַקֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 26, "dominance": 0.867},  # freq 1
     'מבחוץ': {"ipa": 'mibˈaxiʦ', "variants": ['mibˈaxuʦ'], "pointed": 'מִבַּחוּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 29, "dominance": 1.0},  # freq 1
@@ -3226,10 +3226,10 @@ SEFARIA_POINTED_LK = {
     'מחזון': {"ipa": 'majxˈuzɔjn', "variants": [], "pointed": 'מֵחָזוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מחזירה': {"ipa": 'maxazˈiruh', "variants": ['maxazˈiru'], "pointed": 'מַחֲזִירָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מחזקת': {"ipa": 'maxazˈɛkɛs', "variants": [], "pointed": 'מַחֲזֶקֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 6, "dominance": 1.0},  # freq 1
-    'מחיב': {"ipa": 'məxˈajajv', "variants": [], "pointed": 'מְחַיֵּב', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 38, "dominance": 0.974},  # freq 1
+    'מחיב': {"ipa": 'məxˈajajv', "variants": [], "pointed": 'מְחַיֵּב', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 38, "dominance": 0.974},  # freq 1
     'מחיר': {"ipa": 'mxir', "variants": ['məxˈir'], "pointed": 'מְחִיר', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'מחכמתו': {"ipa": 'majxuxəmˈusɔj', "variants": ['majxuxmˈusɔj'], "pointed": 'מֵחָכְמָתוֹ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'מחלים': {"ipa": 'majxulˈujim', "variants": [], "pointed": 'מֵחֳלָיִם', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'מחלים': {"ipa": 'majxulˈujim', "variants": [], "pointed": 'מֵחֳלָיִם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מחליף': {"ipa": 'maxˈalif', "variants": [], "pointed": 'מַחֲלִיף', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מחליפין': {"ipa": 'maxalˈifin', "variants": [], "pointed": 'מַחֲלִיפִין', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'מחליק': {"ipa": 'maxˈalik', "variants": [], "pointed": 'מַחֲלִיק', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
@@ -3254,10 +3254,10 @@ SEFARIA_POINTED_LK = {
     'מכשפֿה': {"ipa": 'mxaʃˈajfə', "variants": ['məxaʃˈajfu'], "pointed": 'מְכַשֵּׁפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מלכֿות': {"ipa": 'mˈalxis', "variants": ['mˈalxus'], "pointed": 'מַלְכוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 62, "dominance": 0.954},  # freq 1
     'מלכם': {"ipa": 'mˈalkum', "variants": [], "pointed": 'מַלְכָּם', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 0.909},  # freq 1
-    'מלפניו': {"ipa": 'milfˈunujv', "variants": ['milfunˈuji'], "pointed": 'מִלְּפָנָיו', "register": 'wh', "why": 'quoted-span-share', "n_sources": 18, "dominance": 1.0},  # freq 1
+    'מלפניו': {"ipa": 'milfˈunujv', "variants": [], "pointed": 'מִלְּפָנָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 18, "dominance": 1.0},  # freq 1
     'מלת': {"ipa": 'mˈilas', "variants": [], "pointed": 'מִלַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'ממזרת': {"ipa": 'mamzˈɛrɛs', "variants": [], "pointed": 'מַמְזֶרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 13, "dominance": 1.0},  # freq 1
-    'ממצותיך': {"ipa": 'mimiʦvɔjsˈɛjxu', "variants": ['mimiʦɔjsˈajxu'], "pointed": 'מִמִּצְוֹתֶיךָ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 1
+    'ממצותיך': {"ipa": 'mimiʦvɔjsˈɛjxu', "variants": [], "pointed": 'מִמִּצְוֹתֶיךָ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 1
     'ממקנה': {"ipa": 'mimˈiknaj', "variants": ['mimiknˈajə'], "pointed": 'מִמִּקְנֵה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ממשה': {"ipa": 'mˈimʃə', "variants": ['mˈimʃɛ'], "pointed": 'מִמּשֶׁה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מנהגות': {"ipa": 'mnahˈaɡɔjs', "variants": ['mənahˈaɡɔjs'], "pointed": 'מְנַהֲגוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3302,12 +3302,12 @@ SEFARIA_POINTED_LK = {
     'מרחשת': {"ipa": 'marxˈɛʃɛs', "variants": [], "pointed": 'מַרְחֶשֶׁת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 2, "dominance": 1.0},  # freq 1
     'מריחֿ': {"ipa": 'majrˈajxa', "variants": [], "pointed": 'מֵרֵיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'משבֿח': {"ipa": 'mʃˈibux', "variants": ['məʃˈubux'], "pointed": 'מְשֻׁבָּח', "register": 'merged', "why": 'default-embedded', "n_sources": 10, "dominance": 0.833},  # freq 1
-    'משביח': {"ipa": 'maʒbˈixa', "variants": ['maʃbˈixa'], "pointed": 'מַשְׁבִּיחַ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'משבר': {"ipa": 'mˈaʒbajr', "variants": ['mˈaʃbajr'], "pointed": 'מַשְׁבֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'משביח': {"ipa": 'maʃbˈixa', "variants": [], "pointed": 'מַשְׁבִּיחַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'משבר': {"ipa": 'mˈaʃbajr', "variants": [], "pointed": 'מַשְׁבֵּר', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'משגת': {"ipa": 'masˈɛɡɛs', "variants": [], "pointed": 'מַשֶּׂגֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 1, "dominance": 1.0},  # freq 1
     'משדד': {"ipa": 'mʃˈadəd', "variants": ['məʃˈadɛd'], "pointed": 'מְשַׁדֶּד', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'משוררת': {"ipa": 'mʃˈɔjrərəs', "variants": ['məʃɔjrˈɛrɛs'], "pointed": 'מְשׁוֹרֶרֶת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
-    'משחתיו': {"ipa": 'mʃaxtˈii', "variants": ['məʃˈaxtiv'], "pointed": 'מְשַׁחְתִּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'משחתיו': {"ipa": 'məʃˈaxtiv', "variants": [], "pointed": 'מְשַׁחְתִּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'משטח': {"ipa": 'mˈiʃtax', "variants": [], "pointed": 'מִשְׁטַח', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'משיבת': {"ipa": 'məʃˈivas', "variants": ['mʃˈivas'], "pointed": 'מְשִׁיבַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 1
     'משיחא': {"ipa": 'mʃˈixu', "variants": ['məʃˈixu'], "pointed": 'מְשִׁיחָא', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -3320,16 +3320,16 @@ SEFARIA_POINTED_LK = {
     'משנתו': {"ipa": 'miʃnˈusɔj', "variants": [], "pointed": 'מִשְּׁנָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
     'משפֿל': {"ipa": 'mˈaʃpil', "variants": [], "pointed": 'מַשְׁפִּל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'משקלם': {"ipa": 'miʃkˈulum', "variants": [], "pointed": 'מִשְׁקָלָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'משרשיו': {"ipa": 'miʃuruʃˈuji', "variants": ['miʃurˈuʃujv'], "pointed": 'מִשׇּׁרָשָׁיו', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'משרשיו': {"ipa": 'miʃurˈuʃujv', "variants": [], "pointed": 'מִשׇּׁרָשָׁיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'משתחוה': {"ipa": 'miʃtaxˈavə', "variants": ['miʃtaxˈavɛ'], "pointed": 'מִשְׁתַּחֲוֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'מתּתיהו': {"ipa": 'matisˈuhi', "variants": ['matisjˈuhu'], "pointed": 'מַתִּתְיָהוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 1
+    'מתּתיהו': {"ipa": 'matisjˈuhu', "variants": [], "pointed": 'מַתִּתְיָהוּ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 1.0},  # freq 1
     'מתאבל': {"ipa": 'misˈabajl', "variants": [], "pointed": 'מִתְאַבֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'מתגברים': {"ipa": 'mizɡˈabrim', "variants": ['misɡˈabrim'], "pointed": 'מִתְגַּבְּרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'מתגברים': {"ipa": 'misɡˈabrim', "variants": [], "pointed": 'מִתְגַּבְּרִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'מתוכן': {"ipa": 'mitˈɔjxun', "variants": [], "pointed": 'מִתּוֹכָן', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'מתחלה': {"ipa": 'mitxˈilə', "variants": ['mitxˈilu'], "pointed": 'מִתְּחִלָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 1
     'מתחלת': {"ipa": 'mitxˈilas', "variants": [], "pointed": 'מִתְּחִלַּת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
     'מתנבא': {"ipa": 'misnˈabaj', "variants": [], "pointed": 'מִתְנַבֵּא', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'מתניה': {"ipa": 'matˈanju', "variants": ['matˈanu'], "pointed": 'מַתַּנְיָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 11, "dominance": 0.846},  # freq 1
+    'מתניה': {"ipa": 'matˈanju', "variants": [], "pointed": 'מַתַּנְיָה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 11, "dominance": 0.846},  # freq 1
     'מתעטף': {"ipa": 'misˈatajf', "variants": [], "pointed": 'מִתְעַטֵּף', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'מתענה': {"ipa": 'misˈanu', "variants": ['misˈanə'], "pointed": 'מִתְעַנָּה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'מתערב': {"ipa": 'misˈurav', "variants": [], "pointed": 'מִתְעָרַב', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3348,7 +3348,7 @@ SEFARIA_POINTED_LK = {
     'נוראותיך': {"ipa": 'nɔjrɔjsˈajxu', "variants": ['nɔjrəɔjsˈɛjxu'], "pointed": 'נוֹרְאוֹתֶיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נושאות': {"ipa": 'nˈɔjsəɔjs', "variants": ['nˈɔjsɔjs'], "pointed": 'נוֹשְׂאוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'נושעות': {"ipa": 'nɔjʃˈuɔjs', "variants": [], "pointed": 'נוֹשָׁעוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'נחוניא': {"ipa": 'nəxˈunəju', "variants": ['nxinˈua'], "pointed": 'נְחוּנְיָא', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 1
+    'נחוניא': {"ipa": 'nəxˈunəju', "variants": [], "pointed": 'נְחוּנְיָא', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 1
     'נחוץ': {"ipa": 'nˈuxiʦ', "variants": ['nˈuxuʦ'], "pointed": 'נָחוּץ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נחליאל': {"ipa": 'naxalˈiajl', "variants": [], "pointed": 'נַחֲלִיאֵל', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
     'נחפּז': {"ipa": 'nˈɛxpuz', "variants": [], "pointed": 'נֶחְפָּז', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3373,12 +3373,12 @@ SEFARIA_POINTED_LK = {
     'נקר': {"ipa": 'nˈikar', "variants": [], "pointed": 'נִקַּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נראות': {"ipa": 'nˈirɔjs', "variants": [], "pointed": 'נִרְאוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נראתה': {"ipa": 'nirˈasə', "variants": ['nirˈasu'], "pointed": 'נִרְאֲתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'נשבה': {"ipa": 'nˈiʃbu', "variants": ['nˈiʒbə'], "pointed": 'נִשְׁבָּה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 20, "dominance": 0.952},  # freq 1
+    'נשבה': {"ipa": 'nˈiʃbu', "variants": [], "pointed": 'נִשְׁבָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 20, "dominance": 0.952},  # freq 1
     'נתונות': {"ipa": 'nsˈinɔjs', "variants": ['nəsˈunɔjs'], "pointed": 'נְּתוּנוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'נתיבותיהם': {"ipa": 'nsivɔjsˈajhəm', "variants": ['nəsivɔjsˈajhɛm'], "pointed": 'נְתִיבוֹתֵיהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נתנסה': {"ipa": 'nisnˈasə', "variants": ['nisnˈasu'], "pointed": 'נִתְנַסָּה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'נתערב': {"ipa": 'nisˈurajv', "variants": [], "pointed": 'נִתְעָרֵב', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 1.0},  # freq 1
-    'נתתיו': {"ipa": 'nsatˈii', "variants": ['nəsˈativ'], "pointed": 'נְתַתִּיו', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 1
+    'נתתיו': {"ipa": 'nəsˈativ', "variants": [], "pointed": 'נְתַתִּיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 1.0},  # freq 1
     'סביבות': {"ipa": 'svˈivɔjs', "variants": ['səvˈivɔjs'], "pointed": 'סְבִיבוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 21, "dominance": 1.0},  # freq 1
     'סגל': {"ipa": 'sˈɛɡəl', "variants": ['sˈɛɡɛl'], "pointed": 'סֶגֶל', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'סחרה': {"ipa": 'sˈaxru', "variants": ['sˈaxruh'], "pointed": 'סַחְרָהּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 1
@@ -3389,13 +3389,13 @@ SEFARIA_POINTED_LK = {
     'ספֿת': {"ipa": 'sˈufas', "variants": [], "pointed": 'סָפַת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ספרות': {"ipa": 'sfˈɔjrɔjs', "variants": ['səfˈɔjrɔjs'], "pointed": 'סְפֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'סר': {"ipa": 'sur', "variants": [], "pointed": 'סָר', "register": 'merged', "why": 'default-embedded', "n_sources": 30, "dominance": 0.938},  # freq 1
-    'סתרים': {"ipa": 'sˈurim', "variants": ['səsˈurim'], "pointed": 'סְתָרִים', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'סתרים': {"ipa": 'səsˈurim', "variants": [], "pointed": 'סְתָרִים', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'עבודתו': {"ipa": 'avɔjdˈusɔj', "variants": [], "pointed": 'עֲבוֹדָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'עבודתם': {"ipa": 'avɔjdˈusum', "variants": [], "pointed": 'עֲבוֹדָתָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'עבידתא': {"ipa": 'avˈidtu', "variants": [], "pointed": 'עֲבִידְתָּא', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'עוברת': {"ipa": 'ɔjvˈɛrɛs', "variants": [], "pointed": 'עוֹבֶרֶת', "register": 'wh', "why": 'merged-mis-stresses', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'עונותיכם': {"ipa": 'aɔjnɔjsˈajxɛm', "variants": ['ainɔjsˈajxəm'], "pointed": 'עֲוֺנוֹתֵיכֶם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'עושות': {"ipa": 'ˈɔjsɔjs', "variants": [], "pointed": 'עוֹשׂוֹת', "register": 'wh', "why": 'merged-overrides-point', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'עונותיכם': {"ipa": 'aɔjnɔjsˈajxɛm', "variants": [], "pointed": 'עֲוֺנוֹתֵיכֶם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'עושות': {"ipa": 'ˈɔjsɔjs', "variants": [], "pointed": 'עוֹשׂוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'עזבת': {"ipa": 'uzˈavtu', "variants": [], "pointed": 'עָזַבְתָּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 1.0},  # freq 1
     'על-כן': {"ipa": 'al kajn', "variants": ['ˈalkajn'], "pointed": 'עַל-כֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'עמיתו': {"ipa": 'amˈisɔj', "variants": [], "pointed": 'עֲמִיתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
@@ -3403,7 +3403,7 @@ SEFARIA_POINTED_LK = {
     'עניתני': {"ipa": 'anisˈuni', "variants": [], "pointed": 'עֲנִיתָנִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 4, "dominance": 0.8},  # freq 1
     'ענתה': {"ipa": 'ˈunsə', "variants": ['ˈunəsu'], "pointed": 'עָנְתָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'עסתה': {"ipa": 'isˈusuh', "variants": ['isˈusu'], "pointed": 'עִסָּתָהּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'עצמותיו': {"ipa": 'aʦmɔjsˈuji', "variants": ['aʦmˈɔjsujv'], "pointed": 'עַצְמוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
+    'עצמותיו': {"ipa": 'aʦmˈɔjsujv', "variants": [], "pointed": 'עַצְמוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 1
     'עצמותם': {"ipa": 'aʦmˈɔjsum', "variants": [], "pointed": 'עַצְמוֹתָם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'עשות': {"ipa": 'ˈasɔjs', "variants": [], "pointed": 'עֲשׂוֹת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 20, "dominance": 0.952},  # freq 1
     'עשיתי': {"ipa": 'usˈisi', "variants": [], "pointed": 'עָשִׂיתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 84, "dominance": 0.966},  # freq 1
@@ -3424,7 +3424,7 @@ SEFARIA_POINTED_LK = {
     'פותחין': {"ipa": 'pˈɔjsxin', "variants": ['pˈɔjsəxin'], "pointed": 'פּוֹתְחִין', "register": 'merged', "why": 'default-embedded', "n_sources": 17, "dominance": 1.0},  # freq 1
     'פחז': {"ipa": 'pˈaxaz', "variants": [], "pointed": 'פַּחַז', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'פטדה': {"ipa": 'pˈitdə', "variants": ['pˈitdu'], "pointed": 'פִּטְדָה', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'פיפיות': {"ipa": 'pifˈiɔjs', "variants": ['pifˈijɔjs'], "pointed": 'פִּיפִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'פיפיות': {"ipa": 'pifˈijɔjs', "variants": [], "pointed": 'פִּיפִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
     'פסולות': {"ipa": 'psˈilɔjs', "variants": ['pəsˈulɔjs'], "pointed": 'פְּסוּלוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
     'פעלתו': {"ipa": 'pəulˈusɔj', "variants": ['pilˈusɔj'], "pointed": 'פְּעֻלָּתוֹ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'פצה': {"ipa": 'pʦˈajə', "variants": ['pəʦˈaj'], "pointed": 'פְּצֵה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3459,7 +3459,7 @@ SEFARIA_POINTED_LK = {
     'קברת': {"ipa": 'kvˈiras', "variants": ['kəvˈuras'], "pointed": 'קְבֻרַת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'קברתו': {"ipa": 'kəvurˈusɔj', "variants": ['kvirˈusɔj'], "pointed": 'קְבֻרָתוֹ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'קדשתי': {"ipa": 'kidˈaʃti', "variants": [], "pointed": 'קִדַּשְׁתִּי', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
-    'קוממיות': {"ipa": 'kɔjmmˈiis', "variants": ['kɔjməmˈijus'], "pointed": 'קוֹמְמִיּוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
+    'קוממיות': {"ipa": 'kɔjməmˈijus', "variants": [], "pointed": 'קוֹמְמִיּוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 6, "dominance": 1.0},  # freq 1
     'קומתו': {"ipa": 'kɔjmˈusɔj', "variants": [], "pointed": 'קוֹמָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'קורות': {"ipa": 'kˈɔjrɔjs', "variants": [], "pointed": 'קוֹרוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 6, "dominance": 1.0},  # freq 1
     'קחי': {"ipa": 'kxi', "variants": ['kəxˈi'], "pointed": 'קְחִי', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
@@ -3470,9 +3470,9 @@ SEFARIA_POINTED_LK = {
     'קצת': {"ipa": 'kʦus', "variants": ['kəʦˈus'], "pointed": 'קְצָת', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'קראתיך': {"ipa": 'krusˈixu', "variants": ['kərusˈixu'], "pointed": 'קְרָאתִיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 13, "dominance": 0.929},  # freq 1
     'קראתם': {"ipa": 'krˈusəm', "variants": ['kərˈusɛm'], "pointed": 'קְרָאתֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'קרבנותיו': {"ipa": 'kurbnɔjsˈuji', "variants": ['kurəbnˈɔjsujv'], "pointed": 'קָרְבְּנוֹתָיו', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
-    'ראיתיו': {"ipa": 'rəˈisiv', "variants": ['risˈii'], "pointed": 'רְאִיתִיו', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'רבּותי': {"ipa": 'rabˈɔjsaː', "variants": ['rabˈɔjsaj'], "pointed": 'רַבּוֹתַי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'קרבנותיו': {"ipa": 'kurəbnˈɔjsujv', "variants": [], "pointed": 'קָרְבְּנוֹתָיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 7, "dominance": 1.0},  # freq 1
+    'ראיתיו': {"ipa": 'rəˈisiv', "variants": [], "pointed": 'רְאִיתִיו', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'רבּותי': {"ipa": 'rabˈɔjsaj', "variants": [], "pointed": 'רַבּוֹתַי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'רבֿן': {"ipa": 'rˈabun', "variants": [], "pointed": 'רַבָּן', "register": 'merged', "why": 'default-embedded', "n_sources": 236, "dominance": 0.975},  # freq 1
     'רבותא': {"ipa": 'rvˈisu', "variants": ['rəvˈusu'], "pointed": 'רְבוּתָא', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'רביעית': {"ipa": 'rvˈiis', "variants": ['rəvˈiis'], "pointed": 'רְבִיעִית', "register": 'merged', "why": 'default-embedded', "n_sources": 44, "dominance": 1.0},  # freq 1
@@ -3505,7 +3505,7 @@ SEFARIA_POINTED_LK = {
     'שגנב': {"ipa": 'ʃəɡˈunav', "variants": ['ʃɛɡˈunav'], "pointed": 'שֶׁגָּנַב', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'שדבר': {"ipa": 'ʃədˈibajr', "variants": ['ʃɛdˈibajr'], "pointed": 'שֶׁדִּבֵּר', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שדעתן': {"ipa": 'ʃɛdˈatun', "variants": [], "pointed": 'שֶׁדַּעְתָּן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
-    "שה'": {"ipa": 'ʃɛ', "variants": ['ʃɛh'], "pointed": "שֶׁה'", "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    "שה'": {"ipa": 'ʃɛh', "variants": [], "pointed": "שֶׁה'", "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שהניחה': {"ipa": 'ʃɛhinˈixu', "variants": ['ʃəhinˈixuh'], "pointed": 'שֶׁהִנִּיחָהּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'שהנשמה': {"ipa": 'ʃɛhanʃˈumu', "variants": ['ʃəhanʃˈumə'], "pointed": 'שֶׁהַנְּשָׁמָה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 5, "dominance": 1.0},  # freq 1
     'שוו': {"ipa": 'ʃˈuvi', "variants": ['ʃˈuvu'], "pointed": 'שָׁווּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -3519,9 +3519,9 @@ SEFARIA_POINTED_LK = {
     'שחלת': {"ipa": 'ʃɛxˈalas', "variants": ['ʃəxˈalas'], "pointed": 'שֶׁחַלַּת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שחקים': {"ipa": 'ʃxˈukim', "variants": ['ʃəxˈukim'], "pointed": 'שְׁחָקִים', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 1
     'שטבל': {"ipa": 'ʃətˈuval', "variants": ['ʃɛtˈuval'], "pointed": 'שֶׁטָּבַל', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'שימות': {"ipa": 'ʃɛjˈumus', "variants": [], "pointed": 'שֶׁיָּמוּת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'שיפתח': {"ipa": 'ʃɛjˈiftax', "variants": [], "pointed": 'שֶׁיִּפְתַּח', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 5, "dominance": 1.0},  # freq 1
-    'שיתפלל': {"ipa": 'ʃɛjispˈalajl', "variants": [], "pointed": 'שֶׁיִּתְפַּלֵּל', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'שימות': {"ipa": 'ʃɛjˈumus', "variants": [], "pointed": 'שֶׁיָּמוּת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'שיפתח': {"ipa": 'ʃɛjˈiftax', "variants": [], "pointed": 'שֶׁיִּפְתַּח', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 5, "dominance": 1.0},  # freq 1
+    'שיתפלל': {"ipa": 'ʃɛjispˈalajl', "variants": [], "pointed": 'שֶׁיִּתְפַּלֵּל', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שכה': {"ipa": 'sɔjxˈɔjə', "variants": ['sˈɔjxɔj'], "pointed": 'שֹׂכֹה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'שכינתו': {"ipa": 'ʃxinˈusɔj', "variants": ['ʃəxinˈusɔj'], "pointed": 'שְׁכִינָתוֹ', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'שכרם': {"ipa": 'sxˈurum', "variants": ['səxˈurum'], "pointed": 'שְׂכָרָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3531,12 +3531,12 @@ SEFARIA_POINTED_LK = {
     'שלישית': {"ipa": 'ʃlˈiʃis', "variants": ['ʃəlˈiʃis'], "pointed": 'שְׁלִישִׁית', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'שמחתכם': {"ipa": 'simxˈasxəm', "variants": ['simxˈasxɛm'], "pointed": 'שִׂמְחַתְכֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שמיעת': {"ipa": 'ʃmˈias', "variants": ['ʃəmˈias'], "pointed": 'שְׁמִיעַת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'שמכחישין': {"ipa": 'ʃəmaxˈiʃin', "variants": ['ʃɛmaxxˈiʃin'], "pointed": 'שֶׁמַּכְחִישִׁין', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'שמכחישין': {"ipa": 'ʃɛmaxxˈiʃin', "variants": [], "pointed": 'שֶׁמַּכְחִישִׁין', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שמכם': {"ipa": 'ʃˈimxɛm', "variants": ['ʃˈimxəm'], "pointed": 'שִׁמְכֶם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
     'שמרם': {"ipa": 'ʃˈumərajm', "variants": ['ʃˈumrajm'], "pointed": 'שָׁמְרֵם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'שנאתי': {"ipa": 'sunˈajsi', "variants": [], "pointed": 'שָׂנֵאתִי', "register": 'merged', "why": 'default-embedded', "n_sources": 15, "dominance": 1.0},  # freq 1
     'שנגח': {"ipa": 'ʃənˈuɡax', "variants": ['ʃɛnˈuɡax'], "pointed": 'שֶׁנָּגַח', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 1
-    'שניות': {"ipa": 'ʃnˈiɔjs', "variants": ['ʃənˈijɔjs'], "pointed": 'שְׁנִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 16, "dominance": 1.0},  # freq 1
+    'שניות': {"ipa": 'ʃənˈijɔjs', "variants": [], "pointed": 'שְׁנִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 16, "dominance": 1.0},  # freq 1
     'שנכנסו': {"ipa": 'ʃənˈixnsi', "variants": ['ʃɛnˈixnəsu'], "pointed": 'שֶׁנִּכְנְסוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
     'שנכנסת': {"ipa": 'ʃɛnˈixnast', "variants": ['ʃənˈixnast'], "pointed": 'שֶׁנִּכְנַסְתְּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שנעשית': {"ipa": 'ʃɛnaˈasajs', "variants": [], "pointed": 'שֶׁנַּעֲשֵׂית', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3552,12 +3552,12 @@ SEFARIA_POINTED_LK = {
     'שרח': {"ipa": 'sˈurax', "variants": [], "pointed": 'שָׂרַח', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שרפֿה': {"ipa": 'srˈajfə', "variants": ['sərˈajfu'], "pointed": 'שְׂרֵפָה', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 0.857},  # freq 1
     'שרשרת': {"ipa": 'ʃˈarʃrɔjs', "variants": ['ʃˈarʃərɔjs'], "pointed": 'שַׁרְשְׁרֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
-    'ששגגת': {"ipa": 'ʃɛʃˈiɡɡas', "variants": ['ʃəʃˈiɡas'], "pointed": 'שֶׁשִּׁגְגַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'ששגגת': {"ipa": 'ʃɛʃˈiɡɡas', "variants": [], "pointed": 'שֶׁשִּׁגְגַת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'ששחט': {"ipa": 'ʃɛʃˈuxat', "variants": ['ʃəʃˈuxat'], "pointed": 'שֶׁשָּׁחַט', "register": 'wh', "why": 'quoted-span-share', "n_sources": 9, "dominance": 1.0},  # freq 1
     'ששלח': {"ipa": 'ʃəʃˈulax', "variants": ['ʃɛʃˈulax'], "pointed": 'שֶׁשָּׁלַח', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 0.833},  # freq 1
     'ששמחה': {"ipa": 'ʃəsˈimxə', "variants": ['ʃɛsˈimxu'], "pointed": 'שֶׁשִּׂמְחָה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'ששק': {"ipa": 'ʃˈuʃuk', "variants": [], "pointed": 'שָׁשָׁק', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'שתהיה': {"ipa": 'ʃɛtˈihjɛ', "variants": ['ʃətˈihə'], "pointed": 'שֶׁתִּהְיֶה', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'שתהיה': {"ipa": 'ʃɛtˈihjɛ', "variants": [], "pointed": 'שֶׁתִּהְיֶה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שתזכה': {"ipa": 'ʃətzˈakə', "variants": ['ʃɛtzˈakɛ'], "pointed": 'שֶׁתְּזַכֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שתחדש': {"ipa": 'ʃətxˈadajʃ', "variants": ['ʃɛtxˈadajʃ'], "pointed": 'שֶׁתְּחַדֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'שתכלה': {"ipa": 'ʃətˈixlə', "variants": ['ʃɛtˈixlɛ'], "pointed": 'שֶׁתִּכְלֶה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -3568,7 +3568,7 @@ SEFARIA_POINTED_LK = {
     'תּהיו': {"ipa": 'tˈihji', "variants": ['tˈihju'], "pointed": 'תִּהְיוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 18, "dominance": 1.0},  # freq 1
     'תּהלים': {"ipa": 'təhˈilim', "variants": [], "pointed": 'תְּהִלִּים', "register": 'wh', "why": 'merged-orphans-h', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תּודה': {"ipa": 'tˈɔjdə', "variants": ['tˈɔjdu'], "pointed": 'תּוֹדָה', "register": 'merged', "why": 'default-embedded', "n_sources": 34, "dominance": 1.0},  # freq 1
-    'תּוקע': {"ipa": 'tɔjkˈaja', "variants": [], "pointed": 'תּוֹקֵעַ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'תּוקע': {"ipa": 'tɔjkˈaja', "variants": [], "pointed": 'תּוֹקֵעַ', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
     'תּושבֿ': {"ipa": 'tˈiʃuv', "variants": ['tˈuʃuv'], "pointed": 'תּוּשָׁב', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 0.917},  # freq 1
     'תּימן': {"ipa": 'tˈajmun', "variants": [], "pointed": 'תֵּימָן', "register": 'merged', "why": 'default-embedded', "n_sources": 11, "dominance": 1.0},  # freq 1
     'תּל': {"ipa": 'tajl', "variants": [], "pointed": 'תֵּל', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
@@ -3577,13 +3577,13 @@ SEFARIA_POINTED_LK = {
     'תּמות': {"ipa": 'tˈumis', "variants": ['tˈumus'], "pointed": 'תָּמוּת', "register": 'merged', "why": 'default-embedded', "n_sources": 44, "dominance": 1.0},  # freq 1
     'תּמידים': {"ipa": 'tmˈidim', "variants": ['təmˈidim'], "pointed": 'תְּמִידִים', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
     'תּמימות': {"ipa": 'tmˈimɔjs', "variants": ['təmˈimɔjs'], "pointed": 'תְּמִימוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
-    'תּמציות': {"ipa": 'tamʦˈiɔjs', "variants": ['tamʦˈijɔjs'], "pointed": 'תַמְצִיּוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'תּמציות': {"ipa": 'tamʦˈijɔjs', "variants": [], "pointed": 'תַמְצִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תּמר': {"ipa": 'tˈumur', "variants": [], "pointed": 'תָּמָר', "register": 'merged', "why": 'default-embedded', "n_sources": 23, "dominance": 0.92},  # freq 1
     'תּענוג': {"ipa": 'taˈanuɡ', "variants": [], "pointed": 'תַּעֲנוּג', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'תּעניות': {"ipa": 'taanˈijɔjs', "variants": [], "pointed": 'תַּעֲנִיּוֹת', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 9, "dominance": 1.0},  # freq 1
+    'תּעניות': {"ipa": 'taanˈijɔjs', "variants": [], "pointed": 'תַּעֲנִיּוֹת', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 9, "dominance": 1.0},  # freq 1
     'תּעשה': {"ipa": 'taˈasɛ', "variants": [], "pointed": 'תַּעֲשֶׂה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 169, "dominance": 0.889},  # freq 1
     'תּעשר': {"ipa": 'tˈasajr', "variants": ['təˈasajr'], "pointed": 'תְּעַשֵּׂר', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
-    'תּצוה': {"ipa": 'tʦˈai', "variants": ['təʦˈavɛ'], "pointed": 'תְּצַוֶּה', "register": 'merged', "why": 'audio-prefers-merged', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'תּצוה': {"ipa": 'təʦˈavɛ', "variants": [], "pointed": 'תְּצַוֶּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תּרומות': {"ipa": 'trˈimɔjs', "variants": ['tərˈumɔjs'], "pointed": 'תְּרוּמוֹת', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
     'תּתּן': {"ipa": 'tˈitajn', "variants": [], "pointed": 'תִּתֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 75, "dominance": 0.815},  # freq 1
     'תּתצו': {"ipa": 'titˈɔjʦi', "variants": ['titˈɔjʦu'], "pointed": 'תִּתֹּצוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3614,7 +3614,7 @@ SEFARIA_POINTED_LK = {
     'תולעים': {"ipa": 'tɔjlˈuim', "variants": [], "pointed": 'תּוֹלָעִים', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תועבת': {"ipa": 'tɔjˈavas', "variants": [], "pointed": 'תּוֹעֲבַת', "register": 'wh', "why": 'quoted-span-share', "n_sources": 26, "dominance": 0.963},  # freq 1
     'תור': {"ipa": 'tɔjr', "variants": [], "pointed": 'תּוֹר', "register": 'merged', "why": 'default-embedded', "n_sources": 8, "dominance": 1.0},  # freq 1
-    'תושיה': {"ipa": 'tuʃˈiju', "variants": [], "pointed": 'תּוּשִׁיָּה', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 4, "dominance": 1.0},  # freq 1
+    'תושיה': {"ipa": 'tuʃˈiju', "variants": [], "pointed": 'תּוּשִׁיָּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 4, "dominance": 1.0},  # freq 1
     'תותירו': {"ipa": 'tɔjsˈiri', "variants": ['tɔjsˈiru'], "pointed": 'תּוֹתִירוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'תזכרנו': {"ipa": 'tizkrˈɛni', "variants": ['tizkərˈɛnu'], "pointed": 'תִזְכְּרֶנּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תחיו': {"ipa": 'tˈixji', "variants": ['tˈixju'], "pointed": 'תִּחְיוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 4, "dominance": 1.0},  # freq 1
@@ -3622,7 +3622,7 @@ SEFARIA_POINTED_LK = {
     'תחרץ': {"ipa": 'tɛxˈɛruʦ', "variants": ['təxˈɛruʦ'], "pointed": 'תֶּחֱרָץ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תחתון': {"ipa": 'tˈaxtɔjn', "variants": [], "pointed": 'תַּחְתּוֹן', "register": 'merged', "why": 'default-embedded', "n_sources": 12, "dominance": 1.0},  # freq 1
     'תחתיהם': {"ipa": 'taxtˈajhəm', "variants": ['taxtˈajhɛm'], "pointed": 'תַּחְתֵּיהֶם', "register": 'merged', "why": 'default-embedded', "n_sources": 7, "dominance": 1.0},  # freq 1
-    'תחתיהן': {"ipa": 'taxtˈajhɛn', "variants": [], "pointed": 'תַּחְתֵּיהֶן', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 21, "dominance": 1.0},  # freq 1
+    'תחתיהן': {"ipa": 'taxtˈajhɛn', "variants": [], "pointed": 'תַּחְתֵּיהֶן', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 21, "dominance": 1.0},  # freq 1
     'תחתיך': {"ipa": 'taxtˈajxu', "variants": ['taxtˈɛjxu'], "pointed": 'תַּחְתֶּיךָ', "register": 'merged', "why": 'default-embedded', "n_sources": 9, "dominance": 1.0},  # freq 1
     'תימא': {"ipa": 'tˈajmu', "variants": [], "pointed": 'תֵּימָא', "register": 'merged', "why": 'default-embedded', "n_sources": 3, "dominance": 1.0},  # freq 1
     'תימני': {"ipa": 'tˈajmni', "variants": ['tˈajməni'], "pointed": 'תֵּימְנִי', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
@@ -3647,7 +3647,7 @@ SEFARIA_POINTED_LK = {
     'תנחם': {"ipa": 'tˈanxajm', "variants": [], "pointed": 'תַּנְחֵם', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'תנחמנו': {"ipa": 'tnaxamˈɛni', "variants": ['tənaxamˈɛnu'], "pointed": 'תְּנַחֲמֶנּוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תנינים': {"ipa": 'tanˈinim', "variants": [], "pointed": 'תַּנִּינִים', "register": 'merged', "why": 'default-embedded', "n_sources": 5, "dominance": 1.0},  # freq 1
-    'תסובבני': {"ipa": 'təsɔjvəvˈajni', "variants": ['ʦɔjvˈajni'], "pointed": 'תְּסוֹבְבֵנִי', "register": 'wh', "why": 'quoted-span-share', "n_sources": 3, "dominance": 1.0},  # freq 1
+    'תסובבני': {"ipa": 'təsɔjvəvˈajni', "variants": [], "pointed": 'תְּסוֹבְבֵנִי', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 3, "dominance": 1.0},  # freq 1
     'תסור': {"ipa": 'tˈusur', "variants": ['tˈusir'], "pointed": 'תָּסוּר', "register": 'wh', "why": 'quoted-span-share', "n_sources": 6, "dominance": 1.0},  # freq 1
     'תעביטנו': {"ipa": 'taavitˈɛnu', "variants": [], "pointed": 'תַּעֲבִיטֶנּוּ', "register": 'wh', "why": 'merged-drops-vowel', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תעוררו': {"ipa": 'təˈɔjrəru', "variants": ['təˈɔjrri'], "pointed": 'תְּעוֹרְרוּ', "register": 'wh', "why": 'quoted-span-share', "n_sources": 2, "dominance": 1.0},  # freq 1
@@ -3685,9 +3685,9 @@ SEFARIA_POINTED_LK = {
     'תשנו': {"ipa": 'tˈiʃni', "variants": ['tˈiʃnu'], "pointed": 'תִּשְׁנוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תשקרו': {"ipa": 'ʧˈakri', "variants": ['təʃˈakru'], "pointed": 'תְשַׁקְּרוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תת': {"ipa": 'tajs', "variants": [], "pointed": 'תֵּת', "register": 'merged', "why": 'default-embedded', "n_sources": 14, "dominance": 1.0},  # freq 1
-    'תתאוה': {"ipa": 'tisˈai', "variants": ['tisˈavɛ'], "pointed": 'תִּתְאַוֶּה', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
+    'תתאוה': {"ipa": 'tisˈavɛ', "variants": [], "pointed": 'תִּתְאַוֶּה', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תתחדש': {"ipa": 'tisxˈadajʃ', "variants": [], "pointed": 'תִּתְחַדֵּשׁ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
     'תתחתן': {"ipa": 'tisxˈatajn', "variants": [], "pointed": 'תִּתְחַתֵּן', "register": 'merged', "why": 'default-embedded', "n_sources": 2, "dominance": 1.0},  # freq 1
     'תתנשׂאו': {"ipa": 'tisnˈasi', "variants": ['tisnˈasu'], "pointed": 'תִּתְנַשְּׂאוּ', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
-    'תתרומם': {"ipa": 'tisrˈimum', "variants": ['tˈisrvmum'], "pointed": 'תִּתְרומָם', "register": 'merged', "why": 'default-embedded', "n_sources": 1, "dominance": 1.0},  # freq 1
+    'תתרומם': {"ipa": 'tˈisrvmum', "variants": [], "pointed": 'תִּתְרומָם', "register": 'wh', "why": 'merged-drops-consonant', "n_sources": 1, "dominance": 1.0},  # freq 1
 }

@@ -391,8 +391,42 @@ def merged_mis_stresses(merged: str, wh: str) -> bool:
     return n_m == n_w and p_w == -2 and p_m == -3
 
 
+_CONSONANTS = set("bdfɡhjklmnprstvzxʃʒʦʧʤŋ")
+
+
+def merged_drops_a_consonant(merged: str, wh: str) -> bool:
+    """A consonant present in the WH reading vanished from the merged one.
+
+    Registers may only differ in VOWELS (shuruk u/i, final kometz-hey u/ə...);
+    a lost consonant means the merged reader mishandled the pointing (the
+    תְּצַוֶּה case: WH təʦˈavɛ vs merged *tʦˈai — the /v/ is gone). Such a
+    reading must never ship, and no audio vote may resurrect it: a short
+    defective string scores well against a noisy transcript for the wrong
+    reason (the exact override class the composition audit flagged).
+    """
+    # Affricates are legitimate fusions (ת+ש -> ʧ in gold ʧˈivə), so they count
+    # as their components — otherwise every merged-register affrication would be
+    # flagged as a lost consonant.
+    _DECOMPOSE = {"ʧ": "tʃ", "ʦ": "ts", "ʤ": "dʒ", "ʣ": "dz"}
+
+    def phones(s: str) -> list[str]:
+        out = []
+        for c in s:
+            if c in _DECOMPOSE:
+                out.extend(_DECOMPOSE[c])
+            elif c in _CONSONANTS:
+                out.append(c)
+        return out
+
+    from collections import Counter
+    mc, wc = Counter(phones(merged)), Counter(phones(wh))
+    return any(wc[c] > mc.get(c, 0) for c in wc)
+
+
 def merged_is_defective(merged: str, wh: str) -> str:
     """'' if the merged reading is sound, else the name of the defect."""
+    if merged_drops_a_consonant(merged, wh):
+        return "merged-drops-consonant"
     if merged_drops_a_vowel(merged, wh):
         return "merged-drops-vowel"
     if merged_overrides_a_point(merged, wh):

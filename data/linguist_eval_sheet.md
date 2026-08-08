@@ -19,7 +19,7 @@ before the stressed vowel.
 **1.**
 > דא שטייט וברכתי את לחמך ואת מימיך, דער אויבערשטער בענטשט אים מיט ברויט אין דיינע געדערן.
 
-System: `du ʃtajt uvajrˈaxsi ɛs lˈaxməxu vəˈɛs mˈimix, dɛr ˈɔjbərʃtər bɛnʧt ejm mit brɔjt in dˈaːnə ɡədˈɛrn.`
+System: `du ʃtajt uvajrˈaxsi ɛs lˈaxməxu vɛs mˈimix, dɛr ˈɔjbərʃtər bɛnʧt ejm mit brɔjt in dˈaːnə ɡədˈɛrn.`
 
 **2.**
 > אז ער וויל עס אמתדיג נעמען די תורה לשמה.
@@ -39,7 +39,7 @@ System: `kik oʊf mˈɔjʃə rbˈini, vi haːnt iz zi!`
 **5.**
 > אז דער בעל הבית פון דער הויז האט געהאט איינשטאלט.
 
-System: `az dɛr baːl habˈajis fin dɛr hoʊz hut ɡəhˈat ˈajnʃtalt.`
+System: `az dɛr bˈaləbus fin dɛr hoʊz hut ɡəhˈat ˈajnʃtalt.`
 
 **6.**
 > איז האָבן זיי געקענט נאָך מער לערנען ווי דער דיין.
@@ -59,14 +59,14 @@ System: `siz ɡəvˈejn ɡəkˈɛnt, hut mɛn ɡərˈifn tˈakə dejm daːn az m
 **9.**
 > און דער סקווערער רבי זכרונו לברכה מיט ר' משה גאַבאַ האָבן געשפּירט אַז מען דאַרף.
 
-System: `in dɛr skvˈɛrər rˈɛbə zxrˈini livrˈuxə mit rɛb mˈɔjʃə ɡˈaba hubn ɡəʃpˈirt az mɛn daf.`
+System: `in dɛr skvˈɛrər rˈɛbə zixrˈɔjni livrˈuxə mit rɛb mˈɔjʃə ɡˈaba hubn ɡəʃpˈirt az mɛn daf.`
 
 **10.**
 > איז ווען די יידן האבן געזאגט נעשה ונשמע, גלייך האט דער אייבערשטער געזאגט ויקחו לי תרומה.
 
-System: `iz vɛn də jidn hubn ɡəzˈuɡt nˈɛʃə ˈinʃmə, ɡlaːx hut dɛr ˈajbərʃtər ɡəzˈuɡt vˈikxi li tərˈumu.`
+System: `iz vɛn də jidn hubn ɡəzˈuɡt nˈɛʃə ˈinʃmə, ɡlaːx hut dɛr ˈajbərʃtər ɡəzˈuɡt vˈikxi li trˈimə.`
 
 ---
 
 *Sentences are verbatim corpus text. System output generated 2026-08-08
-(engine with the full Hebrew rescue chain).*
+(engine with MWE fusion, register-aware Hebrew, and the full rescue chain).*
