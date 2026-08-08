@@ -77,6 +77,13 @@ class Diacritizer:
         self.shin = json.loads(meta["shin_classes"])
         self.rafe = json.loads(meta["rafe_classes"])
         self.max_len = int(meta.get("max_len", 512))
+        # BERT-style models (the exported teacher) wrap input in [CLS]...[SEP]
+        # and their char predictions sit one position later. Student exports
+        # carry no cls_id and take the original bare-char path unchanged.
+        self.cls_id = int(meta["cls_id"]) if "cls_id" in meta else None
+        self.sep_id = int(meta["sep_id"]) if "sep_id" in meta else None
+        self.unk_id = int(meta.get("unk_id", 1))
+        self.off = 1 if self.cls_id is not None else 0
         self.dict = self._load_dict(dictionary) if dictionary else {}
 
     @staticmethod
@@ -93,14 +100,18 @@ class Diacritizer:
     # ---------------------------------------------------------------- model
 
     def _encode(self, text):
-        return [self.stoi.get(c, 1) for c in text]
+        e = [self.stoi.get(c, self.unk_id) for c in text]
+        if self.cls_id is not None:
+            e = [self.cls_id, *e, self.sep_id]
+        return e
 
     def point_model(self, texts):
         """Point a batch of strings with the model only (no dictionary)."""
         if isinstance(texts, str):
             texts = [texts]
-        texts = [unicodedata.normalize("NFC", t)[: self.max_len] for t in texts]
-        T = max(len(t) for t in texts)
+        limit = self.max_len - 2 * self.off
+        texts = [unicodedata.normalize("NFC", t)[:limit] for t in texts]
+        T = max(len(t) for t in texts) + 2 * self.off
         B = len(texts)
         ids = np.zeros((B, T), dtype=np.int64)
         mask = np.zeros((B, T), dtype=np.int64)
@@ -119,11 +130,12 @@ class Diacritizer:
                 if not HEB.match(ch):
                     buf.append(ch)
                     continue
-                cls = self.nikud[int(nk[b, i])]
+                p = i + self.off  # char i's prediction sits after [CLS]
+                cls = self.nikud[int(nk[b, p])]
                 dag = DAGESH if DAGESH in cls else ""
                 vowel = cls.replace(DAGESH, "")
-                dot = self.shin[int(sh[b, i])] if ch == "ש" else ""
-                raf = self.rafe[int(rf[b, i])]
+                dot = self.shin[int(sh[b, p])] if ch == "ש" else ""
+                raf = self.rafe[int(rf[b, p])]
                 buf.append(ch + dag + raf + dot + vowel)
             out.append("".join(buf))
         return out
@@ -134,8 +146,9 @@ class Diacritizer:
         teacher."""
         if isinstance(texts, str):
             texts = [texts]
-        texts = [unicodedata.normalize("NFC", t)[: self.max_len] for t in texts]
-        T = max(len(t) for t in texts)
+        limit = self.max_len - 2 * self.off
+        texts = [unicodedata.normalize("NFC", t)[:limit] for t in texts]
+        T = max(len(t) for t in texts) + 2 * self.off
         B = len(texts)
         ids = np.zeros((B, T), dtype=np.int64)
         mask = np.zeros((B, T), dtype=np.int64)
@@ -152,11 +165,12 @@ class Diacritizer:
                 if not HEB.match(ch):
                     row.append(None)
                     continue
-                cls = self.nikud[int(nk[b, i])]
+                p = i + self.off
+                cls = self.nikud[int(nk[b, p])]
                 dag = DAGESH if DAGESH in cls else ""
                 vowel = cls.replace(DAGESH, "")
-                dot = self.shin[int(sh[b, i])] if ch == "ש" else ""
-                raf = self.rafe[int(rf[b, i])]
+                dot = self.shin[int(sh[b, p])] if ch == "ש" else ""
+                raf = self.rafe[int(rf[b, p])]
                 row.append(dag + raf + dot + vowel)
             out.append(row)
         return out
