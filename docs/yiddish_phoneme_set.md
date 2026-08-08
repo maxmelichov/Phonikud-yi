@@ -276,19 +276,30 @@ in the verification queue and any native verdict instantly outranks them:
 1. `data/audio_endorsed_lk.py` — reason `pointed-audio-endorsed`; the corpus's
    unverified pointing confirmed against episode audio (PhoneticXeus).
 2. `data/sefaria_pointed_lk.py` — reason `sefaria-pointed`; a single agreed
-   pointing in the verified published editions (Sefaria MAM / Torat Emet),
-   read in the Whole-Hebrew register.
+   pointing in the verified published editions (Sefaria MAM / Torat Emet).
 3. `data/model_pointed_lk.py` — reason `model-pointed-guess`; phonikud-yi v3
    (97% held-out accuracy on evidence-backed Hebrew) pointed the word in
    sentence context. The no-drop policy: a good guess beats silence, and it is
    never the raw consonant skeleton.
 
+Both pointing-based rescues (2 and 3) are REGISTER-AWARE
+(`scripts/register_policy.py`). A pointing is read as EMBEDDED loshn-koydesh by
+default — `read_pointed_merged()`, shuruk/kubuts take the Yiddish u->i shift and
+a final komets-hey is `[ə]` — because that is what a Hebrew word is doing inside
+a Yiddish sentence. The Whole-Hebrew register (`read_pointed_wh()`, §7.1) is the
+QUOTATION register and is kept only where the evidence says the word is quoted:
+episode audio fits it better, or >= 70% of the type's corpus tokens sit inside a
+run of >= 3 consecutive loshn-koydesh tokens. The losing register ships as a
+variant. 8,664 of the 11,034 entries in the two tables are read in the
+merged register, 5,951 of them with a reading the Whole-Hebrew reader would
+not have given.
+
 | Input | Expected | Note |
 |---|---|---|
 | `צדקה` | `ʦdˈukə` | 1 audio-endorsed |
-| `חסד` | `xˈɛsɛd` | 2 sefaria: `חֶסֶד` |
-| `זכות` | `zəxˈus` | 2 sefaria: `זְכוּת` — shva-na ə, shuruk u |
-| `מחלוקת` | `maxalˈɔjkɛs` | 3 model guess (was quarantined as *mxliks*) |
+| `חסד` | `xˈɛsəd` | 2 sefaria: `חֶסֶד` — merged-register |
+| `זכות` | `zxis` | 2 sefaria: `זְכוּת` — merged-register, shuruk -> i; audio agrees |
+| `מחלוקת` | `maxalˈɔjkɛs` | 3 model guess (was quarantined as *mxliks*); WH kept — the merged reader retracts the stress to *maxˈalɔjkəs* |
 | `תהילים` | `təhˈilim` | 3 model guess |
 | `דבר` | `dˈuvur` | 3 model guess — never the skeleton *dbr* |
 

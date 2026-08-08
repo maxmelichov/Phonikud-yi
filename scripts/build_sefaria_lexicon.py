@@ -5,7 +5,11 @@ For every quarantined type, look its unpointed form up in the verified pointed
 index (data/pointed_sources/pointed_index.jsonl, built from Sefaria's MAM Tanakh
 and Torat Emet Mishnah/Siddur). Accept the pointing when the sources agree —
 exactly one distinct vocalization, or a dominant one at >= 80% of occurrences —
-and read it with the Whole-Hebrew register helper read_pointed_wh().
+and read it in the register the word is actually being used in
+(scripts/register_policy.py): MERGED by default, since a loshn-koydesh word in
+a Yiddish sentence takes the Yiddish shifts (shuruk -> [i], final komets-hey ->
+[ə]); Whole-Hebrew only where audio or corpus usage says the word is QUOTED.
+The losing register ships as a variant.
 
 Rejected: readings that leave the closed v3 phone inventory, readings that fail
 the §1 vowel-shape rule, pointings whose letter skeleton differs from the
@@ -28,6 +32,12 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from scripts.build_pointed_index import phonemic_fold  # noqa: E402
+from scripts.register_policy import (  # noqa: E402
+    SPAN_MIN,
+    WH_SHARE_MIN,
+    decide,
+    quoted_shares,
+)
 from yiddish_g2p import (  # noqa: E402
     GOLD_LEXICON,
     _ABBREVIATIONS,
@@ -40,9 +50,13 @@ from yiddish_g2p import (  # noqa: E402
     ipa_phone_violations,
     lexicon_key,
     normalize_surface,
-    read_pointed_wh,
     violates_vowel_ratio,
 )
+
+
+def readable(ipa: str) -> bool:
+    """The §1 gate a reading must pass to be emitted at all."""
+    return bool(ipa) and not ipa_phone_violations(ipa) and not violates_vowel_ratio(ipa)
 
 QUARANTINE = ROOT / "data" / "pointed_sources" / "quarantine_full_snapshot.tsv"
 INDEX = ROOT / "data" / "pointed_sources" / "pointed_index.jsonl"
@@ -168,12 +182,15 @@ def already_routed(word: str) -> bool:
             or bare in _LK_BARE or bare in _WORD_LATIN)
 
 
-def build() -> tuple[list[tuple[str, dict, int]], dict[str, int], list[tuple[str, int]]]:
+def build() -> tuple[list[tuple[str, dict, int]], dict[str, int],
+                     list[tuple[str, int]], list[tuple[str, int, dict]]]:
     quarantine = sorted(load_quarantine(QUARANTINE), key=lambda t: (-t[1], t[0]))
     index = load_index(INDEX)
+    shares = quoted_shares()
     stats: dict[str, int] = defaultdict(int)
     accepted: list[tuple[str, dict, int]] = []
     rejected: list[tuple[str, int]] = []
+    flips: list[tuple[str, int, dict]] = []
     by_key: dict[str, str] = {}
 
     for word, freq in quarantine:
@@ -198,23 +215,21 @@ def build() -> tuple[list[tuple[str, dict, int]], dict[str, int], list[tuple[str
             rejected.append((word, freq))
             continue
         try:
-            ipa = read_pointed_wh(form)
+            verdict = decide(word, form, shares, validate=readable)
         except Exception:  # noqa: BLE001
             stats["reject_read_error"] += 1
             rejected.append((word, freq))
             continue
-        if not ipa:
-            stats["reject_empty"] += 1
+        if verdict is None:
+            # NEITHER register produced a speakable reading — the old
+            # empty/bad-phone/vowel-shape rejections, now collapsed into one
+            # because a reading is only rejected when both of them fail.
+            stats["reject_unreadable"] += 1
             rejected.append((word, freq))
             continue
-        if ipa_phone_violations(ipa):
-            stats["reject_bad_phone"] += 1
-            rejected.append((word, freq))
-            continue
-        if violates_vowel_ratio(ipa):
-            stats["reject_vowel_shape"] += 1
-            rejected.append((word, freq))
-            continue
+        ipa = verdict["ipa"]
+        stats[f"register_{verdict['register']}"] += 1
+        stats[f"why_{verdict['why']}"] += 1
         # The engine keys this table by lexicon_key, which folds final letters,
         # so two spellings can land on one key. Keep the first (highest-freq)
         # and drop a later one that disagrees, rather than letting dict order
@@ -227,9 +242,18 @@ def build() -> tuple[list[tuple[str, dict, int]], dict[str, int], list[tuple[str
         by_key[key] = ipa
         stats["accepted"] += 1
         stats["accepted_tokens"] += freq
+        if verdict["merged"] != verdict["wh"]:
+            stats["register_distinguishable"] += 1
+            if verdict["register"] == "merged":
+                stats["flipped_to_merged"] += 1
+                stats["flipped_tokens"] += freq
+                flips.append((word, freq, verdict))
         accepted.append((word, {
             "ipa": ipa,
+            "variants": verdict["variants"],
             "pointed": form,
+            "register": verdict["register"],
+            "why": verdict["why"],
             "n_sources": n_sources,
             "dominance": dominance,
         }, freq))
@@ -238,7 +262,8 @@ def build() -> tuple[list[tuple[str, dict, int]], dict[str, int], list[tuple[str
     stats["quarantine_tokens"] = sum(f for _, f in quarantine)
     accepted.sort(key=lambda t: (-t[2], t[0]))
     rejected.sort(key=lambda t: (-t[1], t[0]))
-    return accepted, dict(stats), rejected
+    flips.sort(key=lambda t: (-t[1], t[0]))
+    return accepted, dict(stats), rejected, flips
 
 
 HEADER = '''"""GENERATED — Sefaria-pointed loshn-koydesh readings.
@@ -248,9 +273,26 @@ the Masorah* (Tanakh, CC-BY-SA) and *Torat Emet 357* (Mishnah, Siddur Ashkenaz,
 Public Domain); see data/pointed_sources/README.md for the full attribution and
 the CC-BY-SA obligations that ride along with this file. Each quarantined type
 whose unpointed form has exactly one vocalization in those sources, or a
-dominant one at >= {dom:.0%} of occurrences, is read with the Whole-Hebrew
-register helper read_pointed_wh() (yiddish_g2p.py, spec v2 §7.1): shuruk/kubuts
-[u] with no Yiddish u->i shift, shva-na [ə], final komets-hey [u].
+dominant one at >= {dom:.0%} of occurrences, is read in the register that type is
+actually used in (scripts/register_policy.py).
+
+REGISTER. The default is MERGED — read_pointed_merged(), the §5 nikud table as
+the engine reads embedded loshn-koydesh: shuruk/kubuts take the near-
+exceptionless Yiddish u->i shift, a final komets-hey is [ə]. That is what the
+native informant's gold readings show for a Hebrew word sitting inside a
+Yiddish sentence (תורה tɔjrə, ברכה brˈuxə, חידוש xˈidiʃ), and it is what these
+words are doing here. The Whole-Hebrew register (read_pointed_wh(), spec v2
+§7.1: shuruk [u], shva-na [ə], final komets-hey [u]) is the QUOTATION register
+and is used only where the evidence says the word is quoted:
+
+  * audio — the clips in data/audio_lexicon/ fit the WH reading better; or
+  * usage — >= {wh:.0%} of the type's corpus tokens sit inside a run of >= {span}
+    consecutive loshn-koydesh tokens, which is what a cited posuk looks like
+    and what running Yiddish does not.
+
+Each entry records which register won ('register') and why ('why'). The LOSING
+register is kept as a 'variants' entry rather than thrown away, so a forced
+aligner or a reviewer can still choose it.
 
 Rescue #2 for the quarantine, and it ranks BELOW data/audio_endorsed_lk.py:
 audio evidence outranks book pointing, so words endorsed there are excluded
@@ -271,12 +313,15 @@ SEFARIA_POINTED_LK = {{
 
 def emit(accepted, stats) -> str:
     lines = [HEADER.format(dom=DOMINANCE_MIN, n=len(accepted),
+                           wh=WH_SHARE_MIN, span=SPAN_MIN,
                            tok=stats.get("accepted_tokens", 0))]
     for word, rec, freq in accepted:
         lines.append(
-            "    %r: {\"ipa\": %r, \"pointed\": %r, "
+            "    %r: {\"ipa\": %r, \"variants\": %r, \"pointed\": %r, "
+            "\"register\": %r, \"why\": %r, "
             "\"n_sources\": %d, \"dominance\": %r},  # freq %d\n"
-            % (word, rec["ipa"], rec["pointed"], rec["n_sources"],
+            % (word, rec["ipa"], rec["variants"], rec["pointed"],
+               rec["register"], rec["why"], rec["n_sources"],
                rec["dominance"], freq)
         )
     lines.append("}\n")
@@ -287,19 +332,36 @@ def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--flips", type=int, default=15,
+                    help="how many register flips to list")
     args = ap.parse_args()
 
-    accepted, stats, rejected = build()
+    accepted, stats, rejected, flips = build()
     if not args.dry_run:
         OUT.write_text(emit(accepted, stats), encoding="utf-8")
         print(f"wrote {OUT}")
     for k in sorted(stats):
-        print(f"{k:24s} {stats[k]}")
+        print(f"{k:28s} {stats[k]}")
     tok = stats["accepted_tokens"] / max(stats["quarantine_tokens"], 1)
-    print(f"token coverage           {tok:.1%}")
+    print(f"token coverage               {tok:.1%}")
     print("\ntop rescued:")
     for word, rec, freq in accepted[:args.top]:
         print(f"  {word:14s} {freq:6d}  {rec['pointed']:18s} {rec['ipa']}")
+
+    # The point of the change: how many types stopped being read as quotations.
+    print(f"\nREGISTER FLIPS (WH -> merged): {len(flips)} types, "
+          f"{stats.get('flipped_tokens', 0)} tokens; "
+          f"{stats.get('register_distinguishable', 0)} types where the two "
+          f"registers differ at all")
+    print(f"  {'word':14s} {'freq':>6s}  {'was (WH)':22s} {'now (merged)':22s} why")
+    for word, freq, v in flips[:args.flips]:
+        print(f"  {word:14s} {freq:6d}  {v['wh']:22s} {v['merged']:22s} {v['why']}")
+    kept = [(w, f, r) for w, r, f in accepted
+            if r["register"] == "wh" and r["variants"]]
+    print(f"\nWH KEPT (quoted register wins): {len(kept)} types")
+    for word, freq, rec in kept[:args.flips]:
+        print(f"  {word:14s} {freq:6d}  {rec['ipa']:22s} {rec['why']}")
+
     print("\ntop still quarantined:")
     for word, freq in rejected[:args.top]:
         print(f"  {word:14s} {freq:6d}")

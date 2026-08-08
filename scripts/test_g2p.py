@@ -11,7 +11,63 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from yiddish_g2p import hebrew_to_ipa  # noqa: E402
+from yiddish_g2p import g2p_token, hebrew_to_ipa  # noqa: E402
+
+# LK root + Germanic suffix (rescue #4). Every positive is a real corpus type
+# that used to leave the rule path as a consonant string; the expected reading
+# is root-IPA + suffix-IPA with the root's own stress kept. (word, ipa, reason).
+STEM_CASES: list[tuple[str, str, str, str]] = [
+    ("פשטלעך", "pʃatləx", "gold+suffix", "פשט gold + לעך; was fʃtlɛx"),
+    ("רבין", "rˈɛbən", "gold+suffix", "רבי + ן, 66 corpus tokens; was rbin"),
+    ("גמראס", "ɡəmˈurəs", "gold+suffix", "גמרא + ס; was ɡmras"),
+    ("כבודן", "kˈuvədn", "lk-lexicon+suffix", "merged-LK root + ן; was xbidn"),
+    ("צדיקס", "ʦˈadiks", "lk-lexicon+suffix", "merged-LK root + ס; was ʦdiks"),
+    ("תעשׂהס", "taˈasɛs", "sefaria-pointed+suffix", "book-pointed root + ס"),
+    ("הפקרדיגע", "hˈɛfkajrdiɡə", "pointed-audio-endorsed+suffix",
+     "audio-endorsed root + דיגע; was the quarantined hfkrdˈiɡə"),
+    ("שעהן", "ʃuən", "gold+suffix",
+     "שעה 'ʃu' + ן takes the linking vowel: shoen, not *ʃun"),
+    # --- negatives: the stemmer must keep its hands off ------------------
+    # POINTED GERMANIC. _lk_detector's shape clause reads 'no vowel letter' as
+    # 'Hebrew', which is meaningless once the vowels are written as points:
+    # שנסט / שלכט / שטר / קלפ / פלג all pass it while שענסט / שלעכט / שטער /
+    # קלאפ / פלעג correctly do not. The model-guess guard therefore has to use
+    # the marker clauses on pointed roots, or the stemmer rebuilds ordinary
+    # Yiddish words out of Hebrew readings.
+    ("שֶׁנְסְטֶע", "ʃˈɛnstə", "", "pointed Germanic; was *ʃnustə"),
+    ("שְׁלֶכְטֶע", "ʃlˈɛxtə", "", "pointed Germanic; was *ʃˈɛlxutə"),
+    ("שְׁטֶרְן", "ʃtɛrn", "lk-fallback", "pointed Germanic; was *ʃtarn"),
+    ("קְלַפְּן", "klapn", "lk-fallback", "pointed Germanic; was *kəlfn"),
+    ("פְלֶגְן", "flɛɡn", "pe-default,lk-fallback", "pointed Germanic; was *pˈɛləɡn"),
+    # SEAM. Root-IPA + suffix-IPA is not a phonology: a geminate at the join or
+    # a lost nucleus means the split (or the root reading) is wrong.
+    ("כוסס", "xis", "", "geminate *kɔjss declined"),
+    ("חַזֶרְנֶן", "xˈazərnən", "lk-fallback", "geminate *xˈazərnn declined"),
+    ("תאוועס", "sˈavəs", "alef-default,lk-fallback", "geminate *taˈavvɛs declined"),
+    ("מַחְלוֹקֶס", "mˈaxlɔjkəs", "lk-fallback", "syllable loss *mˈaxlɔjks declined"),
+    ("חַתֶנֶעס", "xˈasənəs", "lk-fallback", "syllable loss *xˈasnəs declined"),
+    ("שמחס", "ʃmxs", "lk-fallback",
+     "the defective plural of שמחה, not שמח + ס (_STEM_NO_SPLIT)"),
+    # _STEM_SUBS owns these whether or not the input is pointed: one lexeme,
+    # one path, one reading.
+    ("אֱמֶתְדִיג", "ˈɛməzdiɡ", "lk-fallback", "== אמתדיג; was *ˈɛməsdiɡ"),
+    ("שַׁבָּתְדִיגֶע", "ʃˈabəzdiɡə", "lk-fallback", "== שבתדיגע; was *ʃˈabəsdiɡə"),
+    ("אמתדיג", "ˈɛməzdiɡ", "alef-default,lk-fallback",
+     "_STEM_SUBS owns this one: the pointed base wins over root+suffix"),
+    ("חסידישע", "xˈusidiʃə", "lk-fallback", "_STEM_SUBS again (חסיד -> כאָסיד)"),
+    ("מענטשן", "mɛnʧn", "", "Germanic word, whole-token lexicon entry"),
+    ("גוטע", "ɡˈitə", "", "Germanic -טע is not an LK root + suffix"),
+    ("וורטלעך", "vrtlɛx", "",
+     "Germanic וורט sits in the model-guess table; a guess alone is not LK evidence"),
+    ("הרשע", "hrʃə", "", "ha-ROshe: הר + שע is a two-letter root, below the floor"),
+    ("בנין", "bnin", "", "binyen is one morpheme, not בני + ן (_STEM_NO_SPLIT)"),
+    ("כדין", "xdin", "", "kədin is one morpheme, not כדי + ן (_STEM_NO_SPLIT)"),
+    # Documented gap, not a target: the root רבנו is in NO table (it is never
+    # quarantined, so the model builder never saw it), so the stemmer has
+    # nothing to resolve and the possessive stays wrong. A whole-token or root
+    # entry for רבנו is what fixes it -- 717 corpus tokens ride on it.
+    ("רבנוס", "rbnis", "", "XFAIL-ish: unresolvable until רבנו is in a lexicon"),
+]
 
 CASES: list[tuple[str, str, str]] = [
     # (input, expected IPA, note)
@@ -100,6 +156,13 @@ def main() -> int:
             failed += 1
             status = "FAIL "
         print(f"{status}  {text!r:30s} -> {got!r:18s} (want {want!r})  {note}")
+    for text, want, want_reason, note in STEM_CASES:
+        rec = g2p_token(text)
+        got, got_reason = rec["ipa_primary"], rec["reason"]
+        ok = got == want and got_reason == want_reason
+        passed, failed = (passed + 1, failed) if ok else (passed, failed + 1)
+        print(f"{'PASS ' if ok else 'FAIL '}  {text!r:30s} -> {got!r:18s} "
+              f"[{got_reason}] (want {want!r} [{want_reason}])  stem: {note}")
     print(f"\n{passed} passed, {failed} FAILED, {xfailed} known-bugs, {fixed} newly fixed")
     return 1 if failed else 0
 

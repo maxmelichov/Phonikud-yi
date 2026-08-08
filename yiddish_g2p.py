@@ -898,6 +898,56 @@ _STEM_SUBS: list[tuple[str, str]] = [
     ("הרג", "האַרג"),
 ]
 
+# The same list as VOWEL-tolerant patterns. A plain ``stem in core`` substring
+# test sees only the UNPOINTED spelling, so אֱמֶתְדִיג and אמתדיג -- the same
+# word -- took different paths: the unpointed one got _STEM_SUBS' audio-matched
+# base (ˈɛməzdiɡ, with the ת/ד voicing assimilation) and the pointed one fell
+# through to the stemmer's root+suffix concatenation (*ˈɛməsdiɡ). Matching
+# through the vowel points keeps one lexeme on one path.
+#
+# Through the POINTS, not through a letter's identity, and only for bases of
+# >= 3 letters:
+#   * rafe and the sin dot are excluded outright -- they pin the fricative and
+#     make שׂ, so a span that crosses one is a different word (נפֿטר niftar is
+#     not a פטר word).
+#   * a dagesh is allowed everywhere EXCEPT on פ. Elsewhere it agrees with the
+#     base's own reading (שַׁבָּת's בּ is the /b/ of שאַבעס), but פּ/פ is §4's
+#     weakest contrast and every collision measured on the corpus is the same
+#     one: a Germanic separable prefix that ends in פּ, whose letters then read
+#     as an LK base (אַראָפּ+טראַכטן matching פטר, אָפּ+פּסקענען and
+#     וויטעפּסקער matching פסק).
+#   * the length floor is the same collision argument as _MIN_STEM_ROOT: the one
+#     two-letter base, חן, is a frequent letter pair inside pointed Hebrew verbs
+#     (וַיִּחַן vaˈixan) where the points spell something else entirely, so it
+#     keeps the exact test.
+_STEM_MARKS = "[\u0591-\u05bd\u05c1\u05c4\u05c5\u05c7]*"
+_STEM_MARKS_NO_DAGESH = "[\u0591-\u05bb\u05bd\u05c1\u05c4\u05c5\u05c7]*"
+
+
+def _stem_pattern(stem: str) -> re.Pattern:
+    if len(stem) < 3:
+        return re.compile(re.escape(stem))
+    return re.compile("".join(
+        re.escape(c) + (_STEM_MARKS_NO_DAGESH if c == "פ" else _STEM_MARKS)
+        for c in stem))
+
+
+_STEM_SUB_RE: list[tuple[re.Pattern, str]] = [
+    (_stem_pattern(stem), repl) for stem, repl in _STEM_SUBS
+]
+
+
+def _apply_stem_subs(core: str) -> str:
+    """Substitute every _STEM_SUBS base found in ``core``, pointed or not."""
+    for pat, repl in _STEM_SUB_RE:
+        core = pat.sub(repl, core)
+    return core
+
+
+def _has_stem_sub(core: str) -> bool:
+    """Does ``core`` contain a _STEM_SUBS base, pointed or not?"""
+    return any(pat.search(core) for pat, _ in _STEM_SUB_RE)
+
 # =====================================================================
 # STAGE 2: BASE TRANSLITERATION (context-aware, diacritic-driven)
 #
@@ -1437,7 +1487,16 @@ def _class54_prefix(latin: str) -> str:
     return latin
 
 
-def hebrew_to_latin(text: str) -> str:
+def hebrew_to_latin(text: str, stem_subs: bool = True) -> str:
+    """Hebrew-script Yiddish -> the Latin intermediate layer.
+
+    ``stem_subs=False`` turns off the _STEM_SUBS rewrites. They exist to supply
+    vowels the SPELLING does not write, so on input that is fully pointed by a
+    published edition they have nothing to add and plenty to break: they would
+    overwrite the edition's own points with a Yiddish base spelling (נִפְטָר,
+    pointed niftar, rewritten through פטר -> פּאַטער into *nˈipatər). The
+    register readers, whose input is pointed Hebrew by contract, pass False.
+    """
     tokens = text.split()
     out_tokens: list[str] = []
     for tok in tokens:
@@ -1460,9 +1519,8 @@ def hebrew_to_latin(text: str) -> str:
             if bare in _WORD_LATIN:
                 latin = _WORD_LATIN[bare]
             else:
-                for stem, repl in _STEM_SUBS:
-                    if stem in core:
-                        core = core.replace(stem, repl)
+                if stem_subs:
+                    core = _apply_stem_subs(core)
                 latin = _word_to_latin(core)
                 latin = _class54_prefix(latin)
             latin_parts.append(lead + latin + trail)
@@ -2171,14 +2229,16 @@ def g2p_fingerprint() -> str:
     return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:12]
 
 
-def _rule_path_ipa(text: str, stress: bool = True, lk_penult: bool = False) -> str:
+def _rule_path_ipa(text: str, stress: bool = True, lk_penult: bool = False,
+                   stem_subs: bool = True) -> str:
     """The Germanic/LK RULE PATH: orthography -> Latin -> IPA, no gold lookup.
 
     This is the engine as it existed before the v3 lexicon layer, and it is what
     routing falls back to when no table knows the token (§3.6).
+    ``stem_subs=False`` is for fully pointed input -- see hebrew_to_latin().
     """
     text = _preprocess_hebrew(strip_tags(text))
-    latin = hebrew_to_latin(text)
+    latin = hebrew_to_latin(text, stem_subs=stem_subs)
     if stress:
         latin = add_stress(latin, penult=lk_penult)
     ipa = latin_to_ipa(latin)
@@ -2482,7 +2542,86 @@ _MULTIWORD: dict[str, tuple[str, list[str]]] = {
     "בית מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
     "בית-מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
 }
+
+# --- corpus-mined lexicalized MWEs (scripts/mine_lk_mwe.py) ------------------
+# Every key below occurs >= 15x in data/yiddish_tts_dataset.tsv (count in the
+# comment) and is a fixed collocation, not a quoted verse: the reading is the
+# MERGED register (spec v2 §5/§7 -- shuruk -> i, final kometz-hey -> ə), which
+# is what embedded LK uses. Verse fragments that the miner also surfaces (מה
+# נשתנה, נחמו נחמו, וזאת הברכה ...) are deliberately NOT here: they are quoted
+# Whole-Hebrew and belong to read_pointed_wh, not to a lexicalized-Yiddish
+# table.
+#
+# CONFIDENCE. These are a frequency miner's candidates plus an author's reading,
+# not a native verdict and not audio: by the standing authority order (gold >
+# audio > books > guesses) they rank BELOW the Sefaria and model tables, which
+# ship LOW and stay queued. So they ship LOW too, reason 'mwe-mined', and stay
+# in the verification queue until a native or an aligner signs off. _MULTIWORD's
+# two hand-verified entries (בית מדרש, from the gold's own bracketed note) keep
+# HIGH.
+#
+# The spaced spelling and the makef/hyphen spelling are ONE entry: the aliasing
+# loop below registers כ-form keys for every space key, because the space/makef
+# choice is an orthographic accident and must not change the phones.
+_MULTIWORD_MINED: dict[str, tuple[str, list[str]]] = {
+    "זכרונו לברכה": ("zixrˈɔjni livrˈuxə", []),      # 847  zichroyni livruche
+    "יום טוב": ("jˈɔntəv", ["jɔjm tɔjv"]),            # 569  = יום-טובֿ (LK table)
+    "ארץ ישראל": ("ˈɛrəʦ jisrˈuəl", []),              # 563  both parts gold
+    "ראש השנה": ("rˈuʃəʃunə", ["rɔjʃ haʃˈunə"]),      # 415  = ראש-השנה (LK table)
+    "כלל ישראל": ("klal jisrˈuəl", []),               # 417  both parts gold
+    "יום כיפור": ("jˈunkipər", []),                   # 391  = יום-כּיפּור (LK table)
+    "שבת קודש": ("ʃˈabəs kˈɔjdəʃ", []),               # 353  koydesh, not *kidsh
+    "ראש חודש": ("rɔjʃ xˈɔjdəʃ", []),                 # 297  both parts gold
+    "רבונו של עולם": ("ribˈɔjnə ʃɛl ˈɔjləm", []),     # 245  riboyne shel oylem
+    "ריבונו של עולם": ("ribˈɔjnə ʃɛl ˈɔjləm", []),    # 32   (yud-full spelling)
+    "ברוך השם": ("bˈurəx haʃˈɛm", []),                # 218  = the ב"ה expansion
+    "תשעה באב": ("tˈiʃə buv", []),                    # 177  = תּישעה-באָב (LK table)
+    "לשון הרע": ("lˈuʃn hˈurə", []),                  # 153  loshn hore
+    "בעל הבית": ("bˈaləbus", ["baləbˈus"]),           # 132  = בעל-הבית, spec §6.2
+    "בית דין": ("bˈɛs din", ["bajs din"]),            # 126  LK בעסדין; בית alone bajs
+    "ערב שבת": ("ˈɛrɛv ʃˈabəs", []),                  # 123  erev shabes
+    "ראש ישיבה": ("rɔjʃ jəʃˈivə", []),                # 112  both parts gold
+    "עולם הבא": ("ˈɔjləm habˈu", []),                 # 109  oylem habu
+    "אהבת ישראל": ("ˈahavas jisrˈuəl", []),           # 80   both parts gold
+    "ימים טובים": ("jˈumim tˈɔjvim", []),             # 79   yumim toyvim
+    "קידוש השם": ("kˈidəʃ haʃˈɛm", []),               # 79   both parts gold
+    "חול המועד": ("xɔl hamˈɔjəd", []),                # 75   chol hamoyed
+    "שבע ברכות": ("ʃˈɛvə brˈuxəs", []),               # 60   sheve bruches
+    "עולם הזה": ("ˈɔjləm hˈazɛ", []),                 # 58   oylem haze
+    "מחצית השקל": ("maxˈaʦis haʃˈɛkɛl", []),          # 50   machtsis hashekel
+    "מלך מלכי המלכים": ("mˈɛlɛx malxˈaj hamlˈuxim", []),  # 40
+    "בעזרת השם": ("bəˈɛzras haʃˈɛm", []),             # 35   b'ezras hashem
+    "בר מצוה": ("bar mˈiʦvə", []),                    # 33   bar mitsve
+    "אשת חיל": ("ˈajʃɛs xˈajil", []),                 # 29   eyshes chayil
+    "בעלי בתים": ("baləbˈatim", []),                  # 29   = בעלי-בתים, spec §6.2
+    "מסירת נפש": ("məsˈiras nˈejfiʃ", []),            # 24   נפש is gold nˈejfiʃ
+    "אם ירצה השם": ("im jˈirʦə haʃˈɛm", []),          # 22   im yirtze hashem
+    "מלוה מלכה": ("məlˈavə mˈalkə", []),              # 19   melave malke
+    "פסח שני": ("pˈajsəx ʃˈajni", []),                # 19   peysach sheyni
+    "שלום בית": ("ʃˈuləm bˈajis", []),                # 18   sholem bayis
+    "גמילות חסדים": ("ɡəmˈilus xasˈudim", []),        # 16   חסדים audio xasudim
+    "זאת אומרת": ("zɔjs ɔjmˈɛrɛs", []),               # 16   discourse marker
+    "יום טובים": ("jˈuntɔjvim", []),                  # 15   = יום-טובֿים (LK table)
+}
+_MULTIWORD.update(_MULTIWORD_MINED)
 _MULTIWORD = {lexicon_key(k): v for k, v in _MULTIWORD.items()}
+# Keys that carry the mined provenance, i.e. LOW confidence at emission.
+_MULTIWORD_MINED_KEYS: set[str] = {lexicon_key(k) for k in _MULTIWORD_MINED}
+# One lexeme, two spellings: יום־טוב is יום טוב. Registered here rather than in
+# the table so a new entry cannot forget it; a hyphen key written out by hand
+# (בית-מדרש) already exists and is left alone.
+for _mw_key in list(_MULTIWORD):
+    _mw_hyphen = _mw_key.replace(" ", "-")
+    if _mw_hyphen != _mw_key and _mw_hyphen not in _MULTIWORD:
+        _MULTIWORD[_mw_hyphen] = _MULTIWORD[_mw_key]
+        if _mw_key in _MULTIWORD_MINED_KEYS:
+            _MULTIWORD_MINED_KEYS.add(_mw_hyphen)
+
+
+def _multiword_confidence(key: str) -> tuple[str, str]:
+    """(confidence, reason) for a multiword hit -- see _MULTIWORD_MINED."""
+    return ("LOW", "mwe-mined") if key in _MULTIWORD_MINED_KEYS else ("HIGH", "")
+
 
 # Space-separated loshn-koydesh entries (בית המדרש, בית דין, בית עולם ...) were
 # matched across token boundaries by _LK_PATTERN when the engine phonemized whole
@@ -2564,7 +2703,7 @@ def _lk_evidence(core: str) -> bool:
     stem inside an inflected form (חסידישע, שבתדיק) -- or the §6.2 pointing.
     Without one of these, §6.3 is explicit: log OOV-LK, emit nothing.
     """
-    if _LK_PATTERN.search(core) or any(stem in core for stem, _ in _STEM_SUBS):
+    if _LK_PATTERN.search(core) or _has_stem_sub(core):
         return True
     return _lk_nikud(core)
 
@@ -2756,8 +2895,18 @@ def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
 
     data/sefaria_pointed_lk.py holds words whose unpointed form has exactly one
     vocalization (or a dominant one, >= 80%) across Sefaria's MAM Tanakh and
-    Torat Emet Mishnah/Siddur, read in the Whole-Hebrew register by
-    read_pointed_wh(). It is consulted only after _AUDIO_ENDORSED misses:
+    Torat Emet Mishnah/Siddur.
+
+    REGISTER (scripts/register_policy.py): the pointing is read as EMBEDDED
+    loshn-koydesh by default — read_pointed_merged(), shuruk -> [i], final
+    komets-hey -> [ə] — because that is what the word is doing in a Yiddish
+    sentence. read_pointed_wh() is used only where the evidence says the word is
+    being QUOTED (audio, or >= 70% of its corpus tokens inside a run of LK
+    words). Whichever register loses ships as a VARIANT on the record, so an
+    aligner can still vote for the other reading; the table stores it and this
+    function passes it through.
+
+    It is consulted only after _AUDIO_ENDORSED misses:
     hearing the word in an episode outranks finding it in a book, because the
     book says how the posuk is chanted and the audio says how this community
     says the word in a Yiddish sentence. Hence LOW confidence and a distinct
@@ -2776,17 +2925,267 @@ def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
     """
     entry = _SEFARIA_POINTED.get(lexicon_key(core))
     if entry is not None:
-        return _entry_result(core, entry["ipa"], [], "L",
+        return _entry_result(core, entry["ipa"],
+                             list(entry.get("variants") or []), "L",
                              "rule", "LOW", "sefaria-pointed")
     # LAST link — the no-drop policy (2026-08-08): phonikud-yi v3's contextual
     # guess (data/model_pointed_lk.py, 97% held-out accuracy on evidence-backed
     # Hebrew). A guess is better than silence, and it is outranked by every
-    # other source above, stays LOW, and stays in the verification queue.
+    # other source above, stays LOW, and stays in the verification queue. Same
+    # register policy as the Sefaria table above, on the same evidence.
     entry = _MODEL_POINTED.get(lexicon_key(core))
     if entry is not None:
-        return _entry_result(core, entry["ipa"], [], "L",
+        return _entry_result(core, entry["ipa"],
+                             list(entry.get("variants") or []), "L",
                              "rule", "LOW", "model-pointed-guess")
     return fallback_result
+
+
+# =====================================================================
+# RESCUE #4: LK ROOT + GERMANIC SUFFIX
+#
+# Every lexicon in the chain above is keyed on the WHOLE token, so an LK root
+# that took a Yiddish ending misses all of them at once: רבנוס (רבנו + the
+# possessive ס) is not in the gold, not in Sefaria, not in the model table, and
+# not even LK-DETECTED any more — the suffix hands the shape heuristic a token
+# it reads as Germanic — so it left the rule path as 'rbnis'.
+#
+# The closed suffix list below is the productive Germanic morphology that
+# attaches to LK bases in this corpus: the possessive/plural ס, the plural ן,
+# the adjectivizer דיג/דיגע/דיגן, the agent ניק/ניקעס, the feminines טע/שע and
+# the diminutive plural לעך. Strip one, route the ROOT through the same chain
+# (gold > merged-LK list > audio > homograph > Sefaria > model), and concatenate
+# root-IPA + suffix-IPA. The root's stress mark rides along untouched, which is
+# the whole point: the suffix is unstressed in every one of these.
+#
+# It is the LAST link, after the full-form model guess, because a whole-token
+# entry is always the better evidence — and _STEM_SUBS (חסידישע, אמתדיג) is an
+# earlier and finer mechanism that substitutes a POINTED base inside the rule
+# path, so a core it covers is left alone here.
+#
+# FOOTPRINT, measured over the WHOLE corpus (all 23,666 rows, 92,651 token
+# types, _ROUTE_CACHE cleared and _stem_suffix_rescue disabled for the
+# 'before' side): 75 types / 274 tokens change, every one of them from a
+# consonant string to a word (רבין rbin -> rˈɛbən 66 tokens, רביס rbis ->
+# rˈɛbəs 48, גמראס ɡmras -> ɡəmˈurəs, פשטלעך fʃtlɛx -> pʃatləx). A few-thousand
+# -row sample is NOT a substitute for this measurement: the sample this rescue
+# was first sized on (3,000 rows -> 19 types / 39 tokens) happened to contain
+# almost none of the pointed input, which is where the mechanism was doing its
+# damage — 236 of its 270 model-guess tokens were pointed GERMANIC words being
+# rebuilt out of Hebrew readings before _model_guess_root_is_lk() stopped them.
+# =====================================================================
+_GERMANIC_SUFFIX_IPA: list[tuple[str, str]] = [
+    ("ניקעס", "nikəs"),
+    ("דיגע", "diɡə"), ("דיגן", "diɡn"),
+    ("דיג", "diɡ"), ("ניק", "nik"), ("לעך", "ləx"),
+    ("טע", "tə"), ("שע", "ʃə"),
+    ("ס", "s"), ("ן", "n"),
+]
+
+# Shortest root the stemmer will accept. Two letters is one letter too few:
+# הרשע (ha-ROshe) split as הר 'har' + שע, because a two-letter LK root is
+# almost always also the tail of a longer unrelated word, and the tables are
+# dense at that length. Every real split measured on the corpus -- פשט+לעך,
+# כעס+ן, כבוד+ן, תורה+דיג, צדיק+ס -- has three or more.
+_MIN_STEM_ROOT = 3
+
+# Monomorphemic LK words that merely END in a suffix string. They are the
+# residue of the corpus-wide sweep: with the length and evidence guards in
+# place these were the only splits that came out wrong, and both are the same
+# accident -- a root ending in י followed by a genuine root ן, where the
+# lookalike split (רבי + ן -> rˈɛbən) is correct 66 times over.
+#   בנין  binyen 'building', not בני + ן
+#   כדין  kədin 'as required', not כדי + ן
+#   שמחס  the defective plural of שמחה (simkhes), not the adjective שמח
+#         sumˈajxa 'joyful' + ס -- the seam is clean, so only the lexeme
+#         itself says the split is wrong.
+# Whole-token entries in any lexicon are the permanent fix; this is the
+# stop-gap until one lands. Keys are lexicon_key form.
+_STEM_NO_SPLIT: frozenset[str] = frozenset({"בנינ", "כדינ", "שמחס"})
+
+
+def _lk_table_reading(core: str) -> tuple[str, str] | None:
+    """(ipa, reason) for a whole token from any LK source, or None.
+
+    The same lookups the rescue chain runs, in the same order of authority, but
+    reusable on a substring: gold (only its L rows -- a Germanic gold word is
+    not an LK root), the merged-LK list read through the rule path, then the
+    three evidence tables and the model guess.
+    """
+    key = lexicon_key(core)
+    bare = _strip_points(normalize_surface(core))
+    entry = GOLD_LEXICON.get(key)
+    if entry is not None and entry["layer"] == "L":
+        return entry["ipa_primary"], "gold"
+    if bare in _LK_BARE:
+        return _rule_path_ipa(core, stress=True), "lk-lexicon"
+    entry = _AUDIO_ENDORSED.get(key)
+    if entry is not None:
+        return entry["ipa"], "pointed-audio-endorsed"
+    entry = _HOMOGRAPH_LK.get(key)
+    if entry is not None:
+        return entry["ipa"], entry["reason"]
+    entry = _SEFARIA_POINTED.get(key)
+    if entry is not None:
+        return entry["ipa"], "sefaria-pointed"
+    entry = _MODEL_POINTED.get(key)
+    if entry is not None:
+        return entry["ipa"], "model-pointed-guess"
+    return None
+
+
+def _full_form_resolves(core: str) -> bool:
+    """Whether ANY whole-token mechanism already answers for this core.
+
+    The stemmer must never outrank one of these: a full-form entry was written
+    for the inflected spelling on purpose, and _STEM_SUBS is the older, more
+    precise route into the rule path (אמתדיג -> ˈɛməzdiɡ) that would otherwise
+    be shadowed by a gold reading of the bare root.
+    """
+    key = lexicon_key(core)
+    bare = _strip_points(normalize_surface(core))
+    if key in GOLD_LEXICON or key in _MULTIWORD or key in _MULTIWORD_LEGACY:
+        return True
+    if bare in _LK_BARE or bare in _WORD_LATIN:
+        return True
+    if (key in _AUDIO_ENDORSED or key in _HOMOGRAPH_LK
+            or key in _SEFARIA_POINTED or key in _MODEL_POINTED):
+        return True
+    return _has_stem_sub(core)
+
+
+def _model_guess_root_is_lk(root: str) -> bool:
+    """Is a model-table root really LK -- judged by a test this input can answer?
+
+    _lk_detector's decisive clause is a SHAPE test: no vowel LETTER means the
+    vowels are unwritten, i.e. Hebrew. On POINTED input that premise is gone --
+    the vowels are written as points, so an ordinary Germanic word hands the
+    heuristic a bare skeleton and it fires on every one of them:
+    _lk_detector('שנסט'), ('שלכט'), ('שטר'), ('קלפ'), ('פלג') are all True while
+    the unpointed spellings שענסט / שלעכט / שטער / קלאפ / פלעג are all correctly
+    False. That is how the guard here came to rebuild pointed GERMANIC words out
+    of Hebrew readings -- שֶׁנְסְטֶע ʃˈɛnstə -> *ʃnustə, פְלֶגְן flɛɡn -> *pˈɛləɡn --
+    which is exactly what the guard exists to prevent (the docstring's own
+    negative example, וורטלעך, passes only because it is unpointed).
+
+    So when the root carries its own pointing, only the MARKER clauses count:
+    ח / ת / שׂ / כּ and the ־ות suffix, letters Germanic Yiddish does not use to
+    spell those sounds. Unpointed roots keep the full detector, shape clause
+    included.
+    """
+    bare = _strip_points(root)
+    if not _lk_nikud(root):
+        return _lk_detector(bare)
+    return bool(_LK_DETECT.search(normalize_surface(root)) or bare.endswith("ות"))
+
+
+def _phone_list(ipa: str) -> list[str]:
+    """``ipa`` split into §1 phone symbols; separators and marks dropped."""
+    out: list[str] = []
+    i = 0
+    while i < len(ipa):
+        if ipa[i] in SEPARATORS or ipa[i] in PHONE_MARKS:
+            i += 1
+            continue
+        for sym in PHONE_SYMBOLS:
+            if ipa.startswith(sym, i) and sym not in PHONE_MARKS:
+                out.append(sym)
+                i += len(sym)
+                break
+        else:
+            out.append(ipa[i])
+            i += 1
+    return out
+
+
+def _join_stem(root_ipa: str, suffix_ipa: str) -> str | None:
+    """Glue a root reading to a suffix reading, or None if the seam is unspeakable.
+
+    Bare concatenation is not a phonology. Two things go wrong at the seam and
+    both reached corpus output at route='rule' (QA gate (a) passes them -- they
+    are legal phones in a legal ratio):
+
+      GEMINATE   the root's last phone and the suffix's first are the same
+                 consonant, or the root reading already doubles one:
+                 כוסס *kɔjss, חַזֶרְנֶן *xˈazərnn, תאוועס *taˈavvɛs. Yiddish has no
+                 geminates, so such a join is evidence the split (or the root
+                 reading behind it) is wrong -- decline it and let the rule path
+                 answer.
+      HIATUS     the syllabic plural ן on a vowel-final root needs the linking
+                 vowel Yiddish actually pronounces: שעה 'ʃu' + ן is shoen ʃuən,
+                 not *ʃun. A root already ending in ə takes no second one
+                 (תורה + ן -> tɔjrən), and the sibilant ס takes none at all --
+                 it attaches straight to the vowel (תעשׂה + ס -> taˈasɛs).
+    """
+    root_phones = _phone_list(root_ipa)
+    suffix_phones = _phone_list(suffix_ipa)
+    if not root_phones or not suffix_phones:
+        return None
+    link = ""
+    if (suffix_ipa == "n" and root_phones[-1] in PHONE_VOWELS
+            and root_phones[-1] != "ə"):
+        link = "ə"
+    joined = root_ipa + link + suffix_ipa
+    phones = _phone_list(joined)
+    if any(a == b and a in PHONE_CONSONANTS for a, b in zip(phones, phones[1:])):
+        return None
+    return joined
+
+
+def _stem_suffix_rescue(core: str) -> dict | None:
+    """Rescue #4: LK root + Germanic suffix, or None when nothing applies.
+
+    Fires only when (a) no whole-token mechanism answers for the full form,
+    (b) the core ends in a listed suffix leaving a root of >= _MIN_STEM_ROOT
+    letters, (c) that root is LK -- either an LK-only table holds it, or the §3
+    detector fires on it in a form the input can actually answer
+    (_model_guess_root_is_lk) -- and (d) the seam it produces is speakable and
+    costs no syllable (_join_stem, plus the nucleus-count floor below).
+    """
+    if _full_form_resolves(core) or lexicon_key(core) in _STEM_NO_SPLIT:
+        return None
+    units = _split_units(normalize_surface(core))
+    letters = "".join(base for base, _ in units)
+    for suffix, suffix_ipa in _GERMANIC_SUFFIX_IPA:
+        if not letters.endswith(suffix):
+            continue
+        root_units = units[:-len(suffix)]
+        root = unicodedata.normalize(
+            "NFC", "".join(base + marks for base, marks in root_units))
+        root_bare = _strip_points(root)
+        if sum(1 for c in root_bare if _HEBREW_CHAR.match(c)) < _MIN_STEM_ROOT:
+            continue
+        reading = _lk_table_reading(root)
+        if reading is None:
+            continue
+        root_ipa, reason = reading
+        if not root_ipa:
+            continue
+        # A hit in gold-L / the merged-LK list / audio / homograph / Sefaria IS
+        # the LK evidence. The model table is not: it guesses for every
+        # quarantined type, so a defectively spelled GERMANIC stem can be
+        # sitting in it (וורט 'vvɛrt', וופּ 'vuf') and would have the stemmer
+        # rebuild ordinary Yiddish words out of Hebrew readings. On that last
+        # source the root has to be LK-DETECTED as well -- and on POINTED input
+        # that has to be the marker test, not the shape test (see
+        # _model_guess_root_is_lk).
+        if reason == "model-pointed-guess" and not _model_guess_root_is_lk(root):
+            continue
+        joined = _join_stem(root_ipa, suffix_ipa)
+        if joined is None:
+            continue
+        # A rescue may not COST a syllable. The root reading is for the root as
+        # a free word, and some of them swallow the vowel that the inflected
+        # spelling still writes: חַתֶנֶעס xˈasənəs -> *xˈasnəs, מַחְלוֹקֶס
+        # mˈaxlɔjkəs -> *mˈaxlɔjks. The rule path reads every letter of the full
+        # form, so its nucleus count is the floor; below it the split is losing
+        # information rather than adding it.
+        if (vowel_consonant_counts(joined)[0]
+                < vowel_consonant_counts(_rule_path_ipa(core, stress=False))[0]):
+            continue
+        return _entry_result(core, joined, [], "L",
+                             "rule", "LOW", reason + "+suffix")
+    return None
 
 
 def _route_token_inner(core: str) -> dict:
@@ -2834,7 +3233,9 @@ def _route_token_inner(core: str) -> dict:
     if key in _MULTIWORD or key in _MULTIWORD_LEGACY:
         primary = _multiword_ipa(key)
         alts = _MULTIWORD.get(key, ("", []))[1]
-        return _entry_result(core, primary, [primary, *alts], "L", "lexicon", "HIGH")
+        conf, why = _multiword_confidence(key)
+        return _entry_result(core, primary, [primary, *alts], "L", "lexicon",
+                             conf, why)
 
     # 3. gold lexicon (§3.3) -- authority #1, overrides every rule and every
     #    legacy dict. Skipped only for the pointed Whole-Hebrew readings that the
@@ -2881,14 +3282,31 @@ def _route_token_inner(core: str) -> dict:
         conf = "MED" if tail["confidence"] == "HIGH" else tail["confidence"]
         return _entry_result(core, primary, [], tail["layer"], "rule", conf, "clitic")
 
+    # 5.5 stemmer (rescue #4). Every whole-token table has missed by now, and
+    #     the clitic / hyphen splits above have had their turn, so this is where
+    #     an LK root wearing a Yiddish suffix can finally be seen. It runs ahead
+    #     of the rule path rather than inside the fallback chain because the
+    #     suffix can hide the root from the §3 LK detector entirely (רבנוס reads
+    #     as Germanic and would otherwise leave here as a confident 'rbnis',
+    #     never reaching a rescue at all).
+    stemmed = _stem_suffix_rescue(core)
+    if stemmed is not None:
+        return stemmed
+
     # 6. rule path (§3.6). Confidence is MED unless an ambiguous grapheme had to
     #    be defaulted or the LK detector fired on a word no lexicon knows -- both
     #    are LOW by §12 and both are logged for the next verification batch.
     is_lk = _lk_detector(bare)
     # §6.2: a pointed LK token is read through the §5 nikud table and takes the
-    # §11.5 penult default rather than the Germanic §11.7 initial one.
+    # §11.5 penult default rather than the Germanic §11.7 initial one -- unless
+    # a _STEM_SUBS base is what is being read. Those are LK bases that have
+    # TAKEN YIDDISH MORPHOLOGY (אמתדיג, שבתדיגע, חסידישע); the substitution
+    # rewrites them into their Yiddish spelling and Yiddish stems take §11.7
+    # initial stress. Without this the pointed and unpointed spellings of one
+    # word came out differently stressed (ˈɛməzdiɡ vs *əmˈɛzdiɡ).
     primary = _rule_path_ipa(core, stress=True,
-                             lk_penult=is_lk and _lk_nikud(core))
+                             lk_penult=(is_lk and _lk_nikud(core)
+                                        and not _has_stem_sub(core)))
     reasons = []
     if _has_ambiguous_alef(core):
         reasons.append("alef-default")
@@ -2948,15 +3366,28 @@ def g2p_token(word: str, context: str | None = None) -> dict:
     return result
 
 
-def _multiword_match(tokens: list[str], i: int) -> tuple[int, str] | None:
-    """Longest multiword-table match starting at ``tokens[i]``, if any."""
+def _multiword_match(tokens: list[str], i: int) -> tuple[int, str, str] | None:
+    """Longest multiword-table match starting at ``tokens[i]``, if any.
+
+    Punctuation BETWEEN the members blocks the match. The key is built from the
+    cores alone, so without this guard "ער איז א בעל. הבית איז גוט" fuses across
+    the full stop into one בעל-הבית record and the stop is deleted with it (the
+    record keeps only the first member's lead and the last member's trail) --
+    two sentences silently merged into one word. A fixed collocation is a
+    contiguous span; if the writer put a comma or a period in the middle, it is
+    not that collocation.
+    """
     for n in range(min(_MAX_MULTIWORD, len(tokens) - i), 1, -1):
-        cores = [split_affixes(t)[1] for t in tokens[i:i + n]]
+        split = [split_affixes(t) for t in tokens[i:i + n]]
+        cores = [core for _, core, _ in split]
         if not all(cores):
+            continue
+        if any(trail for _, _, trail in split[:-1]) or any(
+                lead for lead, _, _ in split[1:]):
             continue
         key = lexicon_key(" ".join(cores))
         if key in _MULTIWORD or key in _MULTIWORD_LEGACY:
-            return n, _multiword_ipa(key)
+            return n, key, _multiword_ipa(key)
     return None
 
 
@@ -2974,10 +3405,12 @@ def g2p_tokens(text: str) -> list[dict]:
     while i < len(tokens):
         match = _multiword_match(tokens, i)
         if match is not None:
-            count, ipa = match
+            count, key, ipa = match
             cores = [split_affixes(t)[1] for t in tokens[i:i + count]]
+            conf, why = _multiword_confidence(key)
             rec = _with_auto_variants(
-                _entry_result(" ".join(cores), ipa, [], "L", "lexicon", "HIGH"))
+                _entry_result(" ".join(cores), ipa, [], "L", "lexicon",
+                              conf, why))
             rec["lead"] = split_affixes(tokens[i])[0]
             rec["trail"] = split_affixes(tokens[i + count - 1])[2]
             records.append(rec)
@@ -3286,3 +3719,92 @@ def read_pointed_wh(pointed: str) -> str:
         if segments:
             out.append(_wh_stress(segments))
     return " ".join(out)
+
+
+_BEGADKEFAT = frozenset("בכךפףת")
+
+
+def _explicit_begadkefat(word: str) -> str:
+    """Write the begadkefat stop/fricative choice into the marks, explicitly.
+
+    The merged reader is the engine's ordinary Hebrew-script reader, and that
+    reader has to cope with text where a bare ב is far more often Germanic /b/
+    (האָבן, אָבער) than Hebrew /v/. Its guards for the Hebrew case are therefore
+    conservative and they miss the two environments a book pointing produces
+    most: a ב with a sheva (אַבְרָהָם -> *abrˈuhum, Abrohom for Avrohom) and a ב
+    whose vowel is spelled by a following mater (אָבוֹת -> *ˈubɔjs).
+
+    read_pointed_merged() does not have that ambiguity — its input is pointed
+    Hebrew by contract — so the choice is made HERE, where the context is known,
+    and written into the string as a dagesh or a rafe that the shared reader
+    then simply obeys. The rule is the Hebrew one, identical to _wh_consonant():
+    a begadkefat letter is a plosive word-initially (dagesh lene is obligatory
+    from a pause, and editions print it inconsistently) and a fricative
+    elsewhere. Letters that already carry an explicit dagesh or rafe are left
+    exactly as the edition set them.
+
+    Marking rather than special-casing keeps the register difference where it
+    belongs: read_pointed_merged() still runs the gold-locked merged VOWEL path
+    and adds no consonant logic of its own.
+    """
+    units = _split_units(word)
+    out: list[str] = []
+    first = True
+    for ch, marks in units:
+        if _HEBREW_CHAR.match(ch) and ch in _BEGADKEFAT and not (
+                DAGESH in marks or RAFE in marks):
+            marks += DAGESH if first else RAFE
+        if _HEBREW_CHAR.match(ch):
+            first = False
+        out.append(ch + marks)
+    return "".join(out)
+
+
+def read_pointed_merged(pointed: str) -> str:
+    """Read pointed Hebrew in the MERGED register (embedded loshn-koydesh) -> IPA.
+
+    The register sibling of read_pointed_wh(). Same input — a pointed Hebrew
+    word — read as a word that has been ABSORBED INTO YIDDISH rather than
+    quoted as Hebrew, which is what an LK word in a running Yiddish sentence
+    almost always is (spec v2 §5/§7, native-verified against the gold CSV):
+
+      shuruk / kubuts   [i], not [u]   — the u->i shift, 'near-exceptionless':
+                                         חִדּוּשׁ xˈidiʃ, שִׁדּוּךְ ʃˈidix, תְּרוּמָה trˈimə
+      final komets-hey  [ə], not [u]   — the Yiddish feminine ending:
+                                         תּוֹרָה tɔjrə, בְּרָכָה brˈuxə
+      sheva             [ə] only where the syllable is actually pronounced
+                                         with one — יְשִׁיבָה jəʃˈivə but בְּרָכָה
+                                         brˈuxə, which no straight shva-na rule
+                                         gets right
+      stress            §11.5 LK penult, as in the WH reader
+
+    DELEGATES, deliberately. This is not a second implementation of the merged
+    table: it is _rule_path_ipa(lk_penult=True), i.e. the very path that
+    _route_token_inner() takes for a pointed LK token (§6.2) and that the 500
+    gold rows lock down. A hand-written twin of _POINT_TO_LATIN here would be
+    free to drift away from the register the gold defines — and the sheva rule
+    above is emergent from the Latin layer's syllable repair, not statable as a
+    point table at all. read_pointed_wh() is self-contained for the opposite
+    reason: it has to differ from the locked path, so it cannot reuse it.
+
+    Note the asymmetry with hebrew_to_ipa(): this function reads the POINTING
+    it is handed and consults no lexicon, so a builder gets the evidence's own
+    reading rather than an answer some table already had. Callers that want the
+    lexicon's verdict should call g2p_token()/hebrew_to_ipa() instead.
+
+    >>> read_pointed_merged("תּוֹרָה")
+    'tˈɔjrə'
+    >>> read_pointed_merged("חִדּוּשׁ")
+    'xˈidiʃ'
+    >>> read_pointed_merged("וּבֵרַכְתִּי")
+    'ivajrˈaxti'
+    """
+    out = []
+    for word in re.split(r"[\s־]+", strip_tags(pointed)):
+        if not word:
+            continue
+        ipa = _rule_path_ipa(_explicit_begadkefat(word),
+                             stress=True, lk_penult=True, stem_subs=False)
+        if ipa:
+            out.append(ipa)
+    return normalize_ipa_spacing(" ".join(out))

@@ -45,7 +45,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from yiddish_g2p import g2p_token, hebrew_to_ipa  # noqa: E402
+from yiddish_g2p import g2p_token, g2p_tokens, hebrew_to_ipa  # noqa: E402
 
 # (hebrew input, expected IPA, note).  Notes carry the spec romanization and the
 # Weinreich diaphoneme class.  A note containing "XFAIL" marks a known/accepted
@@ -391,12 +391,20 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("עבודה", "avˈɔjdə", "audit: was the illegal word-final /h/ ˈɛbidh"),
     ("אמונה", "əmˈinə", "audit: was ˈaminh"),
     ("שירה", "ʃˈirə", "audit: was ʃirh"),
-    # sefaria — the Whole-Hebrew reading of a verified pointing now reaches the
-    # emitted string for words that used to be quarantined outright.
-    ("כזית", "kazˈajis", "sefaria: כַּזַּיִת — was withheld (kzis)"),
+    # sefaria — the reading of a verified pointing now reaches the emitted
+    # string for words that used to be quarantined outright. Which REGISTER the
+    # pointing is read in is decided per type by scripts/register_policy.py:
+    # merged-register by default (the word is embedded in a Yiddish sentence),
+    # Whole-Hebrew where the word is quoted or where the merged reader misreads
+    # the pointing. Both readings ship; the loser is a variant.
+    ("כזית", "kazˈajis",
+     "sefaria: כַּזַּיִת — WH kept: merged kˈazis loses the yud's own chirik"),
     ("כהן", "kˈɔjhajn", "sefaria: כֹּהֵן — dagesh kaf [k], tsere [aj]"),
-    ("זכות", "zəxˈus", "sefaria: זְכוּת — shva-na [ə], shuruk [u] with no u->i shift"),
-    ("בשם", "bəʃˈajm", "sefaria: בְּשֵׁם"),
+    # merged-register: shuruk takes the Yiddish u->i shift (was WH zəxˈus) and
+    # the shva-na goes, as in gold brˈuxə. The audio agrees — zkhis, not zkhus.
+    ("זכות", "zxis", "sefaria: זְכוּת — merged-register, audio-arbitrated"),
+    # merged-register: shva-na dropped, b'sheym. WH bəʃˈajm is now the variant.
+    ("בשם", "bʃajm", "sefaria: בְּשֵׁם — merged-register, audio-arbitrated"),
     # homograph rescue (data/homograph_lk.py), between the audio and sefaria
     # tables. 'homograph-collapsed': EVERY attested pointing READS the same, so
     # no audio verdict was needed to emit the word.
@@ -441,6 +449,26 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     # The known entries keep their real readings: the fallback fires only on a
     # miss, never over the abbreviation table.
     ("שליט\"א", "ʃlˈitə", "§8 a KNOWN abbreviation is untouched by the §7.5 fallback"),
+
+    # --- §8 lexicalized multiword LK (scripts/mine_lk_mwe.py) ------------
+    # The phrase, not the word, is the unit: per-word routing gives a reading
+    # nobody says (baːl habˈajis, ʃˈabəs kidʃ). Merged register throughout.
+    ("בעל הבית", "bˈaləbus",
+     "§8 spaced spelling reads like the hyphenated בעל-הבית (§6.2 BAlebus)"),
+    ("בעלי בתים", "baləbˈatim", "§8 spaced plural = בעלי-בתים, baleBAtim"),
+    ("שבת קודש", "ʃˈabəs kˈɔjdəʃ",
+     "§8 shabes KOYdesh — קודש alone rules out to the vowel-poor kidʃ"),
+    ("זכרונו לברכה", "zixrˈɔjni livrˈuxə",
+     "§8 the corpus's most frequent LK phrase (847x); was zxrˈini"),
+    ("ריבונו של עולם", "ribˈɔjnə ʃɛl ˈɔjləm",
+     "§8 three-token match; §5 merged final kometz-hey -> ə"),
+    ("יום טוב", "jˈɔntəv", "§8 spaced spelling of the LK compound יום-טובֿ"),
+    ("ראש השנה", "rˈuʃəʃunə", "§8 spaced spelling of the LK compound ראש-השנה"),
+    ("אם ירצה השם", "im jˈirʦə haʃˈɛm",
+     "§8 phrase-initial אם is im, not the alef-default am"),
+    ("בית דין", "bˈɛs din", "§8 LK בעסדין; בית on its own stays bajs"),
+    ("ראש חודש", "rɔjʃ xˈɔjdəʃ",
+     "§8 an entry may confirm the per-word reading — it pins it as HIGH"),
 ]
 
 
@@ -462,11 +490,12 @@ ROUTE_CASES: list[tuple[str, str, str, str]] = [
     ("בחינה", "rule", "LOW", "pointed-audio-endorsed rescue -> bxˈinə"),
     # sefaria — rescue #2 (data/sefaria_pointed_lk.py), consulted only after the
     # audio table misses: a single agreed pointing in the verified editions,
-    # read in the Whole-Hebrew register. Still LOW, reason 'sefaria-pointed'.
+    # read in the register that type is used in. Still LOW, 'sefaria-pointed' —
+    # the register decision does not make a book pointing a native verdict.
     ("כזית", "rule", "LOW", "sefaria: כַּזַּיִת, 92.6% of 81 sources -> kazˈajis"),
     ("כהן", "rule", "LOW", "sefaria: כֹּהֵן -> kˈɔjhajn (was quarantined as khn)"),
-    ("זכות", "rule", "LOW", "sefaria: זְכוּת -> zəxˈus (shva-na ə, shuruk u, no u->i)"),
-    ("בשם", "rule", "LOW", "sefaria: בְּשֵׁם -> bəʃˈajm"),
+    ("זכות", "rule", "LOW", "sefaria: זְכוּת -> zxis, merged-register (was zəxˈus)"),
+    ("בשם", "rule", "LOW", "sefaria: בְּשֵׁם -> bʃajm, merged-register"),
     # homograph rescue #1.5 (data/homograph_lk.py), consulted between the audio
     # and sefaria tables. Collapsed types are free — one reading, several
     # printings — but still LOW: the collapse is an inference about editions.
@@ -500,6 +529,36 @@ ROUTE_CASES: list[tuple[str, str, str, str]] = [
 ]
 
 
+# §8 multiword records: the phrase must come back as ONE lexicon record over the
+# token stream (g2p_tokens), i.e. the multiword match has to fire BEFORE
+# per-word routing. Confidence is the entry's provenance, not the mechanism's:
+# the corpus-mined entries are unverified readings and ship LOW ('mwe-mined'),
+# so they stay in the verification queue like every other unverified rescue;
+# only the hand-verified בית מדרש is HIGH.
+MWE_RECORD_CASES: list[tuple[str, int, str, str]] = [
+    ("דער בעל הבית", 2, "בעל הבית", "LOW"),
+    ("אויף שבת קודש", 2, "שבת קודש", "LOW"),
+    ("א גוטן יום טוב", 3, "יום טוב", "LOW"),
+    ("דער ריבונו של עולם", 2, "ריבונו של עולם", "LOW"),
+    ("אין בית מדרש", 2, "בית מדרש", "HIGH"),
+]
+
+# §2.3: the space/makef choice is orthography, not phonology. Every multiword
+# entry must read the same spaced, hyphenated and with a makef.
+MWE_SPELLING_CASES: list[str] = [
+    "יום טוב", "בית דין", "לשון הרע", "עולם הבא", "זכרונו לברכה", "עולם הזה",
+    "ימים טובים", "שבע ברכות", "בית מדרש", "ראש השנה", "בעל הבית",
+]
+
+# Punctuation between the members blocks the fusion: a fixed collocation is a
+# contiguous span, and fusing across a full stop deletes it and merges two
+# sentences into one word.
+MWE_PUNCT_CASES: list[tuple[str, str]] = [
+    ("ער איז א בעל. הבית איז גוט", "ɛr iz a baːl. habˈajis iz ɡit"),
+    ("דער יום, טוב איז גוט", "dɛr jɔjm, tɔjv iz ɡit"),
+]
+
+
 def main() -> int:
     passed = failed = xfailed = fixed = 0
     all_cases = CASES + [(t, w, "stress: " + n) for t, w, n in STRESS_CASES]
@@ -529,7 +588,37 @@ def main() -> int:
         print(f"{'PASS ' if ok else 'FAIL '}  {word!r:22s} -> "
               f"{rec['route']}/{rec['confidence']:4s} "
               f"(want {route}/{conf})  {note}")
-    total = len(all_cases) + len(ROUTE_CASES)
+    for text, n_records, phrase, conf in MWE_RECORD_CASES:
+        recs = g2p_tokens(text)
+        hit = [r for r in recs if r["word"] == phrase]
+        ok = (len(recs) == n_records and len(hit) == 1
+              and hit[0]["route"] == "lexicon" and hit[0]["confidence"] == conf)
+        passed += ok
+        failed += not ok
+        got = hit[0] if hit else {"ipa_primary": "-", "route": "-",
+                                  "confidence": "-"}
+        print(f"{'PASS ' if ok else 'FAIL '}  {text!r:22s} -> "
+              f"{len(recs)} records, {phrase!r} = {got['ipa_primary']!r} "
+              f"{got['route']}/{got['confidence']}  §8 multiword fires before "
+              f"per-word routing")
+    for phrase in MWE_SPELLING_CASES:
+        spaced = hebrew_to_ipa(phrase)
+        hyphen = hebrew_to_ipa(phrase.replace(" ", "-"))
+        makef = hebrew_to_ipa(phrase.replace(" ", "\u05be"))
+        ok = spaced == hyphen == makef
+        passed += ok
+        failed += not ok
+        print(f"{'PASS ' if ok else 'FAIL '}  {phrase!r:22s} -> "
+              f"{spaced!r} / {hyphen!r} / {makef!r}  §2.3 space == hyphen == makef")
+    for text, want in MWE_PUNCT_CASES:
+        got = hebrew_to_ipa(text)
+        ok = got == want
+        passed += ok
+        failed += not ok
+        print(f"{'PASS ' if ok else 'FAIL '}  {text!r:22s} -> {got!r} "
+              f"(want {want!r})  §8 punctuation blocks multiword fusion")
+    total = (len(all_cases) + len(ROUTE_CASES) + len(MWE_RECORD_CASES)
+             + len(MWE_SPELLING_CASES) + len(MWE_PUNCT_CASES))
     print(
         f"\n{total} spec cases: {passed} passed, {failed} FAILED, "
         f"{xfailed} known divergences, {fixed} newly fixed"
