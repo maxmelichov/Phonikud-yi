@@ -12,3 +12,15 @@ data/*shard_*.jsonl
 data/gold_*.jsonl
 models/
 phonikud/
+
+# derived / regenerable artifacts (builders live in scripts/)
+data/retrain/
+data/retrain2/
+data/phonemized/
+data/audio_lexicon/
+data/homographs/
+data/verification/
+data/pointed_sources/raw/
+data/pointed_sources/pointed_index.jsonl
+data/pointed_sources/quarantine_full_snapshot.tsv
+data/yiddish_tts_dataset.tsv

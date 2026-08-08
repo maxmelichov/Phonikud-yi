@@ -1,7 +1,18 @@
 """
 Hybrid Yiddish G2P: Hebrew-script Yiddish -> IPA for TTS.
 
-ARCHITECTURE: Three-Stage (Orthography -> Latin Base -> Central Phonology)
+ARCHITECTURE: Lexicon routing (spec v3 §3) in front of a three-stage rule path
+  (Orthography -> Latin Base -> Central Phonology)
+
+Spec v3 makes the lexicon, not the rules, the dialect: four graphemes (א, יי, וי,
+unpointed פ) are lexically ambiguous, and 81% of naked-rule errors come from
+them. So hebrew_to_ipa routes every token -- abbreviation table, multiword
+table, the native-verified gold lexicon (data/gold_lexicon.py, authority #1),
+the legacy merged-LK and high-frequency lists -- and only then falls through to
+the rules below. g2p_token exposes that decision per token (route + confidence)
+for the §12 iteration loop; scripts/run_corpus_v3.py runs it over the corpus and
+enforces the QA gates.
+
 DIALECT: Poylish/Galitzyaner/Modern Hasidic
 
 Handles ALL THREE spelling systems:
@@ -19,8 +30,11 @@ fire when one is present, so unpointed input behaves exactly as it did before.
 """
 
 from __future__ import annotations
+import hashlib
 import re
 import unicodedata
+from collections import Counter
+from pathlib import Path
 
 _HEBREW_CHAR = re.compile(r"[\u0590-\u05FF]")
 
@@ -30,6 +44,174 @@ def _strip_points(text: str) -> str:
     decomposed = unicodedata.normalize("NFD", text)
     stripped = "".join(c for c in decomposed if unicodedata.category(c) != "Mn")
     return unicodedata.normalize("NFC", stripped)
+
+
+# =====================================================================
+# THE CLOSED PHONE INVENTORY (spec v3 §1)
+#
+# Nothing outside this set may ever reach corpus output. Space and "-" are
+# separators, not phones: a few lexicon entries are multiword (ב"ה ->
+# "bˈurəx haʃˈɛm") or hyphenated compounds (bis-mˈɛdrəʃ), and the QA gate
+# checks phones only, after splitting on those.
+# =====================================================================
+PHONE_VOWELS = ("aː", "ej", "aj", "ɔj", "oʊ", "a", "ɛ", "ə", "i", "u", "ɔ")
+PHONE_CONSONANTS = frozenset("bdfɡhjklmnprstvzxʃʒʦʧʤŋ")
+PHONE_MARKS = frozenset("ˈ")
+# Longest first: aː/ej/aj/ɔj/oʊ are single symbols, and their second character
+# (ː e j ʊ) is not independently legal -- e and o never stand alone.
+PHONE_SYMBOLS = PHONE_VOWELS + tuple(sorted(PHONE_CONSONANTS)) + tuple(PHONE_MARKS)
+PHONE_INVENTORY = frozenset("".join(PHONE_SYMBOLS))
+SEPARATORS = " -"
+
+
+def ipa_phone_violations(ipa: str) -> list[str]:
+    """Symbols in ``ipa`` that are outside the §1 closed inventory.
+
+    Tokenizes longest-symbol-first, so a stray bare "e" or "o" (legal only as
+    part of ej / oʊ) is reported even though the character occurs in the set.
+    """
+    bad: set[str] = set()
+    i = 0
+    while i < len(ipa):
+        if ipa[i] in SEPARATORS:
+            i += 1
+            continue
+        for sym in PHONE_SYMBOLS:
+            if ipa.startswith(sym, i):
+                i += len(sym)
+                break
+        else:
+            bad.add(ipa[i])
+            i += 1
+    return sorted(bad)
+
+
+def vowel_consonant_counts(ipa: str) -> tuple[int, int]:
+    """(vowel nuclei, consonant phones) in an IPA string, per §1's ratio rule.
+
+    Diphthongs are one vowel each: the tokenizer takes aː/ej/aj/ɔj/oʊ whole, so
+    the off-glide is never counted as the consonant /j/.
+    """
+    vowels = consonants = 0
+    i = 0
+    while i < len(ipa):
+        if ipa[i] in SEPARATORS:
+            i += 1
+            continue
+        for sym in PHONE_SYMBOLS:
+            if ipa.startswith(sym, i):
+                if sym in PHONE_VOWELS:
+                    vowels += 1
+                elif sym in PHONE_CONSONANTS:
+                    consonants += 1
+                i += len(sym)
+                break
+        else:
+            i += 1
+    return vowels, consonants
+
+
+def max_consonant_run(ipa: str) -> int:
+    """Longest run of consonant phones with no vowel between them."""
+    longest = run = 0
+    i = 0
+    while i < len(ipa):
+        if ipa[i] in SEPARATORS:
+            run = 0
+            i += 1
+            continue
+        for sym in PHONE_SYMBOLS:
+            if ipa.startswith(sym, i):
+                if sym in PHONE_VOWELS:
+                    run = 0
+                elif sym in PHONE_CONSONANTS:
+                    run += 1
+                    longest = max(longest, run)
+                i += len(sym)
+                break
+        else:
+            i += 1
+    return longest
+
+
+def violates_vowel_ratio(ipa: str) -> bool:
+    """§1: "at least one vowel symbol per 3 consonant symbols" — as calibrated
+    against the gold, which is authority #1 over the spec's phrasing.
+
+    Read literally (vowels * 3 >= consonants) the rule rejects 14 native-verified
+    gold primaries -- mɛnʧn, ʦviʃn, ʃraːbn, pinkt, tɛkst, brɛnɡt, trɔmp ... --
+    because v3 §1 also deletes the epenthetic schwa of the syllabic finals, so a
+    perfectly ordinary Yiddish monosyllable now carries one vowel and four
+    consonant symbols. What the rule is actually guarding against is the failure
+    mode named in §6.3: an unpointed loshn-koydesh word emerging as a bare
+    consonant string (מלך -> mlx, ספר -> sfr). So the test is:
+
+      * no vowel at all, or
+      * a consonant run longer than FOUR.
+
+    AUDIT 2026-08-07: the run bound was three, justified by "no Yiddish syllable
+    has a longer run and nothing in the gold produces one". The gold half of that
+    is true (0 of 500 primaries exceed three) but it is not evidence for the
+    generalization, and the corpus disproves it: ˈajbərʃtn (r-ʃ-t-n), dˈarfsti
+    (r-f-s-t), fˈinktləx, ˈɛkstra, ˈajɡntləx are ordinary Germanic words with a
+    four-consonant run, and quarantining them dropped 871 tokens / 347 types per
+    5k corpus rows for nothing. Four still catches every real offender, because
+    the failure mode this guards -- an unpointed LK word emerging as a bare
+    consonant string -- is caught by the vowels == 0 clause above it.
+    """
+    for word in re.split(r"[ -]+", ipa):
+        if not word.strip():
+            continue
+        vowels, consonants = vowel_consonant_counts(word)
+        if consonants and vowels == 0:
+            return True
+        if max_consonant_run(word) > 4:
+            return True
+    return False
+
+
+# =====================================================================
+# TEXT NORMALIZATION (spec v3 §2)
+# =====================================================================
+_FINAL_FOLD = {"ך": "כ", "ם": "מ", "ן": "נ",
+               "ף": "פ", "ץ": "צ"}
+_FINAL_FOLD_TABLE = str.maketrans(_FINAL_FOLD)
+# The YIVO ligatures are spelling variants of the two-letter digraphs the corpus
+# writes out, and no gold key uses them, so the lookup key folds them together:
+# pointed זײַן must reach the same entry as unpointed זיין.
+_LIGATURE_FOLD = {"ײ": "יי", "ױ": "וי", "װ": "וו"}
+_LIGATURE_FOLD_TABLE = str.maketrans(_LIGATURE_FOLD)
+_GERESH_CHARS = re.compile(r"[׳ʼ‘’`]")
+_GERSHAYIM_CHARS = re.compile(r"[״“”]")
+_DASH_CHARS = re.compile(r"[־‐‑‒–—]")
+# Punctuation that may sit around a token. The apostrophe and the gershayim are
+# deliberately absent: they are load-bearing inside abbreviations (ר', שליט"א)
+# and are stripped in a second, later pass once the abbreviation table has had
+# its look (§2.2, §2.6).
+_EDGE_PUNCT = " \t\n\r.,!?;:()[]{}<>«»„‚‹›…׃״“”\"*/\\|-"
+
+
+def normalize_surface(text: str) -> str:
+    """§2.1-2.2: NFC, unify geresh/gershayim, unify makef and dashes to '-'."""
+    text = unicodedata.normalize("NFC", text)
+    text = _DASH_CHARS.sub("-", text)
+    text = _GERESH_CHARS.sub("'", text)
+    return _GERSHAYIM_CHARS.sub('"', text)
+
+
+def split_affixes(token: str) -> tuple[str, str, str]:
+    """(leading punctuation, core, trailing punctuation) of a normalized token."""
+    core = token.strip(_EDGE_PUNCT)
+    if not core:
+        return "", token, ""
+    start = token.index(core)
+    return token[:start], core, token[start + len(core):]
+
+
+def lexicon_key(word: str) -> str:
+    """§2.1/§2.4: the whole-token lookup key -- nikud stripped, finals folded."""
+    bare = _strip_points(normalize_surface(word))
+    return bare.translate(_FINAL_FOLD_TABLE).translate(_LIGATURE_FOLD_TABLE)
 
 
 # =====================================================================
@@ -56,19 +238,25 @@ QUBUTS = "\u05bb"
 
 # Ashkenazi / Central Yiddish readings of the Hebrew vowel points. Sheva is
 # silent here; latin_to_ipa re-inserts a schwa where a syllable needs one.
+#
+# SPEC \u00a75: komets (gadol AND katan, incl. final \u05b8\u05d4) rides diaphoneme class 12/13
+# and surfaces as [u] -- Duvid, Shabus, shlitu, chuchme, kul. In the Latin layer
+# that class is written "oo" (see the label key on _LATIN_TO_IPA); plain "o" is
+# now reserved for class 41 [\u0254]. Writing komets as "o" here would silently flip
+# every pointed loshn-koydesh word from [u] to [\u0254].
 _POINT_TO_LATIN: dict[str, str] = {
     SHEVA: "",
     "\u05b1": "e",   # hataf segol
     "\u05b2": "a",   # hataf patah
-    "\u05b3": "o",   # hataf qamats
+    "\u05b3": "oo",  # hataf qamats -> class 12/13 [u]
     HIRIQ: "i",
     TSERE: "ey",
     "\u05b6": "e",   # segol
     PATAH: "a",
-    QAMATS: "o",
-    HOLAM: "oy",
-    QUBUTS: "u",
-    "\u05c7": "o",   # qamats qatan
+    QAMATS: "oo",    # komets -> class 12/13 [u]
+    HOLAM: "oy",     # cholam -> class 42/44 [\u0254\u026a]
+    QUBUTS: "u",     # shuruk / kubuts -> class 51/52 [i] (near-exceptionless)
+    "\u05c7": "oo",  # qamats qatan -> class 12/13 [u]
 }
 
 # Character class matching any Hebrew point/accent, for diacritic-tolerant regexes.
@@ -104,10 +292,57 @@ def _vowel_point(marks: str) -> str:
 # STAGE 1: ORTHOGRAPHY & LEXICON (Loshn-Koydesh -> phonetic respelling)
 # =====================================================================
 _LOSHN_KOYDESH = {
+    # --- Verified against a native Boro Park/Williamsburg speaker, 2026-08-05.
+    # These are respellings into Yiddish orthography, not IPA: the single engine
+    # then reads them with the ordinary Germanic rules. Loshn-koydesh cannot be
+    # derived from the diacritics -- סְפָרִים and מִשְׁפָּחָה carry the identical
+    # komets on the identical pe and take different vowels -- so it has to be a
+    # lexicon, and this is where his answers live.
+    "שבת": "שאַבעס",        # shabes -- was שאָבעס (komets), but שַׁבָּת has a
+                            # PATACH: "if the engine says shubes it is treating
+                            # that patach like a komets". 2,115 uses.
+    "שבתים": "שאַבאָסים",   # shabosim
+    "מעשה": "מײַסע",      # mˈaːsə -- "mayse is Polish/Russian; maase is pure
+                            # Hungarian/Williamsburg Heimish". The vowel is the
+                            # single long aː (v3 §6 pasekh+guttural), which the
+                            # engine spells ײַ; the old מאַאַסע read as two a's.
+    "גמרא": "געמאָרע",      # gemure -- the gm cluster is too harsh to swallow
+    "פרשת": "פּאַרשעס",     # parshes mishputim -- final vowel reduces
+    # CONSTRUCT STATE REDUCTION. Standalone בית is bais, but joined to a noun
+    # the /aɪ/ reduces to /ɪ/ or /ɛ/ -- bis-medresh, bes-din, bes-oylem. Longest
+    # key wins in _LK_PATTERN, so the compounds are matched before bare בית.
+    "בית המדרש": "ביסמעדרעש",
+    "בית מדרש": "ביסמעדרעש",
+    "בית דין": "בעסדין",
+    "בית עולם": "בעסוילעם",
+    "בית הכנסת": "בעסאַקנעסעס",
+    "בית": "בייס",          # standalone: bais (plain yy -> aɪ; ײַ would
+                            # flatten to aː, which is the Germanic rule)
+    "עולם": "אוילעם",       # oylem
+    "רבי": "רעבע",          # rebbe (a Hasidic leader); "reb" before a name
+    "פסוק": "פּאָסיק",      # pusik -- short u. (poysek = a halachic authority)
+    "יצחק": "ייִצכאָק",     # yitskhuk -- proper names keep the full vowel
+    "תשובה": "טשיווע",      # tsheeve -- deep dialect, the u becomes ee
+    "שלום": "שאָלעם",       # shoolem -- LONG oo, see the note on _LATIN_TO_IPA
+    "ברכה": "בראָכע",       # bruche -- short u
+    "נשמה": "נעשאָמע",      # neshume -- the n-sh cluster keeps a short e
+    "ספרים": "ספֿאָרים",    # sfoorim -- LONG oo
+    "חסידים": "כאַסידעם",   # khasidem
+    "כבוד": "קאָוועד",      # kuved -- short u
+    "חכמה": "כאָכמע",       # khukhme -- short u
+    "מנהג": "מינהעג",       # minheg
+    "משפחה": "מישפּאָכע",   # mishpuche -- short u
+    "את": "עס",             # es
+    "מצוה": "מיצווע",       # mitsve
+    "שמחה": "סימכע",        # simkhe
+    "תפלה": "טפֿילע",       # tfile
+    "חיים": "כײים",         # Khayim -- loshn-koydesh KEEPS the sharp ay
+                            # diphthong; only Germanic words flatten it to aː
+                            # (הײַנט haant). Same for דיין dayen, מקיים mkayem.
     # === Religion, Holidays, and Time ===
-    "שבת": "שאָבעס",
-    "שבתים": "שאָבאָסים",
-    "יום-טובֿ": "יאָנטעוו",
+    "יום-טובֿ": "יאנטעוו",  # unpointed on purpose: yontef is class 41 [ɔ]
+                            # (§7.3), and a komets would now read [u]. The
+                            # respelling is picked up by _WORD_LATIN.
     "יום-טובֿים": "יאָנטויווים",
     "פּסח": "פּייסעך",
     "חנוכּה": "כאַניקע",
@@ -152,10 +387,10 @@ _LOSHN_KOYDESH = {
     "עולם": "אוילעם",
 
     # === Jewish Life, Texts, and Practice ===
-    "תּורה": "טויערע",
+    "תּורה": "טוירע",        # toyre (was טויערע -> tˈɔɪərə, a spurious schwa)
     "ספֿר": "סייפער",
     "ספֿרים": "ספֿאָרים",
-    "מעשׂה": "מײַסע",
+    "מעשׂה": "מײַסע",      # mˈaːsə, not mayse -- see the note above
     "מעשׂיות": "מײַסעס",
     "פּירוש": "פּיירעש",
     "הגדה": "האַגאָדע",
@@ -219,7 +454,65 @@ _LOSHN_KOYDESH = {
     # === English loanwords ===
     "שאַקי": "שייקי",
     "שאקי": "שייקי",
+
+    # === §5 / §6.2 frozen merged-LK forms (spec romanization in the comment) ===
+    # These are listed verbatim in the spec and are NOT derivable from the nikud
+    # table: the post-tonic syllable reduces to e where the raw rules keep u/i.
+    "קידוש": "קידעש",       # §5 shuruk row / §6.2 KIdesh
+    "חמש": "כימעש",         # §5 kubuts row chimesh (חֻמָּשׁ; the komets is
+                            # post-tonic and reduces, so it is not [u] here)
+    "עדות": "אײדעס",        # §5 tsere row aydes
+    "שידוך": "שידעך",       # §6.2 SHIdech
+    "תענית": "טאָנעס",      # §7.3 merged tunes (the WH reading is taanis)
+    "מתיבתא": "מעסיפֿטע",   # §4.2 mesivta -> mesifte
+    "מסיבתא": "מעסיפֿטע",
+    "בוחר": "באָכער",       # §6.2 BUcher
+    "בחורים": "באַכירעם",   # §6.2 baCHIrem (plural stress shift)
+    "בעלי-בתים": "באַלעבאַטים",  # §6.2 baleBAtim
+    "ישראל": "ייִסראָעל",   # §5 chirik row Yisruel
+
+    # === AUDIT 2026-08-07: top OOV-LK types by corpus frequency ===============
+    # §6.3 now withholds an unpointed LK word that no lexicon knows, which is
+    # right but costs coverage, and these were the most expensive individual
+    # losses in the quarantine and OOV-LK logs. Each is a settled, unambiguous
+    # merged-LK reading, so it is cheaper to list it than to withhold it.
+    "מלך": "מיילעך",        # §11.14 maylech (merged), vs the WH mɛlɛx
+    "שם": "שעם",            # shem -- 945 tokens, was the vowel-less ʃm
+    "מדרש": "מעדרעש",       # medresh -- matches bis-mˈɛdrəʃ (§8)
+    "שלמה": "שלוימע",       # Shloyme
+    "לברכה": "ליווראָכע",   # livruche (זכרונו לברכה) -- was lbrxh, 1,158 tokens
+    "חלילה": "כאַלילע",     # kholile -- was xlilh, 420 tokens
+    "עבודה": "אַוווידע",    # avoyde -- was ˈɛbidh, 555 tokens
+    "אמונה": "עמונע",       # emine -- was ˈaminh
+    "שירה": "שירע",         # shire -- was ʃirh
+    "רגע": "רעגע",          # rege -- was the MED-confidence rɡə
+    # NOT listed: מנין. The Yiddish reading is mˈinjən, and the respelling layer
+    # cannot spell a consonantal yud in that position (it would come out
+    # mˈiniən, a syllable too many). It stays on the OOV-LK list for Chezky.
 }
+
+# Merged-LK entries above are the CASUAL reading (§7.3). When the input arrives
+# explicitly pointed it is Whole-Hebrew — a quoted posuk, a citation — and the
+# §5 nikud table is the better evidence, so the merged respelling is skipped and
+# the points are read directly: מלך is maylekh unpointed but מֶלֶךְ is melekh.
+#
+# עולם was removed from this set after the end-to-end pointing probe
+# (data/verification/e2e_pointing.md): with model-supplied nikud the hatch fired
+# 5 times and 3 were regressions — עולם הבא and פּאַר דעם עולם ("the crowd") are
+# merged-Yiddish [ˈɔjləm] even when the pointing model happens to point them.
+# A quoted-פסוק עוֹלָם loses its [u], which is the cheaper error.
+_WH_WHEN_POINTED = frozenset({"מלך"})
+
+# The LK lexicon is keyed on the POINT-STRIPPED form, which is the right default
+# (a word must match however it arrives) but cannot express a pair that is
+# distinguished by the points alone. קִדּוּשׁ 'kidesh' (§5 shuruk row) and
+# קָדוֹשׁ 'kudoysh' are the same six letters unpointed, so this one entry is
+# matched on the pointed spelling directly, before the main swap. The unpointed
+# spelling קידוש carries its own yud and is an ordinary lexicon entry.
+_LK_POINTED: list[tuple[re.Pattern, str]] = [
+    (re.compile(r"(?<![\w֐-׿])קִדּ?וּ?שׁ?(?![\w֐-׿])"),
+     "קידעש"),
+]
 
 # Keyed on the unpointed form so a word matches whether it arrives unpointed,
 # YIVO-pointed or fully pointed by the nikud model.
@@ -233,66 +526,172 @@ _LK_PATTERN = re.compile(
 
 
 def _lk_replace(match: re.Match) -> str:
-    return _LK_BARE.get(_strip_points(match.group(1)), match.group(1))
+    raw = match.group(1)
+    bare = _strip_points(raw)
+    if bare in _WH_WHEN_POINTED and _vowel_point(raw):
+        return raw
+    return _LK_BARE.get(bare, raw)
 
 # =====================================================================
 # STAGE 1.5: HIGH-FREQUENCY WORD LEXICON (unpointed spelling -> Latin base)
 # =====================================================================
 _WORD_LATIN: dict[str, str] = {
-    # --- mid-word א = 'o' ---
-    "וואס": "vos",
-    "האט": "hot",
-    "דאס": "dos",
-    "דא": "do",
-    "נאר": "nor",
-    "נאך": "nokh",
-    "נאכדעם": "nokhdem",
-    "נאכער": "nokher",
-    "נאכאמאל": "nokhamol",
-    "זאל": "zol",
-    "זאלן": "zoln",
-    "זאלסט": "zolst",
-    "זאג": "zog",
-    "זאגן": "zogn",
-    "זאגט": "zogt",
-    "זאגסט": "zogst",
-    "געזאגט": "gezogt",
-    "אנזאגן": "onzogn",
-    "יא": "yo",
-    "יאר": "yor",
-    "יארן": "yorn",
+    # --- mid-word א, class 12/13 -> engine 'oo' = [u] (spec §2, §3) ---
+    # The א ambiguity is lexical only (spec §3): the SAME grapheme is class
+    # 12/13 [u] here and class 41 [ɔ] in the block further down. Untagged
+    # mid-word א keeps the engine's old default 'a' -- the spec says growth of
+    # this list, not a rule, is the fix.
+    "וואס": "voos",
+    "דאס": "doos",
+    "דא": "doo",
+    "נאר": "nor",           # gold nɔr
+    "נאך": "nookh",
+    "נאכדעם": "nookhdeem",  # v3 §5 raising before m: nuxdˈejm
+    "נאכער": "nookher",
+    "נאכאמאל": "nookhamool",
+    "זאל": "zool",
+    "זאלן": "zooln",
+    "זאלסט": "zoolst",
+    "זאג": "zoog",
+    "זאגן": "zoogn",
+    "זאגט": "zoogt",
+    "זאגסט": "zoogst",
+    "געזאגט": "gezoogt",
+    "אנזאגן": "oonzoogn",
+    "יא": "yoo",
+    "יאר": "yoor",
+    "יארן": "yoorn",
+    # האב / האבן / האסט are class 41 [ɔ], NOT 12/13 [u]: the spec's §4.8
+    # cliticization example is spelled "hob ikh" -> [ˈhɔbəx], and the paradigm
+    # mate האט is already hot. They were the only members of the paradigm on
+    # reading A of the ambiguous א (spec §3).
     "האב": "hob",
     "האבן": "hobn",
     "האסט": "host",
-    "וואלט": "volt",
+    "וואלט": "volt",        # gold vɔlt
     "וואלטן": "voltn",
-    "מאל": "mol",
-    "אמאל": "amol",
-    "קיינמאל": "keynmol",
-    "געווארן": "gevorn",
-    "פארוואס": "farvos",
+    "מאל": "mool",
+    "אמאל": "amool",
+    "קיינמאל": "keynmool",
+    "געווארן": "gevorn",    # gold ɡəvˈɔrn
+    "פארוואס": "farvoos",
+    "שלאפן": "shloofn",
+    "שלאף": "shloof",
+    "גארנישט": "goornisht",
+    "לאמיר": "lomir",       # gold lˈɔmir
+    "אווענט": "oovnt",
+    "אוונט": "oovnt",       # 12/13 uvnt -- the unpointed Hasidic spelling, which
+    "אוונטן": "oovntn",     # is what actually occurs in text
+    "טאג": "toog",
+    "פרייטאג": "fraytoog",
+    "דאך": "dokh",          # gold dɔx
+
+    # --- e before ר, Satmar/Hungarian (Williamsburg, Kiryas Joel) ---
+    # Deliberately NOT a rule. The native reviewer was explicit: "e before r has
+    # split into three different sounds depending on the specific word and the
+    # speaker's family background -- ee (shveer, veert, heern), a (barg, vark),
+    # ay (zayer). Don't make it a global rule, it will break too many words.
+    # Put these specific high-frequency words into your exception dictionary."
+    # So the default stays /ɛ/ and only these are listed.
+    "שווער": "shvir",       # shvir -- heavy / father-in-law
+    "שווערער": "shvirer",   # comparatives keep the stem vowel
+    "הערן": "hirn",         # hirn
+    "געהערט": "gehirt",     # ɡəhˈirt
+    "דערהערט": "derhirt",
+    "ווערט": "virt",        # virt -- becomes / worth
+    "ווערן": "virn",
+    # v3 §5 removed ערד ird / בערג barg / ווערק vark: the ir-list is closed
+    # (ʃvir, virn, virt, hirn, lirnen, ɡəhˈirt) and every other r+cluster word
+    # takes the ɛr default, which the bare rule path already produces.
+
+    # --- class 25 [ej], AWAY FROM r only (v3 §5) -------------------------
+    # v3: "ejr never occurs before r" -- the default before r is ɛr, so מער mɛr
+    # and ווער vɛr are NOT listed here any more, and the ee-before-r paradigm
+    # expansion (kleer/shteer/keer/treer) is gone entirely. What survives is the
+    # gold-verified ej list, none of which has r after the vowel.
+    "זען": "zeen",          # zejn 'see'
+    "זעהן": "zeen",         # ה silent after a vowel (v3 §5)
+    "זעה": "zee",           # zej
+    "זעהט": "zeet",         # zejt
+    "זעט": "zeet",
+    "געזען": "gezeen",      # ɡəzˈejn
+    "וועג": "veeg",         # vejɡ -- no final devoicing in v3
+    "וועגן": "veegn",       # vejɡn
+    "וועגס": "veegs",
+    "טעג": "teeg",          # tejɡ
+    "מעג": "meeg",          # mejɡ
+    "געבן": "geebn",        # ɡejbn
+    "בעטן": "beetn",        # bejtn
+    "יעדן": "yeedn",        # jejdn
+    "ברענגען": "breengen",  # brˈejnɡən
+    "קעגן": "keegn",        # kˈejɡn
+    "לערנען": "lirnen",     # v3 §5 ir-list: lˈirnən (was leernen)
+    "לערנט": "lirnt",
+    "לערנן": "lirnen",
+    "געלערנט": "gelirnt",
+    "לעבן": "leebn",        # lejbn 'live / life'
+    "לעבט": "leebt",
+    "מעגליך": "meeglekh",   # mˈejɡləx
+    "שפעטער": "shpeeter",   # ʃpˈejtər
+    "געווען": "geveen",     # ɡəvˈejn
+    # v3 §5 raising before m (lexical, not a rule)
+    "דעם": "deem",          # dejm
+    "אים": "eem",           # ejm
+    "איהם": "im",       # gold_v3 primary is im for this spelling
+    "עם": "eem",
+
+    # --- class 41: short o, never lengthened -> engine 'o' = [ɔ] (spec §2) ---
     "אבער": "ober",
     "אדער": "oder",
-    "טאג": "tog",
-    "פרייטאג": "fraytog",
     "דארט": "dort",
     "דארטן": "dortn",
-    "דאך": "dokh",
     "וואך": "vokh",
-    "גארנישט": "gornisht",
+    "וואכן": "vokhn",
+    "האט": "hot",
     "געוואלט": "gevolt",
-    "לאמיר": "lomir",
-    "אראפ": "arop",
+    "אראפ": "aroop",   # gold arˈup
     "פארט": "fort",
     "אפ": "op",
     "אפט": "oft",
     "מארגן": "morgn",
     "קאפ": "kop",
     "גאט": "got",
+    "אקס": "oks",
     "נאז": "noz",
     "גראב": "grob",
-    "אווענט": "ovnt",
     "אוודאי": "avade",
+    "גאר": "goor",          # gold ɡur
+    "ווארט": "vort",        # gold vɔrt
+    "ווערטער": "verter",
+    "נאמען": "noomen",      # gold nˈumən
+    "אפאר": "apoor",        # gold apˈur -- initial פ is /p/ here
+    "אביסל": "abisl",
+
+    # --- gold_v3 corrections to the legacy list ---------------------------
+    # The gold module overrides these at runtime whatever they say, but
+    # hebrew_to_latin and the rule path are used on their own (nikud tooling,
+    # OOV triage, compounds built off these stems), so the Latin layer is
+    # brought into line with the gold primary rather than left contradicting it.
+    "ביים": "bam",          # gold bam (baːm is the listed alternate)
+    "יוסף": "yosef",        # gold jˈɔsəf -- class 41, not the WH jˈɔjsəf
+    "יום": "yoym",          # gold jɔjm
+    "על": "al",             # gold al -- the LK preposition, not Germanic ɛl
+    "דורך": "dorekh",       # gold dˈɔrəx -- ɔ + an epenthetic ə, not dirx
+    "עפעס": "epes",         # gold ˈɛpəs -- the פ is /p/ here (§4 p-list)
+
+    # --- class 54: MHG ū -> engine 'ou' = [oʊ], split off from oy (42/44).
+    # The oykh(44)/boukh(54) and broyt(44)/hout(54) pairs are the spec's
+    # top-listed transcription-error source, so these are lexical, not a rule.
+    "הויז": "houz",         # hous -> [hoʊs] after devoicing
+    "הויזער": "houzer",
+    "הויט": "hout",
+    "בויך": "boukh",
+    "מויל": "moul",
+    "טויזנט": "touznt",
+    "טויזנטער": "touznter",
+    "זויער": "zouer",
+    "בויען": "bouen",
+    "געבויט": "gebout",
 
     # --- יי = 'ay' ---
     "זיין": "zayn",
@@ -320,6 +719,37 @@ _WORD_LATIN: dict[str, str] = {
     "פיין": "fayn",
     "וויין": "vayn",
     "גלייך": "glaykh",
+    "ניין": "nayn",         # §8/§11.6 naan 'no' (34), vs ayn 'one' (24)
+    "שרייבן": "shraybn",
+    "שרייבט": "shraybt",
+    "געשריבן": "geshribn",
+    "ווייט": "vayt",
+    "ווייטע": "vayte",
+    # Listed verbatim in the spec's §2 class-34 column (vaab, blaabn) or written
+    # with pasekh-tsvey-yudn in YIVO, i.e. StY ay -> Hasidic aa. They were
+    # falling through to the default ay [aɪ] reading while their sister words
+    # (זייט, ווייל, דיין, שרייבט) were already pinned.
+    "ווייב": "vayb",
+    "ווייבל": "vaybl",
+    "ווייבער": "vayber",
+    "בלייבן": "blaybn",
+    "בלייבט": "blaybt",
+    "בלייבסט": "blaybst",
+    "געבליבן": "geblibn",
+    "גלייבן": "glaybn",
+    "גלייבט": "glaybt",
+    "געגלייבט": "geglaybt",
+    "הייזער": "hayzer",
+
+    # --- v3 initial yud: gold has jid / jidn / jˈidiʃə for the א-spelled forms,
+    # alongside the productive word-initial יי -> ji rule (ייד jid) below ---
+    "איד": "yid",
+    "אידן": "yidn",
+    "אידיש": "yidish",
+    "אידישע": "yidishe",
+    "אידישער": "yidisher",
+    "אידישן": "yidishn",
+    "אידישקייט": "yidishkayt",
 
     # --- initial פ = 'p' & High-Freq Loanwords ---
     "פרעזידענט": "prezident",
@@ -368,7 +798,7 @@ _WORD_LATIN: dict[str, str] = {
     "חלק": "kheylek",
     "מסביר": "masbir",
     "כדי": "kedey",
-    "בעצם": "beetsem",
+    "בעצם": "betsem",       # was "beetsem"; "ee" is now the class-25 digraph
     "ממילא": "memeyle",
     "מסתמא": "mistame",
     "אגב": "agev",
@@ -382,7 +812,7 @@ _WORD_LATIN: dict[str, str] = {
     "כח": "koyekh",
     "כוחות": "koykhes",
     "כלל": "klal",
-    "כל": "kol",
+    "כל": "kool",       # §5 kometz -> u: kul
     "הכל": "hakl",
     "סך": "sakh",
     "מח": "moyekh",
@@ -410,19 +840,57 @@ _WORD_LATIN: dict[str, str] = {
     "סדר": "seyder",
     "הסבר": "hesber",
     "משל": "moshl",
-    "לכל": "lekol",
+    "לכל": "lekool",
     "אוו": "ov",
     "וויבאלד": "vibald",
 
     # --- Hasidic pronunciation of common words ---
-    "אויף": "af",
+    "אויך": "oukh",         # v3 §4 oʊ-list
+    "אויף": "ouf",          # v3 §9: oʊf standalone, afn fused
     "אויפן": "afn",
+
+    # --- §8 frozen loshn-koydesh names / months (spec: store, don't derive) ---
+    "יעקב": "yankev",       # Yankef after §4.1 devoicing
+    "חשוון": "khezhvn",     # Chezhvn -- the zh is frozen in the month name
+    "ישיבה": "yeshive",
+    "סייפער": "seefer",     # ← _LOSHN_KOYDESH respelling of ספר. §6.2 SEYfer is
+                            # class 25 [ej]; plain tsvey-yudn would read [aɪ],
+                            # and the engine's class-25 label is "ee".
+    "יאנטעוו": "yontev",    # ← _LOSHN_KOYDESH respelling of יום-טוב; class 41
+                            # [ɔ], so it is written unpointed and routed here
+                            # rather than through a komets (which is now [u]).
 }
+
+
+# --- v3 §5: the class-25-before-r paradigm expansion is GONE ----------------
+# It generated klejrn / ʃtejrn / kejrn / trejrn from an "ee before r" reading of
+# the ער grapheme. v3 settles that grapheme the other way: "ejr never occurs
+# before r", default ɛr. The dict is kept empty so the expansion loop below and
+# g2p_fingerprint keep their shape without reintroducing the forms.
+_CLASS25_PARADIGM: dict[str, str] = {}
+
+# Yiddish inflectional endings, as (Hebrew spelling, Latin spelling).
+_INFLECTIONS: list[tuple[str, str]] = [
+    ("ן", "n"), ("ט", "t"), ("סט", "st"), ("נס", "ns"), ("ס", "s"),
+    ("ע", "e"), ("טע", "te"), ("נדיק", "ndik"), ("עדיק", "edik"),
+    ("נען", "nen"), ("נט", "nt"), ("נסט", "nst"),
+]
+
+for _stem, _latin in _CLASS25_PARADIGM.items():
+    for _heb_end, _lat_end in [("", "")] + _INFLECTIONS:
+        _WORD_LATIN.setdefault(_stem + _heb_end, _latin + _lat_end)
 
 
 # Sub-word substitutions for Loshn-Koydesh bases that take Yiddish morphology
 _STEM_SUBS: list[tuple[str, str]] = [
-    ("שבת", "שאָבעס"),
+    # §6.2 CHUsid -> chSIdim. The plural חסידים has its own whole-word entry;
+    # the singular and the derived adjective (חסידישע) had none at all, so the
+    # unpointed spelling gave no stem vowel: khsid -> [xsit].
+    ("חסיד", "כאָסיד"),
+    # PATACH, matching the audio-verified _LOSHN_KOYDESH entry שבת -> שאַבעס.
+    # It was a komets here, which now reads [u] and gave shubesdik; the reviewer
+    # was explicit that "shubes" means the engine is misreading that patach.
+    ("שבת", "שאַבעס"),
     ("אמת", "עמעס"),
     ("חן", "כיין"),
     ("פסק", "פּאַסק"),
@@ -451,7 +919,6 @@ _NUCLEUS_START = set("ויױײ")
 # Multi-letter consonant clusters, longest first. The vav clusters are spelling
 # conventions for /vu/ that would otherwise be read as separate segments.
 _CLUSTERS: list[tuple[str, str]] = [
-    ("וואו", "vu"),
     ("דזש", "dzh"),
     ("דז", "dz"),
     ("זש", "zh"),
@@ -519,6 +986,12 @@ def _spells_own_vowel(units: list[tuple[str, str]], i: int) -> bool:
     if ch == "ו":
         if letter_at(units, i + 1) == "ו":
             return False  # consonantal /v/
+        # Only holam / shuruk / kubuts make the vav a vowel of its own. Any
+        # other point makes it consonantal /v/ carrying that vowel (see the
+        # matching branch in _nucleus), so the PRECEDING consonant's point is
+        # still unspelled and must be realised: דָּוִד is Duvid, not *Dvid.
+        if _vowel_point(marks) and _vowel_point(marks) not in (HOLAM, QUBUTS):
+            return False
         return bool(marks) or letter_at(units, i + 1) == "י"
     return False
 
@@ -604,6 +1077,26 @@ def _word_to_latin(word: str) -> str:
             continue
 
         latin_c = _consonant(ch, marks)
+        # §5 digraph table (שפ -> ʃp) and §4 ("פ unpointed ... after ש always
+        # p"). Not expressible in _CLUSTERS, which is matched before the dagesh /
+        # rafe logic; here an explicit rafe (שפֿ) still wins. Without this every
+        # שפ word outside the lexicon came out ʃf -- ʃfiln, ʃfɛt, ʃfrax,
+        # ʃfrˈinɡən -- 485 emitted types / 2,625 tokens in the corpus.
+        if (
+            latin_c == "f"
+            and RAFE not in marks
+            and letter(i - 1) == "ש"
+            and SIN_DOT not in marks_of(i - 1)
+        ):
+            latin_c = "p"
+        # PHONEME-DELETING COLLISION GUARD. The Latin layer is a flat string, so
+        # an "h" landing after s / z / k / t silently forms one of latin_to_ipa's
+        # digraphs (sh -> ʃ, zh -> ʒ, kh -> x, tsh -> ʧ) and two phonemes become
+        # one wrong phoneme: מזוזה -> mziʒ, אתה -> aʃ, עצה -> ɛʧ, תהילים ->
+        # ʃˈilim, קהילה -> xilh. The apostrophe is not a phone anywhere in the
+        # pipeline (latin_to_ipa skips it outright), so it is a free separator.
+        if latin_c.startswith("h") and last_char() and last_char() in "sztk":
+            out.append("'")
         # Hebrew soft bet: in pointed loshn-koydesh a bare ב after a pointed
         # consonant reads /v/ (צְבִי -> tsvi, לִבְרָכָה -> livrokhe). Germanic ב
         # sits next to vowel letters and stays /b/ (האָבְן, אָבֶער).
@@ -616,12 +1109,25 @@ def _word_to_latin(word: str) -> str:
             and _vowel_point(units[i - 1][1])
         ):
             latin_c = "v"
+        # Same rule, second environment (spec §5: "bet/vet ... per dagesh"): a ב
+        # that carries a full vowel point of its own and is NOT followed by a
+        # vowel letter restating it is pointed Whole-Hebrew, where bare bet is
+        # /v/ -- אֲבֵלִים avaylim. Germanic Yiddish always writes the vowel letter
+        # (אָבֶער, בֶעסער) or leaves the bet with a sheva (האָבְן), so neither of
+        # those is touched.
+        if (
+            latin_c == "b"
+            and DAGESH not in marks
+            and _POINT_TO_LATIN.get(_vowel_point(marks))
+            and letter(i + 1) not in "אעיוײױ"
+        ):
+            latin_c = "v"
         out.append(latin_c)
         # A vowel point on a consonant is realised unless the next letter already
         # spells that vowel independently, which would double it up.
         point = _vowel_point(marks)
         prev_point = prev_consonant_point = ""
-        if point and not _spells_own_vowel(units, i + 1):
+        if point and not _restates_point(units, i + 1, point):
             vowel = _POINT_TO_LATIN[point]
             # A Hebrew feminine -ה ending is reduced to /e/ in Yiddish, so
             # ברכה is brokhe and נשמה is neshome rather than -o.
@@ -649,6 +1155,21 @@ def _word_to_latin(word: str) -> str:
 _MATRES_FOR = {"י": (HIRIQ, TSERE), "ו": (HOLAM, QUBUTS, DAGESH)}
 
 
+def _restates_point(units: list[tuple[str, str]], idx: int, point: str) -> bool:
+    """Whether the nucleus at ``idx`` merely re-spells the consonant's own point.
+
+    MEASURED, DO NOT "FIX": requiring the two points to AGREE (so that a pointed
+    א/ע with a different vowel counts as its own syllable, יִשְׂרָאֵל ->
+    Yisruel rather than *isreyl) looks right and is wrong. The Hasidic pointing
+    this engine consumes is not internally consistent about which of the pair
+    carries which mark -- פָּאַר is komets+pasekh for one /a/, likewise דָאֹס,
+    אַזָאַ, אָמָאַל, מוֹצָאֵי -- and the strict version inserted a spurious vowel
+    in 15 of 468 corpus rows (par -> *puar). Whole-Hebrew words that genuinely
+    need the extra syllable are lexicalised instead (ישראל).
+    """
+    return _spells_own_vowel(units, idx)
+
+
 def _nucleus(
     units: list[tuple[str, str]],
     i: int,
@@ -666,23 +1187,39 @@ def _nucleus(
     if ch == "ײ":
         if PATAH in marks or prev_consonant_point == PATAH:
             return ("ay", 1, PATAH)
+        # v3 §4: word-initial יי is /ji/, not the aj digraph (ייד -> jid).
+        # Anchored on i == 0: after a silent carrier א (אייביג) the digraph is
+        # the ordinary nucleus, ˈajbiɡ.
+        if i == 0:
+            return ("yi", 1, HIRIQ)
         return ("ey", 1, "")
     if ch == "ױ":
         return ("oy", 1, "")
 
     if ch == "י":
-        # Word-initial pointed yud before א/ע is consonantal /j/ carrying that
-        # vowel, and the vowel letter just restates it (יֶעדְן -> yedn, not eedn).
-        if point and not emitted and nxt in "אע" and not _vowel_point(nxt_marks):
-            return ("y" + _POINT_TO_LATIN[point], 2, point)
         if nxt == "י":
             # tsvey yudn: a hiriq on either yud is ייִ /yi/, a pasekh marks /ay/
             if HIRIQ in marks or HIRIQ in nxt_marks:
                 return ("yi", 2, HIRIQ)
             if PATAH in marks or PATAH in nxt_marks or prev_consonant_point == PATAH:
                 return ("ay", 2, PATAH)
+            # v3 §4: word-initial יי is /ji/ (ייד -> jid), not aj. Anchored on
+            # i == 0 so אייביג (silent carrier א first) stays ˈajbiɡ.
+            if i == 0:
+                return ("yi", 2, HIRIQ)
             return ("ey", 2, "")
         if point:
+            # A word-initial yud before a bare א/ע is consonantal, and the point
+            # sitting on it spells the vowel of that letter rather than a nucleus
+            # of its own (יָאר -> yor, not *oar). Pointing styles differ on which
+            # of the two carries the mark; יאָר takes the other branch already.
+            if not emitted and nxt in "אע" and not _vowel_point(nxt_marks):
+                return ("y" + _POINT_TO_LATIN[point], 2, point)
+            # Any other word-initial pointed yud is likewise consonantal: Hebrew
+            # script cannot open a word with a vowel-yud (Yiddish writes אי for
+            # that), so יִשְׂרָאֵל is Yisruel and not *Isruel (spec §5, chirik row).
+            if not emitted:
+                return ("y" + _POINT_TO_LATIN[point], 1, point)
             return (_POINT_TO_LATIN[point], 1, point)
         if prev_point in _MATRES_FOR["י"]:
             return ("", 1, "")  # matres lectionis
@@ -717,24 +1254,83 @@ def _nucleus(
         if _is_feminine_ending(units, i):
             return ("e", 1, "")
         if point:
+            # A pointed א directly before a tsvey-yudn digraph contributes NO
+            # vowel of its own: the digraph already spells the diphthong. The
+            # v2 pointing model writes tsere on the alef of אֵיי (canonical
+            # convention: the run-initial shtumer alef is left bare, but the
+            # model over-points), and reading both the point AND the digraph
+            # doubled the vowel — אֵייבֶּערְשְׁטֶער -> *ajajbərʃtər. Found
+            # independently by the leave-one-out and end-to-end probes
+            # (data/verification/). The digraph wins; the point is dropped.
+            nxt2 = letter_at(units, i + 2)
+            if ch == "א" and ((nxt == "י" and nxt2 == "י") or nxt == "ײ"):
+                return ("", 1, "")
             return (_POINT_TO_LATIN[point], 1, point)
         if prev_consonant_point:
             return ("", 1, "")  # the consonant's point already spelled this vowel
-        if ch == "א":
-            if not emitted and nxt in _NUCLEUS_START:
-                return ("", 1, "")  # silent alef before a nucleus
-            return ("a", 1, "")
-        return ("e", 1, "")
+        # Word-initial א/ע is a silent vowel-carrier only when the NEXT letter
+        # really opens a nucleus. A following double-vav does not: וו is
+        # consonantal /v/, so אוועק is avek and אוונט is uvnt -- reading the
+        # alef as silent there deleted the word's first vowel outright
+        # (אוועק -> *vek, אוונט -> *vnt, with no vowel at all). Spec §5 lists
+        # silent alef/ayin, and §12/13 uvnt / §6.1 avék- are both first-vowel
+        # words.
+        # ע is only silent before a vav-nucleus (עוֹלָם, עוף): before a yud it
+        # carries its own vowel (עין ayin), so it is not folded in with א here.
+        # v3 §5: א is silent ANYWHERE before a vowel-ו, not only word-initially.
+        # וואו is vi (the old ("וואו","vu") cluster gave vu) and אונז is inz.
+        if ch == "א" and nxt == "ו" and _opens_nucleus(units, i + 1):
+            return ("", 1, "")
+        if not emitted and _opens_nucleus(units, i + 1) and (ch == "א" or nxt == "ו"):
+            return ("", 1, "")  # silent alef/ayin before a nucleus
+        return ("a" if ch == "א" else "e", 1, "")
 
-    # Word-final bare ה after a vowel is silent (חתונה -> khasene).
-    if ch == "ה" and not marks and i == n - 1 and prev_latin in _LATIN_VOWELS:
+    # v3 §5: ה is silent after a vowel and before a consonant or word-end
+    # (זעהן -> zejn, זעה -> zej, חתונה -> xasənə). It is a real [h] only at a
+    # syllable onset, i.e. when a vowel letter follows (געהאט -> ɡəhat).
+    if (
+        ch == "ה"
+        and not marks
+        and prev_latin in _LATIN_VOWELS
+        and (i == n - 1 or letter_at(units, i + 1) not in "אעיוײױ")
+    ):
         return ("", 1, "")
+
+    # Word-final ה after a CONSONANT is the loshn-koydesh feminine ending and
+    # reduces to ə (livrˈuxə, ʃˈirə, xalˈilə). It is never a word-final [h]:
+    # Yiddish has no such word shape and zero of the 500 gold primaries end in
+    # h. The rule above only silences ה after a vowel LETTER, so unpointed LK
+    # feminines (לברכה, עבודה, אמונה, שירה, חלילה, משנה, מדינה) were surfacing
+    # with a final h -- 25,798 corpus tokens / 2,385 types.
+    if (
+        ch == "ה"
+        and not marks
+        and i == n - 1
+        and emitted
+        and prev_latin not in _LATIN_VOWELS
+    ):
+        return ("e", 1, "")
 
     return None
 
 
 def letter_at(units: list[tuple[str, str]], idx: int) -> str:
     return units[idx][0] if 0 <= idx < len(units) else ""
+
+
+def _opens_nucleus(units: list[tuple[str, str]], idx: int) -> bool:
+    """Whether the letter at ``idx`` opens a vowel nucleus.
+
+    ו normally does (אויף, אונטער), but a DOUBLE vav is the spelling of
+    consonantal /v/ and opens no nucleus, which is what makes the א of אוועק a
+    real vowel rather than a silent carrier.
+    """
+    ch = letter_at(units, idx)
+    if ch not in _NUCLEUS_START:
+        return False
+    if ch == "ו" and letter_at(units, idx + 1) == "ו":
+        return False
+    return True
 
 
 _TAG_PATTERN = re.compile(r"<\s*[a-zA-Z]+\s*>")
@@ -751,6 +1347,11 @@ def _preprocess_hebrew(text: str) -> str:
     text = re.sub(r"[\u05BE\u2010\u2011\u2012\u2013\u2014]", "-", text)
     text = re.sub(r"[\u05f3\u02bc\u2018\u2019`]", "'", text)
     text = re.sub(r"[\u05f4\u201c\u201d]", '"', text)  # gershayim -> ASCII " (acronyms kept intact)
+    # \u00a72.2: strip quotes SURROUNDING a word (\u05d9\u05e9\u05e8\u05d0\u05dc" -> \u05d9\u05e9\u05e8\u05d0\u05dc). Only edge quotes:
+    # a gershayim with Hebrew letters on both sides is an abbreviation (\u00a72.6)
+    # and must survive to the abbreviation table (\u05e9\u05dc\u05d9\u05d8"\u05d0).
+    text = re.sub(r'(?<![\u0590-\u05ff])"(?=[\u0590-\u05ff])', "", text)
+    text = re.sub(r'(?<=[\u0590-\u05ff])"(?![\u0590-\u05ff])', "", text)
 
     # 1. Contractions (diacritic-tolerant: pointed input carries marks on ס/כ/מ)
     text = re.sub(_tolerant("ס") + r"'" + _tolerant("איז"), "סיז", text)
@@ -758,8 +1359,15 @@ def _preprocess_hebrew(text: str) -> str:
     text = re.sub(_tolerant("מ") + r"'", "מע ", text)
     text = re.sub(_tolerant("ס") + r"'", "עס ", text)
 
-    # Drop remaining intra-word apostrophes
-    text = re.sub(r"(?<=[\u0590-\u05FF])'(?=[\u0590-\u05FF])", "", text)
+    # \u00A77.5 abbreviation expansion (single geresh, non-gematria). Without this the
+    # apostrophe survived to the IPA as a glottal stop -- \u05D4' -> h\u0294, \u05E8\u05F3 -> r\u0294 --
+    # and \u0294 is not in the target phone set at all.
+    text = re.sub(r"(?<![\u0590-\u05FF])" + _tolerant("\u05E8") + r"'", "\u05E8\u05E2\u05D1", text)
+    text = re.sub(r"(?<![\u0590-\u05FF])" + _tolerant("\u05D4") + r"'", "\u05D4\u05D0\u05E9\u05E2\u05DD", text)
+
+    # Drop every remaining apostrophe touching a Hebrew letter, on either side:
+    # intra-word (\u05DE\u05D9\u05E8'\u05DF) and word-edge (\u05D1\u05EA\u05E9\u05E8\u05D9', \u05D6\u05D9\u05D9\u05DF') alike.
+    text = re.sub(r"(?<=[\u0590-\u05FF])'|'(?=[\u0590-\u05FF])", "", text)
 
     # 2. Hasidic Silent 'ה' Patch (strips 'ה' before terminal ן, סט, ט)
     text = re.sub(
@@ -770,9 +1378,63 @@ def _preprocess_hebrew(text: str) -> str:
     )
 
     # 3. Loshn-Koydesh lexical swap
+    for pattern, repl in _LK_POINTED:
+        text = pattern.sub(repl, text)
     text = _LK_PATTERN.sub(_lk_replace, text)
 
     return text
+
+
+# Class-54 (spec ou = [oʊ]) productive prefixes. אויס־ and ארויס־ are listed by
+# the spec as class 54 (ous-, arous-), and they head an open-ended set of
+# separable-prefix verbs that no word list can enumerate, so they are rewritten
+# on the Latin string. Everything else in class 54 is lexical (_WORD_LATIN):
+# אויך oykh (44) is deliberately NOT touched here.
+_CLASS54_PREFIXES = (
+    ("aroys", "arous"), ("aroyf", "arouf"), ("oys", "ous"),
+    # aráan- (spec §6.1) is class 34: the bare word אריין is pinned to "arayn"
+    # (= [aː]) but every prefixed verb fell through to the rule path and came
+    # out [aɪ], so one morpheme had two vowels depending on the compound.
+    ("areyn", "arayn"),
+    # אפ- is óp- (41), not *af-: the bare word is pinned to "op" but in
+    # compounds the rule path read bare פ as /f/ and default א as /a/.
+    ("afge", "opge"),
+    # אראפ- is aróp- / arúp-: the bare word is pinned to "aroop" (gold arˈup)
+    # but in compounds the rule path defaulted the second א to /a/ and read the
+    # bare פ as /f/, which then voiced to /v/ before the ɡ of ge-, so one
+    # morpheme had three readings -- ˈaravɡəkimən, ˈarafnəmən, ˈaravɡəfaln
+    # against the gold's arˈup (473 emitted types / 1,575 tokens). §10.1 only
+    # licenses a voiceless obstruent going to its VOICED COUNTERPART anyway,
+    # which for p is b, not v.
+    ("araf", "aroop"),
+)
+
+
+# -kaat / -haat: spec §9 makes both class 34 (yidishkaat, gezinthaat,
+# frumkaat). The rule path spells them "keyt"/"heyt" (= [aɪ]) and no word list
+# can enumerate the suffix, so it is rewritten productively -- which is also
+# what finally makes the long-dead "kayt" entry in _NEUTRAL_SUFFIXES reachable.
+_KAAT_SUFFIX = re.compile(r"(?<=.)([kh])eyt(n|s|en|er)?$")
+
+# §5 "Suffix spellings: ־ליך → ləx (meyglekh)". The productive path reads ליך as
+# l + i + kh and gives lix, which directly contradicts the gold (ˈɛtləxə,
+# mˈejɡləx, hˈɛrləx) -- and it did so at MED "unambiguous rule" confidence.
+# Only the lexicalised מעגליך was right. The suffix attaches to a consonant, so
+# the lookbehind excludes a preceding vowel letter (which would make the "likh"
+# the tail of a stem rather than the suffix).
+_LEKH_SUFFIX = re.compile(r"(?<=[^aeiou])likh(e|en|er|es|n|s|st)?$")
+
+
+def _class54_prefix(latin: str) -> str:
+    for src, dst in _CLASS54_PREFIXES:
+        if latin.startswith(src):
+            latin = dst + latin[len(src):]
+            break
+    latin = _KAAT_SUFFIX.sub(lambda m: m.group(1) + "ayt" + (m.group(2) or ""), latin)
+    match = _LEKH_SUFFIX.search(latin)
+    if match and _nuclei_spans(latin[: match.start()]):
+        latin = latin[: match.start()] + "lekh" + (match.group(1) or "")
+    return latin
 
 
 def hebrew_to_latin(text: str) -> str:
@@ -786,18 +1448,23 @@ def hebrew_to_latin(text: str) -> str:
                 continue
             m = _PUNCT_SPLIT.match(part)
             lead, core, trail = m.group(1), m.group(2), m.group(3)
-            # _WORD_LATIN only guesses vowels that unpointed spelling leaves open,
-            # so it applies to the bare form only while the word itself carries no
-            # vowel point. Otherwise the diacritics are the better evidence
-            # (unpointed דאך is /dokh/, but pointed דאַך is /dakh/).
+            # §2.1: nikud is stripped FOR THE LOOKUP KEY; the pointed form is
+            # retained only as a side-channel for the §6 LK fallback. The gate
+            # here used to be "... and not _vowel_point(core)", i.e. any vowel
+            # point at all disabled the whole word lexicon, so ordinary
+            # YIVO-pointed text lost the §4 class-41 ɔ pinning (מאָרגן read as
+            # murɡn, גאָט as ɡut, אָפֿט as uft) and the §4 p-list (פאליטיק with a
+            # komets read fˈulitik). The lexicon is the dialect (§4); a komets
+            # written over a class-41 word does not overrule it.
             bare = _strip_points(core)
-            if bare in _WORD_LATIN and not _vowel_point(core):
+            if bare in _WORD_LATIN:
                 latin = _WORD_LATIN[bare]
             else:
                 for stem, repl in _STEM_SUBS:
                     if stem in core:
                         core = core.replace(stem, repl)
                 latin = _word_to_latin(core)
+                latin = _class54_prefix(latin)
             latin_parts.append(lead + latin + trail)
         if latin_parts:
             out_tokens.append(" ".join(latin_parts))
@@ -826,21 +1493,29 @@ def hebrew_to_latin(text: str) -> str:
 # =====================================================================
 STRESS = "ˈ"
 
-# Latin vowel nuclei, longest first so digraphs win.
-_NUCLEI = ("ey", "ay", "oy", "a", "e", "i", "o", "u")
+# Latin vowel nuclei, longest first so digraphs win. Must stay in sync with the
+# label key on _LATIN_TO_IPA: ee/ey before e, oo/ou/oy before o, ay before a.
+_NUCLEI = ("ee", "ey", "ay", "oy", "ou", "oo", "a", "e", "i", "o", "u")
 
 # Inseparable prefixes that never take stress: it falls on the following stem
 # syllable. Matched only when at least one nucleus follows, so the bare words
 # (der, far, tsu ...) are not mis-analysed as prefixed forms.
-_UNSTRESSED_PREFIXES = ("ge", "be", "der", "far", "tsu", "tse", "tser", "ant", "ent", "ba", "dis")
+# v3 §11.3 names exactly six: ge- ba- be- far- der- tse-. tsu-/tser-/ant-/ent-/
+# dis- were engine additions and are dropped -- v3 §11.7 sends everything else
+# to initial stress.
+_UNSTRESSED_PREFIXES = ("ge", "be", "der", "far", "tse", "ba")
 
 # Function words that carry no lexical stress. Marking these would dilute the
 # meaning of the marker; espeak leaves the equivalent clitics bare too.
+# Every entry must be monosyllabic. ober, oder, iber and unter were listed here
+# and came out stress-less (ubɛr, udɛr, ibɛr) -- but they are ÓBER, ÓDER, ÍBER,
+# ÚNTER, stressed on the first syllable like any disyllabic Germanic word. That
+# was 1.2% of corpus instances emitted with no stress mark at all.
 _CLITICS = frozenset({
-    "a", "an", "di", "der", "dos", "dem", "den", "de",
+    "a", "an", "di", "der", "dos", "doos", "dem", "den", "de",
     "in", "im", "un", "az", "tsu", "mit", "fun", "far", "bay", "ba",
-    "oyf", "iber", "unter", "es", "zi", "er", "ix", "mir", "dir",
-    "zix", "ze", "do", "vi", "ober", "nor", "oder", "ven",
+    "oyf", "es", "zi", "er", "ix", "mir", "dir",
+    "zix", "ze", "do", "doo", "vi", "nor", "noor", "ven",
 })
 
 # --- Suffix classes -------------------------------------------------------
@@ -861,8 +1536,8 @@ _PRETONIC_SUFFIXES = ("aner", "iye")
 # NEUTRAL: native Germanic inflection/derivation. These never take stress and do
 # not move it off the root, so they are stripped to expose whatever is beneath.
 _NEUTRAL_SUFFIXES = (
-    "ndik", "shaft", "kayt", "heyt", "lekh", "dik", "ung", "es", "en", "er",
-    "l", "s",
+    "ndik", "shaft", "kayt", "hayt", "keyt", "heyt", "lekh", "dik", "ung",
+    "es", "en", "er", "l", "s",
 )
 
 
@@ -877,28 +1552,45 @@ _NEUTRAL_SUFFIXES = (
 # Hebrew-origin stress patterns.
 _STRESS_OVERRIDES: dict[str, int] = {
     # --- Loshn-Koydesh (Hebrew/Aramaic): historical spelling, mostly penultimate ---
-    "mishpokhe": 1,    # mish-PO-khe
-    "tsedoke":   1,    # tse-DO-ke
+    "mishpookhe": 1,   # mish-PU-khe (komets -> "oo" after the §2-A retag)
+    "tsedooke":  1,    # tse-DU-ke
     "meshuge":   1,    # me-SHU-ge
     "mekhutn":   1,    # me-KHU-tn
     "rebetsn":   0,    # RE-be-tsn
-    "balebos":   2,    # ba-le-BOS
-    "balebuste": 2,    # ba-le-BUS-te
+    "baleboos":  0,    # BA-le-bus -- spec §6.2 lists BAlebus alongside SHAbes,
+    "balebooste": 0,   # TOYre and CHAsene as merged-LK penult/initial
+                       # retraction. The old ba-le-BUS pinning was not
+                       # audio-verified and contradicted the spec's example list.
     "yeshive":   1,    # ye-SHI-ve
     "khevre":    0,    # KHEV-re
     "shabes":    0,    # SHA-bes
     "yontev":    0,    # YON-tev
     "khasene":   0,    # KHA-se-ne
-    "mazltov":   0,    # MAZL-tov
+    "mazltoov":  0,    # MAZL-tuv
     "seykhl":    0,
     "khoydesh":  0,
-    "kholem":    0,
+    "khoolem":   0,
     "afile":     1,    # a-FI-le
     "efsher":    0,
-    "asakh":     1,    # a-SAKH
+    "asakh":     0,    # gold ˈasax -- initial, not a-SAKH
+    # Three-syllable loshn-koydesh: penultimate, which the Germanic default
+    # (initial) gets wrong once the word has been respelled into Yiddish.
+    "neshoome":  1,    # ne-SHU-me
+    "khasidem":  1,    # kha-SI-dem
+    "shaboosim": 1,    # sha-BU-sim
     "bishas":    1,
     "beemes":    1,
     "stam":      0,
+    "mesifte":   1,    # me-SIF-te (§4.2 mesivta -> mesifte)
+    "bakhirem":  1,    # ba-CHI-rem -- §6.2 plural stress shift off BUcher
+    "balebatim": 2,    # ba-le-BA-tim -- ditto, off BAlebus
+    "hashem":    1,    # ha-SHEM (§7.5 ה' expansion)
+    "masbir":    1,    # maz-BIR (gold mazbˈir; LK final stress)    # ha-SHEM (§7.5 ה' expansion)
+    # §11.5 penult retraction for the merged-LK entries added 2026-08-07.
+    "avoyde":    1,    # a-VOY-de
+    "emune":     1,    # e-MU-ne
+    "khalile":   1,    # kha-LI-le
+    "livrookhe": 1,    # li-VRU-khe
 
     # --- Unstressed initial vowel: not derivable from prefix or suffix rules,
     # and high-frequency in this corpus, so they are listed explicitly. ---
@@ -910,16 +1602,31 @@ _STRESS_OVERRIDES: dict[str, int] = {
     "avade":     1,
     "akegn":     1,
     "arum":      1,
-    "aroys":     1,
+    "tsurik":    1,    # ʦirˈik (gold)
+    "arous":     1,    # a-ROUS (54)
     "arayn":     1,
+    "avek":      1,    # a-VEK -- the bare adverb; §6.1 avék-
     "anider":    1,
-    "amol":      1,    # a-MOL
+    "amool":     1,    # a-MUL
     "aza":       1,    # a-ZA
     "arop":      1,    # a-ROP
+    "aroop":     1,    # gold arˈup
+    "aheym":     1,    # a-HAJM (v3 §11.4 directional)
+    "arouf":     1,
+    "arayf":     1,
     "aroyf":     1,
+    "abisl":     1,    # a-BI-sl
+    "apoor":     1,    # a-PUR
+    "aleyns":    1,
     "ahin":      1,
     "aher":      1,
     "atsind":    1,
+    # v3 §11.4 covers the BARE directional adverb too. _SEPARABLE_PREFIXES only
+    # fires when material follows the prefix, so ארונטער / אדורך were falling to
+    # the §11.7 initial default while their own compounds were second-stressed.
+    "arunter":   1,
+    "adurkh":    1,
+    "arouf":     1,
 
     # --- False prefixes: be-/der- here belong to the root, not a prefix ---
     "beser":     0,    # BE-ser, not be-SER
@@ -961,32 +1668,46 @@ def _nuclei_spans(word: str) -> list[tuple[int, int]]:
     return spans
 
 
-# Consonants that make a following word-final n/m syllabic, mirroring the schwa
-# insertion in latin_to_ipa (arbetn -> arbetən). Without this, gutn/hobn/zogn
-# count as one syllable and the monosyllable rule wrongly leaves them unmarked.
-_SYLLABIC_TRIGGER = set("bvdgktpsfzhlmnrxjw")
-
-
-_SYLLABIC_NASAL = re.compile(r"[bvdgktpsfzhlmrxjw][nm](?![aeiou])")
-
-
+# v3 §11.2: "monosyllable" is defined on WRITTEN VOWEL NUCLEI, not on phonetic
+# syllables. A syllabic final -n/-l/-m adds no vowel symbol (§1), so maxn, zuɡn,
+# farn and vɔxn are monosyllables and carry NO stress mark, while ˈarbətn is
+# marked because its ע is a written vowel. The old count -- nuclei plus every
+# syllabic nasal -- mirrored the ə-insertion that v3 deletes, and produced
+# mˈaxn / zˈuɡn / fˈarn against the gold.
 def _syllable_count(word: str) -> int:
-    """Phonetic syllable count: vowel nuclei plus every syllabic n/m.
-
-    Mirrors the schwa insertion in latin_to_ipa, including mid-word cases such
-    as arbet|n|dik, so the monosyllable rule and the phonology agree.
-    """
-    return len(_nuclei_spans(word)) + len(_SYLLABIC_NASAL.findall(word))
+    """Number of vowel-symbol nuclei; 1 means the word takes no stress mark."""
+    return len(_nuclei_spans(word))
 
 
 # --- Separable (directional) prefixes: these CARRY the stress -----------------
 # arop-geyn, avek-forn, unter-shraybn. Only when material follows: bare "arum"
 # is a-RUM, but "arumgeyn" is ARUM-geyn.
-_SEPARABLE_PREFIXES = (
-    "aroys", "arayn", "arum", "arop", "aroyf", "avek", "anider", "tsurik",
-    "unter", "iber", "arunter", "aruf", "mit", "oys", "on", "uf", "oyf", "ayn",
-    "tsuzamen", "farbay", "adurkh", "antkegn",
-)
+# The value is WHICH nucleus of the prefix carries the stress. Most are
+# monosyllabic or initial-stressed (óus-, ún-, únter-, óp-), but spec §6.1
+# writes the polysyllabic converbs with stress on the second syllable --
+# aróusgayn, aráankimen, tsurík-gekimen, aníder- -- and the engine used to
+# return 0 for every prefix, which contradicted its own bare-word readings
+# (ארויס -> arˈoʊs, אריין -> arˈaːn) as soon as anything was suffixed to them.
+# avek- keeps 0 because the spec's own example is ávekgelaygt (the bare adverb
+# avék is handled by _STRESS_OVERRIDES).
+_SEPARABLE_PREFIXES: dict[str, int] = {
+    # v3 §11.4: EVERY directional a(r)- prefix stresses its second nucleus, in
+    # the compound exactly as in the bare adverb (arˈoʊs, arˈup, ahˈajm, avˈɛk,
+    # arˈaːn). The old per-prefix split -- arop/aroyf/avek/arum at 0, the rest
+    # at 1 -- made one morpheme stress two different ways depending on whether
+    # anything was suffixed to it.
+    # "arouf" is what _class54_prefix rewrites ארויפ- to; without it the whole
+    # ארויפ- compound family (ארויפגיין, ארויפלייגן, ארויפגעלייגט) fell through
+    # to §11.7 initial stress even though the bare word is arˈoʊf.
+    "arous": 1, "arayn": 1, "anider": 1, "arunter": 1, "aruf": 1, "arouf": 1,
+    "arum": 1, "aroop": 1, "arop": 1, "aroyf": 1, "avek": 1, "aheym": 1,
+    "ahin": 1, "aher": 1, "adurkh": 1, "arayf": 1,
+    # Non-directional separables keep initial stress (v3 §11.7).
+    "tsurik": 1,
+    "unter": 0, "iber": 0, "mit": 0, "ous": 0, "oon": 0, "on": 0, "uf": 0,
+    "oyf": 0, "ayn": 0,
+    "tsuzamen": 1, "farbay": 1, "antkegn": 1,
+}
 
 # --- Circumfix validation ----------------------------------------------------
 # A grammatical prefix must prove its function: ge- forms past participles, which
@@ -1027,6 +1748,17 @@ def _compound_split(word: str) -> int | None:
     return None
 
 
+def _splits_nucleus(spans: list[tuple[int, int]], boundary: int) -> bool:
+    """Whether a morpheme boundary would fall INSIDE a vowel nucleus.
+
+    "geyen" is g|ey|en, not ge|yen: the ge- prefix rule was cutting the ey
+    digraph in half and stressing the wrong syllable (ɡaɪˈɛn for ˈɡaɪən), while
+    its sisters zeyen / freyen -- whose first letter is not a prefix -- were
+    right. Same trap for the separable prefixes.
+    """
+    return any(start < boundary < end for start, end in spans)
+
+
 def _suffix_stress(stem: str, spans: list[tuple[int, int]]) -> int | None:
     """Syllable index dictated by a tonic / pre-tonic suffix, if one applies.
 
@@ -1038,6 +1770,12 @@ def _suffix_stress(stem: str, spans: list[tuple[int, int]]) -> int | None:
         if not stem.endswith(suf) or len(stem) == len(suf):
             continue
         start = len(stem) - len(suf)
+        # A real suffix begins after a consonant. If a nucleus ENDS exactly where
+        # the suffix starts, the "suffix" is really the tail of a vowel sequence:
+        # לייענט leyent is l|ey|ent, a native stem, not a -ent loanword, and the
+        # tonic reading put the stress on the wrong syllable (laɪˈɛnt).
+        if any(nuc_end == start for _, nuc_end in spans):
+            continue
         for i, (nuc_start, _) in enumerate(spans):
             if nuc_start >= start:
                 return i
@@ -1070,11 +1808,12 @@ def _stressed_syllable(word: str, count: int) -> int:
 
     # Separable prefixes pull the stress onto themselves, but only when a stem
     # follows -- otherwise the bare adverb (arum, arop) keeps its own stress.
-    for pre in _SEPARABLE_PREFIXES:
-        if word.startswith(pre) and len(word) > len(pre):
+    for pre, pre_idx in _SEPARABLE_PREFIXES.items():
+        if word.startswith(pre) and len(word) > len(pre) and not _splits_nucleus(spans, len(pre)):
             tail = word[len(pre) :]
-            if _nuclei_spans(tail) and _nuclei_spans(pre):
-                return 0
+            pre_spans = _nuclei_spans(pre)
+            if _nuclei_spans(tail) and pre_spans:
+                return min(pre_idx, len(pre_spans) - 1)
 
     # A compound takes primary stress on its first element.
     seam = _compound_split(word)
@@ -1101,6 +1840,8 @@ def _stressed_syllable(word: str, count: int) -> int:
     while True:
         for pre in _UNSTRESSED_PREFIXES:
             if rest.startswith(pre):
+                if _splits_nucleus(_nuclei_spans(rest), len(pre)):
+                    continue  # the "prefix" ends inside a vowel: גייען is ge|yen
                 tail = rest[len(pre) :]
                 required = _CIRCUMFIX_ENDINGS.get(pre)
                 if required and not word.endswith(required):
@@ -1114,8 +1855,14 @@ def _stressed_syllable(word: str, count: int) -> int:
     return min(consumed, count - 1)
 
 
-def add_stress(latin: str) -> str:
-    """Insert a primary-stress marker before the stressed syllable of each word."""
+def add_stress(latin: str, penult: bool = False) -> str:
+    """Insert a primary-stress marker before the stressed syllable of each word.
+
+    ``penult`` selects §11.5's loshn-koydesh default (penult retraction:
+    ʃˈabəs, jisrˈuəl, ʦadˈikim) instead of the Germanic §11.7 initial default.
+    It is used only for the §6.2 nikud path, where the token itself is pointed
+    Whole-Hebrew; _STRESS_OVERRIDES still wins over it.
+    """
     out: list[str] = []
     for token in re.split(r"(\s+)", latin):
         if not token or token.isspace():
@@ -1135,6 +1882,9 @@ def add_stress(latin: str) -> str:
             out.append(token)
             continue
         idx = _STRESS_OVERRIDES.get(lowered)
+        if idx is None and penult:
+            stem_spans = _nuclei_spans(_strip_neutral(lowered)) or spans
+            idx = max(len(stem_spans) - 2, 0)
         if idx is None:
             idx = _stressed_syllable(lowered, len(spans))
         idx = min(max(idx, 0), len(spans) - 1)
@@ -1152,11 +1902,47 @@ def add_stress(latin: str) -> str:
 # =====================================================================
 # STAGE 3: CENTRAL YIDDISH PHONOLOGY
 # =====================================================================
+# LATIN LABEL KEY (engine label -> IPA -> spec romanization)
+#
+# The engine's internal Latin labels are historical and do NOT match the spec's
+# romanization. Only the IPA on the right is normative; the labels below are an
+# internal encoding and are documented here once so the two can be read together.
+#
+#   engine   IPA    spec    Weinreich class
+#   ------   ----   -----   ---------------
+#   a        a      a       11
+#   ay       aː     aa      34   (pasekh-tsvey-yudn, flattened)
+#   e        ɛ      e       21
+#   ee       ej     ey      25   (e lengthened in open syllable)
+#   ey       aj     ay      22/24
+#   i        i      i       31/32
+#   o        ɔ      o       41   (short o, never lengthened)
+#   oo       u      u       12/13 (MHG ā; also every komets, §5)
+#   oy       ɔj     oy      42/44
+#   ou       oʊ     ou      54   (MHG ū: hous, moul, boukh, arous)
+#   u        i      i       51/52 (the "vowel written ו is always i" rule)
+#
+# Scanned in order by latin_to_ipa, so every digraph MUST precede its own first
+# letter: oo/ou/oy before o, ee/ey before e, ay before a. _NUCLEI and
+# _nuclei_spans keep the same ordering for the stress stage.
 _LATIN_TO_IPA: list[tuple[str, str]] = [
-    ("tsh", "ʧ"), ("dzh", "ʤ"), ("dz", "ʣ"), ("ts", "ʦ"),
+    # v3 §1: ʣ is NOT in the closed inventory -- dz stays two phones (d + z).
+    ("tsh", "ʧ"), ("dzh", "ʤ"), ("ts", "ʦ"),
     ("kh", "x"), ("sh", "ʃ"), ("zh", "ʒ"),
-    ("ey", "aɪ"), ("ay", "aː"), ("oy", "ɔɪ"),
-    ("a", "a"), ("o", "u"), ("e", "ɛ"), ("u", "i"), ("i", "i"),
+    # ey and ay must stay DISTINCT. Tsere/ey raises to aɪ (בית -> bais), while
+    # pasekh-tsvey-yudn flattens to long aː (הײַנט -> haant, מײַן -> maan,
+    # פֿרײַנט -> fraant, חיים -> khaayem). Merging them to aɪ was tried and the
+    # native reviewer rejected it outright: "Changing them to haint/main made
+    # your engine sound Litvish/YIVO. The Heimish Williamsburg dialect flattens
+    # the 'ai' diphthong into a long 'ah' sound."
+    # The corpus argues the other way (~85% aj/aɪ) but the corpus IPA is the
+    # Gemini-written column, which agrees with this engine only 14.4% of the
+    # time -- it is not evidence about the dialect.
+    # v3 §1: the diphthongs are written aj / ɔj (not aɪ / ɔɪ). The closed phone
+    # inventory in spec v3 lists ej aj ɔj oʊ, so ɪ never appears in output.
+    ("ee", "ej"), ("ey", "aj"), ("ay", "aː"),
+    ("oy", "ɔj"), ("ou", "oʊ"), ("oo", "u"),
+    ("a", "a"), ("o", "ɔ"), ("e", "ɛ"), ("u", "i"), ("i", "i"),
     ("b", "b"), ("v", "v"), ("d", "d"), ("h", "h"), ("z", "z"),
     ("t", "t"), ("l", "l"), ("m", "m"), ("n", "n"), ("s", "s"),
     ("f", "f"), ("p", "p"), ("k", "k"), ("g", "ɡ"), ("r", "r"),
@@ -1165,11 +1951,18 @@ _LATIN_TO_IPA: list[tuple[str, str]] = [
 
 _APOSTROPHE = re.compile(r"'")
 
+# TIE-BAR FORMS ONLY. The bare sequences (tʃ, dʒ, dz) used to be fused here too,
+# but they are legitimate two-phoneme clusters and postlexical() creates them:
+# §4.2 devoices the d of קודש kudsh before the ʃ, and normalize_ipa_affricates --
+# which hebrew_to_ipa runs AFTERWARDS -- then swallowed the t into an affricate,
+# deleting a phoneme (kidʃ -> *kiʧ, xsidʃə -> *xsiʧə, 98 affected tokens in
+# 400 corpus rows). latin_to_ipa emits the ligatures directly for the real
+# affricates, so the bare alternatives were never needed for engine output.
 _AFFRICATE_DECOMPOSE = [
-    (re.compile(r"t\u0361s|t͡s", re.I), "ʦ"),
-    (re.compile(r"t\u0361ʃ|t͡ʃ|tʃ", re.I), "ʧ"),
-    (re.compile(r"d\u0361ʒ|d͡ʒ|dʒ", re.I), "ʤ"),
-    (re.compile(r"d\u0361z|d͡z|dz", re.I), "ʣ"),
+    (re.compile("t͡s", re.I), "ʦ"),
+    (re.compile("t͡ʃ", re.I), "ʧ"),
+    (re.compile("d͡ʒ", re.I), "ʤ"),
+    (re.compile("d͡z", re.I), "dz"),
 ]
 
 
@@ -1184,7 +1977,8 @@ def latin_to_ipa(latin: str) -> str:
             i += 1
             continue
         if ch == "'":
-            out.append("ʔ")
+            # Never a phone. An apostrophe reaching this far is a leftover
+            # geresh; ʔ is outside the target phone set (spec §14).
             i += 1
             continue
         if ch in ".,!?;:\"()":
@@ -1207,20 +2001,100 @@ def latin_to_ipa(latin: str) -> str:
 
     ipa = "".join(out)
 
-    # Syllabic n/m smoothing. The old form anchored on \b, so it only fired at
-    # word end: arbetn -> arbetən but arbetndik stayed arbetndik, leaving an
-    # unpronounceable tnd cluster. A syllabic nasal arises wherever a consonant
-    # precedes it and no vowel follows, including before -dik / -shaft.
-    ipa = re.sub(
-        r"([bvdɡktpsfzʒʃxrlmʦʧʤʣ])([nm])(?![aeiouɑɐəɛɪɵɔʊʉæœøyɨɤʌɜɒ])",
-        r"\1ə\2",
-        ipa,
-    )
-    
+    # v3 §1 / §10.3: syllabic finals -n -l -m after a consonant get NO epenthetic
+    # vowel -- zuɡn, not zuɡən; maxn, mˈɛnʧn, ˈarbətn. The \b-anchored ə-insertion
+    # regex that used to live here (kept for checkpoint compatibility with the
+    # yiddish24 ipa column) is deleted: v3 overrides that compatibility note, and
+    # the gold_v3 lexicon writes every one of these bare.
+
     # Word-final epsilon to schwa reduction (protects single-syllable words)
     ipa = re.sub(r"(\S{2,})ɛ\b", r"\1ə", ipa)
     
     return ipa
+
+
+# =====================================================================
+# STAGE 3.5: POSTLEXICAL PHONOLOGY (spec §4)
+#
+# Two rules, both fully active in this dialect (unlike StY, where final
+# devoicing is absent). They run on the IPA, AFTER the syllabic-nasal schwa
+# insertion in latin_to_ipa -- otherwise zogn would look like a ɡ in final
+# position and come out *zukn -- and before reduce_unstressed, which only
+# touches vowels and so cannot undo them.
+#
+# Deliberately NOT modelled, by agreement: nasal place assimilation ([ŋ̩] etc.),
+# dark l, and r-variant coloring. One l, one r.
+# =====================================================================
+_DEVOICE = {"b": "p", "d": "t", "ɡ": "k", "v": "f", "z": "s", "ʒ": "ʃ",
+            "ʤ": "ʧ"}
+_VOICE = {v: k for k, v in _DEVOICE.items()}
+
+# Triggers for regressive assimilation -- the SECOND consonant wins.
+# /v/ is a voiced obstruent but is NOT a voicing trigger: tsvay and mitsve keep
+# their [ʦ] (a voicing /v/ would give *dzvay), while as a TARGET it devoices
+# normally (davka -> dafke, mesivta -> mesifte). The one spec example that
+# needs a voicing /v/ -- Cheshvn -> Chezhvn -- is a frozen month name and is
+# stored in the lexicon instead.
+_VOICING_TRIGGERS = frozenset("bdɡzʒʤ")
+_DEVOICING_TRIGGERS = frozenset("ptkfsʃxʦʧ")  # v3: targets of §10.1 only
+_OBSTRUENTS = _VOICING_TRIGGERS | _DEVOICING_TRIGGERS | frozenset("v")
+
+# Only fricatives and affricates VOICE regressively. Every voicing example in
+# the spec has a fricative target (shabesdik -> shabezdik, Cheshvn -> Chezhvn,
+# and the aroys- seam), while a voiced plosive target appears nowhere -- and
+# assuming one turned the separable prefixes into their own opposites at the
+# compound seam: óp-getun came out [ɔbɡə-] and avék-gelaygt [avɛɡɡə-], losing
+# the prefix consonant to the following ge-. Devoicing stays unrestricted; its
+# spec examples (zugt, libt) are plosives.
+#
+# AUDIT 2026-08-07: /f/ left the target set. There is no gold evidence for it --
+# the one gold primary with a voiceless obstruent before a voiced one is
+# vˈiljamsburɡ, where the s does NOT voice -- and it was actively wrong at the
+# separable-prefix seam, turning arˈoʊfɡajn into arˈoʊvɡajn and arˈupɡəkimən
+# into ˈaravɡəkimən. The engine already asserts the same for /p/ (אפגעטון ->
+# ɔpɡɛtin, "the p does not voice before ɡ"), and §10.1 licenses only a move to
+# the VOICED COUNTERPART, which for the אראפ- family is b, never v.
+_VOICING_TARGETS = frozenset("sʃʦʧ")
+
+_WORD_SPLIT = re.compile(r"(\s+)")
+
+
+def _postlexical_word(word: str) -> str:
+    core = word.rstrip(".,!?;:\"()'")
+    trail = word[len(core):]
+    chars = list(core)
+
+    # v3 §10.1 VOICING-ward assimilation only, right to left so a chain settles
+    # in one pass (the rightmost obstruent is the one that never changes).
+    # v3 §10.2 turns devoicing OFF everywhere, so the devoicing-ward branch that
+    # used to sit here (zuɡt -> *zukt, ʃraːbt -> *ʃraːpt) is gone.
+    for i in range(len(chars) - 2, -1, -1):
+        cur, nxt = chars[i], chars[i + 1]
+        if cur not in _OBSTRUENTS or nxt not in _OBSTRUENTS:
+            continue
+        if nxt in _VOICING_TRIGGERS and cur in _VOICING_TARGETS:
+            chars[i] = _VOICE.get(cur, cur)
+
+    # Degemination. Assimilation regularly produces a doubled consonant at a
+    # morpheme seam (ge-red-t -> ɡərɛdt -> ɡərɛtt), and a repeated phone is not
+    # a legal TTS phoneme sequence -- Yiddish has no geminates. §9's own
+    # past-participle shape (ge- + stem + devoiced final) is the common case.
+    chars = [c for i, c in enumerate(chars)
+             if i == 0 or c != chars[i - 1] or c not in _OBSTRUENTS]
+
+    # v3 §10.2: NO word-final devoicing. iz, zuɡt, hub, ɔjb, vejɡ, kind, ruv, jid
+    # all stay voiced; the lexicalized devoiced forms (jˈankəf, ʃkˈɔjəx) are
+    # lexicon entries, not the output of a rule.
+
+    return "".join(chars) + trail
+
+
+def postlexical(ipa: str) -> str:
+    """v3 §10: voicing-ward assimilation + degemination. Devoicing is OFF."""
+    return "".join(
+        tok if (not tok or tok.isspace()) else _postlexical_word(tok)
+        for tok in _WORD_SPLIT.split(ipa)
+    )
 
 
 def reduce_unstressed(ipa: str) -> str:
@@ -1265,17 +2139,896 @@ def normalize_ipa_spacing(ipa: str) -> str:
     return ipa
 
 
-def hebrew_to_ipa(text: str, stress: bool = True) -> str:
-    """Hebrew-script Yiddish -> IPA. ``stress=False`` reproduces pre-prosody output."""
+def g2p_fingerprint() -> str:
+    """Short hash of the rules that determine Yiddish phoneme output.
+
+    Inference regenerates IPA from source text with the LIVE code, while a
+    checkpoint is frozen on whatever phonemes it trained on. Nothing errors when
+    those diverge -- the audio just degrades, which cost a full listening
+    evaluation once. Stamp this into a checkpoint or a demo manifest so the
+    mismatch is visible instead of silent.
+    """
+    import json as _json
+
+    parts = [
+        _json.dumps(_STRESS_OVERRIDES, sort_keys=True, ensure_ascii=False),
+        _json.dumps(_LOSHN_KOYDESH, sort_keys=True, ensure_ascii=False),
+        _json.dumps(_WORD_LATIN, sort_keys=True, ensure_ascii=False),
+        repr(_UNSTRESSED_PREFIXES), repr(_SEPARABLE_PREFIXES),
+        repr(_TONIC_SUFFIXES), repr(_PRETONIC_SUFFIXES), repr(_NEUTRAL_SUFFIXES),
+        repr(_CIRCUMFIX_ENDINGS), repr(_LATIN_TO_IPA), repr(_COMPOUND_SEAMS),
+        "schwa_reduction=1", "postlexical=1",
+        # The v3 routing layer decides ~64% of running tokens, so it belongs in
+        # the drift stamp exactly as much as the rules do.
+        _json.dumps(
+            {k: v["ipa_primary"] for k, v in GOLD_LEXICON.items()},
+            sort_keys=True, ensure_ascii=False,
+        ),
+        _json.dumps(_ABBREVIATIONS, sort_keys=True, ensure_ascii=False),
+        _json.dumps(_MULTIWORD, sort_keys=True, ensure_ascii=False),
+        repr(sorted(_MULTIWORD_LEGACY)), repr(sorted(_CLITIC_IPA.items())),
+    ]
+    return hashlib.sha1("|".join(parts).encode("utf-8")).hexdigest()[:12]
+
+
+def _rule_path_ipa(text: str, stress: bool = True, lk_penult: bool = False) -> str:
+    """The Germanic/LK RULE PATH: orthography -> Latin -> IPA, no gold lookup.
+
+    This is the engine as it existed before the v3 lexicon layer, and it is what
+    routing falls back to when no table knows the token (§3.6).
+    """
     text = _preprocess_hebrew(strip_tags(text))
     latin = hebrew_to_latin(text)
     if stress:
-        latin = add_stress(latin)
+        latin = add_stress(latin, penult=lk_penult)
     ipa = latin_to_ipa(latin)
+    ipa = postlexical(ipa)
     if stress:
         ipa = reduce_unstressed(ipa)
     ipa = normalize_ipa_affricates(ipa)
     return normalize_ipa_spacing(ipa)
+
+
+# =====================================================================
+# STAGE 0: LEXICON ROUTING  (spec v3 §2 normalization, §3 routing order,
+# §8 abbreviations & multiword, §9 homographs, §12 per-token output)
+#
+# Everything above this point is the rule path. Routing sits in FRONT of it:
+# the gold lexicon (authority #1, native-verified) is consulted first for whole
+# tokens and overrides every rule and every legacy dict below it.
+# =====================================================================
+
+
+def _load_gold_lexicon() -> dict:
+    """Import data/gold_lexicon.py by path; an absent/broken file is not fatal.
+
+    The module is generated (scripts/build_gold_lexicon.py) and committed. The
+    engine must still import and run without it -- a checkout that has not
+    regenerated it degrades to the rule path rather than failing to import.
+    """
+    path = Path(__file__).resolve().parent / "data" / "gold_lexicon.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_gold_lexicon", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        return dict(getattr(module, "GOLD_LEXICON", {}) or {})
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+GOLD_LEXICON: dict[str, dict] = _load_gold_lexicon()
+
+
+def _load_audio_endorsed() -> dict:
+    """data/audio_endorsed_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "audio_endorsed_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_audio_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "AUDIO_ENDORSED_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_AUDIO_ENDORSED: dict[str, dict] = _load_audio_endorsed()
+
+
+def _load_homograph_lk() -> dict:
+    """data/homograph_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "homograph_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_homograph_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "HOMOGRAPH_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_HOMOGRAPH_LK: dict[str, dict] = _load_homograph_lk()
+
+
+def _load_sefaria_pointed() -> dict:
+    """data/sefaria_pointed_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "sefaria_pointed_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_sefaria_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "SEFARIA_POINTED_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_SEFARIA_POINTED: dict[str, dict] = _load_sefaria_pointed()
+
+
+def _load_model_pointed() -> dict:
+    """data/model_pointed_lk.py (phonikud-yi v3 guesses), keyed by lexicon_key."""
+    path = Path(__file__).resolve().parent / "data" / "model_pointed_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_model_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "MODEL_POINTED_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_MODEL_POINTED: dict[str, dict] = _load_model_pointed()
+
+
+# --- §8 abbreviations --------------------------------------------------------
+# A token with a gershayim inside it is an abbreviation by definition (§2.6) and
+# never takes the rule path: ש-ל-י-ט-א read as letters is nonsense. Values are
+# (primary, [alternates]); they agree with the gold rows for the same spellings.
+_ABBREVIATIONS: dict[str, tuple[str, list[str]]] = {
+    "ר'": ("rɛb", []),
+    "ה'": ("haʃˈɛm", []),
+    'שליט"א': ("ʃlˈitə", []),
+    'זצ"ל': ("zaʦˈal", []),
+    'ז"ל': ("zal", []),
+    'זי"ע': ("zxisˈɔj jˈuɡin ulˈajni", []),
+    'יו"ט': ("jˈɔntəf", ["jˈɔntif"]),
+    'ב"ה': ("bˈurəx haʃˈɛm", []),
+}
+_ABBREVIATIONS = {lexicon_key(k): v for k, v in _ABBREVIATIONS.items()}
+
+# --- §7.5a acronyms that are pronounced as WORDS -----------------------------
+# The letter-name fallback below is right for an acronym the reader does not
+# recognize (a gematria year, an unfamiliar rosh-teyves).  It is wrong -- and
+# loudly wrong, because these are the most frequent gershayim tokens in the
+# corpus -- for the established acronyms that are never spelled out in speech:
+# nobody says "rajʃ ʃin jid" for רש"י, they say rˈaʃi.  Spelling those out
+# converts a known-unknown into a confidently-shaped wrong answer.
+#
+# Scope is deliberately narrow: only acronyms whose word reading is settled
+# usage.  Everything else (dates כ"ה, years תשפ"ה, ע"ה, רמ"א, הקב"ה, ...) keeps
+# the letter-name fallback, which is honest about not knowing.
+#
+# The readings are editorial, not audio-verified, so they route to the table
+# (layer A) but carry LOW confidence: the segmental shape is settled, the
+# stress placement is not, and LOW keeps every one of them in the verification
+# queue.
+#
+# Corroboration, gathered before the table was written:
+#   * PhoneticXeus (data/audio_lexicon/hebrew_verify.jsonl) heard רש"י as
+#     [r ʃ ə] (2 clips) and אר"י as [a r i] (2/3 clips) -- word readings both,
+#     neither spelled out.
+#   * data/canonical_pointing.tsv points 15 of these 17 independently, and
+#     `reconcile` accepts the pointing against the reading below for every one
+#     of them (חַזַ"ל, רַמְבַּ"ם, רַמְבַּ"ן, תַּרְיַ"ג, לַ"ג, מַהֲרַ"ם, מַהֲרַ"ל,
+#     שַׁ"ס, הַשַּׁ"ס, תַּנַ"ךְ, חַבַּ"ד round-trip through the rule path as well).
+#   * The two it disagrees with are kept anyway and are the only judgement
+#     calls in the table: של"ה (pointed שְׁלַ"ה, i.e. *ʃla*; the Shloh is called
+#     ʃlu) and בעש"ט (pointed בַּעַשְׁ"ט letter by letter; the Baal Shem Tov is
+#     the Besht).  האר"י was left OUT for the same reason with no such
+#     counterweight -- הָאֲרִ"י wants hu-, and nothing here settles it.
+_ACRONYM_WORDS: dict[str, tuple[str, list[str]]] = {
+    'רש"י': ("rˈaʃi", []),
+    'חז"ל': ("xazˈal", []),
+    'רמב"ם': ("rˈambam", []),
+    'רמב"ן': ("rˈamban", []),
+    'חיד"א': ("xˈidə", []),
+    'של"ה': ("ʃlu", []),
+    'אר"י': ("ˈari", []),
+    'תרי"ג': ("tarjˈaɡ", []),
+    'ל"ג': ("laɡ", []),
+    'מהר"ם': ("mahˈaram", []),
+    'מהר"ל': ("mahˈaral", []),
+    'מהרש"א': ("mahˈarʃə", []),
+    'בעש"ט': ("bɛʃt", []),
+    'ש"ס': ("ʃas", []),
+    'הש"ס': ("haʃˈas", []),
+    'תנ"ך': ("tˈanax", []),
+    'חב"ד': ("xabˈad", []),
+}
+_ACRONYM_WORDS = {lexicon_key(k): v for k, v in _ACRONYM_WORDS.items()}
+
+# --- §7.5 letter-name fallback for unknown abbreviations ---------------------
+# An abbreviation that is not in the table above used to be quarantined: the
+# rule path over the gershayim-less string invents a word that nobody says
+# (תשפ"ה is not a word). Spec v2 §7.5 says to "treat unknowns by letter-name
+# fallback" -- a reader who does not know the acronym spells it out, and that
+# is also exactly right for the very common gematria years (תש..).
+#
+# Values are the Hasidic letter names of §5, written in the §1 closed
+# inventory. Final forms never reach here (lexicon_key folds them), but they
+# are listed for callers that pass a raw surface string.
+_LETTER_NAMES: dict[str, str] = {
+    "א": "ˈaləf",
+    "ב": "bajs",
+    "ג": "ɡiml",
+    "ד": "dˈuləd",
+    "ה": "haj",
+    "ו": "vuv",
+    "ז": "zˈajən",
+    "ח": "xɛs",
+    "ט": "tɛs",
+    "י": "jid",
+    "כ": "xuf",
+    "ך": "xuf",
+    "ל": "lˈaməd",
+    "מ": "mɛm",
+    "ם": "mɛm",
+    "נ": "nin",
+    "ן": "nin",
+    "ס": "sˈaməx",
+    "ע": "ˈajən",
+    "פ": "paj",
+    "ף": "paj",
+    "צ": "ʦˈadik",
+    "ץ": "ʦˈadik",
+    "ק": "kif",
+    "ר": "rajʃ",
+    "ש": "ʃin",
+    "ת": "tuf",
+}
+
+
+def letter_name_ipa(key: str) -> str:
+    """§7.5: spell ``key`` out as letter names, or "" if it is not spellable.
+
+    ``key`` is a lexicon key (points stripped, finals folded); the gershayim
+    and any geresh are ignored, every remaining character must be a Hebrew
+    letter with a name in §5. Digits, Latin letters and the YIVO digraph
+    ligatures return "" so the caller can keep its old fallback.
+    """
+    letters = [c for c in key if c not in '"\'']
+    if not letters or any(c not in _LETTER_NAMES for c in letters):
+        return ""
+    return " ".join(_LETTER_NAMES[c] for c in letters)
+
+
+# --- §7.5b tokens that SPELL OUT a single letter's name ----------------------
+# מ"ם, כ"ף, יו"ד are not acronyms at all: they are the Hebrew names of the
+# letters mem, khof and yud, written with a gershayim the way a name is.  The
+# letter-name fallback doubles them (מ"ם -> "mɛm mɛm") or expands them
+# character by character (יו"ד -> "jid vuv dˈuləd"), which is wrong twice over.
+# Keys are the letter-name spellings under `lexicon_key` (finals folded,
+# gershayim removed); values are the same §5 names `_LETTER_NAMES` uses.
+#
+# Spellings that double as a common abbreviation are deliberately absent:
+# פ"א / פ"ה (also a folio reference), ת"ו (תיבנה ותיכונן after a city name).
+_LETTER_NAME_WORDS: dict[str, str] = {
+    "אלף": "ˈaləf",
+    "בית": "bajs",
+    "גימל": "ɡiml",
+    "גמל": "ɡiml",
+    "דלת": "dˈuləd",
+    "הא": "haj",
+    "וו": "vuv",     # ו"ו
+    "ווו": "vuv",    # וו"ו — same name, ו spelled with the Yiddish digraph
+    "זין": "zˈajən",
+    "חית": "xɛs",
+    "טית": "tɛs",
+    "יוד": "jid",
+    "כף": "xuf",
+    "למד": "lˈaməd",
+    "מם": "mɛm",
+    "נון": "nin",
+    "סמך": "sˈaməx",
+    "עין": "ˈajən",
+    "צדי": "ʦˈadik",
+    "צדיק": "ʦˈadik",
+    "קוף": "kif",
+    "ריש": "rajʃ",
+    "שין": "ʃin",
+    "תיו": "tuf",
+}
+_LETTER_NAME_WORDS = {lexicon_key(k): v for k, v in _LETTER_NAME_WORDS.items()}
+
+
+def letter_name_word_ipa(key: str) -> str:
+    """§7.5b: the §5 name of the letter ``key`` spells out, or "".
+
+    ``key`` is a lexicon key; the gershayim is what marks it as a name rather
+    than the ordinary word with the same letters, so callers must only reach
+    here for a token that carries one.
+    """
+    return _LETTER_NAME_WORDS.get(key.replace('"', "").replace("'", ""), "")
+
+# --- §8 multiword ------------------------------------------------------------
+# Spec §8: בית־מדרש / בית מדרש -> bis-mˈɛdrəʃ, while בית alone is bajs (the gold
+# row for בית carries "bis- in bˈis-mədrəʃ" as its bracketed note, kept here as
+# the alternate). Reduced forms fire only inside the compound, which is exactly
+# what a multiword entry expresses.
+_MULTIWORD: dict[str, tuple[str, list[str]]] = {
+    "בית מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
+    "בית-מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
+}
+_MULTIWORD = {lexicon_key(k): v for k, v in _MULTIWORD.items()}
+
+# Space-separated loshn-koydesh entries (בית המדרש, בית דין, בית עולם ...) were
+# matched across token boundaries by _LK_PATTERN when the engine phonemized whole
+# strings. Per-token routing would lose them, so they are registered as multiword
+# keys whose value is computed by the rule path over the joined string.
+_MULTIWORD_LEGACY = {lexicon_key(k) for k in _LOSHN_KOYDESH if " " in k}
+_MAX_MULTIWORD = max(
+    [len(k.split()) for k in list(_MULTIWORD) + list(_MULTIWORD_LEGACY)] or [1]
+)
+
+# --- §2.5 clitics ------------------------------------------------------------
+_CLITIC_IPA = {"ס": "s", "מ": "m", "כ": "x"}
+
+# --- §3 LK detector ----------------------------------------------------------
+_LK_DETECT = re.compile(r"[חת]|שׂ|כּ")
+# The vowel letters of §3's shape heuristic: א ע י ו and the digraphs יי / וי,
+# including their precomposed ligatures (ײ ױ), which are the same nuclei.
+_VOWEL_LETTERS = frozenset("אעיוײױ")
+
+# --- §4 ambiguous graphemes --------------------------------------------------
+# Every runtime application of a DEFAULT on א (a, when the word is not in a
+# lexicon that pins u or ɔ) is logged for triage -- §4's own instruction. פ is
+# logged the same way; those two account for most naked-rule errors.
+A_DEFAULT_LOG: Counter = Counter()
+P_DEFAULT_LOG: Counter = Counter()
+
+
+def reset_default_logs() -> None:
+    A_DEFAULT_LOG.clear()
+    P_DEFAULT_LOG.clear()
+
+
+def _lk_detector(bare: str) -> bool:
+    """§3: does this token look like unlexiconed loshn-koydesh?
+
+    The marker clauses (ח / ת / שׂ / כּ, suffix ־ות) are near-perfect: Germanic
+    Yiddish writes /x/ with כ and /t/ with ט, so those letters ARE the diagnosis.
+
+    The shape clause is where §3's phrasing -- "fewer than 1 vowel-letter per 3
+    consonants" -- has to be calibrated, because it decides quarantine (§6.3) and
+    a false positive deletes an ordinary word from the training set. Measured
+    against the gold's own layer column (authority #1: 96 L rows, 355 G rows):
+
+        cons >= 3 and cons > 3*vowels   (spec-literal)  45 TP / 10 FP
+        no vowel letter at all                          48 TP /  0 FP
+
+    The literal reading fires on מענטשן, העלפן, קענסט, האלטן, דארפן, שטארק,
+    טרעפן, ברענגט, פונקט -- and in the corpus on פלעגט, שטיקל, דאָרטן, זינגט,
+    גאנצן -- because v3's own syllabic finals put three or four consonants around
+    a single written vowel. The zero-vowel reading is strictly better on the gold
+    on BOTH counts, so it is what runs.
+    """
+    if _LK_DETECT.search(bare):
+        return True
+    letters = _strip_points(bare)
+    if letters.endswith("ות"):
+        return True
+    consonants = sum(1 for c in letters if _HEBREW_CHAR.match(c) and c not in _VOWEL_LETTERS)
+    vowels = sum(1 for c in letters if c in _VOWEL_LETTERS)
+    return vowels == 0 and consonants >= 2
+
+
+def _lk_nikud(core: str) -> bool:
+    """§6.2 side-channel: did the token arrive with its own pointing?
+
+    v3 §6.2 wants the pointing fetched from a pointed source -- a Tashma /
+    Sefaria index -- which is not reachable from this engine. What IS available
+    is §2.1's side-channel: the token's own nikud, which the letter table
+    already reads through the §5 vowel rows. When it is there, the word is not
+    an OOV-LK fallback; when it is not, §6.3 applies.
+    """
+    return any(_vowel_point(marks) for _, marks in _split_units(core))
+
+
+def _lk_evidence(core: str) -> bool:
+    """Whether §6 has ANY lexical footing for an LK-detected token.
+
+    §6.1 merged-LK lexicon -- as a whole word (_LK_PATTERN) or as a _STEM_SUBS
+    stem inside an inflected form (חסידישע, שבתדיק) -- or the §6.2 pointing.
+    Without one of these, §6.3 is explicit: log OOV-LK, emit nothing.
+    """
+    if _LK_PATTERN.search(core) or any(stem in core for stem, _ in _STEM_SUBS):
+        return True
+    return _lk_nikud(core)
+
+
+def _has_ambiguous_alef(core: str) -> bool:
+    """An unpointed א that the rule path must resolve by default (a / ɔ / u)."""
+    for ch, marks in _split_units(core):
+        if ch == "א" and not _vowel_point(marks):
+            return True
+    return False
+
+
+def _has_ambiguous_pe(core: str) -> bool:
+    """An unpointed פ/ף, where f vs p is lexical (§4)."""
+    for ch, marks in _split_units(core):
+        if ch in ("פ", "ף") and DAGESH not in marks and RAFE not in marks:
+            return True
+    return False
+
+
+def _known_word(core: str) -> bool:
+    """Whether some lexicon -- gold or legacy -- pins this whole token."""
+    key = lexicon_key(core)
+    bare = _strip_points(normalize_surface(core))
+    return key in GOLD_LEXICON or bare in _LK_BARE or bare in _WORD_LATIN
+
+
+def _entry_result(word: str, primary: str, variants: list[str], layer: str,
+                  route: str, confidence: str, reason: str = "") -> dict:
+    return {
+        "word": word,
+        "ipa_primary": primary,
+        "variants": [v for v in variants if v != primary],
+        "layer": layer,
+        "route": route,
+        "confidence": confidence,
+        "reason": reason,
+    }
+
+
+# =====================================================================
+# WORD-FINAL DEVOICING VARIANTS
+#
+# Audio evidence (PhoneticXeus, episode 100313, 40 chunks) shows heavy surface
+# devoicing of word-final voiced obstruents -- final /z/ heard as [s] 79:0,
+# final /d/ as [t] 24:8 -- while the native reviewer keeps the underlying
+# voiced form as the citation reading. v3 therefore leaves every PRIMARY
+# voiced and ships the devoiced reading as an extra VARIANT, so forced
+# alignment can vote for whichever the speaker actually produced.
+#
+# The map is the plain voiced->voiceless obstruent pairing. Sonorants
+# (m n ŋ l r j) and the already-voiceless set are untouched.
+# =====================================================================
+FINAL_DEVOICE_MAP = {
+    "b": "p", "d": "t", "ɡ": "k", "v": "f", "z": "s", "ʒ": "ʃ", "ʤ": "ʧ",
+}
+
+
+def devoiced_final(ipa: str) -> str:
+    """The word-final-devoiced reading of ``ipa``, or "" if nothing devoices.
+
+    Multiword ("bˈurəx haʃˈɛm") and hyphenated ("bis-mˈɛdrəʃ") primaries have a
+    word boundary at every space and hyphen, so EACH part's final obstruent is
+    devoiced -- the audio shows the effect at every such boundary, not only at
+    the end of the record.
+    """
+    parts = re.split(r"([ -])", ipa)
+    out: list[str] = []
+    changed = False
+    for part in parts:
+        if part and part[-1] in FINAL_DEVOICE_MAP:
+            out.append(part[:-1] + FINAL_DEVOICE_MAP[part[-1]])
+            changed = True
+        else:
+            out.append(part)
+    return "".join(out) if changed else ""
+
+
+def _with_auto_variants(rec: dict) -> dict:
+    """Append the auto-generated devoiced-final variant to a §12 record.
+
+    Appended LAST, after any lexicon/gold variants, and only when it is not
+    already among them: the gold rows that already list the devoiced reading
+    (זאגט zuɡt|zukt, טאג tuɡ|tuk, ביז biz|bis) keep their hand-verified order,
+    and the auto pass adds nothing. ipa_primary, layer, route, confidence and
+    reason are never touched -- this is additive only. The names of the
+    auto-generated forms are recorded in ``auto_variants`` for provenance.
+    """
+    rec["variants"] = list(rec["variants"])
+    rec["auto_variants"] = []
+    primary = rec["ipa_primary"]
+    if not primary or rec["route"] == "fallback":
+        return rec
+    auto = devoiced_final(primary)
+    if auto and auto != primary and auto not in rec["variants"]:
+        rec["variants"].append(auto)
+        rec["auto_variants"] = [auto]
+    return rec
+
+
+def _multiword_ipa(key: str) -> str:
+    if key in _MULTIWORD:
+        return _MULTIWORD[key][0]
+    return _rule_path_ipa(key, stress=True)
+
+
+def _guess_layer(core: str) -> str:
+    """Layer for a token no lexicon covers: L if the LK detector fires, else G."""
+    return "L" if _lk_detector(_strip_points(core)) else "G"
+
+
+def _route_token(core: str) -> dict:
+    """Route a token, then enforce §1 on the answer before it can be emitted.
+
+    The shape check sits OUTSIDE the routing order on purpose: a clitic split, a
+    hyphen join or a lexicon entry can produce an unspeakable string just as a
+    bare rule application can, and §1 says such a string must never reach corpus
+    output no matter which path built it. Offenders are turned into
+    route='fallback' / confidence='LOW' records whose ipa_primary is a flagged
+    approximation for the quarantine file.
+    """
+    result = _route_token_inner(core)
+    primary = result["ipa_primary"]
+    if result["route"] == "fallback" or not primary:
+        return _audio_endorsed_or(core, result)
+    flags = []
+    if violates_vowel_ratio(primary):
+        flags.append("vowel-ratio")
+    if ipa_phone_violations(primary):
+        flags.append("bad-phone")
+    if not flags:
+        return result
+    reason = ",".join(filter(None, [result["reason"], *flags]))
+    return _audio_endorsed_or(core, _entry_result(
+        core, primary, result["variants"], result["layer"],
+        "fallback", "LOW", reason))
+
+
+def _audio_endorsed_or(core: str, fallback_result: dict) -> dict:
+    """Rescue a would-be-quarantined token with its audio-endorsed reading.
+
+    data/audio_endorsed_lk.py holds readings from the corpus's UNVERIFIED
+    pointed tier that PhoneticXeus confirmed against episode audio (mean
+    agreement >= 0.70, >= 2 clips). They are emitted at LOW confidence with a
+    distinct reason so they stay visible in the verification queue — audio
+    endorsement is evidence, not native judgement, and the entries are replaced
+    the moment a Chezky verdict lands (the main lexicons route before this).
+    """
+    entry = _AUDIO_ENDORSED.get(lexicon_key(core))
+    if entry is None:
+        return _homograph_or(core, fallback_result)
+    return _entry_result(core, entry["ipa"], [], "L",
+                         "rule", "LOW", "pointed-audio-endorsed")
+
+
+def _homograph_or(core: str, fallback_result: dict) -> dict:
+    """Rescue #1.5: a word the verified editions point more than one way.
+
+    data/homograph_lk.py holds the 'homograph-conflict' types the Sefaria
+    rescue refused because no vocalization reached its 80% dominance bar. Two
+    kinds live here and each carries its own reason:
+
+      'homograph-collapsed' — EVERY attested pointing READS the same once
+        phonemic_fold() drops the editions' cosmetic disagreements (te'amim,
+        dagesh lene, holam male). The conflict was in the print, not the mouth,
+        so there is nothing for audio to decide and the reading is free. A
+        thinly-attested rival reading does not count as collapsed: a handful of
+        types qualify, and a word with a live second reading is never here.
+      'audio-homograph' — a real two-way split, decided against episode audio
+        (>= 3 decided occurrences, winner >= 75% of them). The losing readings
+        ride along as variants so alignment can still pick them up.
+
+    It sits BETWEEN the audio-endorsed table and the Sefaria one: an explicit
+    audio endorsement of a single-reading word is stronger evidence than a
+    verdict picked out of a candidate set, and both are stronger than a book
+    pointing that could not even name one reading for this spelling. LOW
+    confidence with a distinct reason either way — these stay in the
+    verification queue until a native verdict replaces them.
+    """
+    entry = _HOMOGRAPH_LK.get(lexicon_key(core))
+    if entry is None:
+        return _sefaria_pointed_or(core, fallback_result)
+    return _entry_result(core, entry["ipa"], list(entry.get("variants") or []),
+                         "L", "rule", "LOW", entry["reason"])
+
+
+def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
+    """Rescue #2: the reading of this word in a VERIFIED pointed edition.
+
+    data/sefaria_pointed_lk.py holds words whose unpointed form has exactly one
+    vocalization (or a dominant one, >= 80%) across Sefaria's MAM Tanakh and
+    Torat Emet Mishnah/Siddur, read in the Whole-Hebrew register by
+    read_pointed_wh(). It is consulted only after _AUDIO_ENDORSED misses:
+    hearing the word in an episode outranks finding it in a book, because the
+    book says how the posuk is chanted and the audio says how this community
+    says the word in a Yiddish sentence. Hence LOW confidence and a distinct
+    reason — these stay in the verification queue like the audio ones.
+
+    SCOPE, precisely: this fires wherever _route_token() would otherwise hand
+    back a fallback, which is NOT the same as "only tokens whose final route is
+    'fallback'". The §2.5 clitic split re-routes the stripped core through
+    _route_token(), so a rescued core can end up inside a composed token that
+    reports route='rule' / reason='clitic' (5 hapax types corpus-wide, e.g.
+    כ'אחד xaxd -> xˈɛxud). That is intended — the alternative is emitting the
+    Germanic letter table's garbage for the same core — and the LOW confidence
+    propagates, so the composed token still lands in the verification queue.
+    Sweeping for this requires clearing _ROUTE_CACHE between runs; it will
+    otherwise serve pre-rescue answers and hide the difference.
+    """
+    entry = _SEFARIA_POINTED.get(lexicon_key(core))
+    if entry is not None:
+        return _entry_result(core, entry["ipa"], [], "L",
+                             "rule", "LOW", "sefaria-pointed")
+    # LAST link — the no-drop policy (2026-08-08): phonikud-yi v3's contextual
+    # guess (data/model_pointed_lk.py, 97% held-out accuracy on evidence-backed
+    # Hebrew). A guess is better than silence, and it is outranked by every
+    # other source above, stays LOW, and stays in the verification queue.
+    entry = _MODEL_POINTED.get(lexicon_key(core))
+    if entry is not None:
+        return _entry_result(core, entry["ipa"], [], "L",
+                             "rule", "LOW", "model-pointed-guess")
+    return fallback_result
+
+
+def _route_token_inner(core: str) -> dict:
+    """Route one punctuation-free token through §3's strict order."""
+    key = lexicon_key(core)
+    bare = _strip_points(normalize_surface(core))
+
+    # 1. abbreviation table (§3.1). A mid-word gershayim never reaches the rules.
+    if key in _ABBREVIATIONS:
+        primary, alts = _ABBREVIATIONS[key]
+        return _entry_result(core, primary, [primary, *alts], "A", "lexicon", "HIGH")
+    if '"' in key:
+        # §7.5a: an acronym that is read as a WORD (רש"י -> rˈaʃi) must never
+        # be spelled out. Editorial reading -> table route at LOW confidence,
+        # so it stays in the verification queue.
+        if key in _ACRONYM_WORDS:
+            primary, alts = _ACRONYM_WORDS[key]
+            return _entry_result(core, primary, [primary, *alts], "A",
+                                 "lexicon", "LOW", "acronym-word")
+        # §7.5b: the token IS a letter's name (מ"ם -> mɛm), not an acronym.
+        named = letter_name_word_ipa(key)
+        if named:
+            return _entry_result(core, named, [], "A", "rule", "LOW",
+                                 "letter-name-word")
+        # §7.5: an unknown acronym is read out letter by letter (תשפ"ה ->
+        # tuf ʃin paj haj). Only spellings with an unnamed character (digits,
+        # Latin) still fall through to the quarantined rule approximation.
+        spelled = letter_name_ipa(key)
+        if spelled:
+            return _entry_result(core, spelled, [], "A", "rule", "LOW",
+                                 "letter-names")
+        approx = _rule_path_ipa(key.replace('"', ""), stress=True)
+        return _entry_result(core, approx, [], "A", "fallback", "LOW",
+                             "unknown-abbreviation")
+
+    # §2.2 second pass: an apostrophe at either edge is a quote mark, not part
+    # of the word (זיין' , 'ישראל'). It is stripped only now, because the same
+    # character is load-bearing inside the abbreviations handled just above.
+    unquoted = core.strip("'")
+    if unquoted and unquoted != core:
+        return _route_token(unquoted)
+
+    # 2. multiword table (§3.2) -- only reachable when a caller hands us the
+    #    joined string; hebrew_to_ipa matches it over the token stream instead.
+    if key in _MULTIWORD or key in _MULTIWORD_LEGACY:
+        primary = _multiword_ipa(key)
+        alts = _MULTIWORD.get(key, ("", []))[1]
+        return _entry_result(core, primary, [primary, *alts], "L", "lexicon", "HIGH")
+
+    # 3. gold lexicon (§3.3) -- authority #1, overrides every rule and every
+    #    legacy dict. Skipped only for the pointed Whole-Hebrew readings that the
+    #    engine deliberately distinguishes from their merged spellings (עוֹלָם).
+    entry = GOLD_LEXICON.get(key)
+    if entry is not None and not (bare in _WH_WHEN_POINTED and _vowel_point(core)):
+        return _entry_result(core, entry["ipa_primary"], entry["variants"],
+                             entry["layer"], "lexicon", "HIGH")
+
+    # 4./5. legacy whole-token lexicons: the merged-LK list (§6.1), the
+    #       high-frequency word list and the loan list (§7). Still lexicon hits.
+    # (§2.1: the key is point-stripped. The old "and not _vowel_point(core)"
+    #  guard dropped a pointed token out of its own lexicon entry.)
+    if bare in _LK_BARE or bare in _WORD_LATIN:
+        primary = _rule_path_ipa(core, stress=True)
+        layer = "L" if bare in _LK_BARE else _guess_layer(core)
+        return _entry_result(core, primary, [], layer, "lexicon", "HIGH")
+
+    # §2.3 hyphen / makef: process the parts separately, unless the whole string
+    # was matched above by the multiword or LK table.
+    if "-" in core and any(p for p in core.split("-")):
+        parts = [p for p in core.split("-") if p]
+        routed = [_route_token(p) for p in parts]
+        primary = "-".join(r["ipa_primary"] for r in routed)
+        route = "lexicon" if all(r["route"] == "lexicon" for r in routed) else (
+            "fallback" if any(r["route"] == "fallback" for r in routed) else "rule")
+        conf = ("LOW" if any(r["confidence"] == "LOW" for r in routed)
+                else "MED" if any(r["confidence"] == "MED" for r in routed) else "HIGH")
+        return _entry_result(core, primary, [], routed[0]["layer"], route, conf,
+                             "hyphen-split")
+
+    # §2.5 clitics: ס' מ' כ' detach, then the remainder is processed as a word.
+    # (ר' and ה' were taken by the abbreviation table above.) The apostrophe-less
+    # variant fires only when the remainder is itself a known word: סאיז -> s+iz.
+    clitic = ""
+    rest = ""
+    if len(core) > 2 and core[0] in _CLITIC_IPA and core[1] == "'":
+        clitic, rest = core[0], core[2:]
+    elif len(core) > 2 and core[0] in _CLITIC_IPA and core[1] == "א" and _known_word(core[1:]):
+        clitic, rest = core[0], core[1:]
+    if clitic and rest:
+        tail = _route_token(rest)
+        primary = _CLITIC_IPA[clitic] + tail["ipa_primary"]
+        conf = "MED" if tail["confidence"] == "HIGH" else tail["confidence"]
+        return _entry_result(core, primary, [], tail["layer"], "rule", conf, "clitic")
+
+    # 6. rule path (§3.6). Confidence is MED unless an ambiguous grapheme had to
+    #    be defaulted or the LK detector fired on a word no lexicon knows -- both
+    #    are LOW by §12 and both are logged for the next verification batch.
+    is_lk = _lk_detector(bare)
+    # §6.2: a pointed LK token is read through the §5 nikud table and takes the
+    # §11.5 penult default rather than the Germanic §11.7 initial one.
+    primary = _rule_path_ipa(core, stress=True,
+                             lk_penult=is_lk and _lk_nikud(core))
+    reasons = []
+    if _has_ambiguous_alef(core):
+        reasons.append("alef-default")
+    if _has_ambiguous_pe(core):
+        reasons.append("pe-default")
+    if is_lk:
+        reasons.append("lk-fallback")
+        if not _lk_evidence(core):
+            # §6.3, LITERALLY: "No pointing found -> log OOV-LK, emit nothing to
+            # the training set for that token (a flagged schwa-filled
+            # approximation may go to a quarantine file)." The engine used to
+            # append the reason and then hand the Germanic letter table's answer
+            # back as route='rule', so 13,308 unlexiconed LK types (91,937
+            # tokens, 5.0% of the corpus) were emitted as well-shaped garbage --
+            # hkdiʃ, xlilh, mʦrim, mxliks, iʃxr -- which neither QA gate (a) nor
+            # (b) can see. route='fallback' is what the quarantine file and
+            # hebrew_to_ipa both key on.
+            return _entry_result(core, primary, [], "L", "fallback", "LOW",
+                                 ",".join(reasons))
+    # §1/§6.3 shape enforcement happens in _route_token, which wraps this.
+    conf = "LOW" if reasons else "MED"
+    return _entry_result(core, primary, [], _guess_layer(core), "rule", conf,
+                         ",".join(reasons))
+
+
+_ROUTE_CACHE: dict[str, dict] = {}
+
+
+def g2p_token(word: str, context: str | None = None) -> dict:
+    """Phonemize ONE token and report how the answer was reached (§12).
+
+    Returns ``{word, ipa_primary, variants, layer, route, confidence, reason}``:
+
+      route       'lexicon' (gold / abbreviation / multiword / legacy list),
+                  'rule' (Germanic or LK rule path), or 'fallback' (the output
+                  is not fit for corpus emission -- quarantine it)
+      confidence  HIGH = lexicon, MED = unambiguous rule, LOW = a defaulted
+                  ambiguous א/פ, an LK fallback, or a §1 violation
+
+    ``context`` is accepted for the §9 homograph disambiguators (adverb slot,
+    plural-noun context, ...). None are wired yet: the primary is emitted and
+    every alternate reading is returned in ``variants`` for the forced-alignment
+    vote, which is what §9 asks for today.
+    """
+    _, core, _ = split_affixes(normalize_surface(word))
+    if not core:
+        return _entry_result(word, "", [], "X", "fallback", "LOW", "empty")
+    cached = _ROUTE_CACHE.get(core)
+    if cached is None:
+        cached = _route_token(core)
+        _ROUTE_CACHE[core] = cached
+    result = _with_auto_variants(dict(cached, word=word))
+    if "alef-default" in result["reason"]:
+        A_DEFAULT_LOG[core] += 1
+    if "pe-default" in result["reason"]:
+        P_DEFAULT_LOG[core] += 1
+    return result
+
+
+def _multiword_match(tokens: list[str], i: int) -> tuple[int, str] | None:
+    """Longest multiword-table match starting at ``tokens[i]``, if any."""
+    for n in range(min(_MAX_MULTIWORD, len(tokens) - i), 1, -1):
+        cores = [split_affixes(t)[1] for t in tokens[i:i + n]]
+        if not all(cores):
+            continue
+        key = lexicon_key(" ".join(cores))
+        if key in _MULTIWORD or key in _MULTIWORD_LEGACY:
+            return n, _multiword_ipa(key)
+    return None
+
+
+def g2p_tokens(text: str) -> list[dict]:
+    """Route a whole string and return one §12 record per token, in order.
+
+    Multiword entries (§8) are matched over the token stream and come back as a
+    single record whose ``word`` is the joined spelling. Each record carries the
+    surrounding punctuation in ``lead``/``trail`` so a caller can rebuild the
+    line; hebrew_to_ipa does exactly that.
+    """
+    tokens = normalize_surface(strip_tags(text)).split()
+    records: list[dict] = []
+    i = 0
+    while i < len(tokens):
+        match = _multiword_match(tokens, i)
+        if match is not None:
+            count, ipa = match
+            cores = [split_affixes(t)[1] for t in tokens[i:i + count]]
+            rec = _with_auto_variants(
+                _entry_result(" ".join(cores), ipa, [], "L", "lexicon", "HIGH"))
+            rec["lead"] = split_affixes(tokens[i])[0]
+            rec["trail"] = split_affixes(tokens[i + count - 1])[2]
+            records.append(rec)
+            i += count
+            continue
+        lead, core, trail = split_affixes(tokens[i])
+        if core:
+            rec = g2p_token(core)
+        else:
+            rec = _entry_result(tokens[i], "", [], "X", "fallback", "LOW", "punctuation")
+            lead, trail = tokens[i], ""
+        rec["lead"], rec["trail"] = lead, trail
+        records.append(rec)
+        i += 1
+    return records
+
+
+def hebrew_to_ipa(text: str, stress: bool = True, quarantine: bool = True) -> str:
+    """Hebrew-script Yiddish -> IPA, emitting the lexicon primary per token.
+
+    ``stress=True`` (the production path) runs §3 routing: gold lexicon first,
+    rules only where no table knows the word.
+
+    ``quarantine=True`` (the default) enforces §1 and §6.3 on the STRING, not
+    only on the per-token record: a token whose route is 'fallback' -- a
+    vowel-less LK consonant string (mlx, ʃm, mdrʃ, lbrxh), an unlexiconed
+    unpointed LK word, an out-of-inventory token such as a phone number or a URL
+    -- contributes nothing but its surrounding punctuation. The router always
+    knew; this function used to build its string from ``ipa_primary`` alone and
+    threw the verdict away, so every consumer that is not the corpus runner got
+    the forbidden strings. Pass ``quarantine=False`` for triage tooling that
+    wants to SEE the flagged approximation.
+
+    ``stress=False`` reproduces the pre-prosody rule-path output unchanged. The
+    gold IPA is stress-bearing and post-reduction (ʃˈabəs), so it cannot be
+    projected back onto an unstressed, unreduced string without inventing a
+    reading; the flag therefore selects the rule path wholesale rather than a
+    half-lexiconed hybrid. Every gold-reproduction gate is defined on
+    ``stress=True``, which is also what g2p_token and the corpus runner use.
+    """
+    if not stress:
+        return _rule_path_ipa(text, stress=False)
+    out = [
+        # §2.2: quotes around a word are stripped, not phonemized -- they carry
+        # no prosodic content, unlike . , ! ? which downstream TTS reads as
+        # phrase breaks. Mid-word gershayim never reach here (abbreviation table).
+        r["lead"].replace('"', "") + ("" if quarantine and r["route"] == "fallback"
+                     else r["ipa_primary"]) + r["trail"].replace('"', "")
+        for r in g2p_tokens(text)
+    ]
+    return normalize_ipa_spacing(" ".join(out))
 
 
 # Letters that essentially only occur in Hebrew/Aramaic-origin words: Germanic
@@ -1304,3 +3057,232 @@ def find_oov_loshn_koydesh(text: str) -> list[str]:
 def validate_ipa_vocab(ipa: str, char_to_id: dict[str, int]) -> tuple[str, list[str]]:
     missing = sorted({ch for ch in ipa if ch not in char_to_id and not ch.isspace()})
     return ipa, missing
+
+# =====================================================================
+# STAGE 6: WHOLE-HEBREW (WH) READING REGISTER  — spec v2 §7.1
+#
+# OPT-IN ONLY. Nothing above this line calls into it: hebrew_to_ipa,
+# g2p_token, _route_token and every gate keep the MERGED register exactly as
+# it was. The entry point is read_pointed_wh(), which the Sefaria rescue
+# builder calls for VERIFIED pointed quotations (pesukim, citations) where the
+# book pointing is trustworthy and the word is being *read as Hebrew*, not
+# absorbed into Yiddish.
+#
+# WHAT DIFFERS FROM THE MERGED §5 TABLE (_POINT_TO_LATIN):
+#   (a) shuruk / kubuts read [u]. The merged register routes them through the
+#       Latin label "u", which _LATIN_TO_IPA maps to [i] (the near-exceptionless
+#       Yiddish u->i shift: קִדּוּשׁ kidesh). In a quoted posuk that shift does
+#       not apply — וּבֵרַכְתִּי is uvajraxti, not *ivajraxti.
+#   (b) shva-na is pronounced [ə]. The merged register reads every sheva as
+#       silent and lets the Latin layer re-insert a schwa only where a syllable
+#       demands one, which drops the vowel of לַחְמְךָ (*laxmxu).
+#   (c) a word-final komets-hey reads [u] (Toyru, chochmu, Torah-style), not the
+#       merged [ə] of the Yiddish feminine ending (bruxə, ʃirə).
+#   (d) everything else is ordinary Ashkenazi: komets [u], pasekh [a],
+#       tsere [aj], segol [ɛ], cholam [ɔj], chirik [i].
+#
+# The reader is deliberately SELF-CONTAINED (its own point table, its own
+# consonant table, its own stress pass) rather than a flag threaded through
+# _word_to_latin / latin_to_ipa. The merged path is 500-gold-locked; a flag
+# would have to be proven not to leak, whereas a separate function cannot.
+# =====================================================================
+
+# Ashkenazi values of the points when reading Hebrew as Hebrew.
+_WH_POINT_TO_IPA: dict[str, str] = {
+    HIRIQ: "i",
+    TSERE: "aj",
+    "ֶ": "ɛ",   # segol
+    PATAH: "a",
+    QAMATS: "u",     # komets gadol AND katan -> [u] (Shabus, Toyru)
+    HOLAM: "ɔj",     # cholam
+    "ֺ": "ɔj",  # holam haser for vav
+    QUBUTS: "u",     # kubuts -> [u]; NO Yiddish u->i shift in this register
+    "ׇ": "u",   # qamats qatan
+    "ֱ": "ɛ",   # hataf segol
+    "ֲ": "a",   # hataf patah
+    "ֳ": "u",   # hataf qamats
+}
+
+# The points that historically spell a LONG vowel. A sheva after one of these
+# is a shva-na (rule 3 below): שׁוֹמְרִים -> ʃɔjmərim. Komets KATAN (U+05C7) is
+# excluded — it is short by definition, so חׇכְמָה is xuxmu and not *xuxəmu.
+_WH_LONG_POINTS = frozenset({QAMATS, TSERE, HOLAM, "ֺ", QUBUTS})
+
+# Consonants, straight to IPA. ב/כ/פ/ת take their value from the DAGESH, which
+# is the correct rule for a fully pointed book text (bare = fricative) — except
+# word-initially, where dagesh lene is grammatically obligatory and the letter
+# is a plosive whether or not the edition printed the dot (see
+# _wh_consonant); ג and ד
+# have no Ashkenazi fricative reflex and stay [ɡ]/[d]. א and ע are silent
+# carriers; ה is [h] only at a syllable onset (see _wh_word).
+_WH_CONSONANT: dict[str, str] = {
+    "ב": "v", "ג": "ɡ", "ד": "d", "ה": "h", "ו": "v", "ז": "z", "ח": "x",
+    "ט": "t", "י": "j", "כ": "x", "ך": "x", "ל": "l", "מ": "m", "ם": "m",
+    "נ": "n", "ן": "n", "ס": "s", "פ": "f", "ף": "f", "צ": "ʦ", "ץ": "ʦ",
+    "ק": "k", "ר": "r", "ש": "ʃ", "ת": "s", "א": "", "ע": "",
+}
+_WH_DAGESH_HARD: dict[str, str] = {"ב": "b", "כ": "k", "ך": "k", "פ": "p",
+                                   "ף": "p", "ת": "t"}
+
+
+def _wh_consonant(ch: str, marks: str, initial: bool = False) -> str:
+    """IPA of one Hebrew consonant in the Whole-Hebrew register.
+
+    ``initial`` = this is the word's first letter. A begadkefat letter there
+    takes dagesh LENE and is a plosive when the word is read from a pause,
+    which is exactly how a quoted word is read; the dot is grammatically
+    predictable and the editions print it inconsistently (Torat Emet has
+    כְנֶסֶת, פֵאוֹת, כְתוּבָה with no dagesh at all, and no dotted variant exists
+    to fall back on). Reading the bare letter literally gave xənˈɛsɛs /
+    fˈajɔjs. An explicit RAFE still forces the fricative.
+    """
+    if ch == "ש":
+        return "s" if SIN_DOT in marks else "ʃ"
+    if ch in _WH_DAGESH_HARD and RAFE not in marks and (
+            DAGESH in marks or initial):
+        return _WH_DAGESH_HARD[ch]
+    return _WH_CONSONANT.get(ch, "")
+
+
+def _wh_vowel_point(marks: str) -> str:
+    """Like _vowel_point, but also sees the vav-only holam haser (U+05BA)."""
+    for mark in marks:
+        if mark in _WH_POINT_TO_IPA:
+            return mark
+    return ""
+
+
+def _wh_sheva_is_na(units: list[tuple[str, str]], i: int, emitted_vowel: bool,
+                    prev_point: str, prev_was_nach: bool) -> bool:
+    """Whether the sheva at unit ``i`` is a shva-NA (pronounced [ə]).
+
+    The standard schoolroom heuristic, kept deliberately small:
+      1. sheva on the FIRST consonant of the word is na      (בְּרֵאשִׁית -> bə-)
+      2. the SECOND of two adjacent shevas is na             (לַחְמְךָ -> -mə-)
+      3. a sheva after a LONG vowel is na                    (שׁוֹמְרִים -> -mə-)
+      4. a word-final sheva is always nach (silent), even under rules 2-3
+    Everything else — the ordinary sheva closing a short syllable — is nach.
+    Not modelled: dagesh chazak (gemination is not realised in this register
+    anyway) and the sheva under a doubled letter; both would need syllable
+    weight the reader does not track.
+    """
+    if i == len(units) - 1:
+        return False                      # 4: word-final
+    if not emitted_vowel:
+        return True                       # 1: first consonant of the word
+    if prev_was_nach:
+        return True                       # 2: second of two adjacent shevas
+    return prev_point in _WH_LONG_POINTS  # 3: after a long vowel
+
+
+def _wh_word(word: str) -> list[tuple[str, bool]]:
+    """Read one pointed Hebrew word into (segment, is_vowel) pairs."""
+    units = [(b, m) for b, m in _split_units(word) if b.strip()]
+    out: list[tuple[str, bool]] = []
+    n = len(units)
+    i = 0
+    prev_point = ""          # the point whose vowel was last realised
+    prev_was_nach = False    # the previous consonant carried a silent sheva
+    emitted_vowel = False
+
+    def nxt(k: int) -> str:
+        return units[k][0] if 0 <= k < n else ""
+
+    while i < n:
+        ch, marks = units[i]
+        point = _wh_vowel_point(marks)
+
+        # --- vav: shuruk / cholam male are VOWELS, everything else is /v/ ----
+        if ch == "ו" and DAGESH in marks and not point:
+            out.append(("u", True))       # shuruk — [u], not the Yiddish [i]
+            prev_point, prev_was_nach, emitted_vowel = QUBUTS, False, True
+            i += 1
+            continue
+        if ch == "ו" and point in (HOLAM, "ֺ") and not prev_was_nach:
+            out.append(("ɔj", True))      # cholam male
+            prev_point, prev_was_nach, emitted_vowel = HOLAM, False, True
+            i += 1
+            continue
+        # bare vav / bare yud spelling out the preceding point: matres, silent.
+        if ch == "ו" and not marks and prev_point in (HOLAM, "ֺ", QUBUTS):
+            i += 1
+            continue
+        if ch == "י" and not marks and prev_point in (HIRIQ, TSERE):
+            i += 1
+            continue
+        # word-final ה with no point of its own is silent — and after a komets
+        # that is exactly the (c) case: תּוֹרָה -> tɔjru, not *tɔjrə.
+        if ch == "ה" and i == n - 1 and not point:
+            i += 1
+            continue
+
+        cons = _wh_consonant(ch, marks, initial=(i == 0))
+        if cons:
+            out.append((cons, False))
+
+        if SHEVA in marks:
+            na = _wh_sheva_is_na(units, i, emitted_vowel, prev_point,
+                                 prev_was_nach)
+            if na:
+                out.append(("ə", True))
+                emitted_vowel = True
+            prev_point, prev_was_nach = "", not na
+            i += 1
+            continue
+        if point:
+            out.append((_WH_POINT_TO_IPA[point], True))
+            prev_point = point
+            prev_was_nach = False
+            emitted_vowel = True
+            i += 1
+            continue
+
+        prev_point, prev_was_nach = "", False
+        i += 1
+
+    return out
+
+
+def _wh_stress(segments: list[tuple[str, bool]]) -> str:
+    """Join segments, marking WH default stress: penult, ˈ before the vowel.
+
+    Mil'el retraction is the Ashkenazi reading default, so the mark goes on the
+    second-to-last syllable. A shva-na syllable is never a stress bearer in
+    Hebrew, so schwas are skipped when counting candidates — לַחְמְךָ comes out
+    lˈaxməxu (la-xmə-xu, retracted past the schwa) rather than laxmˈəxu, and
+    שׁוֹמְרִים ʃˈɔjmərim. Monosyllables carry no mark, matching the engine-wide
+    convention in add_stress().
+    """
+    vowels = [k for k, (_, is_v) in enumerate(segments) if is_v]
+    if len(vowels) < 2:
+        return "".join(s for s, _ in segments)
+    full = [k for k in vowels if segments[k][0] != "ə"]
+    if len(full) >= 2:
+        at = full[-2]
+    elif full:
+        at = full[0]
+    else:
+        at = vowels[-2]
+    return "".join(
+        (STRESS + s) if k == at else s for k, (s, _) in enumerate(segments)
+    )
+
+
+def read_pointed_wh(pointed: str) -> str:
+    """Read VERIFIED pointed Hebrew in the Whole-Hebrew register -> IPA.
+
+    Opt-in sibling of hebrew_to_ipa() for quoted, book-pointed loshn-koydesh.
+    Nothing in the live pipeline routes through it; the Sefaria rescue builder
+    calls it directly. Output stays inside the closed v3 phone inventory.
+
+    >>> read_pointed_wh("וּבֵרַכְתִּי")
+    'uvajrˈaxti'
+    >>> read_pointed_wh("וַיֹּאמֶר")
+    'vajˈɔjmɛr'
+    """
+    out = []
+    for word in re.split(r"[\s־]+", strip_tags(pointed)):
+        segments = _wh_word(word) if word else []
+        if segments:
+            out.append(_wh_stress(segments))
+    return " ".join(out)
