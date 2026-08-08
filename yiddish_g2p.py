@@ -764,6 +764,7 @@ _WORD_LATIN: dict[str, str] = {
     "פארטיי": "partey",
     "פרובירן": "prubirn",
     "פרובירט": "prubirt",
+    "פלוצלינג": "plutsling",  # TTS audio corroborates /p/ (heard pliʦli-)
     "פראגראם": "program",
     "מאדעל": "model",
     "פאליציי": "politsey",
@@ -2323,6 +2324,56 @@ def _load_homograph_lk() -> dict:
 _HOMOGRAPH_LK: dict[str, dict] = _load_homograph_lk()
 
 
+def _load_audio_pe() -> dict:
+    """data/audio_pe_lk.py, keyed by lexicon_key; absent file degrades.
+
+    Audio-confirmed /p/ readings for words the §4 pe-default would read with
+    /f/ (scripts/build_audio_pe_lexicon.py). Consulted after every gold and
+    legacy lexicon — audio never outranks a native or published verdict — and
+    before the rule path."""
+    path = Path(__file__).resolve().parent / "data" / "audio_pe_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_audio_pe_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "AUDIO_PE_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_AUDIO_PE: dict[str, dict] = _load_audio_pe()
+
+
+def _load_audio_vowel() -> dict:
+    """data/audio_vowel_lk.py, keyed by lexicon_key; absent file degrades.
+
+    Audio-confirmed vowel corrections for alef-default words
+    (scripts/build_audio_vowel_lexicon.py): the engine's own stressed reading
+    with clean-target vowel slots substituted. Same authority slot as the
+    audio-pe table."""
+    path = Path(__file__).resolve().parent / "data" / "audio_vowel_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_audio_vowel_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "AUDIO_VOWEL_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except Exception:  # noqa: BLE001 -- degradation is deliberate
+        return {}
+
+
+_AUDIO_VOWEL: dict[str, dict] = _load_audio_vowel()
+
+
 def _load_sefaria_pointed() -> dict:
     """data/sefaria_pointed_lk.py, keyed by lexicon_key; absent file degrades."""
     path = Path(__file__).resolve().parent / "data" / "sefaria_pointed_lk.py"
@@ -2541,6 +2592,11 @@ def letter_name_word_ipa(key: str) -> str:
 _MULTIWORD: dict[str, tuple[str, list[str]]] = {
     "בית מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
     "בית-מדרש": ("bis-mˈɛdrəʃ", ["bˈis-mədrəʃ"]),
+    # אַ פּאָר "a pair / a few": after the article, פאר is the noun pur, not the
+    # preposition far. The fused spelling אפאר is gold (apˈur | ˈapɔr,
+    # chezky-verified "apooor"); the spaced bigram is the same lexeme, so it
+    # inherits that verdict. פאר alone stays gold far.
+    "א פאר": ("a pˈur", ["a pˈɔr"]),
 }
 
 # --- corpus-mined lexicalized MWEs (scripts/mine_lk_mwe.py) ------------------
@@ -2721,6 +2777,24 @@ def _has_ambiguous_pe(core: str) -> bool:
     for ch, marks in _split_units(core):
         if ch in ("פ", "ף") and DAGESH not in marks and RAFE not in marks:
             return True
+    return False
+
+
+def _pe_point_contradicts(core: str, ipa: str) -> bool:
+    """Whether an explicit פּ/פֿ point rules out a stripped-key lexicon reading.
+
+    The lexicon is keyed with nikud stripped (§2.1), so pointed פּאָר lands on
+    the gold entry for פאר (far). פ is the one letter whose written point flips
+    a phoneme the key can't see: a dagesh promises /p/ and a rafe /f/, and a
+    reading with none of the promised phone anywhere cannot be what the writer
+    pointed. The rule path reads the pointed form itself, so falling through is
+    always safe."""
+    for ch, marks in _split_units(core):
+        if ch in ("פ", "ף"):
+            if DAGESH in marks and "p" not in ipa:
+                return True
+            if RAFE in marks and "f" not in ipa:
+                return True
     return False
 
 
@@ -3239,9 +3313,12 @@ def _route_token_inner(core: str) -> dict:
 
     # 3. gold lexicon (§3.3) -- authority #1, overrides every rule and every
     #    legacy dict. Skipped only for the pointed Whole-Hebrew readings that the
-    #    engine deliberately distinguishes from their merged spellings (עוֹלָם).
+    #    engine deliberately distinguishes from their merged spellings (עוֹלָם),
+    #    and when the writer's own פּ/פֿ point contradicts the reading the
+    #    point-stripped key looked up (פּאָר must not read gold far).
     entry = GOLD_LEXICON.get(key)
-    if entry is not None and not (bare in _WH_WHEN_POINTED and _vowel_point(core)):
+    if entry is not None and not (bare in _WH_WHEN_POINTED and _vowel_point(core)) \
+            and not _pe_point_contradicts(core, entry["ipa_primary"]):
         return _entry_result(core, entry["ipa_primary"], entry["variants"],
                              entry["layer"], "lexicon", "HIGH")
 
@@ -3253,6 +3330,23 @@ def _route_token_inner(core: str) -> dict:
         primary = _rule_path_ipa(core, stress=True)
         layer = "L" if bare in _LK_BARE else _guess_layer(core)
         return _entry_result(core, primary, [], layer, "lexicon", "HIGH")
+
+    # 5.5 audio-confirmed pe flips: words whose §4 f-default the corpus audio
+    #     contradicts unanimously (scripts/xeus_pe_sweep.py). Below every
+    #     gold/legacy table, above the rule path; MED because the evidence is
+    #     acoustic, not native. An explicit rafe still wins via the rule path
+    #     upstream (the token then never carries reason pe-default).
+    entry = _AUDIO_PE.get(key)
+    if entry is not None and _strip_points(core) == core:
+        return _entry_result(core, entry["ipa"], [], _guess_layer(core),
+                             "lexicon", "MED", "audio-pe")
+
+    # 5.6 audio-confirmed vowel corrections (alef-default words heard with a
+    #     clean-target vowel across clips). Same tier and guards as 5.5.
+    entry = _AUDIO_VOWEL.get(key)
+    if entry is not None and _strip_points(core) == core:
+        return _entry_result(core, entry["ipa"], [], _guess_layer(core),
+                             "lexicon", "MED", "audio-vowel")
 
     # §2.3 hyphen / makef: process the parts separately, unless the whole string
     # was matched above by the multiword or LK table.

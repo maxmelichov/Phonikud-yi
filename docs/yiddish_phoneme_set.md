@@ -91,6 +91,9 @@ byte-identically (`scripts/test_g2p_gold.py`, QA gate d).
 | `שפילן` | `ʃpiln` | שפ → ʃp, rule |
 | `פונקט` | `pinkt` | p-list |
 | `פלאץ` | `plaːʦ` | p-list (+ class-34 aː) |
+| `פעקל` | `pɛkl` | audio-pe: PhoneticXeus corpus vote p=23/f=0 |
+| `כאפן` | `xapn` | audio-pe: khapn, p=12/f=1 |
+| `פֿעקל` | `fɛkl` | a written rafe still outranks the audio table |
 
 ### R06 — Native vov-vowel rule: ו → `i`
 
@@ -254,6 +257,8 @@ three steps, never by the rule path:
 | `בית מדרש` | `bis-mˈɛdrəʃ` | |
 | `בית־מדרש` | `bis-mˈɛdrəʃ` | makef form |
 | `בית` | `bajs` | bare form keeps bajs |
+| `א פאר` | `a pˈur` | article + pair-noun; the fused spelling אפאר is gold apˈur |
+| `א פאר יאר` | `a pˈur jur` | the MWE fires inside running text |
 
 ### R21 — Homographs: emit the primary; token-level hooks
 
@@ -265,6 +270,8 @@ three steps, never by the rule path:
 | `געוואלט` | `ɡəvˈɔlt` | primary (wanted) |
 | `אויף` | `oʊf` | standalone |
 | `אויפן` | `afn` | fused/reduced token rule |
+| `פאר` | `far` | primary (preposition); after the article אַ the MWE reads a pˈur (R20) |
+| `פּאָר` | `pur` | the writer's own dagesh outvotes the point-stripped gold key |
 
 ### R22 — The rescue chain: no Hebrew word is ever dropped
 

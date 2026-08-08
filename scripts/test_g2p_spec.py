@@ -381,7 +381,10 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     # §1 shape gate must not eat ordinary Germanic four-consonant runs
     ("אייבערשטן", "ˈajbərʃtn", "§1: r-ʃ-t-n is an ordinary Yiddish run, not a quarantine"),
     ("דארפסטו", "dˈarfsti", "§1: r-f-s-t"),
-    ("פינקטלעך", "fˈinktləx", "§1: n-k-t-l"),
+    # pˈinktləx: the f was the §4 default when this case was authored; the
+    # xeus pe-sweep heard p 9-0 across clips (data/audio_pe_lk.py), and audio
+    # outranks an author guess. The §1 cluster the case exists for is unchanged.
+    ("פינקטלעך", "pˈinktləx", "§1: n-k-t-l"),
     # §6.1 merged-LK entries added from the OOV-LK log
     ("שם", "ʃɛm", "§6.3: was the forbidden vowel-less ʃm"),
     ("מדרש", "mˈɛdrəʃ", "§6.3: was mdrʃ"),

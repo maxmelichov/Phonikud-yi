@@ -50,7 +50,8 @@ from yiddish_g2p import (  # noqa: E402
 
 DATASET = ROOT / "data" / "yiddish_tts_dataset.tsv"
 DEFAULT_OUT = ROOT / "data" / "phonemized" / "v3"
-SUITES = ("test_g2p.py", "test_g2p_spec.py", "test_g2p_gold.py")
+SUITES = ("test_g2p.py", "test_g2p_spec.py", "test_g2p_gold.py",
+          "test_audio_evidence.py")
 
 
 def write_tsv(path: Path, header: list[str], rows: list[list]) -> None:
@@ -259,7 +260,8 @@ def main() -> int:
         ("(b) zero symbols outside the §1 inventory",
          not bad_phones, f"stray symbols {bad_phones}"),
         ("(c) regression suites pass",
-         all(suites[n] for n in ("test_g2p.py", "test_g2p_spec.py")),
+         all(suites[n] for n in ("test_g2p.py", "test_g2p_spec.py",
+                                 "test_audio_evidence.py")),
          "see failures above"),
         ("(d) gold reproduces byte-identically",
          suites["test_g2p_gold.py"], "see failures above"),

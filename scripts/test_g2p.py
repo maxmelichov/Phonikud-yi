@@ -90,6 +90,9 @@ CASES: list[tuple[str, str, str]] = [
     ("דֶער", "dɛr", "consonant point + restating ayin stays single"),
     ("זָאגְט", "zuɡt", "komets alef digraph; v3 §10.2 devoicing is OFF, so zuɡt"),  # v3
     ("ווֶען", "vɛn", "pointed vov-vov"),
+    # --- the פאר homograph (far vs pur) ---
+    ("פּאָר", "pur", "explicit dagesh-pe overrides the stripped-key gold far"),
+    ("פֿאַר", "far", "explicit rafe agrees with gold; lexicon hit unchanged"),
     # --- known bugs (XFAIL until fixed) ---
     ("וַוייל", "vaːl", "pasekh on vav makes yy=ay -> aː"),
     ("צְבִי", "ʦvi", "bare bet in pointed LK is /v/ (was XFAIL, now fixed)"),
@@ -134,6 +137,28 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("אהיים", "ahˈajm", "v3 §11.4"),
     ("אוועק", "avˈɛk", "v3 §11.4"),
     ("אריין", "arˈaːn", "v3 §11.4"),
+    # --- the פאר homograph (far vs pur): MWE fires only on the §3 routing path
+    ("א פאר יאר", "a pˈur jur", "MWE: article + pair-noun (gold אפאר apˈur)"),
+    ("פאר דער וואך", "far dɛr vɔx", "bare פאר without the article stays gold far"),
+    # --- audio-pe table (data/audio_pe_lk.py, xeus_pe_sweep votes) ---
+    ("פעקל", "pɛkl", "audio-pe flip: p=23/f=0 across clips"),
+    ("פֿעקל", "fɛkl", "written rafe outranks the audio-pe table"),
+    ("כאפן", "xapn", "audio-pe: khapn 'to catch', p=12/f=1"),
+    ("פסוקים", "psˈikim", "audio-pe: LK plural, p=11/f=0"),
+    ("עפל", "ɛpl", "audio-pe: epl 'apple', p=4/f=0"),
+    ("דאפלט", "daplt", "audio-pe: doplt 'double', p=12/f=0"),
+    ("ראפשיצער", "rˈapʃiʦər", "audio-pe: Ropshitser (Hasidic name), p=12/f=0"),
+    ("קאפיטל", "kˈapitl", "audio-pe: kapitl 'chapter', p=5/f=0"),
+    ("געקלאפט", "ɡəklˈapt", "audio-pe: geklapt, root קלאפ, p=3/f=0"),
+    ("אפטייקער", "ˈaptajkər", "audio-pe: apteyker 'pharmacist', p=3/f=0"),
+    ("א פאר מינוט", "a pˈur minˈit", "MWE + audio loop: a pur minit"),
+    # --- audio-vowel table (data/audio_vowel_lk.py): komets vowels the
+    #     a-default missed, heard as u across clips; stress marks unmoved ---
+    ("יארצייט", "jˈurʦajt", "audio-vowel: yurtsayt, u=23/29 clips"),
+    ("שפיטאל", "ʃpˈitul", "audio-vowel: shpitul, u=9/9"),
+    ("געשלאפן", "ɡəʃlˈufn", "audio-vowel: geshlufn, u=9/10"),
+    ("אנגעקומען", "ˈunɡəkimən", "audio-vowel: ungekumen, u=16/21"),
+    ("אראפגעפארן", "arˈupɡəfurn", "audio-vowel: arupgefurn, both u slots"),
 ]
 
 

@@ -21,6 +21,7 @@ pytest** — pytest is not installed.
 .venv/bin/python scripts/test_g2p_gold.py     # 500/500 gold byte-identity — the hard gate
 .venv/bin/python scripts/test_rules_doc.py    # executes docs/yiddish_phoneme_set.md examples
 .venv/bin/python scripts/test_xeus_map.py     # PhoneticXeus→Yiddish phone-map coverage
+.venv/bin/python scripts/test_audio_evidence.py  # audio-pe table integrity + sweep verdict logic
 .venv/bin/python scripts/test_g2p_wh.py       # Whole-Hebrew / merged register readers
 
 .venv/bin/python scripts/run_corpus_v3.py --limit 0   # full-corpus run + QA gates a–d (few min)
