@@ -1,0 +1,34 @@
+Hey Chezky — thanks for both the sheet and the notes, huge help.
+
+They disagree on 10 words. I think it's just that you filled the sheet first
+and then worked out the "oo (zoo) vs u (should)" rule after. I want to use the
+refined version, but rather than guess — can you just reply with A or B for each?
+
+*The long/short ones*
+1. גמרא     A) Gemoo-re      B) gemure
+2. פסוק     A) Poo-sick      B) pusik
+3. כבוד     A) Koo-vid       B) kuved
+4. חכמה     A) Chochme       B) khukhme
+
+*The ending*
+5. שבת      A) Sha-bis       B) shabes
+6. חסידים   A) Cha-seed-im   B) khasidem
+
+*These two are the important ones — different vowel, not just long/short*
+7. בית      A) Bis           B) bais
+   ("Bis" rhymes with miss, "bais" rhymes with ice. This word is everywhere —
+   בית המדרש, בית דין — so we want it exact.)
+
+8. חיים     A) Chayim        B) khaayem
+   (You said ay flattens to aa — haant, maan, fraant. Does חיים follow that,
+   or does it keep the ay? If names are an exception that's really useful to know.)
+
+*Small ones*
+9.  תשובה   A) Chea-ve       B) tsheeve
+10. רבי     A) Rebbe         B) rebbe, but "reb" before a name — right?
+
+One extra if you have a sec: for שבת, is the first vowel like "shah" or like "shu"?
+Our engine says "shubes" right now and we think that's wrong either way. It's the
+most common word in the whole set (2,115 times) so it's worth nailing.
+
+Thanks!

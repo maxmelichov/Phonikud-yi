@@ -1,43 +1,41 @@
 {
   "consumerUserId": "user_31BrK4MZcxy2EmKxYDTBX59l5vh",
   "containerDiskInGb": 60,
-  "costPerHr": 0.5,
-  "createdAt": "2026-07-30 06:34:31.358 +0000 UTC",
+  "costPerHr": 0.22,
+  "createdAt": "2026-08-07 22:16:45.742 +0000 UTC",
   "desiredStatus": "RUNNING",
   "env": {
     "PUBLIC_KEY": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDzaxkDhNRsVWsy9NLfLA53kbNnc2iJMTVsVK7oVWHmZ maxm@maxms-MacBook-Pro.local"
   },
   "gpuCount": 1,
-  "id": "refgpqf78ellyv",
+  "id": "sofufpmanxcuk4",
   "imageName": "runpod/pytorch:1.1.0-cu1281-torch280-ubuntu2204",
-  "lastStartedAt": "2026-07-30 06:34:31.352 +0000 UTC",
-  "lastStatusChange": "Rented by User: Thu Jul 30 2026 06:34:31 GMT+0000 (Coordinated Universal Time)",
+  "lastStartedAt": "2026-08-07 22:16:45.737 +0000 UTC",
+  "lastStatusChange": "Rented by User: Fri Aug 07 2026 22:16:45 GMT+0000 (Coordinated Universal Time)",
   "machine": {
-    "dataCenterId": "EU-CZ-1",
-    "diskThroughputMBps": 8727,
+    "diskThroughputMBps": 7274,
     "gpuTypeId": "NVIDIA GeForce RTX 3090",
-    "location": "CZ",
-    "maxDownloadSpeedMbps": 9322,
-    "maxUploadSpeedMbps": 24420,
-    "secureCloud": true,
+    "location": "CA",
+    "maxDownloadSpeedMbps": 906,
+    "maxUploadSpeedMbps": 781,
     "supportPublicIp": true,
-    "reservedCountVersion": 114146
+    "reservedCountVersion": 14702
   },
-  "machineId": "17ehezv7217q",
-  "memoryInGb": 125,
-  "name": "yi-mlp",
+  "machineId": "s58opxjbkyth",
+  "memoryInGb": 41,
+  "name": "yi-phonikud-v3",
   "ports": [
     "22/tcp"
   ],
   "publicIp": "",
   "templateId": "",
-  "vcpuCount": 32,
+  "vcpuCount": 21,
   "volumeInGb": 0,
   "volumeMountPath": "/workspace",
   "_requested_gpu": "NVIDIA GeForce RTX 3090",
-  "_cloud": "SECURE",
-  "ip": "213.192.2.75",
-  "port": 40022,
+  "_cloud": "COMMUNITY",
+  "ip": "67.223.143.80",
+  "port": 19647,
   "gpu": null,
-  "elapsed_s": 97
+  "elapsed_s": 127
 }
