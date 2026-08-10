@@ -24,3 +24,6 @@ data/pointed_sources/raw/
 data/pointed_sources/pointed_index.jsonl
 data/pointed_sources/quarantine_full_snapshot.tsv
 data/yiddish_tts_dataset.tsv
+
+# portable bundles built by src/make_bundle.py
+dist/
