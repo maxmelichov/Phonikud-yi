@@ -499,3 +499,6 @@ rank,word,freq,layer,gold_ipa,gold,source,chezky_hint,review_note
 498,אהבת,23,L,ˈahavas,ahavas,claude-annotated,,
 499,אייביג,23,G,ˈajbiɡ | ˈajbik,aybig|aybik,claude-annotated,,
 500,אקאונט,23,E,akˈaunt,akaunt,claude-annotated,,
+501,פאמיליע,5,E,fˈamiliə,familye,chezky-verified,f not p,whatsapp 2026-08-10
+502,פראגעס,4,G,frˈaɡəs,frages,chezky-verified,f not p,whatsapp 2026-08-10
+503,האף,4,G,huf,huf,chezky-verified,ho not ha,whatsapp 2026-08-10

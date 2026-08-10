@@ -512,4 +512,7 @@ GOLD_LEXICON: dict[str, dict] = {
     'אהבת': {"word": 'אהבת', "ipa_primary": 'ˈahavas', "variants": ['ˈahavas'], "layer": 'L', "freq": 23, "note": ''},
     'אייביג': {"word": 'אייביג', "ipa_primary": 'ˈajbiɡ', "variants": ['ˈajbiɡ', 'ˈajbik'], "layer": 'G', "freq": 23, "note": ''},
     'אקאונט': {"word": 'אקאונט', "ipa_primary": 'akˈaunt', "variants": ['akˈaunt'], "layer": 'E', "freq": 23, "note": ''},
+    'פאמיליע': {"word": 'פאמיליע', "ipa_primary": 'fˈamiliə', "variants": ['fˈamiliə'], "layer": 'E', "freq": 5, "note": 'whatsapp 2026-08-10'},
+    'פראגעס': {"word": 'פראגעס', "ipa_primary": 'frˈaɡəs', "variants": ['frˈaɡəs'], "layer": 'G', "freq": 4, "note": 'whatsapp 2026-08-10'},
+    'האפ': {"word": 'האף', "ipa_primary": 'huf', "variants": ['huf'], "layer": 'G', "freq": 4, "note": 'whatsapp 2026-08-10'},
 }
