@@ -2277,8 +2277,14 @@ def _load_gold_lexicon() -> dict:
         module = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(module)
         return dict(getattr(module, "GOLD_LEXICON", {}) or {})
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 GOLD_LEXICON: dict[str, dict] = _load_gold_lexicon()
@@ -2297,8 +2303,14 @@ def _load_audio_endorsed() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "AUDIO_ENDORSED_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _AUDIO_ENDORSED: dict[str, dict] = _load_audio_endorsed()
@@ -2317,8 +2329,14 @@ def _load_homograph_lk() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "HOMOGRAPH_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _HOMOGRAPH_LK: dict[str, dict] = _load_homograph_lk()
@@ -2342,8 +2360,14 @@ def _load_audio_pe() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "AUDIO_PE_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _AUDIO_PE: dict[str, dict] = _load_audio_pe()
@@ -2367,8 +2391,14 @@ def _load_audio_vowel() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "AUDIO_VOWEL_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _AUDIO_VOWEL: dict[str, dict] = _load_audio_vowel()
@@ -2387,8 +2417,14 @@ def _load_sefaria_pointed() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "SEFARIA_POINTED_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _SEFARIA_POINTED: dict[str, dict] = _load_sefaria_pointed()
@@ -2407,8 +2443,14 @@ def _load_model_pointed() -> dict:
         spec.loader.exec_module(module)
         raw = dict(getattr(module, "MODEL_POINTED_LK", {}) or {})
         return {lexicon_key(w): v for w, v in raw.items()}
-    except Exception:  # noqa: BLE001 -- degradation is deliberate
-        return {}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
 
 
 _MODEL_POINTED: dict[str, dict] = _load_model_pointed()

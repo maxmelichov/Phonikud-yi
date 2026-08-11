@@ -114,7 +114,10 @@ def main() -> int:
     with OUT.open("w", encoding="utf-8") as fh:
         fh.write(HEADER.format(min_p=MIN_P, ratio=RATIO))
         for key, word, ipa, votes, freq in folded:
-            fh.write(f"    '{key}': {{\"ipa\": '{ipa}', \"votes\": '{votes}',"
+            # repr(), not an f-string quote -- see build_audio_vowel_lexicon.py:
+            # an apostrophe in a Yiddish key breaks the generated module and the
+            # engine's loader turns that into an empty table without complaining.
+            fh.write(f"    {key!r}: {{\"ipa\": {ipa!r}, \"votes\": {votes!r},"
                      f" \"freq\": {freq}}},  # {word}\n")
         fh.write("}\n")
     bak = OUT.with_suffix(".py.bak")

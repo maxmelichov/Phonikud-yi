@@ -162,8 +162,12 @@ def main() -> int:
         fh.write(HEADER.format(min_votes=MIN_VOTES,
                                targets=sorted(CLEAN_TARGETS)))
         for key, word, ipa, detail in entries:
-            fh.write(f"    '{key}': {{\"ipa\": '{ipa}',"
-                     f" \"slots\": '{detail}'}},  # {word}\n")
+            # repr(), not an f-string quote: Yiddish keys carry an apostrophe
+            # (מורא'דיקע, אויפ'ן) that closes a hand-written literal early and
+            # makes the whole generated module unparsable -- which the engine's
+            # loader then swallows into an empty table, silently.
+            fh.write(f"    {key!r}: {{\"ipa\": {ipa!r},"
+                     f" \"slots\": {detail!r}}},  # {word}\n")
         fh.write("}\n")
     bak = OUT.with_suffix(".py.bak")
     if bak.exists():
