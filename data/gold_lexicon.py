@@ -515,4 +515,11 @@ GOLD_LEXICON: dict[str, dict] = {
     'פאמיליע': {"word": 'פאמיליע', "ipa_primary": 'fˈamiliə', "variants": ['fˈamiliə'], "layer": 'E', "freq": 5, "note": 'whatsapp 2026-08-10'},
     'פראגעס': {"word": 'פראגעס', "ipa_primary": 'frˈaɡəs', "variants": ['frˈaɡəs'], "layer": 'G', "freq": 4, "note": 'whatsapp 2026-08-10'},
     'האפ': {"word": 'האף', "ipa_primary": 'huf', "variants": ['huf'], "layer": 'G', "freq": 4, "note": 'whatsapp 2026-08-10'},
+    'גאס': {"word": 'גאס', "ipa_primary": 'ɡaːs', "variants": ['ɡaːs'], "layer": 'G', "freq": 138, "note": 'sheet 2026-08-12'},
+    'פריינד': {"word": 'פריינד', "ipa_primary": 'fraːnd', "variants": ['fraːnd'], "layer": 'G', "freq": 23, "note": 'sheet 2026-08-12'},
+    'פארגעסנ': {"word": 'פארגעסן', "ipa_primary": 'faːrɡˈɛsn', "variants": ['faːrɡˈɛsn'], "layer": 'G', "freq": 299, "note": 'sheet 2026-08-12'},
+    'אפשאצנ': {"word": 'אפשאצן', "ipa_primary": 'ˈupʃaʦn', "variants": ['ˈupʃaʦn'], "layer": 'G', "freq": 2, "note": 'sheet 2026-08-12'},
+    'פראביר': {"word": 'פראביר', "ipa_primary": 'prɔbˈir', "variants": ['prɔbˈir'], "layer": 'G', "freq": 1, "note": 'sheet 2026-08-12'},
+    'פאדלאגע': {"word": 'פאדלאגע', "ipa_primary": 'pˈɔdlɔɡə', "variants": ['pˈɔdlɔɡə'], "layer": 'G', "freq": 2, "note": 'sheet 2026-08-12'},
+    'געקאכט': {"word": 'געקאכט', "ipa_primary": 'ɡəkˈɔxt', "variants": ['ɡəkˈɔxt'], "layer": 'G', "freq": 34, "note": 'sheet 2026-08-12'},
 }
