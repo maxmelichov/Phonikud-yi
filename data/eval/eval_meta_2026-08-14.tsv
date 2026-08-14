@@ -1,0 +1,339 @@
+sentence	word_no	word	ipa	tier	route	confidence	reason	episode	start_s
+Q1		זוכט		question					
+Q2		לערנען		question					
+S01	1	האט	hut	A-baseline	lexicon	HIGH		119230	810.0
+S01	2	זיך	zix	A-baseline	lexicon	HIGH		119230	810.0
+S01	3	געטאן	ɡətˈan	A-baseline	rule	LOW	alef-default	119230	810.0
+S01	4	דאס	dus	A-baseline	lexicon	HIGH		119230	810.0
+S01	5	איז	iz	A-baseline	lexicon	HIGH		119230	810.0
+S01	6	דאך	dɔx	A-baseline	lexicon	HIGH		119230	810.0
+S01	7	מוראדיקע	mˈiradikə	A-baseline	rule	LOW	alef-default	119230	810.0
+S01	8	זאכן	zaxn	A-baseline	lexicon	HIGH		119230	810.0
+S01	9	וואס	vus	A-baseline	lexicon	HIGH		119230	810.0
+S01	10	מען	mɛn	A-baseline	lexicon	HIGH		119230	810.0
+S01	11	זעט	zejt	A-baseline	lexicon	HIGH		119230	810.0
+S01	12	דא	du	A-baseline	lexicon	HIGH		119230	810.0
+S02	1	דאס	dus	A-baseline	lexicon	HIGH		96413	4350.0
+S02	2	מיינט	majnt	A-baseline	lexicon	HIGH		96413	4350.0
+S02	3	אז	az	A-baseline	lexicon	HIGH		96413	4350.0
+S02	4	מען	mɛn	A-baseline	lexicon	HIGH		96413	4350.0
+S02	5	קען	kɛn	A-baseline	lexicon	HIGH		96413	4350.0
+S02	6	זיין	zaːn	A-baseline	lexicon	HIGH		96413	4350.0
+S02	7	הונדערט	hˈindərt	A-baseline	rule	MED		96413	4350.0
+S02	8	פראצענט	prɔʦˈɛnt	A-baseline	lexicon	HIGH		96413	4350.0
+S02	9	זיכער	zˈixər	A-baseline	lexicon	HIGH		96413	4350.0
+S03	1	וואס	vus	A-baseline	lexicon	HIGH		86522	1020.0
+S03	2	איז	iz	A-baseline	lexicon	HIGH		86522	1020.0
+S03	3	פונעם	fˈinəm	A-baseline	lexicon	HIGH		86522	1020.0
+S03	4	הייליגן	hˈajliɡn	A-baseline	rule	MED		86522	1020.0
+S03	5	רבי	rˈɛbə	A-baseline	lexicon	HIGH		86522	1020.0
+S03	6	ר'	rɛb	A-baseline	lexicon	HIGH		86522	1020.0
+S03	7	ס'איז	siz	A-baseline	lexicon	HIGH		86522	1020.0
+S03	8	געווען	ɡəvˈejn	A-baseline	lexicon	HIGH		86522	1020.0
+S03	9	באקאנט	bakˈant	A-baseline	rule	LOW	alef-default	86522	1020.0
+S04	1	אז	az	A-baseline	lexicon	HIGH		99102	2160.0
+S04	2	מען	mɛn	A-baseline	lexicon	HIGH		99102	2160.0
+S04	3	זינגט	zinɡt	A-baseline	rule	MED		99102	2160.0
+S04	4	א	a	A-baseline	rule	LOW	alef-default	99102	2160.0
+S04	5	הייליקע	hˈajlikə	A-baseline	rule	MED		99102	2160.0
+S04	6	ס'איז	siz	A-baseline	lexicon	HIGH		99102	2160.0
+S04	7	גארנישט	ɡˈurniʃt	A-baseline	lexicon	HIGH		99102	2160.0
+S04	8	מעגליך	mˈejɡləx	A-baseline	lexicon	HIGH		99102	2160.0
+S04	9	צו	ʦi	A-baseline	lexicon	HIGH		99102	2160.0
+S04	10	זאגן	zuɡn	A-baseline	lexicon	HIGH		99102	2160.0
+S05	1	אויף	oʊf	A-baseline	lexicon	HIGH		75311	3450.0
+S05	2	דעם	dejm	A-baseline	lexicon	HIGH		75311	3450.0
+S05	3	וואס	vus	A-baseline	lexicon	HIGH		75311	3450.0
+S05	4	ער	ɛr	A-baseline	lexicon	HIGH		75311	3450.0
+S05	5	האט	hut	A-baseline	lexicon	HIGH		75311	3450.0
+S05	6	אראפגעברענגט	arˈupɡəbrənɡt	A-baseline	rule	MED	prefix-rescue:gold+אראפגע	75311	3450.0
+S05	7	אין	in	A-baseline	lexicon	HIGH		75311	3450.0
+S05	8	משנה	mˈiʃnə	A-baseline	rule	LOW	model-pointed-guess	75311	3450.0
+S05	9	תורה	tˈɔjrə	A-baseline	lexicon	HIGH		75311	3450.0
+S06	1	יעקב	jˈankəv	A-baseline	lexicon	HIGH		117541	2160.0
+S06	2	אל	al	A-baseline	rule	LOW	alef-default	117541	2160.0
+S06	3	אלטע	ˈaltə	A-baseline	lexicon	HIGH		117541	2160.0
+S06	4	זאג	zuɡ	A-baseline	lexicon	HIGH		117541	2160.0
+S06	5	אל	al	A-baseline	rule	LOW	alef-default	117541	2160.0
+S06	6	אלטע	ˈaltə	A-baseline	lexicon	HIGH		117541	2160.0
+S06	7	זאג	zuɡ	A-baseline	lexicon	HIGH		117541	2160.0
+S06	8	אל	al	A-baseline	rule	LOW	alef-default	117541	2160.0
+S06	9	אלטע	ˈaltə	A-baseline	lexicon	HIGH		117541	2160.0
+S06	10	זאג	zuɡ	A-baseline	lexicon	HIGH		117541	2160.0
+S07	1	אז	az	A-baseline	lexicon	HIGH		109279	3090.0
+S07	2	מען	mɛn	A-baseline	lexicon	HIGH		109279	3090.0
+S07	3	וועט	vɛt	A-baseline	lexicon	HIGH		109279	3090.0
+S07	4	זאגן	zuɡn	A-baseline	lexicon	HIGH		109279	3090.0
+S07	5	מיט	mit	A-baseline	lexicon	HIGH		109279	3090.0
+S07	6	מאכט	maxt	A-baseline	lexicon	HIGH		109279	3090.0
+S07	7	און	in	A-baseline	lexicon	HIGH		109279	3090.0
+S07	8	ישועה	ˈiʃiə	A-baseline	rule	MED		109279	3090.0
+S07	9	מיט	mit	A-baseline	lexicon	HIGH		109279	3090.0
+S07	10	א	a	A-baseline	rule	LOW	alef-default	109279	3090.0
+S07	11	גאנצן	ɡanʦn	A-baseline	rule	LOW	alef-default	109279	3090.0
+S07	12	גלויבן	ɡlɔjbn	A-baseline	rule	MED		109279	3090.0
+S07	13	אויב	ɔjb	A-baseline	lexicon	HIGH		109279	3090.0
+S07	14	ער	ɛr	A-baseline	lexicon	HIGH		109279	3090.0
+S07	15	וועט	vɛt	A-baseline	lexicon	HIGH		109279	3090.0
+S07	16	זאגן	zuɡn	A-baseline	lexicon	HIGH		109279	3090.0
+S08	1	דאס	dus	A-baseline	lexicon	HIGH		112054	2430.0
+S08	2	מיינט	majnt	A-baseline	lexicon	HIGH		112054	2430.0
+S08	3	אז	az	A-baseline	lexicon	HIGH		112054	2430.0
+S08	4	ער	ɛr	A-baseline	lexicon	HIGH		112054	2430.0
+S08	5	האט	hut	A-baseline	lexicon	HIGH		112054	2430.0
+S08	6	זיין	zaːn	A-baseline	lexicon	HIGH		112054	2430.0
+S08	7	עולם	ˈɔjləm	A-baseline	lexicon	HIGH		112054	2430.0
+S08	8	דא	du	A-baseline	lexicon	HIGH		112054	2430.0
+S09	1	דאס	dus	A-baseline	lexicon	HIGH		85625	3270.0
+S09	2	איז	iz	A-baseline	lexicon	HIGH		85625	3270.0
+S09	3	געווען	ɡəvˈejn	A-baseline	lexicon	HIGH		85625	3270.0
+S09	4	דאך	dɔx	A-baseline	lexicon	HIGH		85625	3270.0
+S09	5	בערך	bəˈejrəx	A-baseline	lexicon	HIGH		85625	3270.0
+S09	6	אינם	inm	A-baseline	rule	LOW	alef-default	85625	3270.0
+S09	7	שטח	ʃˈɛtəx	A-baseline	lexicon	HIGH		85625	3270.0
+S09	8	פון	fin	A-baseline	lexicon	HIGH		85625	3270.0
+S09	9	דריי	draj	A-baseline	lexicon	HIGH		85625	3270.0
+S09	10	דאלאר	dˈɔlar	A-baseline	lexicon	HIGH		85625	3270.0
+S10	1	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	2	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	3	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	4	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	5	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	6	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	7	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S10	8	אוי	ɔj	A-baseline	lexicon	HIGH		131678	2280.0
+S11	1	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	2	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	3	הוא	hˈia	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	4	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	5	הוא	hˈia	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	6	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	7	הוא	hˈia	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	8	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	9	הוא	hˈia	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	10	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	11	אדיר	adˈir	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S11	12	הוא	hˈia	B-ambiguous	rule	LOW	alef-default	104192	3240.0
+S12	1	ווי	vi	B-ambiguous	lexicon	HIGH		37866	3090.0
+S12	2	שומרי	ʃˈimri	B-ambiguous	rule	MED		37866	3090.0
+S12	3	מצותיה	miʦvɔjsˈɛjhu	B-ambiguous	rule	LOW	model-pointed-guess	37866	3090.0
+S12	4	ילכו	ˈilxi	B-ambiguous	rule	MED		37866	3090.0
+S12	5	ווי	vi	B-ambiguous	lexicon	HIGH		37866	3090.0
+S12	6	ליום	ljim	B-ambiguous	rule	MED		37866	3090.0
+S12	7	שכולו	ʃxˈili	B-ambiguous	rule	MED		37866	3090.0
+S12	8	שבת	ʃˈabəs	B-ambiguous	lexicon	HIGH		37866	3090.0
+S12	9	ליום	ljim	B-ambiguous	rule	MED		37866	3090.0
+S12	10	שכולו	ʃxˈili	B-ambiguous	rule	MED		37866	3090.0
+S12	11	שבת	ʃˈabəs	B-ambiguous	lexicon	HIGH		37866	3090.0
+S12	12	ליום	ljim	B-ambiguous	rule	MED		37866	3090.0
+S12	13	שכולו	ʃxˈili	B-ambiguous	rule	MED		37866	3090.0
+S13	1	אני	ˈani	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	2	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	3	אני	ˈani	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	4	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	5	אני	ˈani	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	6	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	38767	3270.0
+S13	7	בביאת	bvˈias	B-ambiguous	rule	LOW	sefaria-pointed	38767	3270.0
+S13	8	המשיח	hamuʃˈixa	B-ambiguous	rule	LOW	sefaria-pointed	38767	3270.0
+S14	1	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	2	ישראל	jisrˈuəl	B-ambiguous	lexicon	HIGH		83124	2700.0
+S14	3	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	4	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	5	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	6	ישראל	jisrˈuəl	B-ambiguous	lexicon	HIGH		83124	2700.0
+S14	7	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	8	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	9	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	10	ישראל	jisrˈuəl	B-ambiguous	lexicon	HIGH		83124	2700.0
+S14	11	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	12	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	13	אשריכם	ˈaʃrixm	B-ambiguous	rule	LOW	alef-default	83124	2700.0
+S14	14	ישראל	jisrˈuəl	B-ambiguous	lexicon	HIGH		83124	2700.0
+S15	1	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	2	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	3	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	4	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	5	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	6	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	7	דורותיכם	dɔjrɔjsˈajxəm	B-ambiguous	rule	LOW	model-pointed-guess	138963	1380.0
+S15	8	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	9	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	10	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	11	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	12	למען	lmɛn	B-ambiguous	rule	MED		138963	1380.0
+S15	13	ידעו	ˈidəi	B-ambiguous	rule	MED		138963	1380.0
+S15	14	דורותיכם	dɔjrɔjsˈajxəm	B-ambiguous	rule	LOW	model-pointed-guess	138963	1380.0
+S16	1	שלא	ʃla	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	2	יבוא	ˈibia	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	3	אויב	ɔjb	B-ambiguous	lexicon	HIGH		104192	2940.0
+S16	4	ביאת	bˈias	B-ambiguous	rule	LOW	sefaria-pointed	104192	2940.0
+S16	5	המשיח	hamuʃˈixa	B-ambiguous	rule	LOW	sefaria-pointed	104192	2940.0
+S16	6	ביאת	bˈias	B-ambiguous	rule	LOW	sefaria-pointed	104192	2940.0
+S16	7	המשיח	hamuʃˈixa	B-ambiguous	rule	LOW	sefaria-pointed	104192	2940.0
+S16	8	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	9	אוי	ɔj	B-ambiguous	lexicon	HIGH		104192	2940.0
+S16	10	אני	ˈani	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	11	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	12	אוי	ɔj	B-ambiguous	lexicon	HIGH		104192	2940.0
+S16	13	אני	ˈani	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	14	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	15	אני	ˈani	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S16	16	מאמין	mˈamin	B-ambiguous	rule	LOW	alef-default	104192	2940.0
+S17	1	געלאזט	ɡəlˈɔzt	B-ambiguous	rule	MED	prefix-rescue:gold+גע	125036	1110.0
+S17	2	זיך	zix	B-ambiguous	lexicon	HIGH		125036	1110.0
+S17	3	טראגן	truɡn	B-ambiguous	lexicon	MED	audio-vowel	125036	1110.0
+S17	4	די	də	B-ambiguous	lexicon	HIGH		125036	1110.0
+S17	5	אייגענע	ˈajɡənə	B-ambiguous	lexicon	HIGH		125036	1110.0
+S17	6	מאמע	mˈamə	B-ambiguous	rule	LOW	alef-default	125036	1110.0
+S17	7	די	də	B-ambiguous	lexicon	HIGH		125036	1110.0
+S17	8	ווארעמע	vˈarəmə	B-ambiguous	rule	LOW	alef-default	125036	1110.0
+S17	9	שבתדיקע	ʃˈabəzdikə	B-ambiguous	rule	LOW	lk-fallback	125036	1110.0
+S17	10	מאכלים	mˈaxlim	B-ambiguous	rule	LOW	alef-default	125036	1110.0
+S18	1	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	2	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	3	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	4	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	5	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	6	מאי	maː	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	7	מה	mɛ	B-ambiguous	rule	LOW	model-pointed-guess	45491	3780.0
+S18	8	נשמע	nʃmə	B-ambiguous	rule	MED		45491	3780.0
+S18	9	מה	mɛ	B-ambiguous	rule	LOW	model-pointed-guess	45491	3780.0
+S18	10	נשמע	nʃmə	B-ambiguous	rule	MED		45491	3780.0
+S18	11	מה	mɛ	B-ambiguous	rule	LOW	model-pointed-guess	45491	3780.0
+S18	12	נשמע	nʃmə	B-ambiguous	rule	MED		45491	3780.0
+S18	13	אליהו	ˈalihi	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	14	המלאך	hmlax	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S18	15	הגואל	hɡˈial	B-ambiguous	rule	LOW	alef-default	45491	3780.0
+S19	1	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	2	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	3	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	4	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	5	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	6	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	7	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	8	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	9	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	10	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	11	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	12	היי	haj	B-ambiguous	rule	MED		39584	3120.0
+S19	13	שלום	ʃˈuləm	B-ambiguous	lexicon	HIGH		39584	3120.0
+S20	1	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	2	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	3	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	4	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	5	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	6	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	7	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	8	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	9	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	10	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	11	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	12	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	13	ראי	raː	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	14	מאמא	mˈama	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S20	15	מאמא	mˈama	B-ambiguous	rule	LOW	alef-default	117948	1950.0
+S21	1	הבה	hˈuvə	C-loshn-koydesh	rule	LOW	sefaria-pointed	45082	4110.0
+S21	2	נגילה	nɡˈilə	C-loshn-koydesh	rule	MED		45082	4110.0
+S21	3	הבה	hˈuvə	C-loshn-koydesh	rule	LOW	sefaria-pointed	45082	4110.0
+S21	4	נגילה	nɡˈilə	C-loshn-koydesh	rule	MED		45082	4110.0
+S21	5	הבה	hˈuvə	C-loshn-koydesh	rule	LOW	sefaria-pointed	45082	4110.0
+S21	6	נגילה	nɡˈilə	C-loshn-koydesh	rule	MED		45082	4110.0
+S21	7	ונשמחה	vnˈismxə	C-loshn-koydesh	rule	LOW	sefaria-pointed	45082	4110.0
+S22	1	את	ɛs	C-loshn-koydesh	lexicon	HIGH		130041	1500.0
+S22	2	עמך	ɛmx	C-loshn-koydesh	rule	MED		130041	1500.0
+S22	3	יברך	ibrx	C-loshn-koydesh	rule	MED		130041	1500.0
+S22	4	את	ɛs	C-loshn-koydesh	lexicon	HIGH		130041	1500.0
+S22	5	עמך	ɛmx	C-loshn-koydesh	rule	MED		130041	1500.0
+S22	6	יברך	ibrx	C-loshn-koydesh	rule	MED		130041	1500.0
+S22	7	את	ɛs	C-loshn-koydesh	lexicon	HIGH		130041	1500.0
+S22	8	עמך	ɛmx	C-loshn-koydesh	rule	MED		130041	1500.0
+S23	1	רחם	rˈaxajm	C-loshn-koydesh	rule	LOW	pointed-audio-endorsed	43120	4830.0
+S23	2	נא	na	C-loshn-koydesh	rule	LOW	alef-default	43120	4830.0
+S23	3	רחם	rˈaxajm	C-loshn-koydesh	rule	LOW	pointed-audio-endorsed	43120	4830.0
+S23	4	נא	na	C-loshn-koydesh	rule	LOW	alef-default	43120	4830.0
+S23	5	כי	ki	C-loshn-koydesh	lexicon	HIGH		43120	4830.0
+S23	6	אנו	ˈani	C-loshn-koydesh	rule	LOW	alef-default	43120	4830.0
+S23	7	עמך	ɛmx	C-loshn-koydesh	rule	MED		43120	4830.0
+S23	8	ואתה	vˈatə	C-loshn-koydesh	rule	LOW	sefaria-pointed	43120	4830.0
+S23	9	אלקינו	ˈalkini	C-loshn-koydesh	rule	LOW	alef-default	43120	4830.0
+S24	1	לאמיר	lˈɔmir	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	2	פארן	farn	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	3	קיין	kan	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	4	ירושלים	jəruʃulˈajim	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	5	מקבל	mkˈabajl	C-loshn-koydesh	rule	LOW	sefaria-pointed	108865	2700.0
+S24	6	פנים	pˈunəm	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	7	זיין	zaːn	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S24	8	משיח	mˈuʃiəx	C-loshn-koydesh	lexicon	HIGH		108865	2700.0
+S25	1	הנה	hinˈajə	C-loshn-koydesh	rule	LOW	sefaria-pointed	103305	2250.0
+S25	2	אנכי	ˈanxi	C-loshn-koydesh	rule	LOW	alef-default	103305	2250.0
+S25	3	שולח	ʃɔjlˈajxa	C-loshn-koydesh	rule	LOW	sefaria-pointed	103305	2250.0
+S25	4	לכם	lˈuxəm	C-loshn-koydesh	rule	LOW	sefaria-pointed	103305	2250.0
+S25	5	את	ɛs	C-loshn-koydesh	lexicon	HIGH		103305	2250.0
+S25	6	אליהו	ˈalihi	C-loshn-koydesh	rule	LOW	alef-default	103305	2250.0
+S25	7	הנביא	hnbˈia	C-loshn-koydesh	rule	LOW	alef-default	103305	2250.0
+S25	8	לפני	lfni	C-loshn-koydesh	rule	LOW	pe-default	103305	2250.0
+S25	9	בוא	bˈia	C-loshn-koydesh	rule	LOW	alef-default	103305	2250.0
+S25	10	יום	jɔjm	C-loshn-koydesh	lexicon	HIGH		103305	2250.0
+S25	11	השם	haʃˈɛm	C-loshn-koydesh	lexicon	HIGH		103305	2250.0
+S25	12	הגדול	hɡdil	C-loshn-koydesh	rule	MED		103305	2250.0
+S25	13	והנורא	ˈinira	C-loshn-koydesh	rule	LOW	alef-default	103305	2250.0
+S25	14	והשיב	ˈiʃib	C-loshn-koydesh	rule	MED		103305	2250.0
+S25	15	לב	lajv	C-loshn-koydesh	rule	LOW	sefaria-pointed	103305	2250.0
+S25	16	אבות	ˈuvɔjs	C-loshn-koydesh	rule	LOW	sefaria-pointed	103305	2250.0
+S26	1	שיק	ʃik	C-loshn-koydesh	rule	MED		55367	3000.0
+S26	2	מיר	mir	C-loshn-koydesh	lexicon	HIGH		55367	3000.0
+S26	3	אבן	abn	C-loshn-koydesh	rule	LOW	alef-default	55367	3000.0
+S26	4	שיק	ʃik	C-loshn-koydesh	rule	MED		55367	3000.0
+S26	5	תל	tajl	C-loshn-koydesh	rule	LOW	sefaria-pointed	55367	3000.0
+S26	6	ארץ	ˈɛrəʦ	C-loshn-koydesh	lexicon	HIGH		55367	3000.0
+S26	7	ישראל	jisrˈuəl	C-loshn-koydesh	lexicon	HIGH		55367	3000.0
+S27	1	הלילות	halˈajlɔjs	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	2	מה	mɛ	C-loshn-koydesh	rule	LOW	model-pointed-guess	125516	1620.0
+S27	3	נשתנה	niʃtˈanə	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	4	מה	mɛ	C-loshn-koydesh	rule	LOW	model-pointed-guess	125516	1620.0
+S27	5	נשתנה	niʃtˈanə	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	6	הלילה	hlˈilə	C-loshn-koydesh	rule	MED		125516	1620.0
+S27	7	הזה	hˈazə	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	8	הלילה	hlˈilə	C-loshn-koydesh	rule	MED		125516	1620.0
+S27	9	הזה	hˈazə	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	10	מכל	mˈikul	C-loshn-koydesh	rule	LOW	model-pointed-guess	125516	1620.0
+S27	11	הלילות	halˈajlɔjs	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	12	שבכל	ʃˈɛbxul	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	13	הלילות	halˈajlɔjs	C-loshn-koydesh	rule	LOW	sefaria-pointed	125516	1620.0
+S27	14	אנו	ˈani	C-loshn-koydesh	rule	LOW	alef-default	125516	1620.0
+S27	15	אוכלין	ˈixlin	C-loshn-koydesh	rule	LOW	alef-default	125516	1620.0
+S28	1	נו	ni	C-loshn-koydesh	rule	MED		104690	360.0
+S28	2	ווען	vɛn	C-loshn-koydesh	lexicon	HIGH		104690	360.0
+S28	3	ס'קומט	skimt	C-loshn-koydesh	rule	MED	clitic	104690	360.0
+S28	4	אזא	azˈa	C-loshn-koydesh	lexicon	HIGH		104690	360.0
+S28	5	הייליגער	hˈajliɡər	C-loshn-koydesh	rule	MED		104690	360.0
+S28	6	יום	jɔjm	C-loshn-koydesh	lexicon	HIGH		104690	360.0
+S28	7	טוב	tɔjv	C-loshn-koydesh	lexicon	HIGH		104690	360.0
+S28	8	פסח	pˈajsəx	C-loshn-koydesh	lexicon	HIGH		104690	360.0
+S29	1	ושמרו	ˈiʃmri	C-loshn-koydesh	rule	MED		151871	1860.0
+S29	2	בני	bnaj	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S29	3	ישראל	jisrˈuəl	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S29	4	את	ɛs	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S29	5	השבת	hʃˈabəs	C-loshn-koydesh	rule	LOW	lk-fallback	151871	1860.0
+S29	6	לעשות	laˈasɔjs	C-loshn-koydesh	rule	LOW	sefaria-pointed	151871	1860.0
+S29	7	את	ɛs	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S29	8	השבת	hʃˈabəs	C-loshn-koydesh	rule	LOW	lk-fallback	151871	1860.0
+S29	9	לדורותם	lədɔjrˈɔjsum	C-loshn-koydesh	rule	LOW	model-pointed-guess	151871	1860.0
+S29	10	ברית	bris	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S29	11	עולם	ˈɔjləm	C-loshn-koydesh	lexicon	HIGH		151871	1860.0
+S30	1	אני	ˈani	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	2	מאמין	mˈamin	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	3	אני	ˈani	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	4	מאמין	mˈamin	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	5	אני	ˈani	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	6	מאמין	mˈamin	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	7	באמונה	bamˈinə	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	8	שלמה	ʃlˈɔjmə	C-loshn-koydesh	lexicon	HIGH		38767	3210.0
+S30	9	באמונה	bamˈinə	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	10	שלמה	ʃlˈɔjmə	C-loshn-koydesh	lexicon	HIGH		38767	3210.0
+S30	11	בביאת	bvˈias	C-loshn-koydesh	rule	LOW	sefaria-pointed	38767	3210.0
+S30	12	המשיח	hamuʃˈixa	C-loshn-koydesh	rule	LOW	sefaria-pointed	38767	3210.0
+S30	13	בביאת	bvˈias	C-loshn-koydesh	rule	LOW	sefaria-pointed	38767	3210.0
+S30	14	המשיח	hamuʃˈixa	C-loshn-koydesh	rule	LOW	sefaria-pointed	38767	3210.0
+S30	15	אני	ˈani	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
+S30	16	מאמין	mˈamin	C-loshn-koydesh	rule	LOW	alef-default	38767	3210.0
