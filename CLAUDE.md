@@ -8,7 +8,8 @@ A grapheme-to-phoneme (G2P) system for contemporary Hasidic (Unterland/Central) 
 TTS training on the yiddish24/ivelt podcast corpus (1.83M tokens). `yiddish_g2p.py` is the engine;
 everything else feeds, tests, or consumes it. The README's architecture section describes the older
 pre-v3 engine — trust `data/g2p_spec_v3.md` (the authoritative spec), `docs/yiddish_phoneme_set.md`,
-and `docs/PROJECT_HISTORY.md` over the README.
+and `docs/PROJECT_HISTORY.md` over the README. `docs/audio_evidence.md` documents how recordings
+become lexicon verdicts — read it before touching anything under `scripts/xeus_*` or the audio tables.
 
 ## Commands
 
@@ -18,7 +19,7 @@ pytest** — pytest is not installed.
 ```bash
 .venv/bin/python scripts/test_g2p.py          # core engine regressions
 .venv/bin/python scripts/test_g2p_spec.py     # spec behaviors (2 documented XFAILs are expected)
-.venv/bin/python scripts/test_g2p_gold.py     # 500/500 gold byte-identity — the hard gate
+.venv/bin/python scripts/test_g2p_gold.py     # 509/509 gold byte-identity — the hard gate
 .venv/bin/python scripts/test_rules_doc.py    # executes docs/yiddish_phoneme_set.md examples
 .venv/bin/python scripts/test_xeus_map.py     # PhoneticXeus→Yiddish phone-map coverage
 .venv/bin/python scripts/test_audio_evidence.py  # audio-pe table integrity + sweep verdict logic
@@ -34,14 +35,38 @@ Quick engine probe:
 .venv/bin/python -c "import sys; sys.path.insert(0,'.'); from yiddish_g2p import hebrew_to_ipa, g2p_token; print(hebrew_to_ipa('וואס איז דאס', stress=True)); print(g2p_token('שבת'))"
 ```
 
+Whole stack (nikud + G2P) with the deployment guard — prefer this over importing the engine bare:
+
+```bash
+.venv/bin/python src/selftest.py              # tables loaded, canaries correct, v5 model loads
+.venv/bin/python -c "import sys; sys.path.insert(0,'src'); from yiddish_labels import text_to_nikud, text_to_ipa; print(text_to_nikud('מיט א פאר יאר צוריק')); print(text_to_ipa('מיט א פאר יאר צוריק'))"
+.venv/bin/python src/make_bundle.py --with-dataset   # portable zip for another machine
+```
+
+Audio-evidence loop (hours of local GPU; no network, no APIs):
+
+```bash
+.venv/bin/python scripts/xeus_sweep_all.py --plan-only    # what more transcription would buy
+.venv/bin/python scripts/xeus_sweep_all.py --max-chunks 1500
+.venv/bin/python scripts/audio_calibrate.py               # recognizer profile + per-slot verdicts
+.venv/bin/python scripts/build_audio_pe_lexicon.py
+.venv/bin/python scripts/build_audio_vowel_lexicon.py
+```
+
 ## Non-negotiable invariants
 
-- **Gold byte-identity**: `hebrew_to_ipa(word, stress=True)` must reproduce all 500 primaries of
+- **Gold byte-identity**: `hebrew_to_ipa(word, stress=True)` must reproduce all 509 primaries of
   `g2p_gold_v3 - g2p_gold_v3.csv.csv` exactly. No change may move a gold primary — these are
   native-speaker (Chezky) verdicts, authority #1.
 - **Authority order**: gold CSV > audio evidence (PhoneticXeus) > published pointing (Sefaria) >
   model guesses. Never let a lower tier override a higher one; recognizer/audio evidence does not
-  outrank an explicit native verdict.
+  outrank an explicit native verdict. When audio contradicts gold, the conflict becomes a question
+  for Chezky (a queue file), never a silent flip — 37 such conflicts are pending.
+- **Citation forms, not surface forms**: labels encode what the word *is*, not what fast speech does
+  to it. `האט` stays `hut` though the recognizer hears *hat* in 41% of clips; `איז` stays voiced.
+  Reduction and devoicing are predictable processes and must never be folded into the lexicon.
+- **Audio only where the spelling is open** (spec §4): א, פ, יי, וי and shuruk-ו. Elsewhere the
+  letter decides — ז is /z/, ג is /ɡ/ — so an audio deviation there is a process, not evidence.
 - **Closed phone inventory** (spec §1): vowels `a aː ɛ ə i u ɔ ej aj ɔj oʊ`, consonants
   `b d f ɡ h j k l m n p r s t v z x ʃ ʒ ʦ ʧ ʤ ŋ`, marks `ˈ` (immediately before the stressed
   vowel) and `ː` (only in aː). Nothing else may ever be emitted; gate (b) enforces it corpus-wide.
@@ -74,6 +99,16 @@ shuruk stays [u], final kometz-hey [u]) vs the merged register (embedded LK — 
 kometz-hey→ə). `scripts/register_policy.py` decides which is primary per word; a merged reading
 that loses a consonant or vowel vs WH is defective and can never ship, regardless of audio votes.
 
+### The audio-evidence layer
+
+`docs/audio_evidence.md` is the reference. In short: episode audio → PhoneticXeus → folded to the
+closed inventory → positionally aligned against the engine's own reading → per-slot votes in the
+shared pool `data/audio_lexicon/pe_sweep_tags.jsonl` (append-only, resumable, shared by every
+sweep and folder). Votes become verdicts only after three filters — surprising vs the recognizer's
+own base rate, at a grapheme the spelling leaves open, and not already ruled on by gold. Survivors
+ship as `data/audio_pe_lk.py` and `data/audio_vowel_lk.py` at MED confidence; everything contested
+goes to a queue file for a native, not into the engine.
+
 ### Per-token metadata
 
 `g2p_token(word)` → `route` (lexicon/rule/fallback), `confidence` (HIGH/MED/LOW), `reason`.
@@ -100,6 +135,15 @@ start; has a hard label-collapse guard) → `scripts/eval_phonikud_yi.py`. ONNX 
 
 - `yiddish_g2p._ROUTE_CACHE` caches per-token routing. **Clear it after any lexicon mutation** in
   measurement scripts, or you measure stale answers.
+- **Generated tables must be written with `repr()`**, never hand-quoted f-strings: Yiddish keys carry
+  apostrophes (`מורא'דיקע`, `אויפ'ן`) that close the literal early and make the module unparsable.
+- The engine's table loaders degrade on an **absent** file (deliberate) but now **raise** on a file
+  that exists and fails to load. Do not "helpfully" restore the old catch-all — a SyntaxError once
+  silently emptied a table and shipped it.
+- The repo root carries an older `yiddish_nikud.py` aimed at a superseded export. `src/yiddish_labels`
+  forces `src/` ahead of it on `sys.path`; import that, not the engine bare.
+- A raw majority vote over PhoneticXeus output is meaningless (it reports `ʦ` as *s* 62% of the time).
+  Always score against the base rates in `data/audio_lexicon/confusion.tsv`.
 - Training/inference for phonikud-yi requires **transformers==4.56.2**; 5.x loads the slow
   tokenizer, offsets vanish, and supervision silently collapses (the trainer now aborts on this,
   but keep the pin).
