@@ -85,7 +85,7 @@ AUDIO_PE_LK = {
     'אפוינטמענט': {"ipa": 'apɔjntmˈɛnt', "votes": 'p=3/f=0', "freq": 5},  # אפוינטמענט
     'פורו': {"ipa": 'pˈiri', "votes": 'p=4/f=0', "freq": 5},  # פורו
     'פגי': {"ipa": 'pɡi', "votes": 'p=4/f=0', "freq": 4},  # פגי
-    'פאייער': {"ipa": 'pˈaajər', "votes": 'p=4/f=0', "freq": 4},  # פאייער
+    'פאייער': {"ipa": 'pˈajər', "votes": 'p=4/f=0', "freq": 4},  # פאייער
     'פעדלערס': {"ipa": 'pˈɛdlərs', "votes": 'p=3/f=0', "freq": 4},  # פעדלערס
     'נעפעלע': {"ipa": 'nˈɛpələ', "votes": 'p=3/f=0', "freq": 3},  # נעפעלע
     'אוספיזינ': {"ipa": 'ˈispizin', "votes": 'p=3/f=0', "freq": 3},  # אוספיזין

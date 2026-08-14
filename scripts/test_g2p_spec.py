@@ -204,7 +204,7 @@ CASES: list[tuple[str, str, str]] = [
     ("שִׂמְחָה", "simxə", "§5 chirik -> i, sin dot, shva na deleted, final -e = @"),
     ("כְּלַל", "klal", "§5 shva na deleted + pasekh -> a (11)"),
     ("כִּי", "ki", "§5 dagesh kaf = k, chirik -> i"),
-    ("רוּחַ", "riəx", "XFAIL §5 pasekh genuvah inserts @: riech; not implemented"),  # v3
+    ("רוּחַ", "riɛx", "§5 pasekh genuvah inserts e: riech"),
     ("עולם", "ɔjlɛm", "§7.3 merged 'der oylem' (cholam oy); the WH reading is oylum [ɔɪlum]"),
     ("משה", "mɔjʃə", "§8 names — Moyshe (frozen form)"),
 

@@ -54,6 +54,12 @@ WH_CASES: list[tuple[str, str, str]] = [
     ("אֲנַחְנוּ", "anˈaxnu", "final shuruk, not /v/"),
     ("תּוֹרָתֶךָ", "tɔjrusˈɛxu", "2nd-person ךָ keeps its komets [u]"),
     ("אַחֲרָיו", "axˈarujv", "…ָיו really is a consonantal vav"),
+    # --- furtive patah (pasekh genuvah) ---
+    ("רוּחַ", "rˈuax", "furtive patah before guttural: [a] before final ches"),
+    ("כֹּחַ", "kˈɔjax", "furtive patah after cholam: kˈɔjax"),
+    ("מַשְׁגִּיחַ", "maʃɡˈiax", "furtive patah after chirik: maʃɡˈiax"),
+    ("תַּפּוּחַ", "tapˈuax", "furtive patah after shuruk: tapˈuax"),
+    ("מַפְתֵּחַ", "maftˈajax", "furtive patah after tsere: maftˈajax"),
     # --- whole posuk, multiword ---
     ("בְּרֵאשִׁית בָּרָא אֱלֹהִים",
      "bərˈajʃis bˈuru ɛlˈɔjhim",
@@ -84,6 +90,13 @@ MERGED_CASES: list[tuple[str, str, str]] = [
     ("נָבִיא", "nˈuvi", "the case the engine's own soft-bet guard already had"),
     ("כְנֶסֶת", "knˈɛsəs", "word-INITIAL kaf takes dagesh lene: [k], not [x]"),
     ("פְּנֵי", "pnaj", "initial pe likewise [p]"),
+    # --- furtive patah (pasekh genuvah) in merged register ---
+    ("רוּחַ", "rˈiəx", "furtive patah + u->i shift: riəx"),
+    ("כֹּחַ", "kˈɔjəx", "furtive patah: kˈɔjəx"),
+    ("מַשְׁגִּיחַ", "maʒɡˈiəx", "furtive patah: maʒɡˈiəx"),
+    ("תַּפּוּחַ", "tapˈiəx", "furtive patah + u->i shift: tapˈiəx"),
+    ("לוּחַ", "lˈiəx", "furtive patah + u->i shift: lˈiəx"),
+    ("מַפְתֵּחַ", "maftˈajəx", "furtive patah after tsere: maftˈajəx"),
     # --- everything else stays the ordinary merged §5 table ---
     ("שַׁבָּת", "ʃˈabəs", "komets [u] -> reduced [ə] unstressed; gold ʃˈabəs"),
     ("חׇכְמָה", "xˈuxmə", "komets katan [u], final hey [ə]"),

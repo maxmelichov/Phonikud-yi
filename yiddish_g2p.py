@@ -1121,6 +1121,11 @@ def _word_to_latin(word: str) -> str:
         )
         if nucleus is not None:
             latin, size, point_used = nucleus
+            # Vowel hiatus guard: two adjacent 'e' vowels (e.g. prefix ge- + root e- in
+            # געעפנט, געענדיגט, געעסן, געענטפערט, or ge- + ey- in געאיילט) form separate
+            # syllables (ge'efnt -> ɡəˈɛfnt), never the class-25 lengthened 'ee' -> 'ej' digraph.
+            if latin and last_char() == "e" and latin.startswith("e"):
+                out.append("'")
             out.append(latin)
             prev_point = point_used if latin else ""
             prev_consonant_point = ""
@@ -1173,10 +1178,28 @@ def _word_to_latin(word: str) -> str:
             and letter(i + 1) not in "אעיוײױ"
         ):
             latin_c = "v"
+        point = _vowel_point(marks)
+        # Pasekh genuvah (furtive patah): word-final guttural (ח, ע, ה with mappiq)
+        # carrying a patah after a non-a vowel emits the vowel BEFORE the consonant.
+        # In Yiddish merged register it reduces to 'e' [ə] (e.g. רוּחַ -> riəx, כֹּחַ -> kˈɔjəx,
+        # מַשְׁגִּיחַ -> maʃɡˈiəx, תַּפּוּחַ -> tapˈiəx, לוּחַ -> lˈiəx, מַפְתֵּחַ -> maftˈajəx).
+        if (
+            i == n - 1
+            and ch in ("ח", "ע", "ה")
+            and point in (PATAH, "ֲ")
+            and emitted_any()
+            and prev_point not in (PATAH, QAMATS, "ׇ", "ֲ")
+            and (last_char() in _LATIN_VOWELS or last_char() == "y")
+        ):
+            out.append("e")
+            out.append(latin_c)
+            prev_point = prev_consonant_point = point
+            i += 1
+            continue
+
         out.append(latin_c)
         # A vowel point on a consonant is realised unless the next letter already
         # spells that vowel independently, which would double it up.
-        point = _vowel_point(marks)
         prev_point = prev_consonant_point = ""
         if point and not _restates_point(units, i + 1, point):
             vowel = _POINT_TO_LATIN[point]
@@ -1304,6 +1327,9 @@ def _nucleus(
     if ch in ("א", "ע"):
         if _is_feminine_ending(units, i):
             return ("e", 1, "")
+        nxt2 = letter_at(units, i + 2)
+        if ch == "א" and ((nxt == "י" and nxt2 == "י") or (nxt in ("ײ", "ױ")) or (nxt == "ו" and nxt2 == "י")):
+            return ("", 1, "")
         if point:
             # A pointed א directly before a tsvey-yudn digraph contributes NO
             # vowel of its own: the digraph already spells the diphthong. The
@@ -1313,9 +1339,6 @@ def _nucleus(
             # doubled the vowel — אֵייבֶּערְשְׁטֶער -> *ajajbərʃtər. Found
             # independently by the leave-one-out and end-to-end probes
             # (data/verification/). The digraph wins; the point is dropped.
-            nxt2 = letter_at(units, i + 2)
-            if ch == "א" and ((nxt == "י" and nxt2 == "י") or nxt == "ײ"):
-                return ("", 1, "")
             return (_POINT_TO_LATIN[point], 1, point)
         if prev_consonant_point:
             return ("", 1, "")  # the consonant's point already spelled this vowel
@@ -3304,6 +3327,171 @@ def _stem_suffix_rescue(core: str) -> dict | None:
     return None
 
 
+_PREFIX_RESCUE_TABLE: list[tuple[str, str, str]] = [
+    # separable + ge (past participles)
+    ("אויסגע", "separable", "ˈoʊzɡə"),
+    ("אויפגע", "separable", "ˈoʊfɡə"),
+    ("איינגע", "separable", "ˈaːnɡə"),
+    # אפ־ is [up], not [ɔp]: gold אפשאצן ˈupʃaʦn (Chezky), אראפ arˈup below,
+    # and the corpus audio (ˈupɡəmaxt 4/4, ˈupɡəhaltn 4/4) all agree.
+    ("אפגע", "separable", "ˈupɡə"),
+    ("אנגע", "separable", "ˈunɡə"),
+    ("אונטערגע", "separable", "ˈintərɡə"),
+    ("איבערגע", "separable", "ˈibərɡə"),
+    # ˈ sits immediately before the stressed VOWEL (§1), never on the onset.
+    ("דורכגע", "separable", "dˈirxɡə"),
+    ("מיטגע", "separable", "mˈitɡə"),
+    ("צוגע", "separable", "ʦˈiɡə"),
+    ("ארויסגע", "separable", "arˈoʊzɡə"),
+    ("ארויפגע", "separable", "arˈoʊfɡə"),
+    ("אראפגע", "separable", "arˈupɡə"),
+    ("אריינגע", "separable", "arˈaːnɡə"),
+    ("ארונטערגע", "separable", "arˈintərɡə"),
+    ("אריבערגע", "separable", "arˈibərɡə"),
+    ("אדורכגע", "separable", "adˈirxɡə"),
+    ("אוועקגע", "separable", "avˈɛkɡə"),
+    ("אהיימגע", "separable", "ahˈajmɡə"),
+    ("צוריקגע", "separable", "ʦirˈikɡə"),
+    # directional
+    ("ארויס", "separable", "arˈoʊs"),
+    ("ארויפ", "separable", "arˈoʊf"),
+    ("אראפ", "separable", "arˈup"),
+    ("אריין", "separable", "arˈaːn"),
+    ("ארונטער", "separable", "arˈintər"),
+    ("אריבער", "separable", "arˈibər"),
+    ("אדורך", "separable", "adˈirx"),
+    ("אוועק", "separable", "avˈɛk"),
+    ("אהיים", "separable", "ahˈajm"),
+    ("אנידער", "separable", "anˈidər"),
+    ("ארום", "separable", "arˈim"),
+    ("אהין", "separable", "ahˈin"),
+    ("אהער", "separable", "ahˈɛr"),
+    ("צוריק", "separable", "ʦirˈik"),
+    # separable
+    ("אונטער", "separable", "ˈintər"),
+    ("איבער", "separable", "ˈibər"),
+    ("דורכ", "separable", "dˈirx"),
+    ("פארביי", "separable", "farbˈaj"),
+    ("צוזאמען", "separable", "ʦizˈamən"),
+    ("אנטקעגן", "separable", "antkˈejɡn"),
+    ("אויס", "separable", "ˈoʊs"),
+    ("אויפ", "separable", "ˈoʊf"),
+    ("איינ", "separable", "ˈaːn"),
+    ("אפ", "separable", "ˈup"),
+    ("אנ", "separable", "ˈun"),
+    ("מיט", "separable", "mˈit"),
+    ("צו", "separable", "ʦˈi"),
+    # unstressed
+    ("גע", "unstressed", "ɡə"),
+    ("בא", "unstressed", "ba"),
+    ("בע", "unstressed", "bə"),
+    ("פאר", "unstressed", "far"),
+    ("דער", "unstressed", "dər"),
+    ("צע", "unstressed", "ʦə"),
+    ("מיס", "unstressed", "mis"),
+]
+_PREFIX_RESCUE_TABLE.sort(key=lambda item: len(item[0]), reverse=True)
+
+# Words that LOOK like prefix+stem but are single lexemes; the coincidental
+# tail resolves in a lexicon, so only the lexeme itself can say the split is
+# wrong (same idea as _STEM_NO_SPLIT for suffixes). Keys are lexicon_key form.
+#   פארעם  'form' (fˈɔrəm), not far+עם -> *farˈejm
+#   איינטאג 'one day': the NUMBER איין (ajn), not the verbal prefix aːn —
+#           the corpus audio agrees (ˈajntuɡ)
+_PREFIX_NO_SPLIT: frozenset[str] = frozenset({"פארעמ", "אײנטאג", "איינטאג"})
+
+
+# Stems that must never anchor a VERBAL composition (separable prefixes and
+# the participle גע־) even though a lexicon resolves them: closed-class
+# function words and contraction homographs are never verb stems —
+#   אנ+דער   is not the article (אנדער 'other' is ˈandər, gold אנדערע agrees)
+#   אנ+כי    is not LK ki (אנכי is the biblical 'I')
+#   גע+פארן  is not the contraction far+n (the participle vowel is u: the
+#            audio pool has אראפגעפארן arˈupɡəfurn 4/4)
+# The same stems ARE legitimate after unstressed דער־/פאר־, which build the
+# pronominal-adverb class: דער+פון dərfˈin, פאר+דעם fardˈejm, דער+פאר dərfˈar
+# (the gold anchors נאכדעם nuxdˈejm and דערנאך dərnˈux fix the pattern).
+# Bare (point-stripped) forms.
+_PREFIX_BAD_STEMS: frozenset[str] = frozenset({
+    "דער", "דעם", "די", "דאס", "דו", "ער", "זי", "עס", "איר", "מיר",
+    "זיי", "אים", "אונז", "כי", "עם", "אין", "פון", "פאר", "פארן",
+    "צו", "ביי", "נאך", "און", "אבער", "נאר", "אויך", "איז", "האט",
+    "וואס", "ווי", "ווער", "וועט",
+})
+
+
+def _get_stem_reading(stem: str) -> tuple[str, str, str] | tuple[None, None, None]:
+    """Look up a candidate stem in gold/legacy tables.
+
+    Audio tables (_AUDIO_PE/_AUDIO_VOWEL) are deliberately NOT stem sources:
+    they are MED acoustic verdicts about one word, and composition would
+    amplify them onto words the audio never voted on (גע+טראפן must not
+    inherit the noun trapn 'drops' onto the participle of treffen). Stems
+    must be anchored in a native or curated reading."""
+    key = lexicon_key(stem)
+    bare = _strip_points(stem)
+    if key in GOLD_LEXICON:
+        entry = GOLD_LEXICON[key]
+        return entry["ipa_primary"], entry.get("layer", "G"), "gold"
+    if bare in _WORD_LATIN:
+        ipa = hebrew_to_ipa(bare, stress=True)
+        return ipa, "G", "word-latin"
+    if bare in _LK_BARE:
+        ipa = hebrew_to_ipa(bare, stress=True)
+        return ipa, "L", "lk"
+    return None, None, None
+
+
+def _prefix_stem_rescue(core: str) -> dict | None:
+    """Rescue #5: Known prefix + gold/lexicon stem.
+
+    Fires only when the whole form has missed all lexicons, and the word begins
+    with a recognized verbal/morphological prefix whose stem is anchored in authority #1
+    (gold lexicon) or legacy/audio tables. Preserves stem vowel classes (untershraybn ->
+    ˈintərʃraːbn, opzogn -> ˈupzuɡn) and prefix stress (aynkoyfn -> ˈaːnkɔjfn).
+    """
+    if _full_form_resolves(core) or lexicon_key(core) in _PREFIX_NO_SPLIT:
+        return None
+    bare = _strip_points(normalize_surface(core))
+    if len(bare) < 4:
+        return None
+    for prefix, ptype, prefix_ipa in _PREFIX_RESCUE_TABLE:
+        if bare.startswith(prefix) and len(bare) >= len(prefix) + 2:
+            stem = bare[len(prefix):]
+            # verbal contexts (separable prefixes, participle גע־) never take
+            # a function-word stem; unstressed דער־/פאר־ etc. may (pronominal
+            # adverbs: דערפון, פארדעם) — see _PREFIX_BAD_STEMS.
+            if (ptype == "separable" or prefix == "גע") \
+                    and stem in _PREFIX_BAD_STEMS:
+                continue
+            stem_ipa, layer, src = _get_stem_reading(stem)
+            if stem_ipa is None:
+                continue
+            if ptype == "unstressed":
+                if STRESS not in stem_ipa:
+                    # scan by phone TOKEN, not by character: ej/oʊ begin with
+                    # 'e'/'o', which are not phones themselves, so a char scan
+                    # never marks stems like bejtn -> *ɡəbejtn (unmarked).
+                    idx = 0
+                    while idx < len(stem_ipa):
+                        tok = next((v for v in PHONE_VOWELS
+                                    if stem_ipa.startswith(v, idx)), None)
+                        if tok is not None:
+                            stem_ipa = stem_ipa[:idx] + STRESS + stem_ipa[idx:]
+                            break
+                        idx += 1
+                raw = prefix_ipa + stem_ipa
+            else:
+                stem_nostress = stem_ipa.replace(STRESS, "")
+                raw = prefix_ipa + stem_nostress
+            joined = reduce_unstressed(postlexical(raw))
+            if ipa_phone_violations(joined):
+                continue
+            return _entry_result(core, joined, [], layer, "rule", "MED",
+                                 f"prefix-rescue:{src}+{prefix}")
+    return None
+
+
 def _route_token_inner(core: str) -> dict:
     """Route one punctuation-free token through §3's strict order."""
     key = lexicon_key(core)
@@ -3428,6 +3616,14 @@ def _route_token_inner(core: str) -> dict:
     stemmed = _stem_suffix_rescue(core)
     if stemmed is not None:
         return stemmed
+
+    # 5.6 prefix-stem rescue (rescue #5). Prefixed verbs/words where the stem
+    #     is anchored in the gold lexicon or legacy/audio tables. Preserves
+    #     stem vowel classes (untershraybn -> ˈintərʃraːbn, opzogn -> ˈupzuɡn)
+    #     and separable prefix stress (aynkoyfn -> ˈaːnkɔjfn).
+    prefixed = _prefix_stem_rescue(core)
+    if prefixed is not None:
+        return prefixed
 
     # 6. rule path (§3.6). Confidence is MED unless an ambiguous grapheme had to
     #    be defaulted or the LK detector fired on a word no lexicon knows -- both
@@ -3782,6 +3978,25 @@ def _wh_word(word: str) -> list[tuple[str, bool]]:
         # word-final ה with no point of its own is silent — and after a komets
         # that is exactly the (c) case: תּוֹרָה -> tɔjru, not *tɔjrə.
         if ch == "ה" and i == n - 1 and not point:
+            i += 1
+            continue
+
+        # Pasekh genuvah (furtive patah): word-final guttural (ח, ע, ה with mappiq)
+        # carrying a patah after a non-a vowel emits the [a] BEFORE the consonant.
+        # e.g. רוּחַ -> rˈuax; מַשְׁגִּיחַ -> maʃɡˈiax; תַּפּוּחַ -> tapˈuax; כֹּחַ -> kˈɔjax;
+        # מַפְתֵּחַ -> maftˈajax; שָׁמוֹעַ -> ʃumˈɔja.
+        if (
+            i == n - 1
+            and ch in ("ח", "ע", "ה")
+            and point in (PATAH, "ֲ")
+            and emitted_vowel
+            and prev_point not in (PATAH, QAMATS, "ׇ", "ֲ")
+        ):
+            out.append(("a", True))
+            cons = _wh_consonant(ch, marks, initial=False)
+            if cons:
+                out.append((cons, False))
+            prev_point, prev_was_nach, emitted_vowel = PATAH, False, True
             i += 1
             continue
 

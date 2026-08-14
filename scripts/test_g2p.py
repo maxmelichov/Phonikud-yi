@@ -108,6 +108,14 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("פארשטיין", "farʃtˈajn", "unstressed prefix far-"),  # v3: aɪ -> aj
     ("ארבעטן", "ˈarbətn", "v3 §1: syllabic -n takes no epenthetic ə; ע is a written vowel so the word IS marked"),  # v3
     ("אונטערגיין", "ˈintərɡajn", "separable prefix IS stressed"),  # v3: aɪ -> aj
+    # --- prefix-stem rescue (R26) stress + no-split regressions -----------
+    ("געבעטן", "ɡəbˈejtn", "rescue must MARK an unmarked ej/oʊ stem (phone-token scan, not char scan)"),
+    ("דעראויף", "dərˈoʊf", "rescue must mark an unmarked oʊ stem"),
+    ("פארעם", "farˈɛm", "_PREFIX_NO_SPLIT: 'form' is one lexeme, never far+עם -> *farˈejm"),
+    ("אנדער", "ˈandər", "_PREFIX_BAD_STEMS: verbal אנ־ never takes the article דער as stem (gold אנדערע agrees)"),
+    ("געפארן", "ɡəfˈarn", "גע־ never takes the contraction פארן as stem; stays LOW-queued (audio hints u)"),
+    ("פארדעם", "fardˈejm", "pronominal adverb: unstressed פאר־ MAY fuse the article (gold נאכדעם anchors dejm)"),
+    ("דערצו", "dərʦˈi", "pronominal adverb: unstressed דער־ + gold צו"),
     ("גיין", "ɡajn", "monosyllable stays unmarked"),  # v3: aɪ -> aj
     # --- _STRESS_OVERRIDE entries confirmed against audio (scripts/stress_eval.py) ---
     ("אזוי", "azˈɔj", "override: unstressed initial a-, not *Azoy"),  # v3: ɔɪ -> ɔj

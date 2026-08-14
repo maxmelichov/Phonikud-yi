@@ -106,8 +106,15 @@ def main() -> int:
             key = lexicon_key(word)
             if key not in cache:
                 rec = g2p_token(word)
-                ok = (rec["route"] == "rule" and rec["confidence"] == "LOW"
-                      and "alef-default" in rec["reason"])
+                # Eligible: the alef-default guess, and prefix-rescued words —
+                # a rescue is composed INFERENCE (gold stem + prefix), and
+                # direct audio about this very word at an open grapheme
+                # outranks it (געשלאפן: rescue says ɡəʃlˈafn from the legacy
+                # stem, the clips say u 9/10 -> the fold must stay possible).
+                ok = (rec["route"] == "rule"
+                      and (("alef-default" in rec["reason"]
+                            and rec["confidence"] == "LOW")
+                           or rec["reason"].startswith("prefix-rescue")))
                 cache[key] = rec if ok else None
             return cache[key]
 
@@ -139,7 +146,15 @@ def main() -> int:
             engine = tokenize_g2p_ipa(seen_g2p[key])[i]
             if modal == engine or tot < MIN_VOTES or n / tot < MAJORITY:
                 continue
-            if modal in CLEAN_TARGETS:
+            # Gold precedence extends through composition: a word whose
+            # baseline is a prefix-rescue on a GOLD stem carries a native
+            # verdict, and audio may question it but never override it —
+            # געזוכט (i->u 47/51) queues next to the gold זוכט zixt conflict
+            # instead of flipping the ge- form behind Chezky's back.
+            gold_anchored = (cache.get(key) is not None
+                             and cache[key]["reason"].startswith(
+                                 "prefix-rescue:gold"))
+            if modal in CLEAN_TARGETS and not gold_anchored:
                 folded[key][i] = (engine, modal, f"{n}/{tot}")
             else:
                 queued.append((surface[key], i, engine, modal, f"{n}/{tot}"))
@@ -147,8 +162,17 @@ def main() -> int:
         entries = []
         for key, slots in folded.items():
             rec = g2p_token(surface[key])
+            # slot indices were counted against the TAG-TIME phone shape; a
+            # rescued reading may differ segment-wise (f->p, aj->aː) but must
+            # have the same token count for positional substitution to hold.
+            if len(tokenize_g2p_ipa(rec["ipa_primary"].replace("ˈ", ""))) \
+                    != len(tokenize_g2p_ipa(seen_g2p[key])):
+                continue
             new_ipa = sub_slots(rec["ipa_primary"],
                                 {i: m for i, (_, m, _) in slots.items()})
+            if new_ipa == rec["ipa_primary"]:
+                continue  # the audio confirms the current (rescued) reading —
+                          # an identical entry would only shadow its provenance
             detail = ";".join(f"{i}:{e}->{m}({v})"
                               for i, (e, m, v) in sorted(slots.items()))
             entries.append((key, surface[key], new_ipa, detail))

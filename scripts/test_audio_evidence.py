@@ -92,7 +92,17 @@ for word, entry in AUDIO_VOWEL_LK.items():
     bad = {ch for ch in ipa if ch not in INVENTORY}
     check(not bad, f"A2: {word} ipa {ipa!r} outside inventory: {bad}")
 
-    rule = _rule_path_ipa(word, stress=True)
+    # The builder substitutes into the engine's own baseline with this table
+    # absent — the rule path OR a gold-anchored prefix-stem rescue. Diffs the
+    # rescue contributed (f->p from a gold stem, aj->aː) are legitimate there
+    # and must not be charged to the audio fold, so reconstruct that baseline.
+    import yiddish_g2p as _m
+    _saved = _m._AUDIO_VOWEL.pop(word, None)
+    _m._ROUTE_CACHE.clear()
+    rule = _m.g2p_token(word)["ipa_primary"]
+    if _saved is not None:
+        _m._AUDIO_VOWEL[word] = _saved
+    _m._ROUTE_CACHE.clear()
     # STRESS NEVER MOVES: identical ˈ count and identical prefix-of-phones
     # position — strip vowels of both and the skeletons must match exactly.
     check(rule.count("ˈ") == ipa.count("ˈ"),

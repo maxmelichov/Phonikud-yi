@@ -324,6 +324,43 @@ digits, Latin script, phone numbers), pending the number normalizer:
 | `ישראל"` | `jisrˈuəl` | surrounding quote stripped |
 | `ס׳איז` | `siz` | Hebrew geresh = apostrophe |
 
+### R24 — Hiatus & shtumer alef: גע־ + ע־ / יי־ separates syllables; carrier א is silent
+
+| Input | Expected | Note |
+|---|---|---|
+| `געעפנט` | `ɡəˈɛfnt` | prefix ge- + root e- forms 2 syllables (never ej diphthong) |
+| `געענדיגט` | `ɡəˈɛndiɡt` | ge- + endikt -> ɡəˈɛndiɡt |
+| `געעסן` | `ɡəˈɛsn` | ge- + esn -> ɡəˈɛsn |
+| `געענטפערט` | `ɡəˈɛntfərt` | ge- + entfert -> ɡəˈɛntfərt |
+| `געאיילט` | `ɡəˈajlt` | shtumer alef before tsvey-yudn drops; ge- + aylt -> ɡəˈajlt |
+
+### R25 — Furtive patah (pasekh genuvah): patah on final guttural sounds before the consonant
+
+| Input | Expected | Note |
+|---|---|---|
+| `רוּחַ` | `rˈiəx` | patah before final ches in merged register -> riəx (WH: rˈuax) |
+| `כֹּחַ` | `kˈɔjəx` | patah after cholam before final ches -> kˈɔjəx (WH: kˈɔjax) |
+| `מַשְׁגִּיחַ` | `maʒɡˈiəx` | patah after chirik before final ches -> maʒɡˈiəx (WH: maʃɡˈiax) |
+| `תַּפּוּחַ` | `tapˈiəx` | patah after shuruk before final ches -> tapˈiəx (WH: tapˈuax) |
+
+### R26 — Prefix-stem compositional rescue: verbal prefixes preserve gold stem vowel classes
+
+| Input | Expected | Note |
+|---|---|---|
+| `אונטערשרייבן` | `ˈintərʃraːbn` | stem שרייבן retains gold class 34 `aː` |
+| `אויסשרייבן` | `ˈoʊsʃraːbn` | stem שרייבן retains gold class 34 `aː` |
+| `אפהערן` | `ˈuphirn` | stem הערן retains gold ir-list `i`; אפ־ is `up` (gold אפשאצן `ˈupʃaʦn`) |
+| `איבערזאגן` | `ˈibərzuɡn` | stem זאגן retains gold class 12/13 `u` |
+| `איינקויפן` | `ˈaːnkɔjfn` | separable prefix `aːn-` (34) + gold stem קויפן |
+| `געבעטן` | `ɡəbˈejtn` | unstressed prefix marks an unmarked ej-stem (bejtn is a monosyllable) |
+| `פארעם` | `farˈɛm` | no-split lexeme: 'form', never far+עם — stays on the rule path at LOW |
+| `אנדער` | `ˈandər` | function words are never verb stems: verbal אנ־ rejects the article דער |
+| `פארדעם` | `fardˈejm` | but unstressed דער־/פאר־ build pronominal adverbs from those same stems |
+
+Stems come from gold and curated legacy tables only — never from the audio
+tables, whose MED acoustic verdicts must not be amplified onto words the
+audio never voted on (גע+טראפן must not inherit the noun *trapn* 'drops').
+
 ---
 
 ## 3. QA gates (every corpus run — `scripts/run_corpus_v3.py`)
