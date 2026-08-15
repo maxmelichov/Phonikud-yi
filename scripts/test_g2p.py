@@ -116,6 +116,12 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("געפארן", "ɡəfˈarn", "גע־ never takes the contraction פארן as stem; stays LOW-queued (audio hints u)"),
     ("פארדעם", "fardˈejm", "pronominal adverb: unstressed פאר־ MAY fuse the article (gold נאכדעם anchors dejm)"),
     ("דערצו", "dərʦˈi", "pronominal adverb: unstressed דער־ + gold צו"),
+    # --- R27 LK proclitic repair ------------------------------------------
+    ("בשבת", "bəʃˈabəs", "proclitic ב + gold שבת; the bare read was *bʃˈabəs"),
+    ("החסיד", "haxˈusid", "proclitic ה + the §6.2 stem-sub base חסיד"),
+    ("הבית", "habˈajis", "a whole-word pointing beats composition: gold בית is the construct bajs"),
+    ("שלחן", "ʃlxajn", "one root (shulkhn): ש is not a proclitic here, tail לחן unattested"),
+    ("בדחן", "bdxajn", "one root (badkhn), not ב + דחן"),
     ("גיין", "ɡajn", "monosyllable stays unmarked"),  # v3: aɪ -> aj
     # --- _STRESS_OVERRIDE entries confirmed against audio (scripts/stress_eval.py) ---
     ("אזוי", "azˈɔj", "override: unstressed initial a-, not *Azoy"),  # v3: ɔɪ -> ɔj

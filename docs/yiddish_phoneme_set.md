@@ -361,6 +361,30 @@ Stems come from gold and curated legacy tables only — never from the audio
 tables, whose MED acoustic verdicts must not be amplified onto words the
 audio never voted on (גע+טראפן must not inherit the noun *trapn* 'drops').
 
+### R27 — Hebrew proclitics carry a vowel the spelling does not write
+
+An unpointed ה/ב/ל/כ/ד/ש/מ/ו in front of a loshn-koydesh root is a proclitic,
+not a bare consonant. Read as a consonant it produces an onset no speaker can
+say (`*hʃˈabəs`). The repair fires only on such a defective reading, and only
+when the root is attested on its own — so a single root whose first letter
+merely looks like a proclitic is untouched.
+
+A pointing of the WHOLE word always wins over the composition: it knows the
+article contraction (בַּתּוֹרָה is *ba-*, not *bə-*) and which morphological
+form the root takes — gold `בית` is the construct *bajs*, while `הבית` needs
+the absolute *habˈajis*.
+
+| Input | Expected | Note |
+|---|---|---|
+| `בשבת` | `bəʃˈabəs` | ב + gold שבת; the bare reading was *bʃˈabəs* |
+| `לשבת` | `ləʃˈabəs` | ל + gold שבת |
+| `משבת` | `miʃˈabəs` | מ is [mi], not shva |
+| `החסיד` | `haxˈusid` | ה + the §6.2 stem-substitution base חסיד |
+| `הבית` | `habˈajis` | the pointing wins: gold בית is the construct *bajs* |
+| `בתורה` | `batˈɔjrə` | the pointing knows the article contracts to *ba-* |
+| `בדחן` | `bdxajn` | one root (*badkhn*): the tail דחן is attested nowhere |
+| `שלחן` | `ʃlxajn` | one root (*shulkhn*), not ש + לחן |
+
 ---
 
 ## 3. QA gates (every corpus run — `scripts/run_corpus_v3.py`)

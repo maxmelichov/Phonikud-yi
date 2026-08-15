@@ -2966,6 +2966,13 @@ def _route_token(core: str) -> dict:
     """
     result = _route_token_inner(core)
     primary = result["ipa_primary"]
+    # A vowelless Hebrew proclitic is a defect no routing step owns: it can
+    # come out of the rule path, the stem substitution or a table entry alike.
+    # Repair it here, where every path has already had its say.
+    if primary:
+        repaired = _repair_lk_proclitic(core, primary)
+        if repaired is not None:
+            result, primary = repaired, repaired["ipa_primary"]
     if result["route"] == "fallback" or not primary:
         return _audio_endorsed_or(core, result)
     flags = []
@@ -3420,6 +3427,24 @@ _PREFIX_BAD_STEMS: frozenset[str] = frozenset({
 })
 
 
+def _ensure_stress(ipa: str) -> str:
+    """Mark the first vowel if the reading carries no stress mark.
+
+    A stem that was a monosyllable on its own (§1: unmarked) becomes a
+    polysyllable once a prefix is attached and must take a mark. The scan is by
+    phone TOKEN, not by character: ej/oʊ begin with 'e'/'o', which are not
+    phones, so a character scan silently leaves bejtn -> *ɡəbejtn unmarked.
+    """
+    if STRESS in ipa:
+        return ipa
+    i = 0
+    while i < len(ipa):
+        if any(ipa.startswith(v, i) for v in PHONE_VOWELS):
+            return ipa[:i] + STRESS + ipa[i:]
+        i += 1
+    return ipa
+
+
 def _get_stem_reading(stem: str) -> tuple[str, str, str] | tuple[None, None, None]:
     """Look up a candidate stem in gold/legacy tables.
 
@@ -3468,18 +3493,7 @@ def _prefix_stem_rescue(core: str) -> dict | None:
             if stem_ipa is None:
                 continue
             if ptype == "unstressed":
-                if STRESS not in stem_ipa:
-                    # scan by phone TOKEN, not by character: ej/oʊ begin with
-                    # 'e'/'o', which are not phones themselves, so a char scan
-                    # never marks stems like bejtn -> *ɡəbejtn (unmarked).
-                    idx = 0
-                    while idx < len(stem_ipa):
-                        tok = next((v for v in PHONE_VOWELS
-                                    if stem_ipa.startswith(v, idx)), None)
-                        if tok is not None:
-                            stem_ipa = stem_ipa[:idx] + STRESS + stem_ipa[idx:]
-                            break
-                        idx += 1
+                stem_ipa = _ensure_stress(stem_ipa)
                 raw = prefix_ipa + stem_ipa
             else:
                 stem_nostress = stem_ipa.replace(STRESS, "")
@@ -3490,6 +3504,132 @@ def _prefix_stem_rescue(core: str) -> dict | None:
             return _entry_result(core, joined, [], layer, "rule", "MED",
                                  f"prefix-rescue:{src}+{prefix}")
     return None
+
+
+# Hebrew proclitics: one letter, written joined, carrying their own vowel that
+# the unpointed spelling does not show. Without them the rule path reads the
+# letter as a bare consonant and emits an unpronounceable onset cluster —
+# השבת -> *hʃˈabəs, בשבת -> *bʃˈabəs. Values are the ordinary Ashkenazi
+# readings; the article הַ is [ha], the rest are shva-na [ə] except מִ.
+_LK_PROCLITICS: dict[str, str] = {
+    "ה": "ha",   # definite article
+    "ב": "bə",   # in / with
+    "ל": "lə",   # to / for      (לחיים ləxˈajim, the pointed sources agree)
+    "כ": "kə",   # like / as
+    "ד": "də",   # Aramaic relative
+    "ש": "ʃə",   # relative
+    "מ": "mi",   # from
+    "ו": "və",   # and
+}
+
+
+def _lk_stem_reading(stem: str) -> tuple[str, str] | None:
+    """A loshn-koydesh reading for a would-be stem, from a REAL source.
+
+    Deliberately narrower than _lk_table_reading: the model-guess table is
+    excluded. Composing a prefix onto a model guess is inference stacked on
+    inference, and the result would look no different from evidence.
+    """
+    key = lexicon_key(stem)
+    bare = _strip_points(normalize_surface(stem))
+    entry = GOLD_LEXICON.get(key)
+    if entry is not None and entry["layer"] == "L":
+        return entry["ipa_primary"], "gold"
+    if bare in _LK_BARE:
+        return _rule_path_ipa(stem, stress=True), "lk-lexicon"
+    entry = _AUDIO_ENDORSED.get(key)
+    if entry is not None:
+        return entry["ipa"], "audio-endorsed"
+    entry = _SEFARIA_POINTED.get(key)
+    if entry is not None:
+        return entry["ipa"], "sefaria"
+    if any(pat.fullmatch(bare) for pat, _ in _STEM_SUB_RE):
+        # a §6.2 base in its own right (חסיד -> כאָסיד): the substitution table
+        # is an audio-matched reading of exactly this root, not a guess
+        return _rule_path_ipa(stem, stress=True), "stem-sub"
+    return None
+
+
+# The consonant each proclitic contributes, for recognising the defect.
+_PROCLITIC_ONSET: dict[str, str] = {
+    "ה": "h", "ב": "b", "ל": "l", "כ": "k",
+    "ד": "d", "ש": "ʃ", "מ": "m", "ו": "v",
+}
+
+
+def _repair_lk_proclitic(core: str, ipa: str) -> dict | None:
+    """Repair a proclitic that was read as a bare consonant.
+
+    An unpointed ה/ב/ל/כ/ד/ש/מ/ו in front of a loshn-koydesh root carries a
+    vowel the spelling does not write. Whatever path produced the reading —
+    usually the §6.2 stem substitution, which fixes the ROOT's vowels and
+    leaves the proclitic bare — the result is an onset cluster no speaker can
+    say: השבת -> *hʃˈabəs, בשבת -> *bʃˈabəs, החסיד -> *hxˈusid.
+
+    This is deliberately a REPAIR, not a routing step. It fires only on a
+    reading that is already defective (proclitic consonant + another consonant,
+    no vowel between), so a word that already reads well — including one with a
+    published pointing of the whole form, like המלך hamˈɛlɛx — is never
+    recomposed and no authority is inverted.
+
+    The stem must be attested on its own. That is what separates a proclitic
+    from a lookalike first letter: שלחן (shulkhn) and בדחן (badkhn) are single
+    roots whose tails לחן/דחן are attested nowhere, so they stay untouched —
+    the same trap the Germanic prefix rescue hit with אנדער.
+
+    LOW confidence: the segmentation is an inference about an unpointed word,
+    so the repaired reading stays in the verification queue.
+    """
+    bare = _strip_points(normalize_surface(core))
+    if len(bare) < 4 or bare[0] not in _LK_PROCLITICS:
+        return None
+    naked = ipa.replace(STRESS, "")
+    onset = _PROCLITIC_ONSET[bare[0]]
+    if not naked.startswith(onset):
+        return None
+    rest = naked[len(onset):]
+    if not rest or any(rest.startswith(v) for v in PHONE_VOWELS):
+        return None  # the proclitic already has its vowel: nothing to repair
+    if not _lk_detector(bare):
+        return None  # a Germanic word is never carrying a Hebrew proclitic
+    stem = bare[1:]
+    if len(stem) < 3:
+        return None  # two letters is too little to be sure of a root
+    got = _lk_stem_reading(stem)
+    if got is None:
+        return None
+    stem_ipa, src = got
+
+    # A pointing of the WHOLE word always wins over this composition. It is
+    # direct evidence about this token and it knows two things the rule cannot:
+    # that the article contracts into the proclitic (בַּתּוֹרָה is ba-, not
+    # bə-), and which morphological form the root takes — gold בית is the
+    # CONSTRUCT bajs (bays-medresh), while הבית needs the absolute habˈajis.
+    # Composing gold onto a proclitic would have shipped *habˈajs.
+    #
+    # Where such a pointing disagrees with gold about the root (sefaria reads
+    # הַשַּׁבָּת as haʃˈabus where Chezky says ʃˈabəs), that is the standing
+    # pointing-vs-gold conflict class: it belongs in the native queue, not in a
+    # silent flip decided here.
+    whole = _lk_table_reading(core)
+    if whole is not None:
+        whole_ipa, whole_src = whole
+        naked_whole = whole_ipa.replace(STRESS, "")
+        if (not naked_whole.startswith(onset)
+                or any(naked_whole[len(onset):].startswith(v)
+                       for v in PHONE_VOWELS)):
+            if whole_ipa == ipa or ipa_phone_violations(whole_ipa):
+                return None
+            return _entry_result(core, whole_ipa, [], "L", "rule", "LOW",
+                                 f"lk-proclitic-pointed:{whole_src}")
+        return None  # the pointing has the same defect: nothing better to say
+
+    joined = reduce_unstressed(postlexical(
+        _LK_PROCLITICS[bare[0]] + _ensure_stress(stem_ipa)))
+    if ipa_phone_violations(joined) or joined == ipa:
+        return None
+    return _entry_result(core, joined, [], "L", "rule", "LOW",
+                         f"lk-proclitic:{src}+{bare[0]}")
 
 
 def _route_token_inner(core: str) -> dict:
