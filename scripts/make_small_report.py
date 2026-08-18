@@ -264,7 +264,7 @@ def main():
     L.append("\n## Inference\n")
     L.append("```console\npython scripts/infer_onnx.py -m models/phonikud_yi_small/student.int8.onnx \\\n"
              '    --text "דער קאזשניצער מגיד פלעגט זיך פירן"\n```\n')
-    L.append("Dictionary-first: words in `data/canonical_pointing.tsv` are pointed from the "
+    L.append("Dictionary-first: words in `data/corpus/canonical_pointing.tsv` are pointed from the "
              "table, and only out-of-dictionary words fall through to the model — which still "
              "sees the whole sentence, so OOV words are pointed in context. `--no-dict` "
              "measures the model alone.\n")

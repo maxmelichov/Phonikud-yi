@@ -8,9 +8,9 @@ Usage:
     python scraper/scrape_yiddish24.py --no-download   # metadata only
 
 Outputs:
-    data/episodes.jsonl        one JSON object per episode
+    data/corpus/episodes.jsonl        one JSON object per episode
     data/audio/<id>.mp3        downloaded audio
-    data/audio_manifest.jsonl  one JSON object per downloaded file
+    data/corpus/audio_manifest.jsonl  one JSON object per downloaded file
 """
 
 from __future__ import annotations
@@ -37,8 +37,8 @@ DELAY = 1.0
 ROOT = Path(__file__).resolve().parent.parent
 DATA_DIR = ROOT / "data"
 AUDIO_DIR = DATA_DIR / "audio"
-EPISODES_PATH = DATA_DIR / "episodes.jsonl"
-MANIFEST_PATH = DATA_DIR / "audio_manifest.jsonl"
+EPISODES_PATH = DATA_DIR / "corpus" / "episodes.jsonl"
+MANIFEST_PATH = DATA_DIR / "corpus" / "audio_manifest.jsonl"
 
 # <h1 id="song-title161701">TITLE</h1> ... <span class="date">DATE</span>
 TITLE_RE = re.compile(

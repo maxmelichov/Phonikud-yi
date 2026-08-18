@@ -58,7 +58,7 @@ def main() -> int:
                     help="append to hebrew_verify.jsonl instead of overwriting")
     args = ap.parse_args()
 
-    rows = list(csv.DictReader(open(REPO / "data" / "yiddish_tts_dataset.tsv"), delimiter="\t"))
+    rows = list(csv.DictReader(open(REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"), delimiter="\t"))
     candidates = []
     for r in rows:
         if not (REPO / "data" / "audio" / f"{r['episode']}.mp3").exists():

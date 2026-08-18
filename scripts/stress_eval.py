@@ -4,7 +4,7 @@
 Samples annotated 30s chunks, runs yiddish_g2p's stress rules over text_yi,
 and asks Gemini Flash to listen to the audio and judge, per word, whether our
 stressed syllable matches the speaker. Results cache to
-data/stress_eval_cache.jsonl so runs are resumable.
+data/stress/stress_eval_cache.jsonl so runs are resumable.
 
 Usage:
     .venv/bin/python scripts/stress_eval.py sample     # build the sample split
@@ -33,8 +33,8 @@ from phonikud_yi.gateway import Gateway, audio_message, iter_jsonl  # noqa: E402
 DATA = REPO / "data"
 ANN = DATA / "annotations"
 CHUNKS = DATA / "chunks"
-SAMPLE_PATH = DATA / "stress_eval_sample.json"
-CACHE_PATH = DATA / "stress_eval_cache.jsonl"
+SAMPLE_PATH = DATA / "stress" / "stress_eval_sample.json"
+CACHE_PATH = DATA / "stress" / "stress_eval_cache.jsonl"
 
 N_CHUNKS = 60
 SEED = 20260803
@@ -386,8 +386,8 @@ def harvest() -> None:
         w = meta[bare]
         lines.append(f'    "{bare}": {idx},  # {w["ipa"]} -> stress {"-".join(w["syllables"])!r}[{idx}]')
     lines.append("}")
-    (DATA / "stress_overrides.py").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    with (DATA / "stress_needs_review.tsv").open("w", encoding="utf-8") as fh:
+    (DATA / "lexicons" / "stress_overrides.py").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    with (DATA / "stress" / "stress_needs_review.tsv").open("w", encoding="utf-8") as fh:
         fh.write("word\tour_ipa\tour_index\tsuggested_index\tn_syl\ttype\tsyllables\n")
         for r in review:
             fh.write("\t".join(str(x) for x in r) + "\n")

@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Tag corpus words with audio phonemes from PhoneticXeus, folded to Yiddish v3.
 
-Pipeline per chunk (a row of data/yiddish_tts_dataset.tsv):
+Pipeline per chunk (a row of data/corpus/yiddish_tts_dataset.tsv):
   1. slice the episode MP3 to mono 16 kHz with ffmpeg
   2. PhoneticXeus -> universal IPA phone sequence
   3. fold onto the closed v3 inventory (scripts/xeus_map.py)
@@ -178,7 +178,7 @@ def main() -> int:
     if not mp3.exists():
         sys.exit(f"no audio: {mp3}")
     rows = [
-        r for r in csv.DictReader(open(REPO / "data" / "yiddish_tts_dataset.tsv"), delimiter="\t")
+        r for r in csv.DictReader(open(REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"), delimiter="\t")
         if r["episode"] == args.episode
         and (args.chunks is None or int(r["chunk_idx"]) in set(args.chunks))
     ]

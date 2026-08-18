@@ -1,7 +1,7 @@
 """Map PhoneticXeus universal-IPA phones onto the closed Yiddish v3 inventory.
 
 PhoneticXeus (changelinglab/PhoneticXeus) emits phones from a 428-symbol
-universal IPA vocabulary. The Yiddish pipeline (data/g2p_spec_v3.md section 1)
+universal IPA vocabulary. The Yiddish pipeline (data/spec/g2p_spec_v3.md section 1)
 allows exactly:
 
     vowels      a aː ɛ ə i u ɔ ej aj ɔj oʊ

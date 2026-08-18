@@ -17,7 +17,7 @@ dataset. Written as the record of what was done, what was decided, and why.
 - `models/phonikud_yi`: a Hasidic nikud model (dictabert-char fine-tune,
   4 training rounds) + distilled ONNX student, trained on Gemini-annotated
   pointing.
-- `data/yiddish_tts_dataset.tsv`: 23,666 rows / 1.83M tokens of transcribed
+- `data/corpus/yiddish_tts_dataset.tsv`: 23,666 rows / 1.83M tokens of transcribed
   yiddish24 audio; ~250 episode MP3s on disk.
 
 ## 1. The v2 spec implementation (Aug 6)
@@ -36,7 +36,7 @@ a vowel-deletion bug making every א+וו word (אוועק, אוונט) vowelles
 **Delivered:** class 41 [ɔ] split from 12/13 [u]; class 25 [ej]; class 54 [oʊ]
 split from 42/44 [ɔɪ]; final devoicing + regressive voicing assimilation;
 LK/WH layers; 186-case spec suite. Conflicts with the audio-verified lexicon
-logged, not overwritten (`data/spec_conflicts.md`).
+logged, not overwritten (`data/spec/spec_conflicts.md`).
 
 ## 2. Testing accuracy for real (Aug 6)
 
@@ -85,7 +85,7 @@ bug (trailing quotes leaking into IPA).
 language parameter, runs locally (2.3 GB checkpoint, MPS).
 
 **Pipeline built:**
-- `scripts/xeus_map.py` + `data/xeus_to_yiddish.tsv`: all 424 vocab symbols
+- `scripts/xeus_map.py` + `data/spec/xeus_to_yiddish.tsv`: all 424 vocab symbols
   folded onto the closed Yiddish inventory (415 mapped / 9 deliberate drops /
   0 illegal), conservative by design (monophthong [e]→ɛ so only true
   diphthongs vote for marked classes). Guarded by `test_xeus_map.py`.
@@ -243,7 +243,7 @@ The largest piece of work in this stretch; full methodology in
 `docs/audio_evidence.md`.
 
 - **pe sweep** (600 chunks): every f-default word voted on. 82 flip
-  candidates, 77 folded into `data/audio_pe_lk.py` — כאפן *xapn*, פסוקים
+  candidates, 77 folded into `data/lexicons/audio_pe_lk.py` — כאפן *xapn*, פסוקים
   *psˈikim*, דאפלט *daplt* (12–0), plus Hasidic names (ראפשיצער, פשעווארסק)
   and loanwords the f-default mangled.
 - **LK sweep**: all 6,169 rescued/fallback Hebrew types scored. 1,159
@@ -369,7 +369,7 @@ adversarial passes found real, shipped-quality-level bugs in *every* round
 ## Artifact map
 
 **Engine & tables** `yiddish_g2p.py`; generated-but-committed:
-`data/gold_lexicon.py` (509), `audio_pe_lk.py` (77), `audio_vowel_lk.py` (136),
+`data/lexicons/gold_lexicon.py` (509), `audio_pe_lk.py` (77), `audio_vowel_lk.py` (136),
 `audio_endorsed_lk.py` (107), `homograph_lk.py` (215), `sefaria_pointed_lk.py`
 (3,460), `model_pointed_lk.py` (7,574), `stress_overrides.py`
 
@@ -377,9 +377,9 @@ adversarial passes found real, shipped-quality-level bugs in *every* round
 `test_rules_doc.py`, `test_xeus_map.py`, `test_g2p_wh.py`,
 `test_audio_evidence.py`, `run_corpus_v3.py`
 
-**Docs** `data/g2p_spec_v3.md` (authoritative), `docs/yiddish_phoneme_set.md`
+**Docs** `data/spec/g2p_spec_v3.md` (authoritative), `docs/yiddish_phoneme_set.md`
 (executable), `docs/audio_evidence.md`, `docs/xeus_to_yiddish_map.md`,
-`data/spec_conflicts.md`, this file
+`data/spec/spec_conflicts.md`, this file
 
 **Audio pipeline** `scripts/xeus_map.py`, `xeus_tag.py`, `xeus_pe_sweep.py`,
 `xeus_lk_sweep.py`, `xeus_sweep_all.py`, `audio_calibrate.py`,
@@ -397,7 +397,7 @@ adversarial passes found real, shipped-quality-level bugs in *every* round
 `infer_onnx.py`; `models/phonikud_yi_v5/` (+ `v5.onnx`)
 
 **Consumers** `src/` (importable stack + deployment guard + `make_bundle.py`),
-`scripts/retag_tts_dataset.py`, `data/yiddish_tts_dataset_v2.tsv`
+`scripts/retag_tts_dataset.py`, `data/corpus/yiddish_tts_dataset_v2.tsv`
 
 ## State & next steps (as of Aug 14, 2026)
 

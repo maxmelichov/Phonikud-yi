@@ -9,8 +9,8 @@ Column sources:
          lines.tsv), which embodies the full authority chain: gold > audio
          tables > book pointing > model guesses, with QA gates a–d passed
 
-The source data/yiddish_tts_dataset.tsv is READ ONLY; output is the new
-data/yiddish_tts_dataset_v2.tsv. Rows the strict line policy dropped from
+The source data/corpus/yiddish_tts_dataset.tsv is READ ONLY; output is the new
+data/corpus/yiddish_tts_dataset_v2.tsv. Rows the strict line policy dropped from
 the corpus run keep an empty ipa (they were dropped for a reason — mid-line
 quarantined tokens); rows whose v5 pointing fails letter identity keep an
 empty nikud and are counted. Nothing is guessed at silently.
@@ -33,9 +33,9 @@ sys.path.insert(0, str(REPO / "scripts"))
 
 from infer_onnx import Diacritizer, strip_marks  # noqa: E402
 
-SRC = REPO / "data" / "yiddish_tts_dataset.tsv"
+SRC = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 LINES = REPO / "data" / "phonemized" / "v3" / "lines.tsv"
-OUT = REPO / "data" / "yiddish_tts_dataset_v2.tsv"
+OUT = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 ONNX = REPO / "models" / "phonikud_yi_v5" / "v5.onnx" / "model.onnx"
 
 

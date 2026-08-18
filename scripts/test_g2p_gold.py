@@ -94,7 +94,7 @@ def main() -> int:
     missing = [r["word"] for r in rows if lexicon_key(r["word"]) not in GOLD_LEXICON]
     if missing:
         failed += len(missing)
-        print(f"FAIL  {len(missing)} gold rows absent from data/gold_lexicon.py: {missing[:5]}")
+        print(f"FAIL  {len(missing)} gold rows absent from data/lexicons/gold_lexicon.py: {missing[:5]}")
 
     for r in rows:
         want = primary_of(r["gold_ipa"])

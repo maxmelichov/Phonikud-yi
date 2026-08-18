@@ -136,9 +136,9 @@ currently guessing at (LOW/MED).
 
 | table | built by | contents | route |
 |---|---|---|---|
-| `data/audio_pe_lk.py` | `build_audio_pe_lexicon.py` | 77 words whose f-default the audio refuted unanimously | MED, `audio-pe` |
-| `data/audio_vowel_lk.py` | `build_audio_vowel_lexicon.py` | 136 alef-default words corrected to a clean-target vowel | MED, `audio-vowel` |
-| `data/audio_endorsed_lk.py` | `xeus_verify_hebrew.py` | 107 Hebrew readings whose corpus pointing the audio confirms | LOW, `pointed-audio-endorsed` |
+| `data/lexicons/audio_pe_lk.py` | `build_audio_pe_lexicon.py` | 77 words whose f-default the audio refuted unanimously | MED, `audio-pe` |
+| `data/lexicons/audio_vowel_lk.py` | `build_audio_vowel_lexicon.py` | 136 alef-default words corrected to a clean-target vowel | MED, `audio-vowel` |
+| `data/lexicons/audio_endorsed_lk.py` | `xeus_verify_hebrew.py` | 107 Hebrew readings whose corpus pointing the audio confirms | LOW, `pointed-audio-endorsed` |
 
 All three are consulted **after** every gold and legacy lexicon and **before**
 the rule path, and an explicit פּ/פֿ point in the text still overrides them.

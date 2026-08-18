@@ -37,7 +37,7 @@ this repo attacks, and it attacks it with evidence rather than with guesses.
 | Corpus coverage | 1.82 M tokens: 64.3 % HIGH, 17.6 % MED, 18.1 % LOW confidence |
 | Quarantined | 5.8 % of running tokens (digits, Latin, URLs) |
 | Nikud model (phonikud-yi v5) | 99.94 % word-level in-distribution, **78.31 %** on a 409-word OOD test |
-| TTS dataset | `data/yiddish_tts_dataset_v2.tsv` — 23,666 rows, 20,898 with an IPA label (~173 h) |
+| TTS dataset | `data/corpus/yiddish_tts_dataset_v2.tsv` — 23,666 rows, 20,898 with an IPA label (~173 h) |
 
 LOW confidence is the **human-review queue**, not an error rate: a word the
 evidence chain cannot settle ships the model's contextual guess rather than
@@ -77,7 +77,7 @@ refuses to ship a bundle that fails.
 
 ### Why the guard exists
 
-`yiddish_g2p.py` loads its knowledge from seven generated tables in `data/`, and
+`yiddish_g2p.py` loads its knowledge from seven generated tables in `data/lexicons/`, and
 every loader tolerates a missing file on purpose (so a table can be regenerated
 in place). The cost: an incomplete deployment emits plausible-looking IPA with
 **zero** native verdicts and **zero** audio corrections, silently.
@@ -120,7 +120,8 @@ Whole-Hebrew is defective and can never ship, whatever the audio says.
 
 ### The tables — generated but committed
 
-`data/gold_lexicon.py` and the five `data/*_lk.py` modules are build products
+`data/lexicons/` holds `gold_lexicon.py`, the five `*_lk.py` modules and
+`stress_overrides.py`. They are build products
 that are checked in on purpose: the engine must stay deterministic and
 self-contained (no network, no model at import). Each has a builder in
 `scripts/` — regenerate through the builder, never hand-edit the output.
@@ -250,7 +251,7 @@ src/                      the deployment front door — import this
   make_bundle.py            builds dist/phonikud-yi-engine.zip
 scripts/                  builders, gates, corpus runs, audio sweeps, training
   test_*.py                 the seven gates
-  build_*.py                regenerate the committed data/*.py tables
+  build_*.py                regenerate the committed data/lexicons/ tables
   xeus_*.py                 the PhoneticXeus audio-evidence pipeline
 docs/
   yiddish_phoneme_set.md    the 27 rules — executable, run by test_rules_doc.py
@@ -259,11 +260,20 @@ docs/
   paper_draft.md            academic write-up of the system
   xeus_to_yiddish_map.md    recognizer inventory → closed Yiddish inventory
 data/
-  g2p_spec_v3.md            the authoritative spec
-  gold/g2p_gold_v3.csv      authority #1 — native verdicts
-  gold_lexicon.py, *_lk.py  generated tables the engine loads
+  lexicons/                 generated tables the engine loads
+    gold_lexicon.py           native verdicts, compiled
+    *_lk.py                   the four rescue tables + stress_overrides.py
+  gold/g2p_gold_v3.csv      authority #1 — the native verdict CSV itself
+  spec/                     g2p_spec_v3.md (authoritative), the xeus phone map
+  corpus/                   yiddish_tts_dataset_v2.tsv, episodes + audio manifest,
+                            canonical pointing
+  annotations/              per-episode LLM annotation shards
+  audio_lexicon/            audio-evidence vote pool, confusion, calibration
+  candidates/               mined LK / MWE / homograph candidate lists
+  stress/                   stress-eval sample, cache, report, review queue
   eval/                     native-speaker evaluation sheets
-  yiddish_tts_dataset_v2.tsv  id, episode, chunk, text, nikud, ipa
+  review/                   what goes out to a human reviewer, and what came back
+  scratch/                  one-off run logs (model bakeoffs, RunPod state)
 phonikud_yi/              AI-Gateway client + ffmpeg chunking (annotation era)
 scraper/                  yiddish24 episode scraper
 legacy/                   superseded code, not on any import path

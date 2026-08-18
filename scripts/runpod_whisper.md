@@ -18,7 +18,7 @@ word overlap with the Gemini reference. Do not scale to the 264-episode corpus.
 | **Cost** | **~$0.03** (account balance 116.9327 -> 116.9039) |
 | Model | `faster-whisper` 1.2.1 / ctranslate2 4.8.1, `large-v3`, float16 |
 | Input | `data/chunks/161701/chunk_00000..00009.mp3` (10 x 30 s) |
-| Output | `data/runpod_whisper_sample.jsonl` |
+| Output | `data/scratch/runpod_whisper_sample.jsonl` |
 
 Throughput measured: **RTF 0.09-0.24** on the A5000 (300 s of audio in 28-71 s),
 i.e. roughly **4-10x realtime**, plus ~5 s model load.

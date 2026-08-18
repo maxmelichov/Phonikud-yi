@@ -22,7 +22,7 @@ Method per type:
 
 Run: .venv/bin/python scripts/build_model_guess_lexicon.py
      .venv/bin/python scripts/build_model_guess_lexicon.py --reread
-Output: data/model_pointed_lk.py + a printed summary.
+Output: data/lexicons/model_pointed_lk.py + a printed summary.
 
 --reread re-decides the REGISTER of the existing table from the pointings it
 already stores, without touching the model. The model's job is to produce a
@@ -96,7 +96,7 @@ def main() -> int:
     # 2. collect context sentences (first N rows containing each type)
     contexts: dict[str, list[str]] = defaultdict(list)
     need = set(targets)
-    for row in csv.DictReader(open(REPO / "data/yiddish_tts_dataset.tsv"), delimiter="\t"):
+    for row in csv.DictReader(open(REPO / "data/corpus/yiddish_tts_dataset.tsv"), delimiter="\t"):
         if not need:
             break
         toks = set(_HEB.findall(row["text"]))
@@ -176,7 +176,7 @@ def main() -> int:
     tok = sum(v["freq"] for v in out.values())
     print(f"\nguessed {stats['guessed']}/{len(targets)} types ({tok} tokens); "
           f"stats: {dict(stats)}")
-    print("wrote data/model_pointed_lk.py")
+    print("wrote data/lexicons/model_pointed_lk.py")
     return 0
 
 
@@ -211,14 +211,14 @@ def write_table(out: dict[str, dict]) -> None:
             f'"pointed": {v["pointed"]!r}, "register": {v["register"]!r}, '
             f'"why": {v["why"]!r}, "agreement": {v["agreement"]!r}}},')
     lines.append("}")
-    (REPO / "data/model_pointed_lk.py").write_text("\n".join(lines) + "\n")
+    (REPO / "data/lexicons/model_pointed_lk.py").write_text("\n".join(lines) + "\n")
 
 
 def load_existing() -> dict[str, dict]:
     """The table as it stands, so --reread can re-decide from its pointings."""
     import importlib.util
 
-    path = REPO / "data/model_pointed_lk.py"
+    path = REPO / "data/lexicons/model_pointed_lk.py"
     spec = importlib.util.spec_from_file_location("_model_lk_existing", path)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
@@ -277,7 +277,7 @@ def reread(shares: dict[str, dict], args) -> int:
     print(f"  {'word':14s} {'freq':>6s}  {'was (WH)':22s} {'now':22s} why")
     for w, f, v, was in flips[:args.flips]:
         print(f"  {w:14s} {f:6d}  {was:22s} {v['ipa']:22s} {v['why']}")
-    print("wrote data/model_pointed_lk.py")
+    print("wrote data/lexicons/model_pointed_lk.py")
     return 0
 
 

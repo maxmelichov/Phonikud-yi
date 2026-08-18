@@ -137,7 +137,7 @@ def select_jobs(cands: dict[str, list[dict]], limit: int,
                 clips_per_type: int) -> list[tuple[dict, list[tuple[int, str]]]]:
     """Greedy set cover over chunks: keep taking the chunk that adds the most
     still-needed occurrences (types under `clips_per_type`)."""
-    rows = list(csv.DictReader(open(REPO / "data" / "yiddish_tts_dataset.tsv"),
+    rows = list(csv.DictReader(open(REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"),
                                delimiter="\t"))
     have_audio: dict[str, bool] = {}
     pool: list[tuple[dict, list[tuple[int, str]]]] = []

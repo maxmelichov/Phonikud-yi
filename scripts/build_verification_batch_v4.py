@@ -219,7 +219,7 @@ for w in BATCH:
     })
 for i, r in enumerate(out_rows, 1): r["rank"] = i
 
-csv_p = ROOT / "data/verification_batch_v4.csv"
+csv_p = ROOT / "data/review/verification_batch_v4.csv"
 with open(csv_p, "w", encoding="utf-8", newline="") as f:
     wtr = csv.DictWriter(f, fieldnames=list(out_rows[0].keys()))
     wtr.writeheader(); wtr.writerows(out_rows)
@@ -278,7 +278,7 @@ for key, pred, title, intro in SECTIONS:
 lines += ["## If you only have ten minutes", "",
           "Do the first fifteen rows of the Hebrew/Aramaic section — they're the highest-count",
           "words in the whole list, so they buy us the most.", ""]
-(ROOT / "data/verification_batch_v4.md").write_text("\n".join(lines), encoding="utf-8")
+(ROOT / "data/review/verification_batch_v4.md").write_text("\n".join(lines), encoding="utf-8")
 
 assert len({r["word"] for r in out_rows}) == len(out_rows)
 assert not [r for r in out_rows if {r["word"], normalize_surface(r["word"]),

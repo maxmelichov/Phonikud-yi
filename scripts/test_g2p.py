@@ -154,7 +154,7 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     # --- the פאר homograph (far vs pur): MWE fires only on the §3 routing path
     ("א פאר יאר", "a pˈur jur", "MWE: article + pair-noun (gold אפאר apˈur)"),
     ("פאר דער וואך", "far dɛr vɔx", "bare פאר without the article stays gold far"),
-    # --- audio-pe table (data/audio_pe_lk.py, xeus_pe_sweep votes) ---
+    # --- audio-pe table (data/lexicons/audio_pe_lk.py, xeus_pe_sweep votes) ---
     ("פעקל", "pɛkl", "audio-pe flip: p=23/f=0 across clips"),
     ("פֿעקל", "fɛkl", "written rafe outranks the audio-pe table"),
     ("כאפן", "xapn", "audio-pe: khapn 'to catch', p=12/f=1"),
@@ -166,7 +166,7 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("געקלאפט", "ɡəklˈapt", "audio-pe: geklapt, root קלאפ, p=3/f=0"),
     ("אפטייקער", "ˈaptajkər", "audio-pe: apteyker 'pharmacist', p=3/f=0"),
     ("א פאר מינוט", "a pˈur minˈit", "MWE + audio loop: a pur minit"),
-    # --- audio-vowel table (data/audio_vowel_lk.py): komets vowels the
+    # --- audio-vowel table (data/lexicons/audio_vowel_lk.py): komets vowels the
     #     a-default missed, heard as u across clips; stress marks unmoved ---
     ("יארצייט", "jˈurʦajt", "audio-vowel: yurtsayt, u=23/29 clips"),
     ("שפיטאל", "ʃpˈitul", "audio-vowel: shpitul, u=9/9"),

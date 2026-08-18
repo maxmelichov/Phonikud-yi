@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Generate data/audio_vowel_lk.py from the PhoneticXeus positional tags.
+"""Generate data/lexicons/audio_vowel_lk.py from the PhoneticXeus positional tags.
 
 The §2 alef-default reads an unpointed א as /a/ and flags the word LOW; the
 corpus audio can correct the vowel the same way the pe sweep corrected the
@@ -38,7 +38,7 @@ sys.path.insert(0, str(REPO))
 sys.path.insert(0, str(REPO / "scripts"))
 
 TAGS = REPO / "data" / "audio_lexicon" / "pe_sweep_tags.jsonl"
-OUT = REPO / "data" / "audio_vowel_lk.py"
+OUT = REPO / "data" / "lexicons" / "audio_vowel_lk.py"
 QUEUE = REPO / "data" / "audio_lexicon" / "vowel_queue.tsv"
 
 MIN_VOTES = 3
@@ -56,7 +56,7 @@ is the engine's own stressed rule-path reading with >= {min_votes}-vote,
 ({targets}), phones the recognizer never produces spuriously, so its known
 biases cannot inject a vowel. Stress marks are untouched by construction.
 
-Consulted after every gold/legacy lexicon and after data/audio_pe_lk.py,
+Consulted after every gold/legacy lexicon and after data/lexicons/audio_pe_lk.py,
 before the rule path; emitted at MED confidence, reason 'audio-vowel'.
 Regenerate: .venv/bin/python scripts/build_audio_vowel_lexicon.py
 Never hand-edit.

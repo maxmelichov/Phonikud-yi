@@ -10,7 +10,7 @@ stay ours and only prosody comes from the LLM.
 
 Usage:
   GATEWAY_REASONING_EFFORT=low .venv/bin/python scripts/make_stress_csv.py \
-      --n 20 --out data/stress_tts.csv
+      --n 20 --out data/stress/stress_tts.csv
 """
 
 from __future__ import annotations
@@ -122,9 +122,9 @@ def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__)
     ap.add_argument("--n", type=int, default=20)
     ap.add_argument("--seed", type=int, default=11)
-    ap.add_argument("--out", default="data/stress_tts.csv")
+    ap.add_argument("--out", default="data/stress/stress_tts.csv")
     ap.add_argument("--model-onnx", default="models/phonikud_yi_small/student.onnx")
-    ap.add_argument("--dict", default="data/canonical_pointing.tsv")
+    ap.add_argument("--dict", default="data/corpus/canonical_pointing.tsv")
     args = ap.parse_args()
 
     from infer_onnx import Diacritizer  # noqa: PLC0415 - heavy import

@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Generate data/audio_pe_lk.py from the PhoneticXeus פ-sweep votes.
+"""Generate data/lexicons/audio_pe_lk.py from the PhoneticXeus פ-sweep votes.
 
 Input: data/audio_lexicon/pe_sweep_votes.tsv (scripts/xeus_pe_sweep.py).
 A type is folded when the audio contradicts the engine's f-default hard:
@@ -28,7 +28,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO))
 
 VOTES = REPO / "data" / "audio_lexicon" / "pe_sweep_votes.tsv"
-OUT = REPO / "data" / "audio_pe_lk.py"
+OUT = REPO / "data" / "lexicons" / "audio_pe_lk.py"
 
 MIN_P = 3
 RATIO = 3.0

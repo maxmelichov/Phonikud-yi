@@ -51,10 +51,10 @@ from yiddish_g2p import (  # noqa: E402
     read_pointed_wh,
 )
 
-DATASET = REPO / "data" / "yiddish_tts_dataset.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 AUDIO_DIR = REPO / "data" / "audio_lexicon"
 HEBREW_VERIFY = AUDIO_DIR / "hebrew_verify.jsonl"
-SHARE_CACHE = REPO / "data" / "quoted_share.json"
+SHARE_CACHE = REPO / "data" / "corpus" / "quoted_share.json"
 
 # A run of this many consecutive LK tokens reads as a quotation.
 SPAN_MIN = 3

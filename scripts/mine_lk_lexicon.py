@@ -11,7 +11,7 @@ word and compare it to the observed IPA. A word is a candidate when:
      Hebrew-only letters (ת ח שׂ תּ כּ ...), low vowel-letter density, LK
      suffix/prefix shapes, or membership in an optional Hebrew wordlist.
 
-Output: data/lk_candidates.tsv with columns word, rule_ipa, observed_ipa, count
+Output: data/candidates/lk_candidates.tsv with columns word, rule_ipa, observed_ipa, count
 sorted by count desc. This is the Yiddish analogue of Phonikud's "manually fix
 the 1K most common words" step: review the top of this file and paste the
 confirmed entries into _LOSHN_KOYDESH in yiddish_g2p.py.
@@ -44,7 +44,7 @@ from yiddish_g2p import (  # noqa: E402
 REPO = Path(__file__).resolve().parent.parent
 DATA = REPO / "data"
 ANNOT_DIR = DATA / "annotations"
-OUT_TSV = DATA / "lk_candidates.tsv"
+OUT_TSV = DATA / "candidates" / "lk_candidates.tsv"
 HEBREW_WORDLIST = DATA / "hebrew_wordlist.txt"
 
 HEB = re.compile(r"[֐-׿]")

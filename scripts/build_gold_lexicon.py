@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-"""Generate data/gold_lexicon.py from the native-verified gold_v3 CSV.
+"""Generate data/lexicons/gold_lexicon.py from the native-verified gold_v3 CSV.
 
 The CSV ("data/gold/g2p_gold_v3.csv", 500 rows) is authority #1 for this
 engine: where it disagrees with the spec, the rules or any other lexicon, it
@@ -36,7 +36,7 @@ from yiddish_g2p import (  # noqa: E402
 )
 
 GOLD_CSV = ROOT / "data/gold/g2p_gold_v3.csv"
-OUT_PATH = ROOT / "data" / "gold_lexicon.py"
+OUT_PATH = ROOT / "data" / "lexicons" / "gold_lexicon.py"
 
 HEADER = '''"""GENERATED FILE -- do not edit by hand.
 

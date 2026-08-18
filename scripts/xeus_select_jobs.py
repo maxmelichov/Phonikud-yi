@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Select targeted audio chunks for PhoneticXeus voting.
 
-Given a target word list, scan data/yiddish_tts_dataset.tsv and pick, per word,
+Given a target word list, scan data/corpus/yiddish_tts_dataset.tsv and pick, per word,
 up to N chunks that contain it, preferring distinct episodes and only episodes
 whose MP3 is present in data/audio/.  Chunks are then deduplicated: one output
 row per (episode, chunk_idx) carrying every target word it covers.
@@ -26,7 +26,7 @@ from collections import defaultdict
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
-DATASET = REPO / "data" / "yiddish_tts_dataset.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 AUDIO_DIR = REPO / "data" / "audio"
 LOW_CONF = REPO / "data" / "phonemized" / "v3" / "low_conf.tsv"
 GOLD = REPO / "data/gold/g2p_gold_v3.csv"

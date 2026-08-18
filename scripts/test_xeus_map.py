@@ -2,7 +2,7 @@
 """Coverage test for the PhoneticXeus -> Yiddish phoneme conversion.
 
 Asserts that every symbol in the model's 428-token vocabulary
-(data/xeus_ipa_vocab.json) either folds into the closed v3 inventory or is a
+(data/spec/xeus_ipa_vocab.json) either folds into the closed v3 inventory or is a
 documented deliberate drop — so a model update or mapper edit can never
 silently produce out-of-inventory phones or silently lose votes.
 
@@ -20,7 +20,7 @@ from xeus_map import DELIBERATE_DROPS, INVENTORY, fold_phone_string, map_transcr
 
 
 def main() -> int:
-    toks = json.load(open(REPO / "data" / "xeus_ipa_vocab.json"))
+    toks = json.load(open(REPO / "data" / "spec" / "xeus_ipa_vocab.json"))
     failures = []
     n_map = n_drop = 0
     for t in toks:

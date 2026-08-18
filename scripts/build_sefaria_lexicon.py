@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build data/sefaria_pointed_lk.py — rescue #2 for the loshn-koydesh quarantine.
+"""Build data/lexicons/sefaria_pointed_lk.py — rescue #2 for the loshn-koydesh quarantine.
 
 For every quarantined type, look its unpointed form up in the verified pointed
 index (data/pointed_sources/pointed_index.jsonl, built from Sefaria's MAM Tanakh
@@ -13,7 +13,7 @@ The losing register ships as a variant.
 
 Rejected: readings that leave the closed v3 phone inventory, readings that fail
 the §1 vowel-shape rule, pointings whose letter skeleton differs from the
-quarantined spelling, words already covered by data/audio_endorsed_lk.py (audio
+quarantined spelling, words already covered by data/lexicons/audio_endorsed_lk.py (audio
 evidence outranks book pointing) and words whose lexicon_key already collides
 with a gold/abbreviation/multiword/legacy lexicon entry.
 
@@ -60,7 +60,7 @@ def readable(ipa: str) -> bool:
 
 QUARANTINE = ROOT / "data" / "pointed_sources" / "quarantine_full_snapshot.tsv"
 INDEX = ROOT / "data" / "pointed_sources" / "pointed_index.jsonl"
-OUT = ROOT / "data" / "sefaria_pointed_lk.py"
+OUT = ROOT / "data" / "lexicons" / "sefaria_pointed_lk.py"
 DOMINANCE_MIN = 0.80
 
 
@@ -294,7 +294,7 @@ Each entry records which register won ('register') and why ('why'). The LOSING
 register is kept as a 'variants' entry rather than thrown away, so a forced
 aligner or a reviewer can still choose it.
 
-Rescue #2 for the quarantine, and it ranks BELOW data/audio_endorsed_lk.py:
+Rescue #2 for the quarantine, and it ranks BELOW data/lexicons/audio_endorsed_lk.py:
 audio evidence outranks book pointing, so words endorsed there are excluded
 here. Also excluded: readings outside the closed v3 phone inventory or failing
 the §1 vowel-shape rule, pointings whose letters differ from the quarantined

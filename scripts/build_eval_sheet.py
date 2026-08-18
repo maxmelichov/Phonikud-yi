@@ -57,7 +57,7 @@ sys.path.insert(0, str(REPO / "scripts"))
 from romanize import romanize  # noqa: E402
 from yiddish_g2p import g2p_token  # noqa: E402
 
-DATASET = REPO / "data" / "yiddish_tts_dataset_v2.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 TOKENS = REPO / "data" / "phonemized" / "v3" / "tokens.tsv"
 OUTDIR = REPO / "data" / "eval"
 

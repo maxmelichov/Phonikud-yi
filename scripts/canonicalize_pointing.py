@@ -8,7 +8,7 @@ point the same word inconsistently -- mark placement inside digraphs
 (וַואיל / וואַיל), full vs partial pointing (אוֹפֶן / אופֿן), doubled marks, etc.
 
 This script derives ONE canonical pointed form per word type from the *train*
-split and writes it to data/canonical_pointing.tsv.  scripts/apply_canonical.py
+split and writes it to data/corpus/canonical_pointing.tsv.  scripts/apply_canonical.py
 then rewrites train/val/test with that map.
 
 Stages
@@ -20,8 +20,8 @@ Stages
                are re-merged afterwards.
   3. GEMINI    word types still holding >=2 variants with total count >=3 are
                batched (~40/call) to google/gemini-3.6-flash for adjudication.
-               Results are cached to data/canonical_cache.jsonl (resumable).
-  4. OUTPUT    data/canonical_pointing.tsv + data/homographs.tsv.
+               Results are cached to data/corpus/canonical_cache.jsonl (resumable).
+  4. OUTPUT    data/corpus/canonical_pointing.tsv + data/candidates/homographs.tsv.
 
 Usage
     python scripts/canonicalize_pointing.py --stage mechanical   # no LLM calls
@@ -479,9 +479,9 @@ def adjudicate(
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--train", type=Path, default=REPO / "data/diacritics_r2/train.txt")
-    ap.add_argument("--out-tsv", type=Path, default=REPO / "data/canonical_pointing.tsv")
-    ap.add_argument("--homographs", type=Path, default=REPO / "data/homographs.tsv")
-    ap.add_argument("--cache", type=Path, default=REPO / "data/canonical_cache.jsonl")
+    ap.add_argument("--out-tsv", type=Path, default=REPO / "data/corpus/canonical_pointing.tsv")
+    ap.add_argument("--homographs", type=Path, default=REPO / "data/candidates/homographs.tsv")
+    ap.add_argument("--cache", type=Path, default=REPO / "data/corpus/canonical_cache.jsonl")
     ap.add_argument("--stage", choices=["collect", "mechanical", "all"], default="all")
     ap.add_argument("--min-count", type=int, default=3, help="min total count for LLM adjudication")
     ap.add_argument("--batch-size", type=int, default=40)

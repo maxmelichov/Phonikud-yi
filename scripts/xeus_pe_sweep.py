@@ -6,7 +6,7 @@ The engine's §4 rule reads an unpointed פ as /f/ unless a lexical list says
 acoustically robust contrast, so the corpus audio can vote on each type
 directly:
 
-  1. every token of data/yiddish_tts_dataset.tsv whose g2p_token reason
+  1. every token of data/corpus/yiddish_tts_dataset.tsv whose g2p_token reason
      contains ``pe-default`` is a target; types are ranked by corpus count
   2. chunks are picked greedily so each target type is heard in up to
      --clips-per-type different clips (a chunk covers many targets at once)
@@ -46,7 +46,7 @@ from xeus_map import tokenize_g2p_ipa  # noqa: E402
 from xeus_tag import align, load_model, slice_audio, transcribe  # noqa: E402
 from yiddish_g2p import g2p_token, hebrew_to_ipa, lexicon_key  # noqa: E402
 
-DATASET = REPO / "data" / "yiddish_tts_dataset.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 AUDIO = REPO / "data" / "audio"
 OUT_DIR = REPO / "data" / "audio_lexicon"
 TAGS = OUT_DIR / "pe_sweep_tags.jsonl"

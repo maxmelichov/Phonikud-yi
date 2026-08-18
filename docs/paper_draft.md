@@ -1,7 +1,7 @@
 # Audio-Supervised Grapheme-to-Phoneme Conversion for Hasidic Yiddish: Overcoming Phonetic Underspecification
 
 **Draft — paper framing of the working system.** Engine: `yiddish_g2p.py` ·
-Spec: `data/g2p_spec_v3.md` · Gold benchmark: `data/gold/g2p_gold_v3.csv`
+Spec: `data/spec/g2p_spec_v3.md` · Gold benchmark: `data/gold/g2p_gold_v3.csv`
 
 > This draft reuses the R01–R23 rule tables verbatim from
 > `docs/yiddish_phoneme_set.md`, which remains the executable specification
@@ -329,11 +329,11 @@ priority order — hearing beats books, books beat guesses. Every rescue emits
 `route='rule'`, `confidence='LOW'` with its own reason, so rescued words stay
 in the verification queue and any native verdict instantly outranks them:
 
-1. `data/audio_endorsed_lk.py` — reason `pointed-audio-endorsed`; the corpus's
+1. `data/lexicons/audio_endorsed_lk.py` — reason `pointed-audio-endorsed`; the corpus's
    unverified pointing confirmed against episode audio (PhoneticXeus).
-2. `data/sefaria_pointed_lk.py` — reason `sefaria-pointed`; a single agreed
+2. `data/lexicons/sefaria_pointed_lk.py` — reason `sefaria-pointed`; a single agreed
    pointing in the verified published editions (Sefaria MAM / Torat Emet).
-3. `data/model_pointed_lk.py` — reason `model-pointed-guess`; phonikud-yi v3
+3. `data/lexicons/model_pointed_lk.py` — reason `model-pointed-guess`; phonikud-yi v3
    (97% held-out accuracy on evidence-backed Hebrew) pointed the word in
    sentence context. The no-drop policy: a good guess beats silence, and it is
    never the raw consonant skeleton.
@@ -438,8 +438,8 @@ in order:
 
 What ships (all at MED confidence, visible for review, and always outranked by
 an explicit rafe/dagesh in the text): 77 audio-refuted f-defaults
-(`data/audio_pe_lk.py`), 136 vowel corrections toward the recognizer-clean
-target /u/ (`data/audio_vowel_lk.py`), 107 audio-endorsed Hebrew pointings.
+(`data/lexicons/audio_pe_lk.py`), 136 vowel corrections toward the recognizer-clean
+target /u/ (`data/lexicons/audio_vowel_lk.py`), 107 audio-endorsed Hebrew pointings.
 Contested material goes to queue files (932 vowel slots; 234 SUSPECT Hebrew
 readings), not into the engine.
 

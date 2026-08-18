@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Apply data/canonical_pointing.tsv to the diacritics corpus.
+Apply data/corpus/canonical_pointing.tsv to the diacritics corpus.
 
 Reads data/diacritics_r2/{train,val,test}.txt (and the matching *_episodes.txt,
 which are copied through unchanged so the split stays identical) and writes
@@ -79,7 +79,7 @@ def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--src", type=Path, default=REPO / "data/diacritics_r2")
     ap.add_argument("--dst", type=Path, default=REPO / "data/diacritics_r3c")
-    ap.add_argument("--map", type=Path, default=REPO / "data/canonical_pointing.tsv")
+    ap.add_argument("--map", type=Path, default=REPO / "data/corpus/canonical_pointing.tsv")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 

@@ -28,7 +28,7 @@ sys.path.insert(0, str(REPO / "scripts"))
 from xeus_tag import load_model, tag_chunk  # noqa: E402
 
 JOBS = REPO / "data" / "audio_lexicon" / "xeus_jobs.tsv"
-DATASET = REPO / "data" / "yiddish_tts_dataset.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 AUDIO_DIR = REPO / "data" / "audio"
 OUT_DIR = REPO / "data" / "audio_lexicon"
 

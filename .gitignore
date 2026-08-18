@@ -14,7 +14,7 @@ data/chunks/
 *.wav
 data/logs/
 data/annotation_shards/
-data/gold_*.jsonl
+data/gold/gold_*.jsonl
 models/
 phonikud/
 
@@ -28,7 +28,7 @@ data/verification/
 data/pointed_sources/raw/
 data/pointed_sources/pointed_index.jsonl
 data/pointed_sources/quarantine_full_snapshot.tsv
-data/yiddish_tts_dataset.tsv
+data/corpus/yiddish_tts_dataset.tsv
 
 # --- portable bundles built by src/make_bundle.py ---
 dist/

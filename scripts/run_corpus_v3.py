@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Phonemize the corpus under spec v3 and enforce the §12 QA gates.
 
-Reads the ``text`` column of data/yiddish_tts_dataset.tsv, routes every token
+Reads the ``text`` column of data/corpus/yiddish_tts_dataset.tsv, routes every token
 through yiddish_g2p.g2p_tokens (gold lexicon first, rules last), and writes:
 
     tokens.tsv      one row per token TYPE that is fit to emit:
@@ -48,7 +48,7 @@ from yiddish_g2p import (  # noqa: E402
     violates_vowel_ratio,
 )
 
-DATASET = ROOT / "data" / "yiddish_tts_dataset.tsv"
+DATASET = ROOT / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 DEFAULT_OUT = ROOT / "data" / "phonemized" / "v3"
 SUITES = ("test_g2p.py", "test_g2p_spec.py", "test_g2p_gold.py",
           "test_audio_evidence.py")

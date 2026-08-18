@@ -7,7 +7,7 @@ ARCHITECTURE: Lexicon routing (spec v3 §3) in front of a three-stage rule path
 Spec v3 makes the lexicon, not the rules, the dialect: four graphemes (א, יי, וי,
 unpointed פ) are lexically ambiguous, and 81% of naked-rule errors come from
 them. So hebrew_to_ipa routes every token -- abbreviation table, multiword
-table, the native-verified gold lexicon (data/gold_lexicon.py, authority #1),
+table, the native-verified gold lexicon (data/lexicons/gold_lexicon.py, authority #1),
 the legacy merged-LK and high-frequency lists -- and only then falls through to
 the rules below. g2p_token exposes that decision per token (route + confidence)
 for the §12 iteration loop; scripts/run_corpus_v3.py runs it over the corpus and
@@ -2284,13 +2284,13 @@ def _rule_path_ipa(text: str, stress: bool = True, lk_penult: bool = False,
 
 
 def _load_gold_lexicon() -> dict:
-    """Import data/gold_lexicon.py by path; an absent/broken file is not fatal.
+    """Import data/lexicons/gold_lexicon.py by path; an absent/broken file is not fatal.
 
     The module is generated (scripts/build_gold_lexicon.py) and committed. The
     engine must still import and run without it -- a checkout that has not
     regenerated it degrades to the rule path rather than failing to import.
     """
-    path = Path(__file__).resolve().parent / "data" / "gold_lexicon.py"
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "gold_lexicon.py"
     try:
         import importlib.util
 
@@ -2314,8 +2314,8 @@ GOLD_LEXICON: dict[str, dict] = _load_gold_lexicon()
 
 
 def _load_audio_endorsed() -> dict:
-    """data/audio_endorsed_lk.py, keyed by lexicon_key; absent file degrades."""
-    path = Path(__file__).resolve().parent / "data" / "audio_endorsed_lk.py"
+    """data/lexicons/audio_endorsed_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "audio_endorsed_lk.py"
     try:
         import importlib.util
 
@@ -2340,8 +2340,8 @@ _AUDIO_ENDORSED: dict[str, dict] = _load_audio_endorsed()
 
 
 def _load_homograph_lk() -> dict:
-    """data/homograph_lk.py, keyed by lexicon_key; absent file degrades."""
-    path = Path(__file__).resolve().parent / "data" / "homograph_lk.py"
+    """data/lexicons/homograph_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "homograph_lk.py"
     try:
         import importlib.util
 
@@ -2366,13 +2366,13 @@ _HOMOGRAPH_LK: dict[str, dict] = _load_homograph_lk()
 
 
 def _load_audio_pe() -> dict:
-    """data/audio_pe_lk.py, keyed by lexicon_key; absent file degrades.
+    """data/lexicons/audio_pe_lk.py, keyed by lexicon_key; absent file degrades.
 
     Audio-confirmed /p/ readings for words the §4 pe-default would read with
     /f/ (scripts/build_audio_pe_lexicon.py). Consulted after every gold and
     legacy lexicon — audio never outranks a native or published verdict — and
     before the rule path."""
-    path = Path(__file__).resolve().parent / "data" / "audio_pe_lk.py"
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "audio_pe_lk.py"
     try:
         import importlib.util
 
@@ -2397,13 +2397,13 @@ _AUDIO_PE: dict[str, dict] = _load_audio_pe()
 
 
 def _load_audio_vowel() -> dict:
-    """data/audio_vowel_lk.py, keyed by lexicon_key; absent file degrades.
+    """data/lexicons/audio_vowel_lk.py, keyed by lexicon_key; absent file degrades.
 
     Audio-confirmed vowel corrections for alef-default words
     (scripts/build_audio_vowel_lexicon.py): the engine's own stressed reading
     with clean-target vowel slots substituted. Same authority slot as the
     audio-pe table."""
-    path = Path(__file__).resolve().parent / "data" / "audio_vowel_lk.py"
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "audio_vowel_lk.py"
     try:
         import importlib.util
 
@@ -2428,8 +2428,8 @@ _AUDIO_VOWEL: dict[str, dict] = _load_audio_vowel()
 
 
 def _load_sefaria_pointed() -> dict:
-    """data/sefaria_pointed_lk.py, keyed by lexicon_key; absent file degrades."""
-    path = Path(__file__).resolve().parent / "data" / "sefaria_pointed_lk.py"
+    """data/lexicons/sefaria_pointed_lk.py, keyed by lexicon_key; absent file degrades."""
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "sefaria_pointed_lk.py"
     try:
         import importlib.util
 
@@ -2454,8 +2454,8 @@ _SEFARIA_POINTED: dict[str, dict] = _load_sefaria_pointed()
 
 
 def _load_model_pointed() -> dict:
-    """data/model_pointed_lk.py (phonikud-yi v3 guesses), keyed by lexicon_key."""
-    path = Path(__file__).resolve().parent / "data" / "model_pointed_lk.py"
+    """data/lexicons/model_pointed_lk.py (phonikud-yi v3 guesses), keyed by lexicon_key."""
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "model_pointed_lk.py"
     try:
         import importlib.util
 
@@ -2516,7 +2516,7 @@ _ABBREVIATIONS = {lexicon_key(k): v for k, v in _ABBREVIATIONS.items()}
 #   * PhoneticXeus (data/audio_lexicon/hebrew_verify.jsonl) heard רש"י as
 #     [r ʃ ə] (2 clips) and אר"י as [a r i] (2/3 clips) -- word readings both,
 #     neither spelled out.
-#   * data/canonical_pointing.tsv points 15 of these 17 independently, and
+#   * data/corpus/canonical_pointing.tsv points 15 of these 17 independently, and
 #     `reconcile` accepts the pointing against the reading below for every one
 #     of them (חַזַ"ל, רַמְבַּ"ם, רַמְבַּ"ן, תַּרְיַ"ג, לַ"ג, מַהֲרַ"ם, מַהֲרַ"ל,
 #     שַׁ"ס, הַשַּׁ"ס, תַּנַ"ךְ, חַבַּ"ד round-trip through the rule path as well).
@@ -2665,7 +2665,7 @@ _MULTIWORD: dict[str, tuple[str, list[str]]] = {
 }
 
 # --- corpus-mined lexicalized MWEs (scripts/mine_lk_mwe.py) ------------------
-# Every key below occurs >= 15x in data/yiddish_tts_dataset.tsv (count in the
+# Every key below occurs >= 15x in data/corpus/yiddish_tts_dataset.tsv (count in the
 # comment) and is a fixed collocation, not a quoted verse: the reading is the
 # MERGED register (spec v2 §5/§7 -- shuruk -> i, final kometz-hey -> ə), which
 # is what embedded LK uses. Verse fragments that the miner also surfaces (מה
@@ -2991,7 +2991,7 @@ def _route_token(core: str) -> dict:
 def _audio_endorsed_or(core: str, fallback_result: dict) -> dict:
     """Rescue a would-be-quarantined token with its audio-endorsed reading.
 
-    data/audio_endorsed_lk.py holds readings from the corpus's UNVERIFIED
+    data/lexicons/audio_endorsed_lk.py holds readings from the corpus's UNVERIFIED
     pointed tier that PhoneticXeus confirmed against episode audio (mean
     agreement >= 0.70, >= 2 clips). They are emitted at LOW confidence with a
     distinct reason so they stay visible in the verification queue — audio
@@ -3008,7 +3008,7 @@ def _audio_endorsed_or(core: str, fallback_result: dict) -> dict:
 def _homograph_or(core: str, fallback_result: dict) -> dict:
     """Rescue #1.5: a word the verified editions point more than one way.
 
-    data/homograph_lk.py holds the 'homograph-conflict' types the Sefaria
+    data/lexicons/homograph_lk.py holds the 'homograph-conflict' types the Sefaria
     rescue refused because no vocalization reached its 80% dominance bar. Two
     kinds live here and each carries its own reason:
 
@@ -3039,7 +3039,7 @@ def _homograph_or(core: str, fallback_result: dict) -> dict:
 def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
     """Rescue #2: the reading of this word in a VERIFIED pointed edition.
 
-    data/sefaria_pointed_lk.py holds words whose unpointed form has exactly one
+    data/lexicons/sefaria_pointed_lk.py holds words whose unpointed form has exactly one
     vocalization (or a dominant one, >= 80%) across Sefaria's MAM Tanakh and
     Torat Emet Mishnah/Siddur.
 
@@ -3075,7 +3075,7 @@ def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
                              list(entry.get("variants") or []), "L",
                              "rule", "LOW", "sefaria-pointed")
     # LAST link — the no-drop policy (2026-08-08): phonikud-yi v3's contextual
-    # guess (data/model_pointed_lk.py, 97% held-out accuracy on evidence-backed
+    # guess (data/lexicons/model_pointed_lk.py, 97% held-out accuracy on evidence-backed
     # Hebrew). A guess is better than silence, and it is outranked by every
     # other source above, stays LOW, and stays in the verification queue. Same
     # register policy as the Sefaria table above, on the same evidence.

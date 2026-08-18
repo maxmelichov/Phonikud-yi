@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build data/homograph_lk.py — rescue #1.5 for the loshn-koydesh quarantine.
+"""Build data/lexicons/homograph_lk.py — rescue #1.5 for the loshn-koydesh quarantine.
 
 The Sefaria rescue (scripts/build_sefaria_lexicon.py) refuses a type whose
 verified pointed sources disagree — 1,223 types / 18,225 tokens tagged
@@ -32,8 +32,8 @@ bucket in two, and this script consumes both halves:
       alignment can still vote for the other reading where a sentence wants it.
 
 Both halves are excluded when some higher lexicon already owns the key: the
-generated table is consulted BETWEEN data/audio_endorsed_lk.py and
-data/sefaria_pointed_lk.py (audio-decided outranks book-derived, an explicit
+generated table is consulted BETWEEN data/lexicons/audio_endorsed_lk.py and
+data/lexicons/sefaria_pointed_lk.py (audio-decided outranks book-derived, an explicit
 audio endorsement outranks both), and a rescue table must never shadow a
 lexicon above it.
 
@@ -60,7 +60,7 @@ HOMDIR = ROOT / "data" / "homographs"
 COLLAPSED = HOMDIR / "collapsed.json"
 CANDIDATES = HOMDIR / "candidates.json"
 VOTES = HOMDIR / "votes.jsonl"
-OUT = ROOT / "data" / "homograph_lk.py"
+OUT = ROOT / "data" / "lexicons" / "homograph_lk.py"
 
 MIN_DECIDED = 3
 WINNER_SHARE_MIN = 0.75
@@ -190,8 +190,8 @@ def build() -> tuple[list[tuple[str, dict, int]], dict[str, int], list[tuple[str
 
 HEADER = '''"""GENERATED — homograph readings for the loshn-koydesh quarantine.
 
-Rescue #1.5: consulted AFTER data/audio_endorsed_lk.py and BEFORE
-data/sefaria_pointed_lk.py. These are the types the Sefaria rescue refused
+Rescue #1.5: consulted AFTER data/lexicons/audio_endorsed_lk.py and BEFORE
+data/lexicons/sefaria_pointed_lk.py. These are the types the Sefaria rescue refused
 because the verified pointed editions print more than one vocalization of the
 same letters, resolved two ways:
 

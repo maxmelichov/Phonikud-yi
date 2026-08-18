@@ -6,7 +6,7 @@ training line corrupts alignment. Policy: split every corpus line at its
 quarantined tokens and keep the clean spans, each with its own token range, so
 audio can be cut to match. Spans shorter than --min-tokens are dropped.
 
-Reads data/yiddish_tts_dataset.tsv, routes each line with g2p_tokens (the same
+Reads data/corpus/yiddish_tts_dataset.tsv, routes each line with g2p_tokens (the same
 call the corpus runner uses), and writes data/phonemized/v3/segments.tsv:
   id, span_idx, tok_start, tok_end (inclusive, token indices in the line),
   n_tokens, ipa
@@ -33,7 +33,7 @@ def main() -> int:
 
     out_path = REPO / "data" / "phonemized" / "v3" / "segments.tsv"
     n_lines = n_spans = n_tok = 0
-    with open(REPO / "data" / "yiddish_tts_dataset.tsv", newline="") as fin, \
+    with open(REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv", newline="") as fin, \
          open(out_path, "w", newline="") as fout:
         w = csv.writer(fout, delimiter="\t")
         w.writerow(["id", "span_idx", "tok_start", "tok_end", "n_tokens", "ipa"])

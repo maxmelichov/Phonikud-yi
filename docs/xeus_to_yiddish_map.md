@@ -6,7 +6,7 @@ Maps the 428-symbol universal-IPA vocabulary of PhoneticXeus
 directly comparable phone-for-phone.
 
 - Code: `scripts/xeus_map.py` (`fold_phone_string`, `map_transcript`)
-- Full generated table: `data/xeus_to_yiddish.tsv` (415 mapped, 9 dropped)
+- Full generated table: `data/spec/xeus_to_yiddish.tsv` (415 mapped, 9 dropped)
 - Coverage guard: `scripts/test_xeus_map.py` — every vocab symbol must map
   into the inventory or be a documented drop; nothing may map outside it.
 - Consumers: `scripts/xeus_tag.py` (word tagging), `scripts/xeus_report.py`

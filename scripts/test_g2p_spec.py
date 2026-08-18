@@ -382,7 +382,7 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("אייבערשטן", "ˈajbərʃtn", "§1: r-ʃ-t-n is an ordinary Yiddish run, not a quarantine"),
     ("דארפסטו", "dˈarfsti", "§1: r-f-s-t"),
     # pˈinktləx: the f was the §4 default when this case was authored; the
-    # xeus pe-sweep heard p 9-0 across clips (data/audio_pe_lk.py), and audio
+    # xeus pe-sweep heard p 9-0 across clips (data/lexicons/audio_pe_lk.py), and audio
     # outranks an author guess. The §1 cluster the case exists for is unchanged.
     ("פינקטלעך", "pˈinktləx", "§1: n-k-t-l"),
     # §6.1 merged-LK entries added from the OOV-LK log
@@ -408,7 +408,7 @@ STRESS_CASES: list[tuple[str, str, str]] = [
     ("זכות", "zxis", "sefaria: זְכוּת — merged-register, audio-arbitrated"),
     # merged-register: shva-na dropped, b'sheym. WH bəʃˈajm is now the variant.
     ("בשם", "bʃajm", "sefaria: בְּשֵׁם — merged-register, audio-arbitrated"),
-    # homograph rescue (data/homograph_lk.py), between the audio and sefaria
+    # homograph rescue (data/lexicons/homograph_lk.py), between the audio and sefaria
     # tables. 'homograph-collapsed': EVERY attested pointing READS the same, so
     # no audio verdict was needed to emit the word.
     ("עגלות", "aɡˈulɔjs", "collapsed: עֲגָלוֹת — pointings differ, reading does not"),
@@ -487,11 +487,11 @@ STRESS_CASES: list[tuple[str, str, str]] = [
 # =====================================================================
 ROUTE_CASES: list[tuple[str, str, str, str]] = [
     # (word, expected route, expected confidence, note)
-    # audio-endorsed rescue (data/audio_endorsed_lk.py): previously quarantined
+    # audio-endorsed rescue (data/lexicons/audio_endorsed_lk.py): previously quarantined
     # LK whose unverified pointing PhoneticXeus confirmed against episode audio.
     ("צדקה", "rule", "LOW", "pointed-audio-endorsed rescue -> ʦdˈukə emitted at LOW"),
     ("בחינה", "rule", "LOW", "pointed-audio-endorsed rescue -> bxˈinə"),
-    # sefaria — rescue #2 (data/sefaria_pointed_lk.py), consulted only after the
+    # sefaria — rescue #2 (data/lexicons/sefaria_pointed_lk.py), consulted only after the
     # audio table misses: a single agreed pointing in the verified editions,
     # read in the register that type is used in. Still LOW, 'sefaria-pointed' —
     # the register decision does not make a book pointing a native verdict.
@@ -499,7 +499,7 @@ ROUTE_CASES: list[tuple[str, str, str, str]] = [
     ("כהן", "rule", "LOW", "sefaria: כֹּהֵן -> kˈɔjhajn (was quarantined as khn)"),
     ("זכות", "rule", "LOW", "sefaria: זְכוּת -> zxis, merged-register (was zəxˈus)"),
     ("בשם", "rule", "LOW", "sefaria: בְּשֵׁם -> bʃajm, merged-register"),
-    # homograph rescue #1.5 (data/homograph_lk.py), consulted between the audio
+    # homograph rescue #1.5 (data/lexicons/homograph_lk.py), consulted between the audio
     # and sefaria tables. Collapsed types are free — one reading, several
     # printings — but still LOW: the collapse is an inference about editions.
     ("עגלות", "rule", "LOW", "homograph-collapsed: עֲגָלוֹת -> aɡˈulɔjs (was withheld)"),

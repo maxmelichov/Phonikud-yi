@@ -36,7 +36,7 @@ TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "model_pointed_lk.py", "stress_overrides.py")
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
 MODEL_SRC = REPO / "models" / "phonikud_yi_v5" / "v5.onnx"
-DATASET = REPO / "data" / "yiddish_tts_dataset_v2.tsv"
+DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 
 
 def sha256(path: Path) -> str:
@@ -62,13 +62,13 @@ def main() -> int:
     stage = args.out / NAME
     if stage.exists():
         shutil.rmtree(stage)
-    (stage / "data").mkdir(parents=True)
+    (stage / "data" / "lexicons").mkdir(parents=True)
 
     for mod in MODULES:
         shutil.copy2(HERE / mod, stage / mod)
     shutil.copy2(REPO / "yiddish_g2p.py", stage / "yiddish_g2p.py")
     for tbl in TABLES:
-        shutil.copy2(REPO / "data" / tbl, stage / "data" / tbl)
+        shutil.copy2(REPO / "data" / "lexicons" / tbl, stage / "data" / "lexicons" / tbl)
     if not args.no_model:
         if not (MODEL_SRC / "model.onnx").exists():
             raise SystemExit(f"no v5 export at {MODEL_SRC}; pass --no-model to skip")

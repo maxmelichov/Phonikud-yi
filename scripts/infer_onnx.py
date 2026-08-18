@@ -2,7 +2,7 @@
 """
 Pure-python inference for the small Yiddish diacritizer.
 
-Dictionary-first: any word whose bare form is in data/canonical_pointing.tsv gets
+Dictionary-first: any word whose bare form is in data/corpus/canonical_pointing.tsv gets
 the canonical pointing straight from the table; only out-of-dictionary words are
 pointed by the ONNX model. The model still sees the *whole* sentence, so OOV
 words are pointed in context -- the dictionary only overrides the output.
@@ -199,7 +199,7 @@ class Diacritizer:
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("-m", "--model", required=True)
-    ap.add_argument("-d", "--dict", default="data/canonical_pointing.tsv")
+    ap.add_argument("-d", "--dict", default="data/corpus/canonical_pointing.tsv")
     ap.add_argument("--text")
     ap.add_argument("--stdin", action="store_true")
     ap.add_argument("--no-dict", action="store_true")

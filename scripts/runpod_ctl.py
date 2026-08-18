@@ -21,7 +21,7 @@ from pathlib import Path
 import requests
 
 REPO = Path(__file__).resolve().parent.parent
-STATE = REPO / "data" / "runpod_pod.json"
+STATE = REPO / "data" / "scratch" / "runpod_pod.json"
 
 for _line in (REPO / ".env").read_text().splitlines():
     if "=" in _line and not _line.strip().startswith("#"):

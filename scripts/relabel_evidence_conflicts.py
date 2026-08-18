@@ -41,11 +41,11 @@ import yiddish_g2p as G  # noqa: E402
 from yiddish_g2p import lexicon_key  # noqa: E402
 
 try:
-    from data.audio_pe_lk import AUDIO_PE_LK
+    from data.lexicons.audio_pe_lk import AUDIO_PE_LK
 except ImportError:
     AUDIO_PE_LK = {}
 try:
-    from data.audio_vowel_lk import AUDIO_VOWEL_LK
+    from data.lexicons.audio_vowel_lk import AUDIO_VOWEL_LK
 except ImportError:
     AUDIO_VOWEL_LK = {}
 

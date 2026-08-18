@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Annotate Yiddish audio episodes with Gemini: verbatim text + phonemic IPA.
 
-Input manifest: data/audio_manifest.jsonl (falls back to data/episodes.jsonl),
+Input manifest: data/corpus/audio_manifest.jsonl (falls back to data/corpus/episodes.jsonl),
 one JSON object per line with at least an id and an audio path. Recognised keys:
   id | episode_id | slug        -> episode id
   audio | audio_path | path | file | mp3 -> path to the mp3 (abs or repo-relative)
@@ -179,7 +179,7 @@ def main() -> int:
 
     manifest = Path(args.manifest) if args.manifest else None
     if manifest is None:
-        for cand in (DATA / "audio_manifest.jsonl", DATA / "episodes.jsonl"):
+        for cand in (DATA / "corpus" / "audio_manifest.jsonl", DATA / "corpus" / "episodes.jsonl"):
             if cand.exists():
                 manifest = cand
                 break

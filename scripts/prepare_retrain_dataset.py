@@ -3,11 +3,11 @@
 
 Supervision policy
 ------------------
-For every whitespace token of ``data/yiddish_tts_dataset.tsv`` we route the word
+For every whitespace token of ``data/corpus/yiddish_tts_dataset.tsv`` we route the word
 through the FROZEN v3 engine (``yiddish_g2p.g2p_token``).  Only tokens that come
 back with ``route == "lexicon"`` carry a native-verified reading, so only those
 may be supervised.  For such a token we take its pointed form from the existing
-nikud lexicon (``data/canonical_pointing.tsv``, the map that
+nikud lexicon (``data/corpus/canonical_pointing.tsv``, the map that
 ``scripts/apply_canonical.py`` already uses) and then *verify the pointing
 against the verified reading* using the canonical Hasidic convention:
 
@@ -90,9 +90,9 @@ import yiddish_g2p as G  # FROZEN - read only  # noqa: E402
 
 csv.field_size_limit(10_000_000)
 
-CORPUS = REPO / "data" / "yiddish_tts_dataset.tsv"
-LEXICON = REPO / "data" / "canonical_pointing.tsv"
-HOMOGRAPHS = REPO / "data" / "homographs.tsv"
+CORPUS = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
+LEXICON = REPO / "data" / "corpus" / "canonical_pointing.tsv"
+HOMOGRAPHS = REPO / "data" / "candidates" / "homographs.tsv"
 CANONICAL_EVAL = REPO / "data" / "phonemized" / "100313.jsonl"
 OUTDIR = REPO / "data" / "retrain"
 TEST_EPISODE = "100313"

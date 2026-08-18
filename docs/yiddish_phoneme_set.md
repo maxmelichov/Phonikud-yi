@@ -1,6 +1,6 @@
 # Hasidic Yiddish Phoneme Set & G2P Rules (v3)
 
-Engine: `yiddish_g2p.py` · Spec: `data/g2p_spec_v3.md` · Gold: `data/gold/g2p_gold_v3.csv`
+Engine: `yiddish_g2p.py` · Spec: `data/spec/g2p_spec_v3.md` · Gold: `data/gold/g2p_gold_v3.csv`
 
 **This document is executable.** Every example row below is run against the live
 engine by `scripts/test_rules_doc.py`, which parses the `### R…` sections and
@@ -280,11 +280,11 @@ priority order — hearing beats books, books beat guesses. Every rescue emits
 `route='rule'`, `confidence='LOW'` with its own reason, so rescued words stay
 in the verification queue and any native verdict instantly outranks them:
 
-1. `data/audio_endorsed_lk.py` — reason `pointed-audio-endorsed`; the corpus's
+1. `data/lexicons/audio_endorsed_lk.py` — reason `pointed-audio-endorsed`; the corpus's
    unverified pointing confirmed against episode audio (PhoneticXeus).
-2. `data/sefaria_pointed_lk.py` — reason `sefaria-pointed`; a single agreed
+2. `data/lexicons/sefaria_pointed_lk.py` — reason `sefaria-pointed`; a single agreed
    pointing in the verified published editions (Sefaria MAM / Torat Emet).
-3. `data/model_pointed_lk.py` — reason `model-pointed-guess`; phonikud-yi v3
+3. `data/lexicons/model_pointed_lk.py` — reason `model-pointed-guess`; phonikud-yi v3
    (97% held-out accuracy on evidence-backed Hebrew) pointed the word in
    sentence context. The no-drop policy: a good guess beats silence, and it is
    never the raw consonant skeleton.

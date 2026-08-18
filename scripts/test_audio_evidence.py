@@ -2,7 +2,7 @@
 """Gate for the audio-evidence layer — run: .venv/bin/python scripts/test_audio_evidence.py
 
 Four suites:
-  A. data/audio_pe_lk.py integrity: every generated entry stays inside the
+  A. data/lexicons/audio_pe_lk.py integrity: every generated entry stays inside the
      closed §1 inventory, differs from the engine's own rule-path reading
      ONLY by f->p flips, introduces at least one p, never shadows a gold or
      legacy verdict, and actually routes (route=lexicon, reason=audio-pe,
@@ -47,7 +47,7 @@ def check(ok: bool, label: str) -> None:
 
 
 # --- A. audio_pe table integrity --------------------------------------------
-from data.audio_pe_lk import AUDIO_PE_LK  # noqa: E402
+from data.lexicons.audio_pe_lk import AUDIO_PE_LK  # noqa: E402
 
 check(len(AUDIO_PE_LK) > 0, "A: table is non-empty")
 for word, entry in AUDIO_PE_LK.items():
@@ -78,10 +78,10 @@ for word, entry in AUDIO_PE_LK.items():
 
 # the loaded engine table is exactly the file (no key lost in normalization)
 check(set(_AUDIO_PE) == {lexicon_key(w) for w in AUDIO_PE_LK},
-      "A: engine-loaded table differs from data/audio_pe_lk.py")
+      "A: engine-loaded table differs from data/lexicons/audio_pe_lk.py")
 
 # --- A2. audio_vowel table integrity ----------------------------------------
-from data.audio_vowel_lk import AUDIO_VOWEL_LK  # noqa: E402
+from data.lexicons.audio_vowel_lk import AUDIO_VOWEL_LK  # noqa: E402
 from xeus_map import VOWELS, tokenize_g2p_ipa  # noqa: E402
 
 CLEAN_TARGETS = {"u"}

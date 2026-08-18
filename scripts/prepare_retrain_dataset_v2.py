@@ -8,20 +8,20 @@ masked for a *loshn-koydesh* reason -- quarantined type, homograph, no lexicon
 entry -- stayed masked, which is why the Hebrew end of the corpus contributes
 almost no supervision.  Since then three sources of Hebrew evidence landed:
 
-  data/audio_endorsed_lk.py  107 types whose corpus ``text_pointed`` reading was
+  data/lexicons/audio_endorsed_lk.py  107 types whose corpus ``text_pointed`` reading was
                              confirmed against episode audio.  The evidence is
                              the *reading*, and the form that carries it is the
                              row's OWN text_pointed token -- that is the string
                              the recognizer agreed with -- so this pass stamps
                              per occurrence, never the type's citation form.
-  data/homograph_lk.py       215 voted types.  A type-level winner is NOT
+  data/lexicons/homograph_lk.py       215 voted types.  A type-level winner is NOT
                              evidence about a particular sentence (that is what
                              makes it a homograph), so nothing is stamped here.
                              The 778 occurrences the audio decider settled
                              individually are already stamped in
                              train_unmasked.jsonl by scripts/unmask_homographs.py
                              and are simply carried through.
-  data/sefaria_pointed_lk.py 3,647 types with a book pointing accepted from the
+  data/lexicons/sefaria_pointed_lk.py 3,647 types with a book pointing accepted from the
                              verified Sefaria editions.  Type-level and
                              context-free, but a quoted posuk is spelled the way
                              the edition spells it, so the accepted pointed form
@@ -66,7 +66,7 @@ csv.field_size_limit(10_000_000)
 
 V1 = REPO / "data" / "retrain"
 OUTDIR = REPO / "data" / "retrain2"
-CORPUS = REPO / "data" / "yiddish_tts_dataset.tsv"
+CORPUS = REPO / "data" / "corpus" / "yiddish_tts_dataset.tsv"
 TEST_EPISODE = "100313"
 
 
@@ -86,17 +86,17 @@ strip_marks = P1.strip_marks
 HEB_RE = P1.HEB_RE
 IN_CONVENTION = P1.IN_CONVENTION
 
-from data.audio_endorsed_lk import AUDIO_ENDORSED_LK  # noqa: E402
-from data.homograph_lk import HOMOGRAPH_LK  # noqa: E402
-from data.sefaria_pointed_lk import SEFARIA_POINTED_LK  # noqa: E402
+from data.lexicons.audio_endorsed_lk import AUDIO_ENDORSED_LK  # noqa: E402
+from data.lexicons.homograph_lk import HOMOGRAPH_LK  # noqa: E402
+from data.lexicons.sefaria_pointed_lk import SEFARIA_POINTED_LK  # noqa: E402
 
 try:  # audio-confirmed pe flips (scripts/build_audio_pe_lexicon.py)
-    from data.audio_pe_lk import AUDIO_PE_LK  # noqa: E402
+    from data.lexicons.audio_pe_lk import AUDIO_PE_LK  # noqa: E402
 except ImportError:
     AUDIO_PE_LK = {}
 
 try:  # audio-confirmed vowel corrections (scripts/build_audio_vowel_lexicon.py)
-    from data.audio_vowel_lk import AUDIO_VOWEL_LK  # noqa: E402
+    from data.lexicons.audio_vowel_lk import AUDIO_VOWEL_LK  # noqa: E402
 except ImportError:
     AUDIO_VOWEL_LK = {}
 
@@ -170,7 +170,7 @@ def fit_to_token(pointed: str, bare: str) -> str | None:
 def read_merged(pointed: str) -> str | None:
     """The reading of a pointed form on the same path the endorsement used.
 
-    data/audio_endorsed_lk.py's ``ipa`` came from
+    data/lexicons/audio_endorsed_lk.py's ``ipa`` came from
     ``hebrew_to_ipa(text_pointed, stress=True, quarantine=False)``
     (scripts/xeus_verify_hebrew.py); reading a candidate any other way would
     compare two different things.
@@ -568,10 +568,10 @@ def write_stats(path: Path, stamper: Stamper, before, after, train, val) -> None
         "",
         "| source | new stamps |",
         "| --- | ---: |",
-        f"| audio-endorsed (`data/audio_endorsed_lk.py`, per-occurrence text_pointed) "
+        f"| audio-endorsed (`data/lexicons/audio_endorsed_lk.py`, per-occurrence text_pointed) "
         f"| {c['stamp_audio_endorsed']} |",
-        f"| Sefaria book pointing (`data/sefaria_pointed_lk.py`) | {c['stamp_sefaria']} |",
-        f"| homograph type-level (`data/homograph_lk.py`) | 0 (by policy) |",
+        f"| Sefaria book pointing (`data/lexicons/sefaria_pointed_lk.py`) | {c['stamp_sefaria']} |",
+        f"| homograph type-level (`data/lexicons/homograph_lk.py`) | 0 (by policy) |",
         f"| **total new** | **{n_new}** |",
         "",
         "Carried through from v1: the 778 individually decided homograph",

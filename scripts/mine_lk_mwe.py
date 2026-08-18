@@ -9,12 +9,12 @@ a human promotes them into ``_MULTIWORD`` in yiddish_g2p.py.
 Selection (all three must hold):
 
   a. at least one part fires the §3 LK detector (or is already an LK-table word),
-  b. the n-gram occurs >= --min-count times in data/yiddish_tts_dataset.tsv,
+  b. the n-gram occurs >= --min-count times in data/corpus/yiddish_tts_dataset.tsv,
   c. the n-gram exists as a phrase key (n >= 2 words) in
      data/pointed_sources/pointed_index.jsonl -- i.e. the books write it as a
      unit -- OR it is listed in KNOWN_COLLOCATIONS below.
 
-Output: data/lk_mwe_candidates.tsv, ranked by corpus frequency, with the
+Output: data/candidates/lk_mwe_candidates.tsv, ranked by corpus frequency, with the
 current engine reading (what hebrew_to_ipa emits today) so a curator can see
 at a glance whether a lexicalized entry would change anything.
 
@@ -50,9 +50,9 @@ from yiddish_g2p import (  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 DATA = REPO / "data"
-CORPUS = DATA / "yiddish_tts_dataset.tsv"
+CORPUS = DATA / "corpus" / "yiddish_tts_dataset.tsv"
 POINTED_INDEX = DATA / "pointed_sources" / "pointed_index.jsonl"
-OUT_TSV = DATA / "lk_mwe_candidates.tsv"
+OUT_TSV = DATA / "candidates" / "lk_mwe_candidates.tsv"
 
 HEB_WORD = re.compile(r"^[֐-׿'\"-]+$")
 

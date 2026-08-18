@@ -2,7 +2,7 @@
 
 Fully-vowelized (nikud-bearing) Hebrew from **published, editorially verified**
 editions. This is rescue source #2 for the loshn-koydesh quarantine, and it
-ranks *below* the audio evidence in `data/audio_endorsed_lk.py`: audio outranks
+ranks *below* the audio evidence in `data/lexicons/audio_endorsed_lk.py`: audio outranks
 book pointing.
 
 Distinct from the corpus `text_pointed` column, which is model-produced and
