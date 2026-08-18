@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """GOLD reproduction suite — QA gate (d) of spec v3 §12.
 
-The gold CSV ("g2p_gold_v3 - g2p_gold_v3.csv.csv", 500 native-verified rows) is
+The gold CSV ("data/gold/g2p_gold_v3.csv", 500 native-verified rows) is
 authority #1 for this engine. Every primary in it must come back BYTE-IDENTICAL
 from hebrew_to_ipa(word, stress=True). A single mismatch fails the run.
 
@@ -32,7 +32,7 @@ from yiddish_g2p import (  # noqa: E402
     violates_vowel_ratio,
 )
 
-GOLD_CSV = ROOT / "g2p_gold_v3 - g2p_gold_v3.csv.csv"
+GOLD_CSV = ROOT / "data/gold/g2p_gold_v3.csv"
 
 
 def gold_rows() -> list[dict]:

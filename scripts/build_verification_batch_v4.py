@@ -29,7 +29,7 @@ TOKENS_SEEN = 1832439          # 1,725,714 emitted + 106,725 quarantined
 LOW_TOKENS = sum(int(r["freq"]) for r in rows(V3 / "low_conf.tsv"))   # 351,418
 
 gold_words = set()
-for r in csv.DictReader(open(ROOT / "g2p_gold_v3 - g2p_gold_v3.csv.csv", encoding="utf-8")):
+for r in csv.DictReader(open(ROOT / "data/gold/g2p_gold_v3.csv", encoding="utf-8")):
     w = r["word"].strip()
     gold_words |= {w, normalize_surface(w), MARK.sub("", w)}
 

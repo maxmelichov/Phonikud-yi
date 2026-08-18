@@ -11,7 +11,7 @@ import unicodedata as ud
 from pathlib import Path
 
 # yiddish_labels forces the import order (this directory ahead of the engine
-# directory, which carries an older yiddish_nikud.py); import it before
+# directory, which may carry an older yiddish_nikud.py); import it before
 # anything else so that ordering is in effect for the rest of this file.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 

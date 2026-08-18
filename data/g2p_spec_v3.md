@@ -1,6 +1,6 @@
 # Hasidic Yiddish G2P — Corpus Pipeline Spec v3 (IMPLEMENTATION)
 
-Status: authoritative. Supersedes the engine's current behavior and, where they conflict, the v2 guide (PDF). Incorporates all four native-verification rounds (Aug 5–6, 2026). Seed lexicon: `g2p_gold_v3 - g2p_gold_v3.csv.csv` (403/500 native-settled). Target: deterministic IPA for the full ivelt corpus (92,613 types / 1.83M tokens).
+Status: authoritative. Supersedes the engine's current behavior and, where they conflict, the v2 guide (PDF). Incorporates all four native-verification rounds (Aug 5–6, 2026). Seed lexicon: `data/gold/g2p_gold_v3.csv` (403/500 native-settled). Target: deterministic IPA for the full ivelt corpus (92,613 types / 1.83M tokens).
 
 ## 1. Phone inventory & notation (closed set — nothing else may appear in output)
 

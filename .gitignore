@@ -1,19 +1,24 @@
+# --- local environment / editor / agent cruft ---
 .venv/
 __pycache__/
 *.pyc
 .env
+.DS_Store
+.claude/
+CLAUDE.md
+
+# --- large inputs (regenerable or re-downloadable) ---
 data/audio/
 data/chunks/
 *.mp3
 *.wav
-data/annotate_*.log
-data/download_all.log
-data/*shard_*.jsonl
+data/logs/
+data/annotation_shards/
 data/gold_*.jsonl
 models/
 phonikud/
 
-# derived / regenerable artifacts (builders live in scripts/)
+# --- derived / regenerable artifacts (builders live in scripts/) ---
 data/retrain/
 data/retrain2/
 data/phonemized/
@@ -25,5 +30,5 @@ data/pointed_sources/pointed_index.jsonl
 data/pointed_sources/quarantine_full_snapshot.tsv
 data/yiddish_tts_dataset.tsv
 
-# portable bundles built by src/make_bundle.py
+# --- portable bundles built by src/make_bundle.py ---
 dist/

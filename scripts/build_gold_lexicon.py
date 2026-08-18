@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 """Generate data/gold_lexicon.py from the native-verified gold_v3 CSV.
 
-The CSV ("g2p_gold_v3 - g2p_gold_v3.csv.csv", 500 rows) is authority #1 for this
+The CSV ("data/gold/g2p_gold_v3.csv", 500 rows) is authority #1 for this
 engine: where it disagrees with the spec, the rules or any other lexicon, it
 wins. This script freezes it into a committed Python module so the engine has no
 CSV dependency at import time and so the seed lexicon is reviewable in diffs.
@@ -35,12 +35,12 @@ from yiddish_g2p import (  # noqa: E402
     normalize_surface,
 )
 
-GOLD_CSV = ROOT / "g2p_gold_v3 - g2p_gold_v3.csv.csv"
+GOLD_CSV = ROOT / "data/gold/g2p_gold_v3.csv"
 OUT_PATH = ROOT / "data" / "gold_lexicon.py"
 
 HEADER = '''"""GENERATED FILE -- do not edit by hand.
 
-Seed lexicon built from "g2p_gold_v3 - g2p_gold_v3.csv.csv" by
+Seed lexicon built from "data/gold/g2p_gold_v3.csv" by
 scripts/build_gold_lexicon.py. Regenerate with:
 
     .venv/bin/python scripts/build_gold_lexicon.py

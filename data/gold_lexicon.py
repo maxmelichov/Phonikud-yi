@@ -1,6 +1,6 @@
 """GENERATED FILE -- do not edit by hand.
 
-Seed lexicon built from "g2p_gold_v3 - g2p_gold_v3.csv.csv" by
+Seed lexicon built from "data/gold/g2p_gold_v3.csv" by
 scripts/build_gold_lexicon.py. Regenerate with:
 
     .venv/bin/python scripts/build_gold_lexicon.py

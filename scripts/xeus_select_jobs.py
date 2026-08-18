@@ -29,7 +29,7 @@ REPO = Path(__file__).resolve().parent.parent
 DATASET = REPO / "data" / "yiddish_tts_dataset.tsv"
 AUDIO_DIR = REPO / "data" / "audio"
 LOW_CONF = REPO / "data" / "phonemized" / "v3" / "low_conf.tsv"
-GOLD = REPO / "g2p_gold_v3 - g2p_gold_v3.csv.csv"
+GOLD = REPO / "data/gold/g2p_gold_v3.csv"
 OUT = REPO / "data" / "audio_lexicon" / "xeus_jobs.tsv"
 
 # same word tokenizer as scripts/xeus_tag.py so the tagger sees what we selected

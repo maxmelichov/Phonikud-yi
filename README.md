@@ -1,116 +1,237 @@
-# Phonikud for Yiddish
+# Phonikud-yi — grapheme-to-phoneme for Hasidic Yiddish
 
-An adaptation of **Phonikud** ([arXiv 2506.12311](https://arxiv.org/abs/2506.12311), *"Phonikud:
-Overcoming Phonetic Underspecification for Hebrew Text-To-Speech"*) to **Hasidic (Central/Poylish)
-Yiddish**, for training a local Yiddish TTS system.
+A deterministic **text → nikud → IPA** stack for contemporary Hasidic
+(Unterland / Central) Yiddish, built to relabel the yiddish24 podcast corpus
+(264 episodes, ~197 h, 1.83 M word tokens) for TTS training.
+
+An adaptation of **Phonikud** ([arXiv 2506.12311](https://arxiv.org/abs/2506.12311),
+*"Phonikud: Overcoming Phonetic Underspecification for Hebrew Text-To-Speech"*),
+with one methodological change: the supervision signal here is **native-speaker
+verdicts plus actual pronounced audio**, not a morpho-phonological analyzer.
+
+---
 
 ## The problem
 
 Yiddish orthography is a hybrid:
 
-- The **Germanic component** (~75% of running text) is spelled essentially phonemically — every
-  syllable nucleus gets a vowel letter (`א ע ו י יי ײַ ױ`). A rule-based G2P handles it well.
-- The **loshn-koydesh component** (Hebrew/Aramaic-origin words) keeps its *historical Hebrew*
-  spelling, unvocalized, while its Yiddish pronunciation has drifted centuries away from it.
-  `שבת` → `ʃabəs`, `משפחה` → `miʃpuxə`, `חתונה` → `xasənə`, `בעל-הבית` → `baləbos`.
-  Letter-by-letter transliteration produces garbage (`שבת` → `ʃbs`).
+- The **Germanic component** (~75 % of running text) is spelled essentially
+  phonemically — every syllable nucleus gets a vowel letter (`א ע ו י יי ײַ ױ`).
+  Rules handle it, once you know the dialect's vowel classes.
+- The **loshn-koydesh component** (Hebrew/Aramaic-origin words) keeps its
+  *historical Hebrew* spelling, unvocalized, while the Yiddish pronunciation has
+  drifted centuries away from it. `שבת` → `ʃabəs`, `משפחה` → `miʃpuxə`,
+  `חתונה` → `xasənə`, `בעל-הבית` → `baləbos`. Letter-by-letter transliteration
+  produces garbage (`שבת` → `ʃbs`).
 
-This is *exactly* the phonetic-underspecification problem Phonikud solves for Hebrew — nikud alone
-does not determine stress, mobile shva, or prefix boundaries. In Yiddish the underspecification is
-concentrated in the loshn-koydesh lexicon, so that is what we attack.
+That is the phonetic-underspecification problem Phonikud solves for Hebrew.
+In Yiddish it is concentrated in the loshn-koydesh lexicon — so that is what
+this repo attacks, and it attacks it with evidence rather than with guesses.
 
-Phonikud's key methodological move — **pseudo-label a large corpus, then hand-fix the ~1K most
-frequent words** — is reproduced here as: *transcribe real Hasidic speech with a multimodal LLM,
-diff it against the rule engine, and mine the divergences as lexicon candidates*. Our supervision
-signal is better than Phonikud's in one respect: it comes from **actual pronounced audio**, not
-from a morpho-phonological analyzer.
+## Status
 
-## Architecture
+| | |
+|---|---|
+| G2P rules | 27, all executable (`docs/yiddish_phoneme_set.md`, 148 asserted examples) |
+| Gold lexicon | 510 rows / 509 primaries, native-verified, **byte-identity enforced** |
+| Corpus coverage | 1.82 M tokens: 64.3 % HIGH, 17.6 % MED, 18.1 % LOW confidence |
+| Quarantined | 5.8 % of running tokens (digits, Latin, URLs) |
+| Nikud model (phonikud-yi v5) | 99.94 % word-level in-distribution, **78.31 %** on a 409-word OOD test |
+| TTS dataset | `data/yiddish_tts_dataset_v2.tsv` — 23,666 rows, 20,898 with an IPA label (~173 h) |
 
-### Phase 1 — Rule engine + audio-mined lexicon (implemented)
+LOW confidence is the **human-review queue**, not an error rate: a word the
+evidence chain cannot settle ships the model's contextual guess rather than
+silence, tagged so it stays visible.
 
-`yiddish_g2p.py` is a three-stage engine:
-
-| Stage | What it does |
-| --- | --- |
-| 1. Orthography | Loshn-koydesh lexical swap (`שבת` → `שאָבעס`), Hasidic contractions, silent-`ה` patch |
-| 2. Latin base | Context-aware Hebrew-script → Latin transliteration (`_word_to_latin`) |
-| 3. Phonology | Latin → Central Yiddish IPA (`ey`→`aɪ`, `ay`→`aː`, `o`→`u`, `u`→`i`) |
-
-Its weakness is Stage 1: the lexicon is small and hand-written. Out-of-lexicon Hebrew-origin words
-fall through to Stage 2 and get transliterated letter-by-letter — wrong.
-
-The pipeline in this repo grows that lexicon from data:
-
-```
-data/audio/*.mp3
-    │  phonikud_yi/segment.py   (ffmpeg segment muxer, ~30s mono 16kHz chunks)
-    ▼
-data/chunks/<episode_id>/chunk_%05d.mp3
-    │  scripts/annotate_audio.py  (Gemini via Vercel AI Gateway, strict JSON)
-    ▼
-data/annotations/<episode_id>.jsonl   {chunk_idx, start_s, end_s, text_yi, ipa, confidence, notes}
-    │  scripts/mine_lk_lexicon.py  (word-align text_yi vs ipa, diff against hebrew_to_ipa)
-    ▼
-data/lk_candidates.tsv                 word ⇥ rule_ipa ⇥ observed_ipa ⇥ count
-    │  human review of the top N (the Phonikud "fix the top 1K words" step)
-    ▼
-_LOSHN_KOYDESH in yiddish_g2p.py
-```
-
-The miner only uses chunks where the Yiddish token count equals the IPA token count (a cheap,
-high-precision alignment filter), and only emits words that (a) diverge from the rule output and
-(b) score as loshn-koydesh under a heuristic: Hebrew-only letters (`ת ח`), low vowel-letter
-density, LK morphology (`־ה`, `־ות`, `־ים`), optional Hebrew wordlist membership, minus Germanic
-giveaways (`אַ אָ ײַ ױ וו יי`, `גע־` prefix).
-
-Real sample output (3 chunks of one episode):
-
-```
-פרשת    rule=frʃs     obs=parʃəs
-חתנ'ס   rule=xsns     obs=xasənəs
-פחד     rule=fxd      obs=paxat
-קדושת   rule=kdiʃs    obs=kdʊʃəs
-```
-
-### Phase 2 — Trainable "enhanced respelling" head (planned)
-
-Phonikud freezes DictaBERT-large-char-menaked and trains a small 2-layer MLP head (hidden 256,
-ReLU) on the char-level encoder outputs to predict *enhanced diacritics*: stress, mobile shva as
-`/e/`, and prefix boundaries. Training: ~5M lines, ~6 epochs, batch 256, lr 5e-3, 5% val.
-
-The Yiddish analogue: freeze a char-level Hebrew-script encoder and train a small head that
-predicts, per character, an **enhanced respelling / phoneme-class tag** — which turns
-`שבת` into the phonetic respelling `שאָבעס` that Stage 1 would have supplied from the lexicon.
-This generalises the mined lexicon to unseen loshn-koydesh words instead of memorising them.
-
-- Backbone candidates: `dicta-il/dictabert-large-char-menaked` (already char-level Hebrew script;
-  Yiddish shares the script), or a small char-level transformer trained from scratch.
-- Labels: pairs of (Hebrew-script word, observed IPA) from `data/annotations/`, projected back
-  onto the respelling alphabet. Chunks with token-count alignment give free word-level supervision.
-- Fallback order at inference: curated lexicon → mined lexicon → learned head → Stage 2 rules.
-
-Not implemented yet — no ML dependencies are installed. The corpus produced by Phase 1 is the
-training set.
-
-### Phase 3 — TTS training (planned)
-
-Train a local TTS on the IPA produced by Phases 1–2, mirroring the paper's Piper / StyleTTS2 setup.
-
-- Corpus: the same ~270 episodes, chunked, with `ipa` as the phoneme sequence.
-- Compute: RunPod (`RUNPOD_API_KEY` in `.env`).
-- Validate the phoneme inventory against the model's vocab with
-  `yiddish_g2p.validate_ipa_vocab(ipa, char_to_id)`.
-
-## Setup
+## Quick start
 
 ```bash
 python3 -m venv .venv
-.venv/bin/pip install requests python-dotenv
-brew install ffmpeg          # required for chunking (ffmpeg + ffprobe on PATH)
+.venv/bin/pip install requests python-dotenv onnxruntime numpy
+brew install ffmpeg          # only needed for audio chunking
 ```
 
-`.env` at the repo root:
+Verify before you use it — this is not optional, see [*Why the guard exists*](#why-the-guard-exists):
+
+```bash
+.venv/bin/python src/selftest.py        # must print ALL CHECKS PASSED
+```
+
+Then:
+
+```python
+import sys; sys.path.insert(0, "src")
+from yiddish_labels import text_to_ipa, text_to_nikud, text_to_nikud_batch
+
+text_to_nikud("מיט א פאר יאר צוריק")   # 'מִיט אַ פּאָר יאָר צוּרִיק'
+text_to_ipa("מיט א פאר יאר צוריק")     # 'mit a pˈur jur ʦirˈik'
+```
+
+Use `text_to_nikud_batch` when labelling a corpus (~4,200 chars/sec on CPU; one
+ONNX session instead of one per call).
+
+For another machine: `.venv/bin/python src/make_bundle.py` builds
+`dist/phonikud-yi-engine.zip` — a flat, self-contained copy needing only
+onnxruntime + numpy. The builder runs the selftest *inside the staged tree* and
+refuses to ship a bundle that fails.
+
+### Why the guard exists
+
+`yiddish_g2p.py` loads its knowledge from seven generated tables in `data/`, and
+every loader tolerates a missing file on purpose (so a table can be regenerated
+in place). The cost: an incomplete deployment emits plausible-looking IPA with
+**zero** native verdicts and **zero** audio corrections, silently.
+
+| word | tables present | tables missing |
+| --- | --- | --- |
+| פעקל | `pɛkl` | `fɛkl` |
+| יארצייט | `jˈurʦajt` | `jˈarʦajt` |
+| האף | `huf` | `haf` |
+
+Both columns look like reasonable Yiddish; only the left one is right.
+`yiddish_labels.verify()` runs at import, asserts every table loaded, and
+spot-checks readings only the tables can produce — so a bad deploy fails loudly
+instead of surfacing months later in a listening test. **Import
+`yiddish_labels`, never `yiddish_g2p` bare.**
+
+## Architecture
+
+### The engine — `yiddish_g2p.py` (single file)
+
+Routing per token, strict order:
+
+```
+abbreviations → multiword/MWE → gold lexicon → legacy lexicons → rule path
+```
+
+A token the rules cannot voice (unpointed loshn-koydesh) enters the **rescue
+chain** — `_AUDIO_ENDORSED` → `_HOMOGRAPH_LK` → `_SEFARIA_POINTED` →
+`_MODEL_POINTED` — each emitting at LOW confidence with a distinct `reason`, so
+it stays in the verification queue instead of pretending to be settled.
+
+`g2p_token(word)` returns `route` (lexicon/rule/fallback), `confidence`
+(HIGH/MED/LOW) and `reason` alongside the IPA.
+
+Two pointed-Hebrew registers: `read_pointed_wh` (Whole-Hebrew, for quoted
+pesukim — shuruk stays [u], final kometz-hey [u]) vs. the merged register
+(embedded LK — shuruk → i, final kometz-hey → ə). `scripts/register_policy.py`
+picks the primary per word; a merged reading that loses a consonant or vowel vs.
+Whole-Hebrew is defective and can never ship, whatever the audio says.
+
+### The tables — generated but committed
+
+`data/gold_lexicon.py` and the five `data/*_lk.py` modules are build products
+that are checked in on purpose: the engine must stay deterministic and
+self-contained (no network, no model at import). Each has a builder in
+`scripts/` — regenerate through the builder, never hand-edit the output.
+
+### The audio-evidence layer
+
+`docs/audio_evidence.md` is the reference. In short: episode audio →
+PhoneticXeus → folded onto the closed phone inventory → positionally aligned
+against the engine's own reading → per-slot votes in an append-only shared pool
+(`data/audio_lexicon/pe_sweep_tags.jsonl`).
+
+Votes become verdicts only after three filters — **surprising** vs. the
+recognizer's own base rate, at a grapheme the **spelling leaves open**, and not
+already **ruled on by gold**. Survivors ship at MED confidence; everything
+contested goes to a queue file for a native speaker, not into the engine.
+
+### The pointing model — phonikud-yi
+
+A 306 M char-BERT with three heads predicts Hasidic nikud in context and feeds
+the last rescue link. Retrainable:
+`scripts/prepare_retrain_dataset_v2.py` (stamps verified readings as diacritics,
+masks the rest) → `scripts/train_phonikud_yi.py` (warm start, hard
+label-collapse guard) → `scripts/eval_phonikud_yi.py`. ONNX export via
+`scripts/export_onnx.py` + `scripts/infer_onnx.py` (CPU, ~50 ms/sentence).
+
+### The verification loop — how accuracy actually improves
+
+```
+corpus run → frequency-sorted LOW batches → native verdicts → gold lexicon
+          → rebuild tables → LOW share drops → repeat
+```
+
+Audio evidence and published pointing feed the same loop one tier down.
+
+## The authority chain
+
+Fixed, highest first. A lower tier never overrides a higher one.
+
+1. **Native verdicts** (gold CSV) — byte-identity enforced by a test gate;
+   nothing may move a gold primary.
+2. **Corpus audio** (PhoneticXeus) — and only at graphemes the spelling leaves
+   open (spec §4: `א`, `פ`, `יי`, `וי`, shuruk-`ו`). Elsewhere the letter
+   decides, so an audio deviation is a *process*, not evidence.
+3. **Published pointing** (Sefaria) — LOW confidence, always queued.
+4. **Model guesses** — LOW confidence, always queued.
+
+When audio contradicts gold the conflict becomes a **question for the native
+reviewer**, never a silent flip.
+
+## Invariants — do not "fix" these back
+
+- **Gold byte-identity.** `hebrew_to_ipa(word, stress=True)` reproduces all 509
+  gold primaries exactly. `scripts/test_g2p_gold.py` is the hard gate.
+- **Citation forms, not surface forms.** Labels encode what a word *is*, not
+  what fast speech does to it. `האט` stays `hut` though the recognizer hears
+  *hat* in 41 % of clips; `איז` stays voiced. Reduction and devoicing are
+  predictable processes and must never be folded into the lexicon.
+- **Closed phone inventory.** Vowels `a aː ɛ ə i u ɔ ej aj ɔj oʊ`; consonants
+  `b d f ɡ h j k l m n p r s t v z x ʃ ʒ ʦ ʧ ʤ ŋ`; marks `ˈ` (immediately before
+  the stressed vowel) and `ː` (only in `aː`). Nothing else may ever be emitted;
+  a corpus-wide gate enforces it.
+- **No-drop policy.** No Hebrew word is ever silently dropped — unsettled words
+  get a LOW-confidence guess. Only non-Hebrew tokens (digits, Latin) quarantine.
+- **v3 reversals of v2.** Devoicing is OFF everywhere (`iz`, `zuɡt` stay
+  voiced; only voicing-ward assimilation survives); syllabic finals take no
+  epenthetic schwa (`zuɡn`, not `zuɡən`); notation is `aj`/`ɔj`, not `aɪ`/`ɔɪ`;
+  the `־ער` default is `ɛr` with a closed lexical ir-list.
+- **Never read yiddish24's stored nikud column.** It disagrees with itself
+  (`האט` pointed 18 different ways, `האבן` 31) and marks `פאר` as `פֿאַר` *far*
+  even in `אַ פּאָר יאָר` *"a few years"*. It is the direct cause of the released
+  voice mixing dialects. Generate labels with this stack, or join
+  `yiddish_tts_dataset_v2.tsv` on `id`. Corollary: do **not** score the model
+  against that column — higher agreement means worse.
+
+## Commands
+
+The test suites are plain scripts, not pytest. Everything runs from the repo
+root with the venv python.
+
+```bash
+# gates — all seven must pass before anything ships
+.venv/bin/python scripts/test_g2p.py             # core engine regressions
+.venv/bin/python scripts/test_g2p_spec.py        # spec behaviours (2 documented XFAILs)
+.venv/bin/python scripts/test_g2p_gold.py        # 509/509 gold byte-identity — the hard gate
+.venv/bin/python scripts/test_rules_doc.py       # executes docs/yiddish_phoneme_set.md
+.venv/bin/python scripts/test_xeus_map.py        # PhoneticXeus → Yiddish phone-map coverage
+.venv/bin/python scripts/test_audio_evidence.py  # audio table integrity + sweep verdict logic
+.venv/bin/python scripts/test_g2p_wh.py          # Whole-Hebrew / merged register readers
+.venv/bin/python src/selftest.py                 # tables loaded, canaries correct, v5 loads
+
+# corpus
+.venv/bin/python scripts/run_corpus_v3.py --limit 0   # full run + QA gates a–d (a few minutes)
+.venv/bin/python scripts/run_corpus_v3.py             # 2,000-row quick check
+.venv/bin/python scripts/retag_tts_dataset.py         # rebuild the TSV from the corpus run
+
+# evaluation against a native speaker
+.venv/bin/python scripts/build_eval_sheet.py                  # stratified 30-sentence sheet
+.venv/bin/python scripts/score_eval_sheet.py <returned.tsv>   # WER / PER / stress
+
+# audio-evidence loop (hours of local GPU; no network, no APIs)
+.venv/bin/python scripts/xeus_sweep_all.py --plan-only
+.venv/bin/python scripts/xeus_sweep_all.py --max-chunks 1500
+.venv/bin/python scripts/audio_calibrate.py
+.venv/bin/python scripts/build_audio_pe_lexicon.py
+.venv/bin/python scripts/build_audio_vowel_lexicon.py
+
+# portable bundle
+.venv/bin/python src/make_bundle.py --with-dataset
+```
+
+`.env` at the repo root, for the scripts that need it:
 
 ```
 AI_GATEWAY_API_KEY=...
@@ -118,63 +239,74 @@ AI_GATEWAY_BASE_URL=https://ai-gateway.vercel.sh/v1
 RUNPOD_API_KEY=...
 ```
 
-### Models
-
-Verified against `GET /models` on the gateway. The slugs `google/gemini-3.1-pro` and
-`google/gemini-flash-3.6` **do not exist**; the real ones, hardcoded in `phonikud_yi/gateway.py`:
-
-| Role | Slug |
-| --- | --- |
-| bulk annotation | `google/gemini-3.6-flash` (`MODEL_FLASH`) |
-| high-quality passes | `google/gemini-3.1-pro-preview` (`MODEL_PRO`) |
-
-Two gateway quirks, both handled in `phonikud_yi/gateway.py`:
-
-1. **Audio parts must use the OpenAI `file` / `file_data` data-URL shape.** The classic
-   `{"type": "input_audio", ...}` and `{"type": "audio_url", ...}` parts both return
-   `400 Invalid input` for `google/gemini-*`.
-2. **Gemini 3.x are reasoning models** — reasoning tokens are billed against `max_tokens`, so a
-   small budget returns empty content. The client floors `max_tokens` at 1024.
-
-## Running
-
-```bash
-# 0. verify everything (rule engine + gateway; --audio also tests a base64 audio call)
-.venv/bin/python scripts/smoke_test.py --audio
-
-# 1. annotate audio  (resumable — re-running skips chunks already in the output file)
-.venv/bin/python scripts/annotate_audio.py --limit 1 --max-chunks 3   # try it out
-.venv/bin/python scripts/annotate_audio.py                            # everything
-.venv/bin/python scripts/annotate_audio.py --episode 161701 --model google/gemini-3.1-pro-preview
-
-# 2. mine the loshn-koydesh lexicon
-.venv/bin/python scripts/mine_lk_lexicon.py
-.venv/bin/python scripts/mine_lk_lexicon.py --min-count 2 --min-score 0.6
-.venv/bin/python scripts/mine_lk_lexicon.py --include-known   # audit existing entries too
-
-# 3. review data/lk_candidates.tsv, then add confirmed entries to
-#    _LOSHN_KOYDESH in yiddish_g2p.py as  "<hebrew spelling>": "<yiddish respelling>"
-```
-
-Optional: drop a newline-separated Hebrew wordlist at `data/hebrew_wordlist.txt` to make the
-loshn-koydesh detector exact rather than heuristic.
-
 ## Layout
 
 ```
-phonikud_yi/
-  gateway.py            AI Gateway client: retries/backoff, text + base64 audio messages, loose JSON parsing
-  segment.py            ffmpeg CLI chunking (chunk_mp3, duration_s, have_ffmpeg)
-scripts/
-  annotate_audio.py     manifest → chunks → Gemini → data/annotations/<id>.jsonl
-  mine_lk_lexicon.py    annotations → data/lk_candidates.tsv
-  smoke_test.py         rule engine samples + gateway verification
-yiddish_g2p.py          the three-stage rule engine (hebrew_to_ipa / hebrew_to_latin)
+yiddish_g2p.py            the G2P engine (single file, ~4.3 k lines)
+src/                      the deployment front door — import this
+  yiddish_labels.py         text → nikud → IPA + the load guard
+  yiddish_nikud.py          diacritizer wrapper (phonikud-yi v5)
+  selftest.py               run before trusting a deployment
+  make_bundle.py            builds dist/phonikud-yi-engine.zip
+scripts/                  builders, gates, corpus runs, audio sweeps, training
+  test_*.py                 the seven gates
+  build_*.py                regenerate the committed data/*.py tables
+  xeus_*.py                 the PhoneticXeus audio-evidence pipeline
+docs/
+  yiddish_phoneme_set.md    the 27 rules — executable, run by test_rules_doc.py
+  audio_evidence.md         how recordings become lexicon verdicts
+  PROJECT_HISTORY.md        what was done, decided, and why
+  paper_draft.md            academic write-up of the system
+  xeus_to_yiddish_map.md    recognizer inventory → closed Yiddish inventory
 data/
-  audio_manifest.jsonl  {id, path, bytes, mp3_url}   (written by the scraper)
-  episodes.jsonl        episode metadata             (written by the scraper)
-  audio/<id>.mp3
-  chunks/<id>/chunk_%05d.mp3
-  annotations/<id>.jsonl
-  lk_candidates.tsv
+  g2p_spec_v3.md            the authoritative spec
+  gold/g2p_gold_v3.csv      authority #1 — native verdicts
+  gold_lexicon.py, *_lk.py  generated tables the engine loads
+  eval/                     native-speaker evaluation sheets
+  yiddish_tts_dataset_v2.tsv  id, episode, chunk, text, nikud, ipa
+phonikud_yi/              AI-Gateway client + ffmpeg chunking (annotation era)
+scraper/                  yiddish24 episode scraper
+legacy/                   superseded code, not on any import path
 ```
+
+Ignored and regenerable (not in git): `data/audio/`, `data/chunks/`,
+`data/phonemized/`, `data/retrain*/`, `models/`, `dist/`, `phonikud/`.
+
+## Pitfalls that have burned real runs
+
+- `yiddish_g2p._ROUTE_CACHE` caches per-token routing. **Clear it after any
+  lexicon mutation** in measurement scripts, or you measure stale answers.
+- **Write generated tables with `repr()`**, never hand-quoted f-strings —
+  Yiddish keys carry apostrophes (`מורא'דיקע`, `אויפ'ן`) that close the literal
+  early and make the module unparsable.
+- Table loaders degrade on an **absent** file (deliberate) but **raise** on a
+  file that exists and fails to load. Do not restore the old catch-all: a
+  SyntaxError once silently emptied a table and shipped it.
+- A raw majority vote over PhoneticXeus output is meaningless (it reports `ʦ`
+  as *s* 62 % of the time). Always score against `data/audio_lexicon/confusion.tsv`.
+- phonikud-yi training/inference needs **transformers==4.56.2**; 5.x loads the
+  slow tokenizer, offsets vanish, and supervision silently collapses.
+- On MPS, dropout crashes fused attention — the trainer's guards (frozen encoder
+  stays in eval; dropout zeroed when unfrozen) are load-bearing.
+- `vocab.txt` in exported checkpoints is off by one vs. the true tokenizer id
+  space — build id maps from the tokenizer, never from raw `vocab.txt` lines.
+- `phonikud/` is a **vendored upstream clone with its own `.git`**, gitignored;
+  the actual trainer lives in `phonikud/model/src/train/`. It is not in this
+  repo's history — back it up before editing.
+- RunPod GPU runs go through `scripts/runpod_ctl.py`. **Terminate pods when done.**
+
+## Docs are executable
+
+`docs/yiddish_phoneme_set.md` is parsed and run by `scripts/test_rules_doc.py` —
+every example row asserts live engine output. Change behaviour and the doc's
+examples must change in the same commit, or the gate fails. Add a rule, and it
+needs examples there.
+
+## Open work
+
+- Return and score the 30-sentence native evaluation sheet (`data/eval/`) for a
+  measured WER/PER number.
+- Apostrophe morpheme seams (`תורה'ס`, `משיח'ן`) — ~250 types on the LK path.
+- Single-letter geresh abbreviations (`ד'`, `ס'`, `ח'`) currently quarantined.
+- A Yiddish numeral reader (~3 k digit tokens quarantined).
+- Adjudicate the pending audio-vs-gold conflicts with the native reviewer.

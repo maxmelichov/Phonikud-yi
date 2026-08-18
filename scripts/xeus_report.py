@@ -23,7 +23,7 @@ REPO = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(REPO / "scripts"))
 from xeus_tag import align  # noqa: E402
 
-GOLD = REPO / "g2p_gold_v3 - g2p_gold_v3.csv.csv"
+GOLD = REPO / "data/gold/g2p_gold_v3.csv"
 
 
 def main() -> int:

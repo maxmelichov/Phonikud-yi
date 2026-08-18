@@ -1,7 +1,7 @@
 # Audio-Supervised Grapheme-to-Phoneme Conversion for Hasidic Yiddish: Overcoming Phonetic Underspecification
 
 **Draft — paper framing of the working system.** Engine: `yiddish_g2p.py` ·
-Spec: `data/g2p_spec_v3.md` · Gold benchmark: `g2p_gold_v3 - g2p_gold_v3.csv.csv`
+Spec: `data/g2p_spec_v3.md` · Gold benchmark: `data/gold/g2p_gold_v3.csv`
 
 > This draft reuses the R01–R23 rule tables verbatim from
 > `docs/yiddish_phoneme_set.md`, which remains the executable specification

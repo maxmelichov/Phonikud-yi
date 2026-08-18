@@ -1,6 +1,6 @@
 # Hasidic Yiddish Phoneme Set & G2P Rules (v3)
 
-Engine: `yiddish_g2p.py` · Spec: `data/g2p_spec_v3.md` · Gold: `g2p_gold_v3 - g2p_gold_v3.csv.csv`
+Engine: `yiddish_g2p.py` · Spec: `data/g2p_spec_v3.md` · Gold: `data/gold/g2p_gold_v3.csv`
 
 **This document is executable.** Every example row below is run against the live
 engine by `scripts/test_rules_doc.py`, which parses the `### R…` sections and

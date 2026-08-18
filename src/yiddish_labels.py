@@ -52,9 +52,10 @@ def _find_engine() -> Path:
 
 ENGINE_DIR = _find_engine()
 # ENGINE_DIR must be importable (yiddish_g2p lives there), but THIS directory
-# has to win every name collision: the repo root also carries an older
-# yiddish_nikud.py aimed at a superseded export, and importing that one would
-# regenerate the very labels this stack exists to replace. Order is forced
+# has to win every name collision: an older yiddish_nikud.py aimed at a
+# superseded export used to sit at the repo root (now legacy/), and importing
+# that one regenerates the very labels this stack exists to replace, so bundles
+# and stale checkouts still need the ordering. Order is forced
 # rather than guarded, because a caller may already have put either path on
 # sys.path before importing us.
 for _p in (str(ENGINE_DIR), str(_HERE)):

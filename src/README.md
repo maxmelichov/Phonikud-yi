@@ -88,9 +88,10 @@ onnx_yiddish_v5/      phonikud-yi v5 export — in the bundle; in the repo it is
                       models/phonikud_yi_v5/v5.onnx (or $PHONIKUD_YI_MODEL)
 ```
 
-**A name collision to know about:** the repo root carries an older
-`yiddish_nikud.py` aimed at the superseded `onnx_yiddish` export — importing
-that one regenerates exactly the labels this stack replaces.
+**A name collision to know about:** an older `yiddish_nikud.py` aimed at the
+superseded `onnx_yiddish` export used to sit at the repo root (it now lives in
+`legacy/`, off the import path) — importing that one regenerates exactly the
+labels this stack replaces.
 `yiddish_labels.py` forces `src/` ahead of the repo root on `sys.path` so the
 right module always wins; that is why you import `yiddish_labels` first.
 
