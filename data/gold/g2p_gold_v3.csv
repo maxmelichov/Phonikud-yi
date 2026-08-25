@@ -40,7 +40,7 @@ rank,word,freq,layer,gold_ipa,gold,source,chezky_hint,review_note
 39,אזוי,330,G,azˈɔj,azoy,chezky-approved,,
 40,נאך,316,G,nux,nukh,chezky-approved,,
 41,ביי,310,G,baː | ba | baj,baa|ba|bay,chezky-approved,,
-42,אויך,302,G,oʊx | ɔjx,oukh|oykh,chezky-verified,oh-ch,
+42,אויך,302,G,ɔjx | oʊx,oykh|oukh,chezky-verified,oykh,"וי *ō/ou (Weinreich 44), not û-class 54; default ɔj"
 43,זייער,287,G,zˈajər,zayer,chezky-approved,,
 44,אדער,286,G,ˈɔdər,oder,chezky-verified,brother,
 45,זאל,281,G,zul,zul,chezky-approved,,
@@ -509,3 +509,4 @@ rank,word,freq,layer,gold_ipa,gold,source,chezky_hint,review_note
 508,פראביר,1,G,prɔbˈir,probeer,chezky-verified,probeer,sheet 2026-08-12
 509,פאדלאגע,2,G,pˈɔdlɔɡə,podloge,chezky-verified,podloge,sheet 2026-08-12
 510,געקאכט,34,G,ɡəkˈɔxt,gekocht,chezky-verified,gekocht,sheet 2026-08-12
+511,טויב,0,G,tɔjb | toʊb,toyb|toub,native-homograph,,"HOMOGRAPH: tɔjb=deaf (default וי ɔj); toʊb=dove/bird (û-class 54). Needs context; keep both — do not collapse to a global majority."

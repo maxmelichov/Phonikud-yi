@@ -35,7 +35,7 @@ TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "audio_endorsed_lk.py", "homograph_lk.py", "sefaria_pointed_lk.py",
           "model_pointed_lk.py", "stress_overrides.py")
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
-MODEL_SRC = REPO / "models" / "phonikud_yi_v5" / "v5.onnx"
+MODEL_SRC = REPO / "models" / "phonikud_yi_v6" / "v6.onnx"
 DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 
 
@@ -72,7 +72,7 @@ def main() -> int:
     if not args.no_model:
         if not (MODEL_SRC / "model.onnx").exists():
             raise SystemExit(f"no v5 export at {MODEL_SRC}; pass --no-model to skip")
-        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v5")
+        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v6")
     if args.with_dataset:
         if not DATASET.exists():
             raise SystemExit(f"{DATASET} missing; run scripts/retag_tts_dataset.py")

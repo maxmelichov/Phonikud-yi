@@ -54,7 +54,7 @@ GOLD_LEXICON: dict[str, dict] = {
     'אזוי': {"word": 'אזוי', "ipa_primary": 'azˈɔj', "variants": ['azˈɔj'], "layer": 'G', "freq": 330, "note": ''},
     'נאכ': {"word": 'נאך', "ipa_primary": 'nux', "variants": ['nux'], "layer": 'G', "freq": 316, "note": ''},
     'ביי': {"word": 'ביי', "ipa_primary": 'baː', "variants": ['baː', 'ba', 'baj'], "layer": 'G', "freq": 310, "note": ''},
-    'אויכ': {"word": 'אויך', "ipa_primary": 'oʊx', "variants": ['oʊx', 'ɔjx'], "layer": 'G', "freq": 302, "note": ''},
+    'אויכ': {"word": 'אויך', "ipa_primary": 'ɔjx', "variants": ['ɔjx', 'oʊx'], "layer": 'G', "freq": 302, "note": 'וי *ō/ou (44), not û-class 54'},
     'זייער': {"word": 'זייער', "ipa_primary": 'zˈajər', "variants": ['zˈajər'], "layer": 'G', "freq": 287, "note": ''},
     'אדער': {"word": 'אדער', "ipa_primary": 'ˈɔdər', "variants": ['ˈɔdər'], "layer": 'G', "freq": 286, "note": ''},
     'זאל': {"word": 'זאל', "ipa_primary": 'zul', "variants": ['zul'], "layer": 'G', "freq": 281, "note": ''},
@@ -522,4 +522,5 @@ GOLD_LEXICON: dict[str, dict] = {
     'פראביר': {"word": 'פראביר', "ipa_primary": 'prɔbˈir', "variants": ['prɔbˈir'], "layer": 'G', "freq": 1, "note": 'sheet 2026-08-12'},
     'פאדלאגע': {"word": 'פאדלאגע', "ipa_primary": 'pˈɔdlɔɡə', "variants": ['pˈɔdlɔɡə'], "layer": 'G', "freq": 2, "note": 'sheet 2026-08-12'},
     'געקאכט': {"word": 'געקאכט', "ipa_primary": 'ɡəkˈɔxt', "variants": ['ɡəkˈɔxt'], "layer": 'G', "freq": 34, "note": 'sheet 2026-08-12'},
+    'טויב': {"word": 'טויב', "ipa_primary": 'tɔjb', "variants": ['tɔjb', 'toʊb'], "layer": 'G', "freq": 0, "note": 'HOMOGRAPH: tɔjb=deaf; toʊb=dove/bird. Needs context; keep both.'},
 }

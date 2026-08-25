@@ -66,7 +66,7 @@ CASES: list[tuple[str, str, str]] = [
     #    distinguished by any rule.
     ("ווייס", "vajs", "§11.3 vays 'I know' (24); the 'white' reading is vaas [vaːs] (34), same spelling"),
     # 4. oykh / boukh — the 42/44 vs 54 split, the top transcription-error source
-    ("אויך", "oʊx", "§11.4 oykh 'also'; v3 §4 puts oukh on the oʊ-list"),  # v3
+    ("אויך", "ɔjx", "§11.4 oykh 'also' is class 44 (ɔj), not û-class 54"),
     ("בויך", "boʊx", "§11.4 boukh 'belly' (54)"),
     # 5. broyt / hout
     ("ברויט", "brɔjt", "§11.5 broyt 'bread' (42/44)"),

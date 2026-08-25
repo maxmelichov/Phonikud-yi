@@ -682,16 +682,23 @@ _WORD_LATIN: dict[str, str] = {
     # --- class 54: MHG ū -> engine 'ou' = [oʊ], split off from oy (42/44).
     # The oykh(44)/boukh(54) and broyt(44)/hout(54) pairs are the spec's
     # top-listed transcription-error source, so these are lexical, not a rule.
-    "הויז": "houz",         # hous -> [hoʊs] after devoicing
+    "הויז": "houz",         # hous -> [hoʊz]
     "הויזער": "houzer",
     "הויט": "hout",
     "בויך": "boukh",
     "מויל": "moul",
+    "מויז": "mouz",
     "טויזנט": "touznt",
     "טויזנטער": "touznter",
     "זויער": "zouer",
     "בויען": "bouen",
     "געבויט": "gebout",
+    "דרויסן": "drousn",
+    "קרויט": "krout",
+    "שטוינט": "shtount",
+    "פויער": "pouer",
+    "לויט": "lout",
+    "דערויף": "derouf",
 
     # --- יי = 'ay' ---
     "זיין": "zayn",
@@ -846,7 +853,7 @@ _WORD_LATIN: dict[str, str] = {
     "וויבאלד": "vibald",
 
     # --- Hasidic pronunciation of common words ---
-    "אויך": "oukh",         # v3 §4 oʊ-list
+    "אויך": "oykh",         # class 44 (Weinreich *ō/ou), NOT û-class 54
     "אויף": "ouf",          # v3 §9: oʊf standalone, afn fused
     "אויפן": "afn",
 

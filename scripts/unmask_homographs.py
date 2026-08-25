@@ -17,11 +17,13 @@ unambiguous, which is the whole point of per-token supervision.
 
 MARGIN_MIN is on the scorer's ``margin`` field and therefore on ITS scale:
 (best_fit - runner_fit) * clamp(best_fit, 0, 1), where both fits are
-length-normalised to <= 1.0. It is held at 1.67x the scorer's own decide bar
-(0.05), the same ratio the old ratio-margin scale used — the scale changed when
-xeus_score_homographs.py stopped dividing the lead by the winner's fit (which
-made the WORST-fitting windows report the highest confidence), so votes.jsonl
-must be rescored, not reused, when this number is compared against it.
+length-normalised to <= 1.0. v6 held it at 1.67x the scorer's own decide bar
+(0.08 vs 0.05). v7 matches the scorer's decide bar (0.05) so every occurrence
+the audio decider already called "decided" can supervise, not only the extra-
+clear subset. The scale changed when xeus_score_homographs.py stopped dividing
+the lead by the winner's fit (which made the WORST-fitting windows report the
+highest confidence), so votes.jsonl must be rescored, not reused, when this
+number is compared against it.
 
 Safety rails, all of them hard failures rather than silent skips:
 
@@ -36,7 +38,9 @@ Safety rails, all of them hard failures rather than silent skips:
 The originals are never overwritten: output goes to train_unmasked.jsonl beside
 them.
 
-    python scripts/unmask_homographs.py [--margin 0.08] [--dry-run]
+    python scripts/unmask_homographs.py [--margin 0.05] [--dry-run]
+    python scripts/unmask_homographs.py --margin 0.05 \
+        --train data/retrain3/train.jsonl --out data/retrain7/train.jsonl
 """
 from __future__ import annotations
 
@@ -56,7 +60,9 @@ VOTES = ROOT / "data" / "homographs" / "votes.jsonl"
 TRAIN = ROOT / "data" / "retrain" / "train.jsonl"
 OUT = ROOT / "data" / "retrain" / "train_unmasked.jsonl"
 
-MARGIN_MIN = 0.08
+# v7: same bar as scripts/xeus_score_homographs.py --margin (the decide bar).
+# v6 used 0.08; pass --margin 0.08 to reproduce that cut.
+MARGIN_MIN = 0.05
 
 
 def norm(s: str) -> str:
@@ -88,18 +94,20 @@ def load_votes(path: Path, margin_min: float) -> tuple[dict, Counter]:
     return picked, stats
 
 
-def main() -> None:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--margin", type=float, default=MARGIN_MIN)
-    ap.add_argument("--dry-run", action="store_true")
-    args = ap.parse_args()
-
-    picked, stats = load_votes(VOTES, args.margin)
+def unmask_file(
+    train: Path,
+    votes: Path,
+    out: Path | None,
+    margin_min: float,
+    dry_run: bool = False,
+) -> tuple[Counter, Counter]:
+    """Apply confident per-occurrence votes onto ``train``. Returns (stats, words)."""
+    picked, stats = load_votes(votes, margin_min)
     used: set[tuple[str, int]] = set()
     out_lines: list[str] = []
     words: Counter[str] = Counter()
 
-    with TRAIN.open(encoding="utf-8") as fh:
+    with train.open(encoding="utf-8") as fh:
         for line in fh:
             row = json.loads(line)
             toks = row["text"].split()
@@ -139,14 +147,36 @@ def main() -> None:
             out_lines.append(json.dumps(row, ensure_ascii=False))
 
     stats["votes_no_matching_row"] = len(set(picked) - used)
-    if not args.dry_run:
-        OUT.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
-        print(f"wrote {OUT}")
+    if not dry_run:
+        if out is None:
+            raise ValueError("out path required unless dry-run")
+        out.parent.mkdir(parents=True, exist_ok=True)
+        out.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
+        print(f"wrote {out}")
+    return stats, words
+
+
+def report(stats: Counter, words: Counter) -> None:
     for k in sorted(stats):
         print(f"{k:28s} {stats[k]}")
     print("\nunmasked by word:")
     for w, n in words.most_common(20):
         print(f"  {w:14s} {n}")
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--margin", type=float, default=MARGIN_MIN)
+    ap.add_argument("--train", type=Path, default=TRAIN)
+    ap.add_argument("--votes", type=Path, default=VOTES)
+    ap.add_argument("--out", type=Path, default=OUT)
+    ap.add_argument("--dry-run", action="store_true")
+    args = ap.parse_args()
+
+    stats, words = unmask_file(
+        args.train, args.votes, args.out, args.margin, dry_run=args.dry_run,
+    )
+    report(stats, words)
 
 
 if __name__ == "__main__":

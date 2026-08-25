@@ -51,7 +51,9 @@ _HERE = os.path.dirname(os.path.abspath(__file__))
 # bundle it sits next to this file. $PHONIKUD_YI_MODEL overrides both.
 _CANDIDATES = (
     os.environ.get("PHONIKUD_YI_MODEL", ""),
+    os.path.join(_HERE, "onnx_yiddish_v6"),
     os.path.join(_HERE, "onnx_yiddish_v5"),
+    os.path.join(os.path.dirname(_HERE), "models", "phonikud_yi_v6", "v6.onnx"),
     os.path.join(os.path.dirname(_HERE), "models", "phonikud_yi_v5", "v5.onnx"),
 )
 

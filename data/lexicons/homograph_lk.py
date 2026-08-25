@@ -21,8 +21,10 @@ an audio verdict is a recognizer's opinion, neither is a native judgement — so
 these stay in the verification queue and are replaced the moment a Chezky
 verdict lands.
 
-215 entries / 7,387 quarantined tokens, sorted by corpus frequency.
-Regenerate: python scripts/build_homograph_lexicon.py
+215 generated entries / 7,387 quarantined tokens, sorted by corpus frequency,
+plus native sense-homographs appended below (not from the audio builder).
+Regenerate: python scripts/build_homograph_lexicon.py — then re-append
+native rows such as טויב; the builder does not know them.
 """
 
 HOMOGRAPH_LK = {
@@ -241,4 +243,8 @@ HOMOGRAPH_LK = {
     'חזיונות': {"ipa": 'xəzjˈinis', "pointed": 'חֶזְיונות', "register": 'merged', "variants": [], "reason": 'homograph-collapsed', "n_decided": 0, "share": 1.0},  # freq 1
     'מאחי': {"ipa": 'majˈaxaj', "pointed": 'מֵאֲחֵי', "register": 'wh', "variants": [], "reason": 'homograph-collapsed', "n_decided": 0, "share": 1.0},  # freq 1
     'קדמך': {"ipa": 'kudˈumux', "pointed": 'קֳדָמָךְ', "register": 'wh', "variants": [], "reason": 'homograph-collapsed', "n_decided": 0, "share": 1.0},  # freq 1
+    # Native phonemic homograph (same pointing טוֹיב). Not an audio collapse.
+    # Primary is the default וי class (deaf); dove/bird is the û-class variant.
+    # Inference has no context model — global majority is a known limitation.
+    'טויב': {"ipa": 'tɔjb', "pointed": 'טוֹיב', "register": 'yi', "variants": ['toʊb'], "reason": 'native-homograph', "n_decided": 0, "share": 0.0},
 }

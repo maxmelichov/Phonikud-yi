@@ -1,0 +1,650 @@
+{
+  "model": "models/phonikud_yi_v6/best",
+  "constructed": [
+    {
+      "type": "מדבר",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "speaks",
+          "text": "דער רבי מדבר צו דעם עולם",
+          "pred_sentence": "דֶער רֶבִּי מִדְבַּר צוּ דֶעם עוֹלָם",
+          "pred_token": "מִדְבַּר",
+          "pred_ipa": "mˈidbar",
+          "expect_pointed": "מְדַבֵּר",
+          "pointed_match": false,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        },
+        {
+          "tag": "desert",
+          "text": "משה רבינו איז געווען אין מדבר סיני",
+          "pred_sentence": "מֹשֶׁה רַבֵּינוּ אִיז גֶעוועֶן אִין מִדְבַּר סִינַי",
+          "pred_token": "מִדְבַּר",
+          "pred_ipa": "mˈidbar",
+          "expect_pointed": "מִדְבָּר",
+          "pointed_match": false,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        }
+      ]
+    },
+    {
+      "type": "חלה",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "challah",
+          "text": "מען עסט חלה שבת צו דער סעודה",
+          "pred_sentence": "מֶען עֶסְט חַלָּה שַׁבָּת צוּ דֶער סְעוּדָה",
+          "pred_token": "חַלָּה",
+          "pred_ipa": "xˈalə",
+          "expect_pointed": "חַלָּה",
+          "pointed_match": true,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        },
+        {
+          "tag": "fell-ill",
+          "text": "ער איז חלה געווארן און ליגט אין בעט",
+          "pred_sentence": "עֶר אִיז חַלָּה גֶעווארְן אוּן לִיגְט אִין בֶּעט",
+          "pred_token": "חַלָּה",
+          "pred_ipa": "xˈalə",
+          "expect_pointed": "חָלָה",
+          "pointed_match": false,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        }
+      ]
+    },
+    {
+      "type": "מקדש",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "sanctifies",
+          "text": "מען מקדש דעם חודש בזמנו",
+          "pred_sentence": "מֶען מִקַדֵּשׁ דֶעם חוֹדֶשׁ בִזְמַנּוֹ",
+          "pred_token": "מִקַדֵּשׁ",
+          "pred_ipa": "mikˈadajʃ",
+          "expect_pointed": "מְקַדֵּשׁ",
+          "pointed_match": false,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        },
+        {
+          "tag": "temple",
+          "text": "דער מקדש אין ירושלים איז חרוב געווארן",
+          "pred_sentence": "דֶער מִקְדַּשׁ אִין יְרוּשָׁלַיִם אִיז חָרוּבֿ גֶעווארְן",
+          "pred_token": "מִקְדַּשׁ",
+          "pred_ipa": "mˈikdaʃ",
+          "expect_pointed": "מִקְדָּשׁ",
+          "pointed_match": false,
+          "ipa_substr_match": false,
+          "in_train_split": false,
+          "vote_id": null
+        }
+      ]
+    }
+  ],
+  "constructed_summary": {
+    "n_types": 3,
+    "n_split": 1,
+    "split_rate": 33.3
+  },
+  "vote_contexts": [
+    {
+      "type": "מדבר",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "מְדַבֵּר",
+          "text": "איז דא דומם צומח חי מדבר פיר זאכן א דומם איז",
+          "pred_sentence": "אִיז דאָ דּוֹמֵם צוֹמֵחַ חָי מִדְבַּר פִֿיר זאַכְן אַ דּוֹמֵם אִיז",
+          "pred_token": "מִדְבַּר",
+          "pred_ipa": "mˈidbar",
+          "expect_pointed": "מְדַבֵּר",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "106048-00060"
+        },
+        {
+          "tag": "מִדְבַּר",
+          "text": "דער אייבערשטער האט געטאן אין מדבר וואו די יידן האבן געטאן",
+          "pred_sentence": "דֶער אֵייבֶּערְשְׁטֶער הָאָט גֶעטאָן אִין מִדְבַּר וואוּ דִּי ייִדְן האָבְן גֶעטאָן",
+          "pred_token": "מִדְבַּר",
+          "pred_ipa": "mˈidbar",
+          "expect_pointed": "מִדְבַּר",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "54051-00004"
+        }
+      ]
+    },
+    {
+      "type": "מקדש",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "מְקַדֵּשׁ",
+          "text": "מאכן א שליח גיי זאי מקדש א מאן פאר מיין טאכטער",
+          "pred_sentence": "מאַכְן אַ שָׁלִיחַ גֵיי זַאי מִקַדָּשׁ אַ מַאַן פֿאַר מייַן טאָכְטֶער",
+          "pred_token": "מִקַדָּשׁ",
+          "pred_ipa": "mikˈaduʃ",
+          "expect_pointed": "מְקַדֵּשׁ",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "69999-00021"
+        },
+        {
+          "tag": "מִקְדַּשׁ",
+          "text": "וואו איז דארט געווען א מקדש דאס זאלסטו מאכן וואס הייטש",
+          "pred_sentence": "וואוּ אִיז דארט גֶעוועֶן אַ מִקַדֵּשׁ דאָס זָאָלְסְטוּ מאַכְן וואָס הַייטְשׁ",
+          "pred_token": "מִקַדֵּשׁ",
+          "pred_ipa": "mikˈadajʃ",
+          "expect_pointed": "מִקְדַּשׁ",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "100807-00053"
+        }
+      ]
+    },
+    {
+      "type": "אותך",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "אוֹתְךָ",
+          "text": "אויס ככל אשר אני מראה אותך אזוי ס'טאפנס דאס משכן יא",
+          "pred_sentence": "אוֹיס כְּכָל אֲשֶׁר אֲנִי מַרְאֶה אוֹתְךָ אַזוי ס'טאַפְנס דאָס מִשְׁכָּן יאָ",
+          "pred_token": "אוֹתְךָ",
+          "pred_ipa": "ˈoʊsxu",
+          "expect_pointed": "אוֹתְךָ",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "79308-00055"
+        },
+        {
+          "tag": "אוֹתָךְ",
+          "text": "דארט וואוינען אשר אני מראה אותך איך גיי דיר ווייזן ער",
+          "pred_sentence": "דארט וואוֹינֶען אֲשֶׁר אֲנִי מַרְאֶה אוֹתָךָ אִיךְ גֵיי דִיר ווַייְזְן עֶר",
+          "pred_token": "אוֹתָךָ",
+          "pred_ipa": "oʊsˈuxu",
+          "expect_pointed": "אוֹתָךְ",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "100807-00055"
+        }
+      ]
+    },
+    {
+      "type": "אמרת",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "אָמַרְתָּ",
+          "text": "ברענגט א קרעכץ וואס אתה אמרת היטב דיא זאגנאפ אלעס וואס",
+          "pred_sentence": "בְּרֶענְגְט אַ קְרֶעכְץ וואָס אַתָּה אָמַרְתָּ הֵיטֵב דִיאָ זאָגְנאַפּ אַלֶעס וואָס",
+          "pred_token": "אָמַרְתָּ",
+          "pred_ipa": "umˈartu",
+          "expect_pointed": "אָמַרְתָּ",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "50595-00065"
+        },
+        {
+          "tag": "אֹמֶרֶת",
+          "text": "מיט יעקבֿ דער הייליקער אמרת אמת אין מארינבאד מארינבאד איז",
+          "pred_sentence": "מִיט יַעֲקֹב דֶער הֵיילִיקֶער אָמַרְתָּ אֱמֶת אִין מָארִינבַּאַד מָארִינבַּאַד אִיז",
+          "pred_token": "אָמַרְתָּ",
+          "pred_ipa": "umˈartu",
+          "expect_pointed": "אֹמֶרֶת",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "101689-00038"
+        }
+      ]
+    },
+    {
+      "type": "אתם",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "אַתֶּם",
+          "text": "נתן'ס גימטריא בכל מכל כל אתם נצבים היום בעטן דער רבונו",
+          "pred_sentence": "נְתָן'ס גִימַטְרִיּאָ בְּכָל מִכָּל כָּל אַתֶּם נִצָּבִים הַיּוֹם בֶּעטְן דֶער רִבּוֹנוּ",
+          "pred_token": "אַתֶּם",
+          "pred_ipa": "ˈatəm",
+          "expect_pointed": "אַתֶּם",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "138221-00040"
+        },
+        {
+          "tag": "אִתָּם",
+          "text": "ערלעכער ייד שלאפט אזוי בקידוש אתם געוויסן אזוי ער שלאפט מיט",
+          "pred_sentence": "עֶרְלֶעכֶער ייִד שְׁלָאָפֿט אַזוי בְּקִידּוּשׁ אַתֶּם גֶעווִיסְן אַזוי עֶר שְׁלָאָפֿט מִיט",
+          "pred_token": "אַתֶּם",
+          "pred_ipa": "ˈatəm",
+          "expect_pointed": "אִתָּם",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "68122-00093"
+        }
+      ]
+    },
+    {
+      "type": "בדבר",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בְּדָבָר",
+          "text": "ער וועט זײַן אַ נגעה בדבר און איך האָב שוין נאָך",
+          "pred_sentence": "עֶר ווֶעט זְײן אַ נִגעה בִּדְבָר אוּן אִיךְ האָבֿ שׁוֹין נאָך",
+          "pred_token": "בִּדְבָר",
+          "pred_ipa": "bˈidvur",
+          "expect_pointed": "בְּדָבָר",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "108865-00011"
+        },
+        {
+          "tag": "בַּדָּבָר",
+          "text": "זען אה זאגט ער ניין בדבר הזה אזעלכע מיינט אזוי ווי",
+          "pred_sentence": "זען אָה זאָגט עֶר נַייְן בִּדְבָר הַזֶּה אַזֶעלְכֶע מֵיינְט אַזוי ווִי",
+          "pred_token": "בִּדְבָר",
+          "pred_ipa": "bˈidvur",
+          "expect_pointed": "בַּדָּבָר",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "67158-00040"
+        }
+      ]
+    },
+    {
+      "type": "בחסדך",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בְּחַסְדְּךָ",
+          "text": "מאוד גשר צר מאוד ואני בחסדך בטחתי אשירה לה' כי גמל",
+          "pred_sentence": "מְאוֹד גֶּשֶׁר צַר מְאוֹד וַאֲנִי בְּחַסְדְּךָ בָּטַחְתִּי אֲשִׁירָה לַה' כִּי גִּמַל",
+          "pred_token": "בְּחַסְדְּךָ",
+          "pred_ipa": "bxˈazdxu",
+          "expect_pointed": "בְּחַסְדְּךָ",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "61633-00082"
+        },
+        {
+          "tag": "בְּחַסְדֶּךָ",
+          "text": "איז זינגט מען דעם רחם בחסדך על עמך צורנו דאס איז",
+          "pred_sentence": "אִיז זִינְגְט מֶען דֶעם רַחֵם בְּחַסְדְּךָ עַל עַמְּךָ צוּרֵנוּ דאָס אִיז",
+          "pred_token": "בְּחַסְדְּךָ",
+          "pred_ipa": "bxˈazdxu",
+          "expect_pointed": "בְּחַסְדֶּךָ",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "43120-00114"
+        }
+      ]
+    },
+    {
+      "type": "במה",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בַּמֶּה",
+          "text": "דעם פרק הייבט זיך אן במה מדליקין אזעלכע ליכט מען קען",
+          "pred_sentence": "דֶעם פֶּרֶק הֵייבְט זִיךְ אַן בַּמֶּה מַדְלִיקִין אַזֶעלְכֶע לִיכְט מֶען קֶען",
+          "pred_token": "בַּמֶּה",
+          "pred_ipa": "bˈamə",
+          "expect_pointed": "בַּמֶּה",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "54051-00009"
+        },
+        {
+          "tag": "בְּמַה",
+          "text": "די די די הפלאה מאס במה למען תספר באזני בנך די",
+          "pred_sentence": "דִּי דִּי דִּי הַפְלָאָה מַאס בַּמֶּה לְמַעַן תְּסַפֵּר בְּאָזְנִי בִּנְךָ דִּי",
+          "pred_token": "בַּמֶּה",
+          "pred_ipa": "bˈamə",
+          "expect_pointed": "בְּמַה",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "152680-00007"
+        }
+      ]
+    },
+    {
+      "type": "בנות",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בָּנוֹת",
+          "text": "זאצן צוזאמען מיט זי רבות בנות עשו חיל ער האט זיך",
+          "pred_sentence": "זאַצְן צוּזאַמֶען מִיט זִי רַבּוֹת בְּנוֹת עֵשָׂו חַיִל עֶר הָאָט זִיךְ",
+          "pred_token": "בְּנוֹת",
+          "pred_ipa": "bnɔjs",
+          "expect_pointed": "בָּנוֹת",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "124469-00031"
+        },
+        {
+          "tag": "בְּנוֹת",
+          "text": "ער די נעמען פון די בנות צלפחד מחלה זאגט ער אויב",
+          "pred_sentence": "עֶר דִּי נֶעמֶען פֿוּן דִּי בְּנוֹת צְלָפְחָד מַחְלָה זאָגט עֶר אוֹיבּ",
+          "pred_token": "בְּנוֹת",
+          "pred_ipa": "bnɔjs",
+          "expect_pointed": "בְּנוֹת",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "161051-00030"
+        }
+      ]
+    },
+    {
+      "type": "בערבות",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "בְּעַרְבוֹת",
+          "text": "עס וועט קומען יענע צייט בערבות דמשיחא זאל זיין אלעמאל אפילו",
+          "pred_sentence": "עֶס ווֶעט קוּמֶען יֶענֶע צַייַט בַּעֲרְבוֹת דִּמְשִׁיחָא זאָל זייַן אַלֶעמָאָל אַפֿילוּ",
+          "pred_token": "בַּעֲרְבוֹת",
+          "pred_ipa": "bˈarvɔjs",
+          "expect_pointed": "בְּעַרְבוֹת",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "70358-00052"
+        },
+        {
+          "tag": "בָּעֲרָבוֹת",
+          "text": "לילי אגיד מציון סלסלו לרוכב בערבות בקול",
+          "pred_sentence": "לִילִי אַגִיד מִצִּיּוֹן סַלְסְלוּ לָרוֹכֵב בָּעֲרָבוֹת בְּקוֹל",
+          "pred_token": "בָּעֲרָבוֹת",
+          "pred_ipa": "barˈuvɔjs",
+          "expect_pointed": "בָּעֲרָבוֹת",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "48872-00105"
+        }
+      ]
+    },
+    {
+      "type": "בשלח",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בְּשַׁלַּח",
+          "text": "נישט די וואָך אין פרשת בשלח שטייט אאַז דער מן איז",
+          "pred_sentence": "נִישְׁט דִּי וואך אִין פַּרְשַׁת בְּשַׁלַּח שְׁטֵייט אאַז דֶער מִן אִיז",
+          "pred_token": "בְּשַׁלַּח",
+          "pred_ipa": "bʃˈalax",
+          "expect_pointed": "בְּשַׁלַּח",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "39929-00021"
+        },
+        {
+          "tag": "בְּשֶׁלַח",
+          "text": "אז א מאן שטייט ווי בשלח באותן הימים עס איז געווען",
+          "pred_sentence": "אַז אַ מַאַן שְׁטֵייט ווִי בְּשַׁלַּח בְּאוֹתָן הַיָּמִים עֶס אִיז גֶעוועֶן",
+          "pred_token": "בְּשַׁלַּח",
+          "pred_ipa": "bʃˈalax",
+          "expect_pointed": "בְּשֶׁלַח",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "54051-00006"
+        }
+      ]
+    },
+    {
+      "type": "בשנה",
+      "split_by_sentence": false,
+      "n_distinct_pointings": 1,
+      "readings": [
+        {
+          "tag": "בְּשָׁנָה",
+          "text": "ער נאר איינציקע קרבן אחד בשנה דאם כיפור איז גענוג מען",
+          "pred_sentence": "עֶר נאר אֵיינְצִיקֶע קָרְבָּן אֶחָד בְּשָׁנָה דאם כִּיפּוּר אִיז גֶענוּג מֶען",
+          "pred_token": "בְּשָׁנָה",
+          "pred_ipa": "bʃˈunə",
+          "expect_pointed": "בְּשָׁנָה",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": false,
+          "vote_id": "113370-00008"
+        },
+        {
+          "tag": "בַּשָּׁנָה",
+          "text": "דאס זאל נאר זיין אחת בשנה איינמאל א יאר איינמאל א",
+          "pred_sentence": "דאָס זאָל נאר זייַן אַחַת בְּשָׁנָה אֵיינְמָאָל אַ יאָר אֵיינְמָאָל אַ",
+          "pred_token": "בְּשָׁנָה",
+          "pred_ipa": "bʃˈunə",
+          "expect_pointed": "בַּשָּׁנָה",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": false,
+          "vote_id": "113370-00007"
+        }
+      ]
+    },
+    {
+      "type": "בשר",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "בָּשָׂר",
+          "text": "נאר אין הלכות בשר בחלב יא איך מיין אזוי",
+          "pred_sentence": "נאר אִין הִלְכוֹת בָּשָׂר בַּחֲלֵב יאָ אִיךְ מייַן אַזוי",
+          "pred_token": "בָּשָׂר",
+          "pred_ipa": "bˈusur",
+          "expect_pointed": "בָּשָׂר",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "129683-00045"
+        },
+        {
+          "tag": "בְּשַׂר",
+          "text": "אז די יום השמיני ימול בשר ערלתו איז נישט דא אין",
+          "pred_sentence": "אַז דִּי יוֹם הַשְּׁמִינִי יִמּוֹל בְּשָׂר עָרְלָתוֹ אִיז נִישְׁט דאָ אִין",
+          "pred_token": "בְּשָׂר",
+          "pred_ipa": "bsur",
+          "expect_pointed": "בְּשַׂר",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "59139-00012"
+        }
+      ]
+    },
+    {
+      "type": "דבר",
+      "split_by_sentence": true,
+      "n_distinct_pointings": 2,
+      "readings": [
+        {
+          "tag": "דְּבַר",
+          "text": "וואס שיַין איז דבר דער דבר הלכה ער האט אים געזאגט",
+          "pred_sentence": "וואָס שֵׁיין אִיז דְּבַר דֶער דְּבַר הֲלָכָה עֶר הָאָט אִים גֶעזאָגט",
+          "pred_token": "דְּבַר",
+          "pred_ipa": "dvar",
+          "expect_pointed": "דְּבַר",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "119622-00020"
+        },
+        {
+          "tag": "דָּבָר",
+          "text": "שבת חלילה וחס גיי עסן דבר אחר ער ווייסט מע טאָר",
+          "pred_sentence": "שַׁבָּת חָלִילָה וְחָס גֵיי עֶסְן דָּבָר אַחַר עֶר ווֵייסְט מֶע טָאָר",
+          "pred_token": "דָּבָר",
+          "pred_ipa": "dˈuvur",
+          "expect_pointed": "דָּבָר",
+          "pointed_match": true,
+          "ipa_substr_match": null,
+          "in_train_split": false,
+          "vote_id": "113370-00037"
+        },
+        {
+          "tag": "דִּבֶּר",
+          "text": "את האלקים ולא עשו כאשר דבר אליהן מלך מצרים ותחיין את",
+          "pred_sentence": "אֶת הָאֱלֹקִים וְלֹא עָשָׂוּ כַּאֲשֶׁר דָּבָר אֲלֵיהֶן מלך מִצְרַיִם וַתְּחַיֶּיֶן אֶת",
+          "pred_token": "דָּבָר",
+          "pred_ipa": "dˈuvur",
+          "expect_pointed": "דִּבֶּר",
+          "pointed_match": false,
+          "ipa_substr_match": null,
+          "in_train_split": true,
+          "vote_id": "98150-00057"
+        }
+      ]
+    }
+  ],
+  "vote_context_summary": {
+    "n_types": 14,
+    "n_split": 5,
+    "split_rate": 35.7
+  },
+  "oy_slice": [
+    {
+      "word": "הויט",
+      "expect_dip": "oʊ",
+      "note": "skin, Weinreich 54",
+      "pred_token": "הויט",
+      "pred_ipa": "hoʊt",
+      "ok": true,
+      "has_oʊ": true,
+      "has_ɔj": false
+    },
+    {
+      "word": "טויט",
+      "expect_dip": "ɔj",
+      "note": "death, class 44",
+      "pred_token": "טוֹיט",
+      "pred_ipa": "tɔjt",
+      "ok": true,
+      "has_oʊ": false,
+      "has_ɔj": true
+    },
+    {
+      "word": "מויל",
+      "expect_dip": "oʊ",
+      "note": "mouth, Weinreich 54",
+      "pred_token": "מויל",
+      "pred_ipa": "moʊl",
+      "ok": true,
+      "has_oʊ": true,
+      "has_ɔj": false
+    },
+    {
+      "word": "בוים",
+      "expect_dip": "ɔj",
+      "note": "tree, class 42/44",
+      "pred_token": "בוֹיְם",
+      "pred_ipa": "bɔjm",
+      "ok": true,
+      "has_oʊ": false,
+      "has_ɔj": true
+    },
+    {
+      "word": "גרויס",
+      "expect_dip": "ɔj",
+      "note": "big; gold ɡrɔjs",
+      "pred_token": "גְרוֹיס",
+      "pred_ipa": "ɡrɔjs",
+      "ok": true,
+      "has_oʊ": false,
+      "has_ɔj": true
+    },
+    {
+      "word": "אויף",
+      "expect_dip": "oʊ",
+      "note": "on; keep class 54",
+      "pred_token": "אַויף",
+      "pred_ipa": "oʊf",
+      "ok": true,
+      "has_oʊ": true,
+      "has_ɔj": false
+    },
+    {
+      "word": "ארויס",
+      "expect_dip": "oʊ",
+      "note": "out; keep class 54",
+      "pred_token": "אַרוֹיס",
+      "pred_ipa": "arˈoʊs",
+      "ok": true,
+      "has_oʊ": true,
+      "has_ɔj": false
+    },
+    {
+      "word": "אויס",
+      "expect_dip": "oʊ",
+      "note": "prefix; keep class 54",
+      "pred_token": "אוֹיס",
+      "pred_ipa": "oʊs",
+      "ok": true,
+      "has_oʊ": true,
+      "has_ɔj": false
+    },
+    {
+      "word": "בלויז",
+      "expect_dip": "ɔj",
+      "note": "only; gold blɔjz",
+      "pred_token": "בְּלוֹיז",
+      "pred_ipa": "blɔjz",
+      "ok": true,
+      "has_oʊ": false,
+      "has_ɔj": true
+    }
+  ],
+  "oy_slice_ok": 9,
+  "oy_slice_n": 9
+}
