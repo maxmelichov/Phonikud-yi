@@ -101,6 +101,13 @@ CASES: list[tuple[str, str, str]] = [
 
 # Stress marking (hebrew_to_ipa(..., stress=True)).
 STRESS_CASES: list[tuple[str, str, str]] = [
+    # --- §9 sense homographs: the wired noun-slot test ------------------
+    ("די טויב פליט", "də toʊb flit", "§9: bare טויב after די is the noun (dove)"),
+    ("די טויבן", "də toʊbn", "§9: plural noun slot"),
+    ("ער איז טויב", "ɛr iz tɔjb", "§9: predicate keeps the gold primary (deaf)"),
+    ("א טויב קינד", "a tɔjb kind", "§9: אַ-slot can be a neuter adjective — untouched"),
+    ("די, טויב", "də, tɔjb", "§9: punctuation breaks the article adjacency"),
+    ("טויב", "tɔjb", "§9: no context — gold primary stands"),
     ("שבת", "ʃˈabəs", "LK penultimate"),
     ("משפּחה", "miʃpˈuxə", "LK penultimate, 3 syllables"),
     ("חתונה", "xˈasənə", "LK penultimate"),

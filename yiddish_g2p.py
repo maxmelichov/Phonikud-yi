@@ -3814,6 +3814,54 @@ def _route_token_inner(core: str) -> dict:
 _ROUTE_CACHE: dict[str, dict] = {}
 
 
+# =====================================================================
+# §9 SENSE HOMOGRAPHS — the first wired context disambiguator
+#
+# טויב is one spelling for two unrelated medieval words: MHG tûbe 'dove'
+# (û-class 54 -> toʊb) and MHG toup 'deaf' (ou/ô-class -> tɔjb). Gold keeps
+# both readings and pins tɔjb as the primary; §9's contract is "emit the
+# primary unless a disambiguator fires". The test wired here is
+# precision-first: bare טויב directly after the article די can only be the
+# noun, because the attributive adjective inflects (די טויבע, never די טויב).
+# A token the test cannot place keeps the gold primary, with the alternate
+# still in ``variants`` for the forced-alignment vote — behaviour unchanged.
+# Spec §4 still holds: this is a closed syntactic test, not a context model,
+# and a new entry here needs the same native sign-off as a gold row.
+# =====================================================================
+
+_SENSE_HOMOGRAPHS: dict[str, dict] = {
+    lexicon_key("טויב"): {"alt": "toʊb", "sense": "dove"},
+    lexicon_key("טויבן"): {"alt": "toʊbn", "sense": "dove"},
+}
+
+# Articles that prove the noun slot for a bare sense-homograph. Deliberately
+# only די: after אַ the bare form can still be an uninflected neuter adjective
+# (א טויב קינד 'a deaf child'), so the indefinite slot keeps the primary.
+_NOUN_SLOT_ARTICLES = {"די"}
+
+
+def _apply_sense_context(rec: dict, prev_core: str | None, prev_trail: str,
+                         lead: str) -> dict:
+    """Flip a §9 sense homograph to its noun reading when the slot is proven.
+
+    ``prev_trail`` and ``lead`` carry the punctuation between the article and
+    the word: any of it (a comma, a quote, a dash) breaks the adjacency the
+    test relies on, so the primary stands.
+    """
+    entry = _SENSE_HOMOGRAPHS.get(lexicon_key(rec["word"]))
+    if entry is None or not prev_core or prev_trail or lead:
+        return rec
+    if lexicon_key(prev_core) not in _NOUN_SLOT_ARTICLES:
+        return rec
+    old = rec["ipa_primary"]
+    rec = dict(rec)
+    rec["ipa_primary"] = entry["alt"]
+    rec["variants"] = [old] + [v for v in rec["variants"] if v != entry["alt"]]
+    rec["reason"] = ((rec["reason"] + ",") if rec["reason"] else "") + \
+        "sense-homograph:" + entry["sense"]
+    return rec
+
+
 def g2p_token(word: str, context: str | None = None) -> dict:
     """Phonemize ONE token and report how the answer was reached (§12).
 
@@ -3825,10 +3873,13 @@ def g2p_token(word: str, context: str | None = None) -> dict:
       confidence  HIGH = lexicon, MED = unambiguous rule, LOW = a defaulted
                   ambiguous א/פ, an LK fallback, or a §1 violation
 
-    ``context`` is accepted for the §9 homograph disambiguators (adverb slot,
-    plural-noun context, ...). None are wired yet: the primary is emitted and
-    every alternate reading is returned in ``variants`` for the forced-alignment
-    vote, which is what §9 asks for today.
+    ``context`` feeds the §9 homograph disambiguators. One is wired: the
+    _SENSE_HOMOGRAPHS noun-slot test (די + bare טויב -> toʊb 'dove'). For
+    every other homograph — and whenever the test cannot place the token —
+    the primary is emitted and every alternate reading is returned in
+    ``variants`` for the forced-alignment vote, which is what §9 asks for.
+    ``context`` is the surrounding text (the word itself included); the first
+    occurrence of the word in it supplies the neighbours.
     """
     _, core, _ = split_affixes(normalize_surface(word))
     if not core:
@@ -3838,6 +3889,17 @@ def g2p_token(word: str, context: str | None = None) -> dict:
         cached = _route_token(core)
         _ROUTE_CACHE[core] = cached
     result = _with_auto_variants(dict(cached, word=word))
+    if context is not None and lexicon_key(core) in _SENSE_HOMOGRAPHS:
+        toks = normalize_surface(strip_tags(context)).split()
+        for j, tok in enumerate(toks):
+            t_lead, t_core, _t_trail = split_affixes(tok)
+            if t_core != core:
+                continue
+            prev_core, prev_trail = None, ""
+            if j:
+                _, prev_core, prev_trail = split_affixes(toks[j - 1])
+            result = _apply_sense_context(result, prev_core, prev_trail, t_lead)
+            break
     if "alef-default" in result["reason"]:
         A_DEFAULT_LOG[core] += 1
     if "pe-default" in result["reason"]:
@@ -3880,6 +3942,8 @@ def g2p_tokens(text: str) -> list[dict]:
     """
     tokens = normalize_surface(strip_tags(text)).split()
     records: list[dict] = []
+    prev_core: str | None = None
+    prev_trail = ""
     i = 0
     while i < len(tokens):
         match = _multiword_match(tokens, i)
@@ -3893,16 +3957,19 @@ def g2p_tokens(text: str) -> list[dict]:
             rec["lead"] = split_affixes(tokens[i])[0]
             rec["trail"] = split_affixes(tokens[i + count - 1])[2]
             records.append(rec)
+            prev_core, prev_trail = cores[-1], rec["trail"]
             i += count
             continue
         lead, core, trail = split_affixes(tokens[i])
         if core:
-            rec = g2p_token(core)
+            rec = _apply_sense_context(g2p_token(core), prev_core, prev_trail,
+                                       lead)
         else:
             rec = _entry_result(tokens[i], "", [], "X", "fallback", "LOW", "punctuation")
             lead, trail = tokens[i], ""
         rec["lead"], rec["trail"] = lead, trail
         records.append(rec)
+        prev_core, prev_trail = (core or None), trail
         i += 1
     return records
 

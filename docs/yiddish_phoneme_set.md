@@ -83,6 +83,10 @@ byte-identically (`scripts/test_g2p_gold.py`, QA gate d).
 | `הויז` | `hoʊz` | oʊ-list |
 | `לויט` | `loʊt` | oʊ-list |
 | `ארויס` | `arˈoʊs` | productive arous-/ous- prefix |
+| `די טויב` | `də toʊb` | §9 sense homograph: noun slot after די → dove |
+| `די טויבן` | `də toʊbn` | §9: plural noun slot → doves |
+| `ער איז טויב` | `ɛr iz tɔjb` | §9: predicate keeps the deaf primary |
+| `א טויב קינד` | `a tɔjb kind` | §9: אַ-slot untouched (uninflected neuter adj) |
 
 ### R05 — Unpointed פ: default `f`; after ש always `p`; p-list lexical
 
