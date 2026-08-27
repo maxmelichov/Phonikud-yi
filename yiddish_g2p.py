@@ -709,6 +709,34 @@ _WORD_LATIN: dict[str, str] = {
     "זויפן": "zoufn",
     "טרויער": "trouer",
     "הויפן": "houfn",
+    # 2026-08-28 corpus sweep: derived and compound forms of stems already on
+    # this list (the list is whole-token, so inflection falls off it), plus
+    # ברויכ־ (MHG brûchen; cf. Eng. 'brook' vb.) and פויל 'lazy/rotten'
+    # (MHG vûl, cf. 'foul'). פוילן/פויליש־ is POLAND -- p and ɔj, a different
+    # word entirely; listed here so the פ stops defaulting to f.
+    "ברויך": "broukh",
+    "ברויכן": "broukhn",
+    "ברויכט": "broukht",
+    "ברויכסט": "broukhst",
+    "טרויעריק": "trouerik",
+    "טרויעריג": "trouerig",
+    "טרויערט": "trouert",
+    "געטרויערט": "getrouert",
+    "אינדרויסן": "indrousn",
+    "בוי": "bou",
+    "בויט": "bout",
+    "בויער": "bouer",
+    "טויזנטסטע": "touzntste",
+    "גאסטהויז": "gasthouz",
+    "הויזפול": "houzfil",
+    "פויל": "foul",
+    "פוילער": "fouler",
+    "פארפוילט": "farfoult",
+    "פוילן": "poyln",
+    "פוילין": "poylin",
+    "פויליש": "poylish",
+    "פוילישע": "poylishe",
+    "פוילישער": "poylisher",
     "דערויף": "derouf",
 
     # --- יי = 'ay' ---
