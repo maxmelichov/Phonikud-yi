@@ -698,6 +698,17 @@ _WORD_LATIN: dict[str, str] = {
     "שטוינט": "shtount",
     "פויער": "pouer",
     "לויט": "lout",
+    # 2026-08-28 audit: û-class stems the first ingest missed. Each is MHG û
+    # (Weinreich 52/54), same authority as the rows above -- mûre, lûs, sûgen,
+    # vûst, sûfen, trûre, hûfe. The ou-class lookalikes (שטויב stoup, בוים
+    # boum, קויפן koufen) were re-checked and stay on the ɔj default.
+    "מויער": "mouer",
+    "לויז": "louz",
+    "זויגן": "zougn",
+    "פויסט": "foust",
+    "זויפן": "zoufn",
+    "טרויער": "trouer",
+    "הויפן": "houfn",
     "דערויף": "derouf",
 
     # --- יי = 'ay' ---

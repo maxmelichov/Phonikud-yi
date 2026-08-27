@@ -43,7 +43,7 @@ Four graphemes are lexically ambiguous — rules alone cannot resolve them (empi
 |---|---|---|---|
 | א vowel | a / ɔ / u | a + flag LOW_CONF | class 12/13 (u): zugn, yur, vus…; class 41 (ɔ): dort, vokh, kop, got, volt… |
 | יי | aj / aː | aj (word-initial יי = ji: ייד jid) | class 34 aː list: maan, tsaat, shraabn, vaal… |
-| וי | ɔj / oʊ | ɔj | oʊ list (û-class 54 only): ous, arous, houz, mouz, moul, touznt, lout, ouf, arouf, drousn, krout, shtount, hout, boukh, pouer. **Not** oukh — אויך is ɔjx (44). **טויב** is a homograph: toʊb dove vs tɔjb deaf — keep both; primary tɔjb. Its §9 noun-slot test is wired (bare טויב/טויבן directly after די → toʊb; the adjective inflects there: די טויבע), still no context MODEL. English *ou/ow* cousins are a diagnostic gut-check, not an inference lookup. |
+| וי | ɔj / oʊ | ɔj | oʊ list (û-class 54 only): ous, arous, houz, mouz, moul, touznt, lout, ouf, arouf, drousn, krout, shtount, hout, boukh, pouer, mouer, louz, zougn, foust, zoufn, trouer, houfn. **Not** oukh — אויך is ɔjx (44). **טויב** is a homograph: toʊb dove vs tɔjb deaf — keep both; primary tɔjb. Its §9 noun-slot test is wired (bare טויב/טויבן directly after די → toʊb; the adjective inflects there: די טויבע), still no context MODEL. English *ou/ow* cousins are a diagnostic gut-check, not an inference lookup. |
 | פ unpointed | f / p | f (after ש always p) | p-list: plaats, pinkt, praaz, pushit, plaan, pin… |
 
 Never guess these from etymology at runtime. Defaults exist only so the pipeline never stalls; every default application on א gets logged for lexicon triage (§10).

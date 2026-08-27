@@ -82,6 +82,9 @@ byte-identically (`scripts/test_g2p_gold.py`, QA gate d).
 | `אויב` | `ɔjb` | default ɔj, no devoicing |
 | `הויז` | `hoʊz` | oʊ-list |
 | `לויט` | `loʊt` | oʊ-list |
+| `לויז` | `loʊz` | oʊ-list (MHG lûs; 2026-08-28 additions) |
+| `טרויער` | `trˈoʊər` | oʊ-list (MHG trûre) |
+| `שטויב` | `ʃtɔjb` | ou-class lookalike stays default (MHG stoup, not û) |
 | `ארויס` | `arˈoʊs` | productive arous-/ous- prefix |
 | `די טויב` | `də toʊb` | §9 sense homograph: noun slot after די → dove |
 | `די טויבן` | `də toʊbn` | §9: plural noun slot → doves |
