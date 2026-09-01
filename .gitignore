@@ -32,3 +32,5 @@ data/corpus/yiddish_tts_dataset.tsv
 
 # --- portable bundles built by src/make_bundle.py ---
 dist/
+data/retrain3/train.jsonl
+data/retrain7/train.jsonl
