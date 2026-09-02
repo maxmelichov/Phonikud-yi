@@ -2499,6 +2499,32 @@ def _load_sefaria_pointed() -> dict:
 _SEFARIA_POINTED: dict[str, dict] = _load_sefaria_pointed()
 
 
+def _load_niborski_phonetic() -> dict:
+    """data/lexicons/niborski_phonetic_lk.py (dictionary respellings), keyed by lexicon_key."""
+    path = Path(__file__).resolve().parent / "data" / "lexicons" / "niborski_phonetic_lk.py"
+    try:
+        import importlib.util
+
+        spec = importlib.util.spec_from_file_location("_yiddish_niborski_lk", path)
+        if spec is None or spec.loader is None:
+            return {}
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        raw = dict(getattr(module, "NIBORSKI_PHONETIC_LK", {}) or {})
+        return {lexicon_key(w): v for w, v in raw.items()}
+    except FileNotFoundError:
+        return {}  # not generated in this checkout: degradation is deliberate
+    except Exception as exc:  # a table that EXISTS but will not load is a bug
+        raise RuntimeError(
+            f"{path} exists but could not be loaded ({exc!r}). Returning an "
+            "empty table here would silently drop every verdict it holds; "
+            "regenerate it with its builder in scripts/."
+        ) from exc
+
+
+_NIBORSKI_PHONETIC: dict[str, dict] = _load_niborski_phonetic()
+
+
 def _load_model_pointed() -> dict:
     """data/lexicons/model_pointed_lk.py (phonikud-yi v3 guesses), keyed by lexicon_key."""
     path = Path(__file__).resolve().parent / "data" / "lexicons" / "model_pointed_lk.py"
@@ -3120,6 +3146,15 @@ def _sefaria_pointed_or(core: str, fallback_result: dict) -> dict:
         return _entry_result(core, entry["ipa"],
                              list(entry.get("variants") or []), "L",
                              "rule", "LOW", "sefaria-pointed")
+    # Rescue #3: the phonetic index of Niborski's LK dictionary — a printed
+    # phonemic respelling, shifted into the Central vowel system. Attested like
+    # book pointing, but the shift's one lossy rule (o>u) is why it ranks below
+    # Sefaria; still evidence, so it outranks the model guess below.
+    entry = _NIBORSKI_PHONETIC.get(lexicon_key(core))
+    if entry is not None:
+        return _entry_result(core, entry["ipa"],
+                             list(entry.get("variants") or []), "L",
+                             "rule", "LOW", "niborski-phonetic")
     # LAST link — the no-drop policy (2026-08-08): phonikud-yi v3's contextual
     # guess (data/lexicons/model_pointed_lk.py, 97% held-out accuracy on evidence-backed
     # Hebrew). A guess is better than silence, and it is outranked by every
@@ -3220,6 +3255,9 @@ def _lk_table_reading(core: str) -> tuple[str, str] | None:
     entry = _SEFARIA_POINTED.get(key)
     if entry is not None:
         return entry["ipa"], "sefaria-pointed"
+    entry = _NIBORSKI_PHONETIC.get(key)
+    if entry is not None:
+        return entry["ipa"], "niborski-phonetic"
     entry = _MODEL_POINTED.get(key)
     if entry is not None:
         return entry["ipa"], "model-pointed-guess"
@@ -3241,7 +3279,8 @@ def _full_form_resolves(core: str) -> bool:
     if bare in _LK_BARE or bare in _WORD_LATIN:
         return True
     if (key in _AUDIO_ENDORSED or key in _HOMOGRAPH_LK
-            or key in _SEFARIA_POINTED or key in _MODEL_POINTED):
+            or key in _SEFARIA_POINTED or key in _NIBORSKI_PHONETIC
+            or key in _MODEL_POINTED):
         return True
     return _has_stem_sub(core)
 
@@ -3363,6 +3402,15 @@ def _stem_suffix_rescue(core: str) -> dict | None:
         # _model_guess_root_is_lk).
         if reason == "model-pointed-guess" and not _model_guess_root_is_lk(root):
             continue
+        # The Niborski table root must be an EXACT-key join for the same
+        # reason: a skeleton-joined entry is an inference about which spelling
+        # the index meant, and stacked on the stemmer's own inference it reads
+        # pointed Germanic שְׁטֶרְן as the LK שטר ʃtar. An exact entry (רבנו
+        # rabˈajni) is a printed reading of exactly this root and may compose.
+        if reason == "niborski-phonetic":
+            _nib = _NIBORSKI_PHONETIC.get(lexicon_key(root))
+            if _nib is None or _nib.get("join") != "exact":
+                continue
         joined = _join_stem(root_ipa, suffix_ipa)
         if joined is None:
             continue
@@ -3589,6 +3637,13 @@ def _lk_stem_reading(stem: str) -> tuple[str, str] | None:
     entry = _SEFARIA_POINTED.get(key)
     if entry is not None:
         return entry["ipa"], "sefaria"
+    entry = _NIBORSKI_PHONETIC.get(key)
+    if entry is not None and entry.get("join") == "exact":
+        # Only exact-key joins may serve as stem bases. A skeleton-joined entry
+        # is itself an inference over which spelling the index meant, and the
+        # stemmer's candidate is an inference over where the word breaks --
+        # stacked, they read pointed Germanic שְׁטֶרְן as the LK שטר ʃtar.
+        return entry["ipa"], "niborski"
     if any(pat.fullmatch(bare) for pat, _ in _STEM_SUB_RE):
         # a §6.2 base in its own right (חסיד -> כאָסיד): the substitution table
         # is an audio-matched reading of exactly this root, not a guess

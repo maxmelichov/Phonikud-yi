@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build the portable label-stack bundle for another machine (e.g. the TTS box).
 
-The bundle is this directory's modules + the engine + its seven generated
+The bundle is this directory's modules + the engine + its eight generated
 tables + the phonikud-yi v5 export, laid out so ``yiddish_nikud`` finds the
 model beside itself and ``yiddish_labels`` finds the engine beside itself.
 Nothing in it needs torch, transformers or a network -- only onnxruntime and
@@ -33,7 +33,8 @@ NAME = "phonikud-yi-engine"
 
 TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "audio_endorsed_lk.py", "homograph_lk.py", "sefaria_pointed_lk.py",
-          "model_pointed_lk.py", "stress_overrides.py")
+          "niborski_phonetic_lk.py", "model_pointed_lk.py",
+          "stress_overrides.py")
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
 MODEL_SRC = REPO / "models" / "phonikud_yi_v6" / "v6.onnx"
 DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"

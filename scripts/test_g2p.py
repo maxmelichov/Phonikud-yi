@@ -62,11 +62,12 @@ STEM_CASES: list[tuple[str, str, str, str]] = [
     ("הרשע", "hrʃə", "", "ha-ROshe: הר + שע is a two-letter root, below the floor"),
     ("בנין", "bnin", "", "binyen is one morpheme, not בני + ן (_STEM_NO_SPLIT)"),
     ("כדין", "xdin", "", "kədin is one morpheme, not כדי + ן (_STEM_NO_SPLIT)"),
-    # Documented gap, not a target: the root רבנו is in NO table (it is never
-    # quarantined, so the model builder never saw it), so the stemmer has
-    # nothing to resolve and the possessive stays wrong. A whole-token or root
-    # entry for רבנו is what fixes it -- 717 corpus tokens ride on it.
-    ("רבנוס", "rbnis", "", "XFAIL-ish: unresolvable until רבנו is in a lexicon"),
+    # Fixed 2026-09-02 exactly the way the old note predicted ("a whole-token
+    # or root entry for רבנו is what fixes it -- 717 corpus tokens ride on
+    # it"): the Niborski index supplied רבנו rabˈajni (exact join), and the
+    # stemmer composes the possessive from it.
+    ("רבנוס", "rabˈajnis", "niborski-phonetic+suffix",
+     "רבנו rabˈajni + possessive ס via the Niborski tier"),
 ]
 
 CASES: list[tuple[str, str, str]] = [

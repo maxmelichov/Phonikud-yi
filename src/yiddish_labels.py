@@ -3,7 +3,7 @@
 IMPORT THIS, NOT ``yiddish_g2p`` DIRECTLY -- in this repo and on any box the
 bundle is shipped to.
 
-WHY. ``yiddish_g2p`` loads its knowledge from seven generated tables in
+WHY. ``yiddish_g2p`` loads its knowledge from eight generated tables in
 ``data/``. Every loader swallows a missing file and returns ``{}``: degradation
 is deliberate, so the engine keeps running while a table is being regenerated.
 The cost is that an incomplete deployment emits plausible-looking IPA with ZERO
@@ -75,6 +75,7 @@ _EXPECTED = {
     "_AUDIO_ENDORSED": 100,
     "_HOMOGRAPH_LK": 200,
     "_SEFARIA_POINTED": 3000,
+    "_NIBORSKI_PHONETIC": 1800,
     "_MODEL_POINTED": 7000,
 }
 
