@@ -34,5 +34,5 @@ data/corpus/yiddish_tts_dataset.tsv
 dist/
 data/retrain3/train.jsonl
 data/retrain7/train.jsonl
-# Niborski-derived staging: review-gated, NOT redistributed (copyrighted source)
+# the printed index-derived staging: review-gated, NOT redistributed (copyrighted source)
 data/kodesh_index/

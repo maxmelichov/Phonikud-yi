@@ -33,7 +33,7 @@ NAME = "phonikud-yi-engine"
 
 TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "audio_endorsed_lk.py", "homograph_lk.py", "sefaria_pointed_lk.py",
-          "niborski_phonetic_lk.py", "model_pointed_lk.py",
+          "printed_respelling_lk.py", "model_pointed_lk.py",
           "stress_overrides.py")
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
 MODEL_SRC = REPO / "models" / "phonikud_yi_v6" / "v6.onnx"

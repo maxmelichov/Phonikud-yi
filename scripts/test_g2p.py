@@ -64,10 +64,10 @@ STEM_CASES: list[tuple[str, str, str, str]] = [
     ("כדין", "xdin", "", "kədin is one morpheme, not כדי + ן (_STEM_NO_SPLIT)"),
     # Fixed 2026-09-02 exactly the way the old note predicted ("a whole-token
     # or root entry for רבנו is what fixes it -- 717 corpus tokens ride on
-    # it"): the Niborski index supplied רבנו rabˈajni (exact join), and the
+    # it"): the printed index supplied רבנו rabˈajni (exact join), and the
     # stemmer composes the possessive from it.
-    ("רבנוס", "rabˈajnis", "niborski-phonetic+suffix",
-     "רבנו rabˈajni + possessive ס via the Niborski tier"),
+    ("רבנוס", "rabˈajnis", "printed-respelling+suffix",
+     "רבנו rabˈajni + possessive ס via the respelling tier"),
 ]
 
 CASES: list[tuple[str, str, str]] = [

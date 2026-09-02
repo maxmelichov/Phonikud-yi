@@ -1,18 +1,18 @@
-"""GENERATED — Niborski phonetic-index loshn-koydesh readings.
+"""GENERATED — printed-respelling loshn-koydesh readings.
 
-Source: the phonetic index of Niborski's dictionary of loshn-koydesh-
+Source: the phonetic index of a printed dictionary of loshn-koydesh-
 shtamike verter, via the review-gated staging TSVs of
-scripts/ingest_kodesh_words.py (clean rows only). Rescue #3 for the LK
+scripts/ingest_printed_index.py (clean rows only). Rescue #3 for the LK
 quarantine: ranks BELOW sefaria_pointed_lk.py and ABOVE the model-guess
-table; emitted LOW with reason 'niborski-phonetic'. 'printed' is the
+table; emitted LOW with reason 'printed-respelling'. 'printed' is the
 index's own Yiddish-letter respelling; the unshifted Standard-Yiddish
 reading rides in 'variants'.
 
-1991 entries. Regenerate: python scripts/build_niborski_lexicon.py
+1991 entries. Regenerate: python scripts/build_respelling_lexicon.py
 """
 
 # word (normalized key) -> entry
-NIBORSKI_PHONETIC_LK: dict[str, dict] = {
+PRINTED_RESPELLING_LK: dict[str, dict] = {
     'א': {"word": 'א', "ipa": 'ˈaləf', "variants": [], "printed": 'אַלעף', "rules": '', "join": 'exact'},
     'אב': {"word": 'אב', "ipa": 'uv', "variants": ['ɔv'], "printed": 'אָוו', "rules": 'o>u', "join": 'exact'},
     'אבא': {"word": 'אבא', "ipa": 'ˈabə', "variants": [], "printed": 'אַבע', "rules": '', "join": 'exact'},

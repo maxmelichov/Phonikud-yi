@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Stage the phonetic index of Niborski's loshn-koydesh dictionary for review.
+"""Stage a printed phonetic index of loshn-koydesh words for review.
 
 The index (kodesh_words.pdf, 79 pages) is the only large machine-readable source
 that pairs an ETYMOLOGICAL loshn-koydesh spelling with an explicit respelling of
@@ -25,7 +25,7 @@ inventory or fails the §1 vowel-shape rule is REJECTED, and a key already owned
 by gold / abbreviations / multiwords / audio / Sefaria is never re-stated -- it
 either agrees (and is dropped) or it disagrees (and becomes a conflict row).
 
-    .venv/bin/python scripts/ingest_kodesh_words.py
+    .venv/bin/python scripts/ingest_printed_index.py
 
 Re-extracts from the PDF by per-page column crops. pdftotext's whole-page
 -layout dump interleaves the two column blocks and loses the ':' source notes,
