@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Speech AI Models Explained</title>
+<style>
+  @page { size: A4; margin: 20mm 18mm; }
+  body { font-family: Georgia, "Times New Roman", serif; font-size: 11pt; line-height: 1.45; color: #1a1a1a; max-width: 100%; }
+  h1 { font-size: 26pt; margin: 0 0 4pt; letter-spacing: -0.5px; }
+  .sub { color: #555; font-size: 12pt; margin-bottom: 18pt; }
+  h2 { font-size: 17pt; margin: 26pt 0 8pt; padding-bottom: 4pt; border-bottom: 2px solid #1a1a1a; page-break-after: avoid; }
+  h3 { font-size: 13pt; margin: 16pt 0 4pt; page-break-after: avoid; }
+  p { margin: 0 0 8pt; }
+  .box { border: 1px solid #999; background: #f6f6f2; padding: 8pt 11pt; margin: 8pt 0 12pt; page-break-inside: avoid; }
+  .box b:first-child { display: block; margin-bottom: 3pt; }
+  table { border-collapse: collapse; width: 100%; margin: 8pt 0 12pt; font-size: 10pt; }
+  tr { page-break-inside: avoid; }
+  th, td { border: 1px solid #bbb; padding: 4pt 6pt; vertical-align: top; text-align: left; }
+  th { background: #e9e9e2; }
+  code { font-family: Consolas, monospace; font-size: 9.5pt; background: #eee; padding: 0 3px; }
+  .toc { columns: 2; font-size: 10.5pt; }
+  .toc p { margin: 0 0 3pt; }
+  .pb { page-break-before: always; }
+  .small { font-size: 9.5pt; color: #444; }
+  dl dt { font-weight: bold; margin-top: 6pt; }
+  dl dd { margin: 0 0 4pt 0; }
+  .pipe { font-family: Consolas, monospace; font-size: 10pt; background: #f0f0ea; border: 1px solid #ccc; padding: 8pt 10pt; margin: 6pt 0 12pt; white-space: pre; }
+</style>
+</head>
+<body>
+
+<h1>Speech AI Models, Explained Plainly</h1>
+<div class="sub">A field guide to every kind of model you will meet while building a Yiddish speech-to-text and text-to-speech system. Written for someone who has never trained a model.</div>
+
+<div class="box">
+<b>How to read this</b>
+Part 1 is the map: what jobs need doing and which model does each. Part 2 explains the handful of building blocks that every model is made of. Parts 3 to 5 walk through the actual named models for hearing speech, converting text, and making speech. Part 6 is a decision table for this project. A glossary is at the end. Skip around freely.
+</div>
+
+<div class="toc">
+<p><b>1.</b> The map: what the pieces are and how they connect</p>
+<p><b>2.</b> The building blocks every model is made from</p>
+<p><b>3.</b> Models that hear: speech recognition (ASR)</p>
+<p><b>4.</b> Models that read: text, letters, and pronunciation (G2P)</p>
+<p><b>5.</b> Models that speak: text-to-speech (TTS)</p>
+<p><b>6.</b> Helper models you will bump into</p>
+<p><b>7.</b> Choosing for this project</p>
+<p><b>8.</b> Glossary</p>
+</div>
+
+<h2>1. The map</h2>
+
+<p>Everything in this project sits on one of two conveyor belts. One belt turns sound into text. The other turns text into sound. Each belt has stations, and each station is a separate kind of model.</p>
+
+<div class="pipe">HEARING BELT
+  audio → [ASR model] → words → [alignment model] → words with timestamps
+
+SPEAKING BELT
+  words → [G2P] → sounds (IPA) → [TTS acoustic model] → [vocoder] → audio</div>
+
+<p>Here is what each station does, in one sentence each.</p>
+
+<table>
+<tr><th style="width:22%">Station</th><th>Job</th><th style="width:30%">In this project</th></tr>
+<tr><td>ASR (automatic speech recognition)</td><td>Listens to audio and writes down the words.</td><td>Yiddish Labs API produced the transcripts. Parakeet is the candidate to fine-tune yourself.</td></tr>
+<tr><td>Alignment</td><td>Given audio and its text, says exactly when each word was said.</td><td>Yiddish Labs gave phrase-level timestamps, which the segmentation script used to cut clips.</td></tr>
+<tr><td>G2P (grapheme-to-phoneme)</td><td>Turns spelled words into the sounds actually pronounced.</td><td>The Phonikud-yi engine plus the lexicon built from the phonetic index.</td></tr>
+<tr><td>TTS acoustic model</td><td>Turns a sequence of sounds into a "picture" or code of the speech.</td><td>Qwen3-TTS and other candidates.</td></tr>
+<tr><td>Vocoder / codec decoder</td><td>Turns that picture or code into an actual waveform you can play.</td><td>Bundled inside modern TTS models.</td></tr>
+</table>
+
+<p>Why Yiddish needs the G2P station at all: English TTS systems mostly learn spelling-to-sound on their own because there is a mountain of English data. Yiddish has a small mountain, and worse, Hebrew-origin words keep their ancient spelling while the pronunciation drifted centuries ago. <code>שבת</code> is spelled sh-b-t but said <i>shabes</i>. No model will guess that from a few hundred hours of audio. So we hand it the answer in the form of IPA.</p>
+
+<h2 class="pb">2. The building blocks</h2>
+
+<p>Every model on either belt is assembled from a small set of ideas. Learn these ten and every model name becomes readable.</p>
+
+<h3>2.1 What a neural network is</h3>
+<p>A neural network is a very large formula with millions of adjustable knobs, called parameters or weights. Training means showing it examples (audio paired with text, say), measuring how wrong its answer is, and nudging every knob a tiny bit in the direction that would have made it less wrong. Repeat millions of times. "Fine-tuning" means starting from a network someone already trained and nudging it a little more on your own examples. It is far cheaper than starting from zero and it is what you will do for Yiddish.</p>
+
+<h3>2.2 The three classic shapes</h3>
+<dl>
+<dt>CNN (convolutional network)</dt>
+<dd>Slides a small window across the input and looks for local patterns. Great for "what is happening in this 25 millisecond slice of audio" or "what is in this corner of an image." Almost every audio model has a CNN at the very front to turn raw sound into a compact stream of features.</dd>
+<dt>RNN / LSTM (recurrent network)</dt>
+<dd>Reads the input one step at a time, carrying a memory forward. Natural for sequences, but slow to train because step 500 cannot start until step 499 is done, and the memory fades over long inputs. Mostly replaced by Transformers, but still inside some ASR models (the "T" in RNN-T).</dd>
+<dt>Transformer</dt>
+<dd>The architecture behind GPT, Whisper, and nearly everything since 2018. Its trick is <b>attention</b>: every position in the input can look directly at every other position and decide what matters. No fading memory, and every step can be computed at once, so training is fast on GPUs. The cost is that attention grows with the square of the input length, which is why audio models compress sound into a short stream of features first.</dd>
+</dl>
+
+<h3>2.3 Encoder, decoder, and both</h3>
+<p>An <b>encoder</b> reads the whole input and produces a rich internal summary. A <b>decoder</b> writes the output one piece at a time, looking back at what it has already written (and at the encoder's summary, if there is one).</p>
+<ul>
+<li><b>Encoder-only:</b> BERT-style. Reads text or audio and labels it. Phonikud is an encoder that reads unpointed Hebrew letters and predicts the vowel marks under each one.</li>
+<li><b>Decoder-only:</b> GPT-style. Generates a sequence left to right. Modern "LLM-style" TTS models are decoder-only networks that generate audio tokens instead of word tokens.</li>
+<li><b>Encoder-decoder:</b> Whisper. An encoder listens to 30 seconds of audio; a decoder writes the transcript word by word while attending to the encoder's summary.</li>
+</ul>
+
+<h3>2.4 Autoregressive versus parallel</h3>
+<p><b>Autoregressive</b> means generating one piece at a time, each piece conditioned on the previous ones. It is how GPT writes and how Whisper transcribes. Quality is high because each step sees full context, but generation is slow and can "run away" (repeat a phrase forever, or skip a sentence). <b>Non-autoregressive</b> or parallel models produce the whole output in one shot or in a fixed number of refinement passes. Faster and more stable; historically slightly less natural. Diffusion and flow matching (below) are how parallel models got their quality back.</p>
+
+<h3>2.5 How ASR turns a long audio into a short text: CTC and Transducers</h3>
+<p>Audio has, say, 1,000 frames; the sentence has 12 words. Something must decide which frames belong to which word. Two standard answers:</p>
+<dl>
+<dt>CTC (connectionist temporal classification)</dt>
+<dd>Every frame emits one letter or a special "blank." Repeated letters and blanks are collapsed afterwards: <i>hh-e-blank-l-l-blank-o</i> becomes <i>hello</i>. Simple, fast, needs no decoder. Each frame guesses independently, so it cannot use context well; a language model is often bolted on to fix spelling.</dd>
+<dt>Transducer (RNN-T, or TDT in Parakeet)</dt>
+<dd>Like CTC but with a small predictor network that remembers what was just emitted, so it can use context. Streams in real time, which is why phones and NVIDIA's Parakeet use it. TDT ("token and duration transducer") also predicts how many frames to skip, which makes it very fast.</dd>
+<dt>Attention encoder-decoder (Whisper)</dt>
+<dd>No frame-by-frame alignment at all. The decoder just writes the text while attention figures out where to look. Most accurate with context and punctuation, but needs the whole chunk before it starts and can hallucinate on silence.</dd>
+</dl>
+
+<h3>2.6 Generative building blocks: how models make new audio</h3>
+<p>Recognition models classify. Speech models must <i>create</i>. There are five families of creative mechanism, and TTS model names usually tell you which one is inside.</p>
+<dl>
+<dt>VAE (variational autoencoder)</dt>
+<dd>Squeezes audio into a small code and learns to expand it back. Gives you a compact "latent" space to generate in. VITS is built around one.</dd>
+<dt>GAN (generative adversarial network)</dt>
+<dd>Two networks: a generator makes audio, a critic tries to tell it from real audio, and they train against each other. Produces crisp, fast output. HiFi-GAN and most vocoders are GANs.</dd>
+<dt>Normalizing flow</dt>
+<dd>A chain of reversible math steps that turns simple noise into a complex distribution and back. Exact and fast, used inside VITS and Glow-TTS.</dd>
+<dt>Diffusion</dt>
+<dd>Training: take real audio (or its spectrogram), add noise step by step until it is static, and teach the network to undo one step. Generation: start from pure static and denoise repeatedly until speech appears. Extremely high quality; the original versions needed 50 to 1,000 passes and were slow. This is the same idea behind image generators like Stable Diffusion.</dd>
+<dt>Flow matching</dt>
+<dd>Diffusion's faster cousin. Instead of learning to undo noise step by step, the network learns a straight-line path from noise to data, so 8 to 32 passes give the same quality diffusion needed hundreds for. F5-TTS, Voicebox, and the second stage of CosyVoice use it. When a 2024 or later paper says "diffusion," it usually means flow matching under the hood.</dd>
+</dl>
+
+<h3>2.7 Neural audio codecs and audio tokens</h3>
+<p>A codec compresses audio into a short list of integers (tokens), typically 25 to 75 per second, and can decode them back into sound. Once audio is integers, a text-style language model can predict it exactly the way GPT predicts words. This single idea created the "LLM-style TTS" family: EnCodec, SNAC, WavTokenizer, and Qwen's own tokenizer are codecs; VALL-E, XTTS, Fish Speech, CosyVoice and Qwen3-TTS are language models that write codec tokens.</p>
+
+<h3>2.8 Self-supervised pretraining</h3>
+<p>Labelled audio is scarce, unlabelled audio is endless. Self-supervised models (wav2vec 2.0, HuBERT, WavLM, XEUS) listen to hundreds of thousands of hours of raw audio with no transcripts, learning to predict masked-out chunks. The result is an encoder that already "understands" speech and needs only a little labelled data to become an ASR system. This is why fine-tuning works with tens of hours instead of thousands.</p>
+
+<h3>2.9 Spectrograms and mel</h3>
+<p>Raw audio is 16,000 to 48,000 numbers per second, too many to reason about directly. A spectrogram slices audio into 10 to 25 millisecond frames and records how much energy is at each pitch, giving a picture where time runs left to right and pitch bottom to top. "Mel" means the pitch axis is warped to match human hearing. Most models work on mel spectrograms and a vocoder turns the spectrogram back into sound.</p>
+
+<h3>2.10 Tokenizers</h3>
+<p>Text models do not read letters; they read tokens, chunks of characters chosen by frequency. A tokenizer built on English text has no idea what to do with Hebrew letters and will shatter Yiddish into single characters or unknowns. This is why Parakeet v3 needs a new SentencePiece tokenizer trained on your transcripts before fine-tuning, and why Whisper and NVIDIA's newer Nemotron 3.5 ASR, whose tokenizers already include Hebrew script, are easier to start with.</p>
+
+<h2 class="pb">3. Models that hear: ASR</h2>
+
+<table>
+<tr><th style="width:18%">Model</th><th style="width:22%">Architecture</th><th>What it is good and bad at</th><th style="width:22%">For Yiddish</th></tr>
+<tr><td>Whisper (OpenAI)</td><td>Transformer encoder-decoder, autoregressive. Sizes from 39M to 1.5B parameters. Current best: large-v3 and the 5x faster large-v3-turbo. MIT licence.</td><td>Trained on 680k hours across 99 languages including Yiddish (badly) and Hebrew. Produces punctuation and handles noise well. Slow, works in 30-second windows, and hallucinates on silence or music.</td><td>Easiest to fine-tune; tokenizer already knows Hebrew script. Yiddish Labs' service is very likely a fine-tuned Whisper-class model.</td></tr>
+<tr><td><b>yi-whisper-large-v3</b> (ivrit.ai)</td><td>Whisper large-v3 fine-tuned for Yiddish, October 2025. Apache-2.0.</td><td>Trained on about 97 hours of crowd-sourced Yiddish: 78 h of read Wikipedia-style articles and 19 h of WhatsApp voice notes. No published error rate yet. Language token must be forced to Yiddish; translation is broken.</td><td><b>The starting point.</b> Already speaks Yiddish; fine-tune it on your 10 h of Hasidic podcast speech rather than starting from stock Whisper. Their two training datasets are public and add 97 h to yours.</td></tr>
+<tr><td>Parakeet TDT 0.6B v3 (NVIDIA, Aug 2025)</td><td>FastConformer encoder (CNN plus Transformer) with a TDT transducer head. 0.6B parameters, CC-BY-4.0.</td><td>Trained on 670k hours; beats Whisper large-v3 on 25 European languages at a quarter of the size and runs fast on a CPU. Tokenizer is 8,192 SentencePiece pieces built from those 25 languages only.</td><td>No Hebrew script in the tokenizer, so a new tokenizer and a rebuilt decoder are needed before fine-tuning. Works, but see the next row.</td></tr>
+<tr><td><b>Nemotron 3.5 ASR streaming 0.6B</b> (NVIDIA, June 2026)</td><td>Same FastConformer-transducer family as Parakeet, one checkpoint for 40 locales, latency adjustable from 80 ms to 1 s.</td><td>NVIDIA's newest open ASR. Hebrew is in the tokenizer but listed as "not production tuned"; NVIDIA publishes a fine-tuning guide for exactly that case.</td><td>The better NeMo target for Yiddish: Hebrew letters already tokenize, so your Parakeet manifests work unchanged and no tokenizer rebuild is needed.</td></tr>
+<tr><td>Conformer / FastConformer</td><td>The encoder inside Parakeet: convolution blocks interleaved with attention.</td><td>The standard ASR encoder since 2020. Convolution catches local sound patterns, attention catches long context.</td><td>What you are fine-tuning when you fine-tune Parakeet.</td></tr>
+<tr><td>wav2vec 2.0 / XLS-R / MMS (Meta)</td><td>Self-supervised Transformer encoder, usually with a CTC head.</td><td>MMS covers over 1,000 languages. Fine-tunes with very little labelled audio. CTC output has no punctuation and needs a language model for spelling.</td><td>Best choice if you had only 1 to 3 hours. With 10+ hours Whisper or Parakeet will beat it.</td></tr>
+<tr><td>HuBERT / WavLM</td><td>Self-supervised encoders like wav2vec but trained by predicting cluster labels.</td><td>Better speaker and prosody information than wav2vec. Often used as the "understanding" front end inside TTS and voice conversion.</td><td>Not a transcription model on its own; appears inside other tools.</td></tr>
+<tr><td>XEUS / PhoneticXeus</td><td>Self-supervised encoder trained on 4,000+ languages with a phone (sound) recogniser head.</td><td>Outputs IPA-like phones rather than words, regardless of language.</td><td>Phonikud-yi uses it as audio evidence for how words are actually pronounced.</td></tr>
+<tr><td>Canary 1B v2, SeamlessM4T, Qwen-Audio</td><td>Multilingual encoder-decoder or audio-LLM models.</td><td>Transcribe and translate in one model, with word timestamps in Canary's case. Larger and slower than the transducers.</td><td>None cover Yiddish out of the box; Canary v2 is the same 25 European languages as Parakeet v3.</td></tr>
+</table>
+
+<div class="box">
+<b>Plain-English summary</b>
+Every modern ASR model is a listener (encoder) plus a writer. The writers differ: CTC writes one letter per frame and collapses repeats; a transducer does the same with a bit of memory; Whisper's decoder writes freely like GPT. Whisper is the most forgiving to fine-tune, Parakeet the fastest to run, wav2vec-family the hungriest for little data.
+</div>
+
+<h2>4. Models that read: text, letters, pronunciation</h2>
+
+<h3>4.1 G2P: from spelling to sounds</h3>
+<p>Four ways to get from a written word to its pronunciation, from dumbest to smartest. Real systems, including Phonikud-yi, chain them.</p>
+<dl>
+<dt>Lexicon lookup</dt><dd>A dictionary: word in, IPA out. Perfect for words it knows, useless for words it does not. The lexicon you built is this. Every serious TTS keeps one in front of everything else because it is the only component a human can correct with certainty.</dd>
+<dt>Rules</dt><dd>Hand-written letter-to-sound rules. Works for the Germanic three quarters of Yiddish, which is spelled phonetically. Fails on Hebrew-origin words, which is why they need the lexicon.</dd>
+<dt>Sequence-to-sequence G2P</dt><dd>A small Transformer or LSTM that reads letters and writes phonemes, trained on lexicon pairs. Handles unseen words by analogy. Needs several thousand verified pairs to beat rules; below that it mostly memorises the rules' mistakes.</dd>
+<dt>Diacritisation model (Phonikud, Nakdimon, Dicta)</dt><dd>An encoder-only character model (a BERT for letters) that predicts the vowel marks under each Hebrew letter in context. Context matters because the same spelling can be two words. Phonikud-yi is a 306M-parameter version trained for Hasidic Yiddish. Once the vowels are known, rules finish the job.</dd>
+<dt>LLM as G2P</dt><dd>Ask a large language model to transcribe the word. Works surprisingly often, inconsistently, and costs money per call. Useful for building candidate lists to hand to a native reviewer, not for production.</dd>
+</dl>
+
+<h3>4.2 Text normalisation</h3>
+<p>Before any of that, digits, abbreviations, and dates must become words: "9,000" to <i>nayn toyzent</i>, an acronym with a gershayim to its spoken form. Usually rules; sometimes a small seq2seq model. The dataset prep script currently drops clips containing digits precisely because this step does not exist yet for Yiddish.</p>
+
+<h2 class="pb">5. Models that speak: TTS</h2>
+
+<p>TTS models come in four generations. Each is still in use, and the names on Hugging Face tell you which generation you are looking at.</p>
+
+<h3>5.1 Generation one: two-stage, spectrogram plus vocoder</h3>
+<p><b>Tacotron 2</b> (2017) reads phonemes with an encoder and writes a mel spectrogram autoregressively; <b>WaveNet</b> or later <b>HiFi-GAN</b> turns the spectrogram into sound. <b>FastSpeech 2</b> (2020) does the same in parallel using a duration predictor, so it never runs away. <b>Piper</b> and many "lightweight" voices are this design. Simple, fast, controllable, and sounds slightly robotic. Needs clean single-speaker data and works well with as little as two to five hours.</p>
+
+<h3>5.2 Generation two: end-to-end, VITS</h3>
+<p><b>VITS</b> (2021) fused the acoustic model, a VAE, a normalizing flow, and a GAN vocoder into one network trained together, and it sounds much more natural than generation one. It is the most fine-tuned open TTS architecture in existence; Coqui, Piper's larger voices, and dozens of language-specific voices are VITS. Trains on a single GPU in a day with a few hours of audio. <b>Kokoro</b> (v1.0, January 2025) is a StyleTTS-2-derived tiny model in this spirit, 82M parameters, Apache-2.0, that runs on a CPU and sounds far better than its size suggests. It cannot clone voices and its training code is not public.</p>
+
+<h3>5.3 Generation three: LLM-style codec TTS</h3>
+<p>Turn audio into codec tokens (section 2.7) and train a GPT-style decoder to write them. <b>VALL-E</b> (2023) started it; <b>XTTS v2</b>, <b>Fish Speech</b>, <b>CosyVoice 2</b>, <b>Orpheus</b>, <b>Chatterbox</b>, and <b>Qwen3-TTS</b> are the practical ones. Because the core is a language model, you get zero-shot voice cloning from a few seconds of reference audio, natural prosody, and the ability to fine-tune on a new language the same way you would fine-tune a chat model. The costs are speed, occasional runaway generation, and needing hundreds of hours for a genuinely new language rather than a new voice. Most start from a text LLM (Qwen3-TTS from Qwen3, Orpheus from Llama), so they already "know" Hebrew script, which helps.</p>
+
+<h3>5.4 Generation four: diffusion and flow-matching TTS</h3>
+<p><b>Voicebox</b> (Meta, 2023), <b>E2-TTS</b>, and <b>F5-TTS</b> (2024) drop the autoregressive decoder entirely. Text and a noisy mel spectrogram go into a Transformer that, in a few flow-matching passes, cleans the noise into speech. No duration model, no runaway, very fast, and excellent cloning. <b>StyleTTS 2</b> mixes a diffusion style-predictor with a GAN generator. <b>CosyVoice</b> and <b>Qwen3-TTS</b> actually use a flow-matching stage after their language model to turn coarse tokens into fine mel detail, so the two families are merging. Flow-matching models need alignment-free training data (just audio plus text) and tolerate noisier data than generation one.</p>
+
+<table>
+<tr><th style="width:17%">Model</th><th style="width:18%">Generation</th><th>Strengths</th><th style="width:26%">Data it wants</th></tr>
+<tr><td>Piper</td><td>1 / 2 (VITS-lite)</td><td>Runs on a Raspberry Pi. Clear, intelligible.</td><td>2 to 10 h clean single speaker, phonemes in.</td></tr>
+<tr><td>VITS</td><td>2</td><td>Natural, well documented, trains in a day.</td><td>3 to 20 h, one or a few speakers, phonemes in.</td></tr>
+<tr><td>Kokoro / StyleTTS 2</td><td>2 / 4 mix</td><td>Tiny and high quality. Kokoro's training code is not public.</td><td>StyleTTS 2 fine-tunes on a few hours.</td></tr>
+<tr><td>XTTS v2</td><td>3</td><td>Cloning from 6 s, 17 languages, easy fine-tune scripts.</td><td>New voice: minutes. New language: 100 h+.</td></tr>
+<tr><td>Fish Speech 1.5 / CosyVoice 2</td><td>3 (+4 stage)</td><td>Strong multilingual cloning, open training code. CosyVoice 2 (0.5B) has the best speaker similarity of the small models.</td><td>Similar to XTTS.</td></tr>
+<tr><td><b>Fish Audio S2 Pro</b> (2026)</td><td>3 (+4 stage)</td><td>Open weights, trained on over 10 million hours. Tops the 2026 blind-listening leaderboards, ahead of ElevenLabs. Cross-lingual cloning.</td><td>Inference is easy; fine-tuning a big model like this needs serious GPU. Try zero-shot cloning on Yiddish first.</td></tr>
+<tr><td><b>Qwen3-TTS</b> (Jan 2026)</td><td>3 (+4 stage)</td><td>0.6B and 1.7B, Apache-2.0, built on the Qwen3 LLM so Hebrew script is not foreign to it. Ten official languages, streaming, cloning from 3 s, style by text instruction.</td><td>Official recipe is <b>single-speaker only</b> for now (multi-speaker is on their roadmap; community forks add it). JSONL with <code>audio</code>, <code>text</code>, <code>ref_audio</code>; the manifests now carry that field. Plan on 20 to 50 h for a new language.</td></tr>
+<tr><td>Chatterbox / Chatterbox-Turbo (Resemble)</td><td>3</td><td>MIT licence, clones from 5 s, preferred over ElevenLabs in 2026 blind tests. English-centred.</td><td>Multilingual fine-tune scripts exist; Yiddish would be a from-scratch language.</td></tr>
+<tr><td>IndexTTS-2</td><td>3 (+4 stage)</td><td>Separate control of voice and emotion; simplest training loop of the LLM-style models; fast.</td><td>Similar to CosyVoice 2.</td></tr>
+<tr><td>VoxCPM2 (2026)</td><td>3 / 4 hybrid</td><td>2B, Apache-2.0, 30 languages, 48 kHz output, runs on CPU.</td><td>Worth a zero-shot test; no Yiddish in its 30 languages.</td></tr>
+<tr><td>F5-TTS / E2</td><td>4</td><td>Fast, stable, good cloning, simplest training loop. Papers in 2025 and 2026 show it picking up unseen languages from a few hours plus synthetic data.</td><td>Audio plus text only, 20 to 50 h for a new language; tolerant of imperfect labels. Most documented path for a low-resource language.</td></tr>
+</table>
+
+<h3>5.5 Vocoders and codec decoders</h3>
+<p>The last step. <b>WaveNet</b> (2016, autoregressive, slow), <b>WaveGlow</b> (flow), <b>HiFi-GAN</b> (2020, GAN, the workhorse), <b>BigVGAN</b> (2022, better for singing and unseen voices), <b>Vocos</b> (2023, fast). Codec decoders (EnCodec, DAC, SNAC) do the same job for token-based models. You almost never train these yourself; they are language-agnostic because they only turn pictures of sound into sound.</p>
+
+<div class="box">
+<b>Plain-English summary</b>
+Generation one draws a picture of the speech then paints sound from it. Generation two does both at once. Generation three treats sound as a foreign language and lets a GPT write it. Generation four starts from static and sculpts it into speech in a few passes. Older generations need less data and phonemes; newer ones need more data but forgive messy labels and can clone voices.
+</div>
+
+<h2 class="pb">6. Helper models you will meet</h2>
+<dl>
+<dt>VAD (voice activity detection)</dt><dd>Says where speech is and is not. Silero VAD, WebRTC VAD. Used to cut long recordings and drop silence.</dd>
+<dt>Speaker embedding / verification</dt><dd>Turns a voice into a vector; same speaker gives nearby vectors. ECAPA-TDNN, WavLM-SV, Resemblyzer. Used to check that all clips in a "speaker" folder are actually one person and to condition TTS on a voice.</dd>
+<dt>Diarisation</dt><dd>Who spoke when. pyannote. Needed for interview shows before they can be used for single-speaker TTS.</dd>
+<dt>Forced alignment</dt><dd>Given audio and its exact text, returns per-word or per-phone timestamps. Montreal Forced Aligner, wav2vec2 CTC alignment, WhisperX. Would give you much tighter clip boundaries than the phrase-level timestamps used now.</dd>
+<dt>Enhancement / denoising / separation</dt><dd>Removes background noise or music. Demucs, DeepFilterNet, resemble-enhance. Worth running on the shiurim before TTS training; do not run on ASR training data, since ASR should learn real noise.</dd>
+<dt>Voice conversion</dt><dd>Changes who is speaking without changing the words. RVC, kNN-VC, Seed-VC. A shortcut to a target voice when you have a good TTS in a different voice.</dd>
+<dt>Audio LLMs</dt><dd>Models that take audio in and chat about it or answer with speech: GPT-4o audio, Gemini, Qwen2.5-Omni. Not trainable by you at this scale, but usable as a reviewer or labeller.</dd>
+</dl>
+
+<h2>7. Choosing for this project</h2>
+
+<table>
+<tr><th style="width:26%">Goal</th><th style="width:26%">Recommended</th><th>Why</th></tr>
+<tr><td>Better Yiddish transcription than the paid API</td><td>Fine-tune ivrit.ai's yi-whisper-large-v3 first; Nemotron 3.5 ASR second</td><td>yi-whisper already speaks Yiddish from 97 h of crowd recordings; your 10 h of Hasidic podcast speech is exactly the domain it lacks. Nemotron 3.5 is the fast, streaming option and its tokenizer already handles Hebrew script, unlike Parakeet v3. Skip stock Whisper and Parakeet v3.</td></tr>
+<tr><td>Pronunciation of new words</td><td>Keep lexicon plus rules; train a seq2seq G2P only after 5,000 verified words</td><td>With 697 verified words a neural G2P would only learn the rules' mistakes. Native review of the 388 most frequent low-confidence words fixes half of all shaky tokens for a day's work.</td></tr>
+<tr><td>A clear, dependable Yiddish voice quickly</td><td>VITS or Piper on the bulletin reader</td><td>Single studio voice, phonemes available, a few hours is enough. Trains overnight on one GPU.</td></tr>
+<tr><td>A natural voice with cloning of the rebbes</td><td>F5-TTS fine-tune first; Qwen3-TTS 1.7B second</td><td>Both take the audio-plus-text data as prepared. F5-TTS trains on all speakers at once and has the most published low-resource results. Qwen3-TTS's official recipe is single-speaker, so train one voice per run, starting with the bulletin reader. Expect to need 20 to 50 h of clean speech and to denoise the shiurim first. Before training anything, run zero-shot cloning with Fish Audio S2 and Qwen3-TTS on a Yiddish sentence; if one is already intelligible, fine-tuning it is the shortest path.</td></tr>
+<tr><td>Tighter clip boundaries</td><td>Forced alignment with a fine-tuned wav2vec2 or WhisperX</td><td>Phrase-level timestamps are within about a quarter second. Word-level alignment removes clipped tails and lets you cut at silences.</td></tr>
+</table>
+
+<p>The order that gets the most out of the least effort: review the top low-confidence words, fine-tune yi-whisper on your 10 hours plus ivrit.ai's 97, use it to transcribe the remaining 180 hours of yiddish24 for free, align, then train TTS on the enlarged set.</p>
+
+<div class="box">
+<b>What is newest, checked 3 September 2026</b>
+<table style="margin:4pt 0 0">
+<tr><th style="width:30%">Model</th><th style="width:16%">Date</th><th>Why it matters here</th></tr>
+<tr><td>ivrit.ai yi-whisper-large-v3</td><td>Oct 2025</td><td>Only public Yiddish ASR. Start from it.</td></tr>
+<tr><td>NVIDIA Parakeet TDT 0.6B v3</td><td>Aug 2025</td><td>25 European languages, no Hebrew script.</td></tr>
+<tr><td>NVIDIA Nemotron 3.5 ASR streaming 0.6B</td><td>Jun 2026</td><td>40 locales including Hebrew; NVIDIA's newest ASR and its fine-tuning guide targets under-tuned languages.</td></tr>
+<tr><td>Qwen3-TTS 0.6B / 1.7B</td><td>Jan 2026</td><td>Open, Apache-2.0, single-speaker fine-tuning recipe published.</td></tr>
+<tr><td>Fish Audio S2 Pro</td><td>2026</td><td>Open weights topping blind-listening tests.</td></tr>
+<tr><td>VoxCPM2, Chatterbox-Turbo, IndexTTS-2, CosyVoice 2</td><td>2025 to 2026</td><td>Strong open cloning models; none list Yiddish.</td></tr>
+<tr><td>Whisper large-v3 / turbo</td><td>2024</td><td>Still OpenAI's latest open weights; nothing newer released.</td></tr>
+</table>
+</div>
+
+<h2 class="pb">8. Glossary</h2>
+<dl>
+<dt>Attention</dt><dd>The mechanism that lets each position in a sequence look at every other position and weigh what matters.</dd>
+<dt>Autoregressive</dt><dd>Generating one piece at a time, each conditioned on the previous pieces.</dd>
+<dt>Codec (neural)</dt><dd>A network that compresses audio into a short list of integer tokens and decodes them back.</dd>
+<dt>CTC</dt><dd>A way to train speech recognisers without knowing which frame belongs to which letter: emit a letter or blank per frame, collapse repeats.</dd>
+<dt>Diffusion</dt><dd>Generate by starting from noise and removing it step by step.</dd>
+<dt>Encoder / decoder</dt><dd>The part that reads and summarises, and the part that writes the output.</dd>
+<dt>Fine-tuning</dt><dd>Continuing to train an existing model on your own data.</dd>
+<dt>Flow matching</dt><dd>A faster relative of diffusion that learns a straight path from noise to data.</dd>
+<dt>G2P</dt><dd>Grapheme-to-phoneme: spelling in, sounds out.</dd>
+<dt>GAN</dt><dd>Generator versus critic training; gives crisp fast output; most vocoders.</dd>
+<dt>IPA</dt><dd>International Phonetic Alphabet, one symbol per sound, language-independent.</dd>
+<dt>Latent</dt><dd>A compressed internal representation a model generates in, instead of raw audio.</dd>
+<dt>Mel spectrogram</dt><dd>A picture of sound, time across and pitch up, with pitch warped to human hearing.</dd>
+<dt>Nikud</dt><dd>Hebrew vowel marks. Predicting them is a step toward pronunciation.</dd>
+<dt>Parameters</dt><dd>The adjustable numbers inside a model; "306M" means 306 million of them.</dd>
+<dt>Phoneme</dt><dd>One distinct speech sound.</dd>
+<dt>Self-supervised</dt><dd>Learning from unlabelled audio by predicting hidden parts of it.</dd>
+<dt>Token</dt><dd>The unit a model reads or writes: a chunk of text, or an integer standing for a slice of audio.</dd>
+<dt>Transducer (RNN-T / TDT)</dt><dd>A streaming speech recogniser that emits tokens frame by frame with a small memory of what it already said.</dd>
+<dt>Transformer</dt><dd>The attention-based architecture behind nearly all current models.</dd>
+<dt>VAE</dt><dd>A network that compresses to a small code and reconstructs, giving a latent space to generate in.</dd>
+<dt>Vocoder</dt><dd>Turns a spectrogram into a waveform.</dd>
+<dt>WER</dt><dd>Word error rate, the standard ASR score: fraction of words wrong. Lower is better.</dd>
+<dt>Zero-shot cloning</dt><dd>Imitating a voice from a short sample with no training.</dd>
+</dl>
+
+<h3>Sources checked on 3 September 2026</h3>
+<p class="small">
+ivrit.ai yi-whisper-large-v3 model card, huggingface.co/ivrit-ai/yi-whisper-large-v3 ·
+NVIDIA parakeet-tdt-0.6b-v3 model card, huggingface.co/nvidia/parakeet-tdt-0.6b-v3 ·
+NVIDIA nemotron-3.5-asr-streaming-0.6b model card and the "How to fine-tune Nemotron 3.5 ASR for your language" post on the Hugging Face blog ·
+NVIDIA Nemotron speech FAQ on production-ready European models, perspectives.nvidia.com ·
+Qwen3-TTS repository and finetuning README, github.com/QwenLM/Qwen3-TTS, and the Qwen3-TTS technical report, arXiv 2601.15621 ·
+OpenAI Whisper repository, github.com/openai/whisper ·
+IndexTTS-2 paper, arXiv 2502.05512 ·
+2026 open TTS round-ups from BentoML, Modal, Resemble AI, SiliconFlow and Pinggy.
+</p>
+<p class="small">Prepared 3 September 2026 for the Kohn AI Yiddish TTS project.</p>
+
+</body>
+</html>

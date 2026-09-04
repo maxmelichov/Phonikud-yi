@@ -2,7 +2,7 @@
 training manifests for Parakeet (NeMo ASR), Qwen3-TTS, and a generic TTS
 recipe (LJSpeech-style metadata).
 
-Usage:  python scripts/prep_dataset.py <yiddish24 folder> [out dir]
+Usage:  python prep_dataset.py            (from this folder)
 
 Layout produced here:
   clips/16k/<clip_id>.wav     16 kHz mono PCM16   (ASR)
@@ -165,6 +165,12 @@ def main():
         w = csv.DictWriter(f, fieldnames=cols, delimiter="\t", extrasaction="ignore", lineterminator="\n")
         w.writeheader(); w.writerows(rows)
 
+    # Qwen3-TTS (Jan 2026 recipe) wants audio / text / ref_audio and is single-speaker:
+    # one fixed 3-10 s reference clip per speaker; filter on `speaker` when training.
+    ref_by_cat = {}
+    for r in rows:
+        if r["tts_ok"] and r["split"] == "train" and 3.0 <= r["duration"] <= 10.0 and r["cat"] not in ref_by_cat:
+            ref_by_cat[r["cat"]] = f"clips/24k/{r['clip_id']}.wav"
     for split in ("train", "dev", "test"):
         rs = [r for r in rows if r["split"] == split]
         with open(os.path.join(HERE, f"parakeet_{split}.jsonl"), "w", encoding="utf-8") as f:
@@ -176,6 +182,7 @@ def main():
             for r in rs:
                 if r["tts_ok"]:
                     f.write(json.dumps({"audio": f"clips/24k/{r['clip_id']}.wav", "text": r["ipa"], "orth_text": r["text"],
+                                        "ref_audio": ref_by_cat.get(r["cat"], f"clips/24k/{r['clip_id']}.wav"),
                                         "speaker": f"cat{r['cat']}", "duration": r["duration"]}, ensure_ascii=False) + "\n")
         with open(os.path.join(HERE, f"tts_{split}.csv"), "w", encoding="utf-8") as f:
             for r in rs:
