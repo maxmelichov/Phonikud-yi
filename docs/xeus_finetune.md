@@ -494,8 +494,39 @@ against what the audio says:
 |---|---|---|
 | frozen rule engine (production) | **88.4%** | 99.97% |
 | ReNikud-yi, no audio labels | 46.0% | 96.85% |
-| ReNikud-yi, audio labels | _training_ | |
+| **ReNikud-yi, audio labels** | **89.2%** | 96.88% |
 
 Without audio the per-letter model memorises the labelled types and does not
-recover the rules the engine has by hand; 88.4% is the bar. The with-audio
-model's number lands in this table when its run finishes.
+recover the rules the engine has by hand (46%). With the audio tier it goes to
+89.2% — parity with the hand-written engine on words neither was labelled on,
+from a model that contains no rules at all. That is the paper's claim,
+reproduced on Yiddish: the audio supervision is the whole difference. n = 517
+puts ±1.4 points on these numbers, so "parity" is the honest word, not "beats";
+and the reference is the same ear's decision that also produced the training
+labels, which favours the audio model in a way it does not favour the engine.
+Its 3-point deficit on gold words (96.9 vs 99.97) is the cost of a soft model
+against a lookup table, and is where a lexicon-first decode would recover it.
+
+Checkpoints (local only): `models/renikud_yi_noaudio/`, `models/renikud_yi_audio/`
+(`heads.pt` + `best_encoder/`). Eval: `data/eval/renikud_yi_eval.json`.
+
+### The nikud model on the same data: retrain v8
+
+The audio-attested tier also went into the pointing model (retrain8, coverage
+65.8% → 79.3%; v6 recipe, warm start from v6, 2 epochs, 119 min). On the
+retrain2 test split, paired against v6 token by token
+(`scripts/eval_phonikud_yi.py --dump-tokens`):
+
+| | v6 | v8 |
+|---|---|---|
+| `vs_gold_all` (4,845 tokens) | 90.71% | 90.94% |
+| `vs_gold_rule` (1,641) | 72.76% | 73.55% |
+| paired, rule tokens | — | fixed 80 · broke 67 · net +13 · sign test p ≈ 0.32 |
+
+Not a demonstrated improvement — the same bar that rejected v7 — so **v6
+stays the shipped pointing model**. The audio tier is real data (13.5 points
+of new coverage) but the nikud → rules → IPA path does not turn it into
+better readings on this test: the pointing convention itself is the
+bottleneck (a decided reading has to find a corpus pointing that reads back
+to it; 117k tokens of decisions found none). The per-letter model has no
+such bottleneck, which is the case for it.

@@ -87,10 +87,13 @@ def main():
     ap.add_argument("--device", default="auto")
     ap.add_argument("--out", type=Path, default=None, help="markdown report")
     ap.add_argument("--json-out", type=Path, default=None)
+    ap.add_argument("--dump-tokens", type=Path, default=None,
+                    help="write one JSON line per test token (row, position, gold route, gold/pred IPA) for paired comparisons")
     args = ap.parse_args()
 
     rows = read_rows(args.test, args.limit)
     print(f"test rows: {len(rows)}  model: {args.model}", flush=True)
+    _dump: list = []
 
     pointer = Pointer(args.model, args.device)
     t0 = time.perf_counter()
@@ -172,7 +175,10 @@ def main():
         if not (len(eng_src) == len(eng_gold) == len(eng_pred)):
             misalign += 1
         else:
-            for rs, rg, rp in zip(eng_src, eng_gold, eng_pred):
+            for ti, (rs, rg, rp) in enumerate(zip(eng_src, eng_gold, eng_pred)):
+                if args.dump_tokens is not None:
+                    _dump.append({"row": row["id"], "i": ti, "word": rg.get("word"), "route": rg["route"],
+                                  "gold": rg["ipa_primary"], "pred": rp["ipa_primary"]})
                 if rs["route"] == "lexicon":
                     ds["vs_engine_verified"][1] += 1
                     ds["vs_engine_verified"][0] += (rp["ipa_primary"] == rs["ipa_primary"])
@@ -240,6 +246,11 @@ def main():
                 ceiling["ceiling_word_exact"] - result["word"]["exact_pointing_rate"], 2),
         }
 
+    if args.dump_tokens is not None:
+        args.dump_tokens.parent.mkdir(parents=True, exist_ok=True)
+        with args.dump_tokens.open("w", encoding="utf-8") as fh:
+            for rec in _dump:
+                fh.write(json.dumps(rec, ensure_ascii=False) + "\n")
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
     if args.json_out:

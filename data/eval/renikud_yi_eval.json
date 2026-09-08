@@ -1,0 +1,312 @@
+{
+ "rule-path words with audio decision (margin ≥ 2)": {
+  "engine": {
+   "n": 517,
+   "acc": 88.39
+  },
+  "renikud_yi_noaudio": {
+   "n": 517,
+   "acc": 46.03
+  },
+  "renikud_yi_audio": {
+   "n": 517,
+   "acc": 89.17
+  }
+ },
+ "gold words (label agreement)": {
+  "engine": {
+   "n": 3202,
+   "acc": 99.97
+  },
+  "renikud_yi_noaudio": {
+   "n": 3202,
+   "acc": 96.85
+  },
+  "renikud_yi_audio": {
+   "n": 3202,
+   "acc": 96.88
+  }
+ },
+ "examples": [
+  {
+   "word": "בשם",
+   "audio": "b ʃ aj m",
+   "engine": "b ʃ aj m",
+   "renikud_yi_noaudio": "b ɛ ʃ ɛ m",
+   "renikud_yi_audio": "b ʃ aj m"
+  },
+  {
+   "word": "ביינאַכט",
+   "audio": "b aj n a x t",
+   "engine": "b aj n a x t",
+   "renikud_yi_noaudio": "b aː n a x t",
+   "renikud_yi_audio": "b aj n a x t"
+  },
+  {
+   "word": "שמרבים",
+   "audio": "ʃ m r b i m",
+   "engine": "ʃ m r b i m",
+   "renikud_yi_noaudio": "ʃ i m a r b i m",
+   "renikud_yi_audio": "ʃ m r b i m"
+  },
+  {
+   "word": "בו",
+   "audio": "b i",
+   "engine": "b i",
+   "renikud_yi_noaudio": "b u",
+   "renikud_yi_audio": "b i"
+  },
+  {
+   "word": "בשמחה",
+   "audio": "b s i m x ə",
+   "engine": "b s i m x ə",
+   "renikud_yi_noaudio": "b ɛ s i m x ə",
+   "renikud_yi_audio": "b s i m x ə"
+  },
+  {
+   "word": "דארפסט",
+   "audio": "d a r f s t",
+   "engine": "d a r f s t",
+   "renikud_yi_noaudio": "d a r p s t",
+   "renikud_yi_audio": "d a r f s t"
+  },
+  {
+   "word": "אריינטרעטן",
+   "audio": "a r aː n t r ə t n",
+   "engine": "a r aː n t r ə t n",
+   "renikud_yi_noaudio": "a r aː n t r ə t n",
+   "renikud_yi_audio": "a r aj n t r ə t n"
+  },
+  {
+   "word": "א",
+   "audio": "a",
+   "engine": "a",
+   "renikud_yi_noaudio": "ɔ",
+   "renikud_yi_audio": "a"
+  },
+  {
+   "word": "ס'קומט",
+   "audio": "s k i m t",
+   "engine": "s k i m t",
+   "renikud_yi_noaudio": "s ə k i m t",
+   "renikud_yi_audio": "s k i m t"
+  },
+  {
+   "word": "מצוות",
+   "audio": "m i ʦ v ɔj s",
+   "engine": "m i ʦ v ɔj s",
+   "renikud_yi_noaudio": "m i ʦ v ə s",
+   "renikud_yi_audio": "m i ʦ v ɔj s"
+  },
+  {
+   "word": "מצוות",
+   "audio": "m i ʦ v ɔj s",
+   "engine": "m i ʦ v ɔj s",
+   "renikud_yi_noaudio": "m i ʦ v ə s",
+   "renikud_yi_audio": "m i ʦ v ɔj s"
+  },
+  {
+   "word": "מצוות",
+   "audio": "m i ʦ v ɔj s",
+   "engine": "m i ʦ v ɔj s",
+   "renikud_yi_noaudio": "m i ʦ v ə s",
+   "renikud_yi_audio": "m i ʦ v ɔj s"
+  },
+  {
+   "word": "נאכזאגן",
+   "audio": "n u x z u ɡ n",
+   "engine": "n a x z a ɡ n",
+   "renikud_yi_noaudio": "n u x z u ɡ n",
+   "renikud_yi_audio": "n u x z u ɡ n"
+  },
+  {
+   "word": "א",
+   "audio": "a",
+   "engine": "a",
+   "renikud_yi_noaudio": "",
+   "renikud_yi_audio": "a"
+  },
+  {
+   "word": "מגיד",
+   "audio": "m ɡ i t",
+   "engine": "m ɡ i d",
+   "renikud_yi_noaudio": "m a ɡ i d",
+   "renikud_yi_audio": "m ɡ i t"
+  },
+  {
+   "word": "נמתק",
+   "audio": "n i m t i k",
+   "engine": "n i m t u k",
+   "renikud_yi_noaudio": "n i m t ə k",
+   "renikud_yi_audio": "n i m t i k"
+  },
+  {
+   "word": "טובים",
+   "audio": "t i b i m",
+   "engine": "t i b i m",
+   "renikud_yi_noaudio": "t ɔj v i m",
+   "renikud_yi_audio": "t i b i m"
+  },
+  {
+   "word": "מ'זעט",
+   "audio": "m z aj t",
+   "engine": "m z ej t",
+   "renikud_yi_noaudio": "m ɛ z ej t",
+   "renikud_yi_audio": "m z aj t"
+  },
+  {
+   "word": "מאַם",
+   "audio": "m a m",
+   "engine": "m a m",
+   "renikud_yi_noaudio": "m u m",
+   "renikud_yi_audio": "m a m"
+  },
+  {
+   "word": "דערהויבענער",
+   "audio": "d ə r h ɔj b ə n ə r",
+   "engine": "d ɛ r h ɔj b ə n ə r",
+   "renikud_yi_noaudio": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio": "d ə r h ɔj b ə n ə r"
+  },
+  {
+   "word": "סקווערער",
+   "audio": "s k v ə r ə r",
+   "engine": "s k v ɛ r ə r",
+   "renikud_yi_noaudio": "s k v ɛ r ə r",
+   "renikud_yi_audio": "s k v ə r ə r"
+  },
+  {
+   "word": "רבי׳ן",
+   "audio": "r b i n",
+   "engine": "r b i n",
+   "renikud_yi_noaudio": "r ɛ b ə n",
+   "renikud_yi_audio": "r b i n"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_noaudio": "j ɔ v n",
+   "renikud_yi_audio": "j ɔ v n"
+  },
+  {
+   "word": "מצות",
+   "audio": "m a ʦ ɔj s",
+   "engine": "m a ʦ ɔj s",
+   "renikud_yi_noaudio": "m a ʦ ə s",
+   "renikud_yi_audio": "m a ʦ ɔj s"
+  },
+  {
+   "word": "מסודר",
+   "audio": "m s i d r",
+   "engine": "m s i d r",
+   "renikud_yi_noaudio": "m ɛ s i d ə r",
+   "renikud_yi_audio": "m s i d r"
+  },
+  {
+   "word": "אַ",
+   "audio": "a",
+   "engine": "a",
+   "renikud_yi_noaudio": "ɔ",
+   "renikud_yi_audio": "a"
+  },
+  {
+   "word": "מצות",
+   "audio": "m a ʦ ɔj s",
+   "engine": "m a ʦ ɔj s",
+   "renikud_yi_noaudio": "m a ʦ ə s",
+   "renikud_yi_audio": "m a ʦ ɔj s"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_noaudio": "j ɔ v n",
+   "renikud_yi_audio": "j ɔ v n"
+  },
+  {
+   "word": "פֿאַרקייקס",
+   "audio": "f a r k aj k s",
+   "engine": "f a r k aj k s",
+   "renikud_yi_noaudio": "p a r k aj k s",
+   "renikud_yi_audio": "f a r k aj k s"
+  },
+  {
+   "word": "אויוונס",
+   "audio": "ɔj v n s",
+   "engine": "ɔj v n s",
+   "renikud_yi_noaudio": "j a v n s",
+   "renikud_yi_audio": "j ɔ v n s"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_noaudio": "j ɔ v n",
+   "renikud_yi_audio": "j ɔ v n"
+  },
+  {
+   "word": "געכשרט",
+   "audio": "ɡ ə x ʃ r t",
+   "engine": "ɡ ɛ x ʃ r t",
+   "renikud_yi_noaudio": "ɡ ə x ʃ r t",
+   "renikud_yi_audio": "ɡ ə k ʃ ə r t"
+  },
+  {
+   "word": "אַ",
+   "audio": "a",
+   "engine": "a",
+   "renikud_yi_noaudio": "",
+   "renikud_yi_audio": "a"
+  },
+  {
+   "word": "אַ",
+   "audio": "a",
+   "engine": "a",
+   "renikud_yi_noaudio": "",
+   "renikud_yi_audio": "a"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_noaudio": "j a v n",
+   "renikud_yi_audio": "j ɔ v n"
+  },
+  {
+   "word": "שולחן",
+   "audio": "ʃ i l x aj n",
+   "engine": "ʃ i l x aj n",
+   "renikud_yi_noaudio": "ʃ ɔj l ə x ə n",
+   "renikud_yi_audio": "ʃ i l x aj n"
+  },
+  {
+   "word": "כלים",
+   "audio": "x l i m",
+   "engine": "x l i m",
+   "renikud_yi_noaudio": "k a l i m",
+   "renikud_yi_audio": "x l i m"
+  },
+  {
+   "word": "ואחרונים",
+   "audio": "v a x a r ɔj n i m",
+   "engine": "v a x a r ɔj n i m",
+   "renikud_yi_noaudio": "i x a r u n i m",
+   "renikud_yi_audio": "v i a x a r ɔj n i m"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_noaudio": "j ɔ v n",
+   "renikud_yi_audio": "j ɔ v n"
+  },
+  {
+   "word": "בקי",
+   "audio": "b k i",
+   "engine": "b k i",
+   "renikud_yi_noaudio": "b aː k i",
+   "renikud_yi_audio": "b k i"
+  }
+ ]
+}
