@@ -399,3 +399,31 @@ questions for him (`ניו` *nji* 70%, `סארט` *surt* 47%, `אפאר` *afar* 
 the `זעהט/זעה/זעהן` → *aj* rows are most likely the ear's ej confusion (ej
 recall 0.48) rather than his label. A ruling on a card is a dictionary edit;
 the menu rebuilds from the corpus in ~10 minutes on the pod.
+
+## 16. Run 3 (schwa oversampling): a negative result
+
+Hypothesis: the dropped word-final ə (§11) is a data-balance problem. Test:
+re-cut with the run-2 ear, then continue training from run 2 with every clip
+containing a word-final ə repeated three times (18,289 clips → 114,236
+training rows, 33 h), encoder lr 8e-6, head lr 2e-4, augmentation on.
+
+Result on the third cut of the held-out clips (run 2 itself scores 0.357 /
+0.308 there):
+
+| epoch | unseen words PER | unseen episodes PER | ə recall | oʊ recall |
+|---|---|---|---|---|
+| 0 (= run 2) | 0.357 | 0.308 | 0.62 | 0.39 |
+| 1 | 0.375 | 0.309 | 0.61 | 0.06 |
+| 2 | 0.385 | 0.308 | 0.59 | 0.06 |
+
+Worse on the target metric, no gain on ə, and oʊ collapsed. Model selection
+kept epoch 0, so the run returned run 2 unchanged; `ckpt_schwa/` holds only
+its reports. Oversampling moved the model's priors without teaching it the
+schwa — the deletion is a blank-vs-ə decision inside the CTC objective, not a
+shortage of examples. The fix to try next, before any further GPU time, is at
+the loss: a fixed penalty on the blank logit during training so ə has to win
+its own frames, or a frame-level auxiliary loss on the ə frames from the
+forced alignment. Cost of this run: ~$1.20.
+
+The run-2 checkpoint (`data/xeus_ft/ckpt/best`) remains the model to use,
+with the dictionary-guided beam decoder (§14).

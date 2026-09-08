@@ -169,6 +169,12 @@ def main() -> None:
     ap.add_argument("--no-amp", action="store_true")
     ap.add_argument("--time-budget-min", type=float, default=0.0, help="stop after this many minutes")
     ap.add_argument("--augment", action="store_true", help="speed / gain / noise augmentation on training clips")
+    ap.add_argument("--init-ckpt", default=None,
+                    help="continue from a fine-tuned checkpoint dir instead of the pretrained weights")
+    ap.add_argument("--oversample-schwa", type=int, default=1,
+                    help="repeat clips containing a word-final ə this many times per epoch. The model "
+                         "drops word-final schwas (docs §11); at decode time a blank penalty only trades "
+                         "errors, so the fix has to be in what it trains on.")
     args = ap.parse_args()
 
     import torch
@@ -193,12 +199,31 @@ def main() -> None:
     if args.val_limit:
         for s in ("val_words", "val_eps"):
             by[s] = by[s][: args.val_limit]
+    if args.oversample_schwa > 1:
+        dictionary = json.loads((data / "dictionary.json").read_text(encoding="utf-8"))
+        by_key = {v["key"]: v["variants"] for v in dictionary.values()}
+
+        def has_final_schwa(r) -> bool:
+            for w in r["words"]:
+                vs = by_key.get(w["key"]) or []
+                v = vs[w["variant"]] if w["variant"] < len(vs) else (vs[0] if vs else [])
+                if v and v[-1] == "ə":
+                    return True
+            return False
+        extra = [r for r in by["train"] if has_final_schwa(r)]
+        by["train"] = by["train"] + extra * (args.oversample_schwa - 1)
+        print(f"oversampling {len(extra):,} clips with a word-final ə x{args.oversample_schwa}", flush=True)
     ds = {s: Segments(r, data / "seg") for s, r in by.items()}
     hours = {s: round(sum(r["dur_s"] for r in v) / 3600, 2) for s, v in by.items()}
     print(f"segments {({s: len(v) for s, v in by.items()})}  hours {hours}", flush=True)
 
-    _, inner = load_pretrained(device)
-    head = build_yi_head(inner).to(device)
+    if args.init_ckpt:
+        from xeus_yi_decode import load_finetuned
+        inner, head = load_finetuned(Path(args.init_ckpt), device)
+        print(f"warm start from {args.init_ckpt}", flush=True)
+    else:
+        _, inner = load_pretrained(device)
+        head = build_yi_head(inner).to(device)
 
     # Freeze: frontend, preencoder, original head, lowest encoder blocks.
     for p in inner.parameters():
