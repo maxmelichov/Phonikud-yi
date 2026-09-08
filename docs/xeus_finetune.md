@@ -427,3 +427,75 @@ forced alignment. Cost of this run: ~$1.20.
 
 The run-2 checkpoint (`data/xeus_ft/ckpt/best`) remains the model to use,
 with the dictionary-guided beam decoder (§14).
+
+## 17. Audio attestation: the ear decides the rule-path words
+
+`scripts/xeus_attest_text.py` + `scripts/xeus_attest.py`. The pointing model
+(phonikud-yi) has only ever been supervised on words the engine could vouch
+for — lexicon HIGH/MED, 65.8% of tokens (retrain3). The rest, **635k tokens /
+83k types read by rule at LOW/MED**, never had a label. With the run-2 ear
+every one of those occurrences can be decided: forced-align the chunk, take
+the token's frames, score the spelling's legal readings (the §12 graph,
+branched from the engine's reading) in one batched CTC call, keep the best
+and its margin.
+
+Result (A6000, 103 min, sharing the GPU): **576,017 tokens scored**; the
+engine's reading kept on 357,671 (62%), changed on 218,346 (38%); 164,975
+decided at ≥ 2 nats, 24,306 at ≥ 4. What changes, at ≥ 2 nats, is the
+Hasidic sound system asserting itself over the rule engine's defaults:
+ɛ→ə 7,689 (unstressed reduction), u→i 4,365 and a→u 2,495 (the א/ו vowel
+classes), aː→aj 1,453, oʊ→ɔj 1,079 (the אויפ־ prefix), ej→aj 1,078,
+d→t 1,219 (final devoicing), f→p 898 (`געפאניקט`).
+
+Two datasets are built from it, locally, in under a minute each:
+
+- **retrain8** (`prepare_retrain_dataset_v8.py`, for the nikud model):
+  111,366 tokens stamped from their own clip's decision, 135,186 from a
+  type-level reading (6,001 types agreeing at ≥ 85% over ≥ 5 clips), each
+  pointing read back through `reconcile`. Coverage **65.8% → 79.3%** of
+  tokens; `test.jsonl` untouched.
+- **renikud_yi** (`renikud_yi_prepare.py`, §18): 162,656 occurrence-level
+  and 220,114 type-level audio labels on top of gold + lexicon; **84.9%** of
+  tokens labelled (63.9% without audio).
+
+## 18. ReNikud for Yiddish
+
+Melichov, Kolani & Alper (2026) cast Hebrew G2P as per-letter classification
+— every letter predicts (consonant, vowel, stress) on a char-BERT — trained
+on (text, IPA) pairs pseudo-labelled from audio by a phoneme ASR. The Yiddish
+port keeps the frame and changes two things:
+
+1. **The aligner** (`scripts/yi_align.py`): Yiddish writes its vowels, so a
+   vowel letter takes consonant ∅ and a vowel, a Germanic consonant letter a
+   consonant and vowel ∅, a loshn-koydesh letter both; digraphs
+   (וו יי וי זש טש דזש טס תש) put the phone on the first letter; the LK
+   vowel-before-consonant pattern (רוח rˈiəx) and final devoicing are
+   allowed. It places **98.5%** of Chezky's readings and 98.3% of corpus
+   types; what it refuses is what should be ignored (spelled-out
+   abbreviations).
+2. **The labels** (`scripts/renikud_yi_prepare.py`): not a free ASR
+   transcript but the lattice decision — gold, then lexicon, then the ear
+   choosing among the spelling's *legal* readings against the clip.
+   Unvouched words are IGNORE (-100), never guessed.
+
+Model (`scripts/renikud_yi_train.py`): the phonikud-yi v6 encoder (24-layer
+char BERT, d=1024) with three coupled heads. 3 epochs, 66 min on an A6000
+shared with attestation.
+
+### The measurement that matters
+
+The trainer's word accuracy is agreement with the labels and saturates
+(99.65% on the test episode, no-audio model) — those are word types the model
+saw. `scripts/renikud_yi_eval.py` scores the test episode's **rule-path words
+with an audio decision at ≥ 2 nats (n = 517)**, which no label ever covered,
+against what the audio says:
+
+| system | rule-path words, agreement with audio | gold words |
+|---|---|---|
+| frozen rule engine (production) | **88.4%** | 99.97% |
+| ReNikud-yi, no audio labels | 46.0% | 96.85% |
+| ReNikud-yi, audio labels | _training_ | |
+
+Without audio the per-letter model memorises the labelled types and does not
+recover the rules the engine has by hand; 88.4% is the bar. The with-audio
+model's number lands in this table when its run finishes.

@@ -1,0 +1,14 @@
+{
+ "chunks": 23666,
+ "attested": 576017,
+ "engine_reading_kept": 357671,
+ "engine_reading_changed": 218346,
+ "margin_median": 1.215,
+ "margin_ge_2": 164975,
+ "margin_ge_4": 24306,
+ "skips": {
+  "skip_short": 51841,
+  "skip_targets": 13
+ },
+ "elapsed_min": 102.9
+}
