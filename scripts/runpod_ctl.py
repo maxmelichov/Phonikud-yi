@@ -41,6 +41,11 @@ GPUS = [
     "NVIDIA GeForce RTX 4090",
     "NVIDIA RTX A6000",
 ]
+# RUNPOD_GPUS="NVIDIA RTX A6000,NVIDIA GeForce RTX 3090" overrides the order —
+# a pod can be created and then never placed (RUNNING, no IP, for ever), and
+# when that happens twice on one card type the next try should skip it.
+if os.environ.get("RUNPOD_GPUS"):
+    GPUS = [g.strip() for g in os.environ["RUNPOD_GPUS"].split(",") if g.strip()]
 
 
 def gql(query: str):

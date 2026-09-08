@@ -85,7 +85,7 @@ cmd_ship() {
 }
 
 cmd_code() {  # just the scripts — seconds, for iterating on a live pod
-  for f in xeus_ft_common.py xeus_ft_prepare.py xeus_ft_train.py xeus_ft_eval.py xeus_yi_decode.py xeus_map.py xeus_lattice.py whisper_yi_probe.py; do
+  for f in xeus_ft_common.py xeus_ft_prepare.py xeus_ft_train.py xeus_ft_eval.py xeus_yi_decode.py xeus_map.py xeus_lattice.py whisper_yi_probe.py xeus_attest.py xeus_attest_text.py; do
     rsync_to "$ROOT/scripts/$f" "$REMOTE/scripts/"
   done
   echo "code shipped"

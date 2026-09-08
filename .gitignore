@@ -50,3 +50,7 @@ data/xeus_ft/run1/chain.log
 data/xeus_ft/*.out
 data/xeus_ft/chain*.log
 data/xeus_ft/run*.out
+data/renikud_yi*/*.jsonl
+data/xeus_ft/attest_targets.jsonl
+data/xeus_ft/attest.jsonl
+data/retrain8/*.jsonl

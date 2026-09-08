@@ -51,7 +51,10 @@ def load_certain(path: Path) -> dict[str, dict]:
             continue
         variants = []
         for v in row["gold_ipa"].split("|"):
-            phones = tokenize_ipa(v.strip())
+            v = re.sub(r"\[.*?\]", "", v).strip()   # editorial notes ride along in a few rows
+            if " " in v:
+                continue                              # a spelled-out abbreviation is not a reading
+            phones = tokenize_ipa(v)
             if phones and phones not in variants:
                 variants.append(phones)
         if not variants:
