@@ -1,0 +1,93 @@
+{
+ "ckpt": "data/xeus_ft/ckpt/best",
+ "menu": "data/xeus_ft/menu.json",
+ "splits": {
+  "val_words": {
+   "all_words": {
+    "graph": {
+     "n": 16435,
+     "exact": 0.8071189534529967,
+     "in_gold": 0.8255552175235777
+    },
+    "menu": {
+     "n": 16435,
+     "exact": 0.895892911469425,
+     "in_gold": 0.9252814116215394
+    },
+    "gold": {
+     "n": 16435,
+     "exact": 0.9661697596592638,
+     "in_gold": 1.0
+    }
+   },
+   "single_word_clips": {
+    "free": {
+     "n": 405,
+     "exact": 0.1382716049382716
+    },
+    "graph": {
+     "n": 405,
+     "exact": 0.7308641975308642
+    },
+    "menu": {
+     "n": 405,
+     "exact": 0.9530864197530864
+    },
+    "gold": {
+     "n": 405,
+     "exact": 0.9530864197530864
+    }
+   },
+   "where_errors_live": {
+    "free wrong, graph right (pure generation error)": 240,
+    "all right": 56,
+    "graph wrong, menu right (menu removed the distractor)": 90,
+    "gold wrong (ear cannot tell the gold readings apart, or label)": 19
+   }
+  },
+  "val_eps": {
+   "all_words": {
+    "graph": {
+     "n": 11264,
+     "exact": 0.8563565340909091,
+     "in_gold": 0.8747336647727273
+    },
+    "menu": {
+     "n": 11264,
+     "exact": 0.8999467329545454,
+     "in_gold": 0.9219637784090909
+    },
+    "gold": {
+     "n": 11264,
+     "exact": 0.9743430397727273,
+     "in_gold": 1.0
+    }
+   },
+   "single_word_clips": {
+    "free": {
+     "n": 730,
+     "exact": 0.6465753424657534
+    },
+    "graph": {
+     "n": 730,
+     "exact": 0.910958904109589
+    },
+    "menu": {
+     "n": 730,
+     "exact": 0.952054794520548
+    },
+    "gold": {
+     "n": 730,
+     "exact": 0.9863013698630136
+    }
+   },
+   "where_errors_live": {
+    "free wrong, graph right (pure generation error)": 193,
+    "all right": 472,
+    "gold wrong (ear cannot tell the gold readings apart, or label)": 10,
+    "menu wrong, gold right (menu has a distractor)": 25,
+    "graph wrong, menu right (menu removed the distractor)": 30
+   }
+  }
+ }
+}

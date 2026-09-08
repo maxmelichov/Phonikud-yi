@@ -36,3 +36,17 @@ data/retrain3/train.jsonl
 data/retrain7/train.jsonl
 # the printed index-derived staging: review-gated, NOT redistributed (copyrighted source)
 data/kodesh_index/
+
+# PhoneticXeus fine-tune: large derived artifacts stay local; split/dictionary/stats/eval are tracked
+data/xeus_ft/seg/
+data/xeus_ft/ckpt/**/*.safetensors
+data/xeus_ft/ckpt/**/*.pt
+data/xeus_ft/segments.jsonl
+data/xeus_ft/chunk_targets.jsonl
+data/xeus_ft/runpod.log
+data/xeus_ft/run1/seg/
+data/xeus_ft/run1/segments.jsonl
+data/xeus_ft/run1/chain.log
+data/xeus_ft/*.out
+data/xeus_ft/chain*.log
+data/xeus_ft/run*.out

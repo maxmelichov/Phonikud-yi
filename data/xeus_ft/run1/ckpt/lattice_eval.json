@@ -1,0 +1,93 @@
+{
+ "ckpt": "data/xeus_ft/ckpt/run1_best",
+ "menu": "data/xeus_ft/menu.json",
+ "splits": {
+  "val_words": {
+   "all_words": {
+    "graph": {
+     "n": 16435,
+     "exact": 0.8004259202920596,
+     "in_gold": 0.8243991481594158
+    },
+    "menu": {
+     "n": 16435,
+     "exact": 0.8891390325524795,
+     "in_gold": 0.9252205658655309
+    },
+    "gold": {
+     "n": 16435,
+     "exact": 0.95728627928202,
+     "in_gold": 1.0
+    }
+   },
+   "single_word_clips": {
+    "free": {
+     "n": 405,
+     "exact": 0.12839506172839507
+    },
+    "graph": {
+     "n": 405,
+     "exact": 0.7061728395061728
+    },
+    "menu": {
+     "n": 405,
+     "exact": 0.9506172839506173
+    },
+    "gold": {
+     "n": 405,
+     "exact": 0.9506172839506173
+    }
+   },
+   "where_errors_live": {
+    "free wrong, graph right (pure generation error)": 234,
+    "all right": 52,
+    "graph wrong, menu right (menu removed the distractor)": 99,
+    "gold wrong (ear cannot tell the gold readings apart, or label)": 20
+   }
+  },
+  "val_eps": {
+   "all_words": {
+    "graph": {
+     "n": 11264,
+     "exact": 0.8415305397727273,
+     "in_gold": 0.8656782670454546
+    },
+    "menu": {
+     "n": 11264,
+     "exact": 0.8892045454545454,
+     "in_gold": 0.9178799715909091
+    },
+    "gold": {
+     "n": 11264,
+     "exact": 0.9649325284090909,
+     "in_gold": 1.0
+    }
+   },
+   "single_word_clips": {
+    "free": {
+     "n": 730,
+     "exact": 0.49726027397260275
+    },
+    "graph": {
+     "n": 730,
+     "exact": 0.8671232876712329
+    },
+    "menu": {
+     "n": 730,
+     "exact": 0.9232876712328767
+    },
+    "gold": {
+     "n": 730,
+     "exact": 0.9657534246575342
+    }
+   },
+   "where_errors_live": {
+    "free wrong, graph right (pure generation error)": 270,
+    "all right": 363,
+    "gold wrong (ear cannot tell the gold readings apart, or label)": 25,
+    "graph wrong, menu right (menu removed the distractor)": 41,
+    "menu wrong, gold right (menu has a distractor)": 31
+   }
+  }
+ }
+}

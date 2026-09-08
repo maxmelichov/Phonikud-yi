@@ -1,0 +1,6994 @@
+{
+"די": {
+"key": "די",
+"variants": [
+[
+"d",
+"ə"
+],
+[
+"d",
+"i"
+]
+],
+"layer": "G",
+"freq": 4153,
+"source": "chezky-verified"
+},
+"איז": {
+"key": "איז",
+"variants": [
+[
+"i",
+"z"
+]
+],
+"layer": "G",
+"freq": 2456,
+"source": "chezky-approved"
+},
+"און": {
+"key": "אונ",
+"variants": [
+[
+"i",
+"n"
+]
+],
+"layer": "G",
+"freq": 2190,
+"source": "chezky-approved"
+},
+"פון": {
+"key": "פונ",
+"variants": [
+[
+"f",
+"i",
+"n"
+]
+],
+"layer": "G",
+"freq": 1804,
+"source": "chezky-approved"
+},
+"אין": {
+"key": "אינ",
+"variants": [
+[
+"i",
+"n"
+]
+],
+"layer": "G",
+"freq": 1607,
+"source": "chezky-approved"
+},
+"נישט": {
+"key": "נישט",
+"variants": [
+[
+"n",
+"i",
+"ʃ",
+"t"
+]
+],
+"layer": "G",
+"freq": 1592,
+"source": "chezky-approved"
+},
+"וואס": {
+"key": "וואס",
+"variants": [
+[
+"v",
+"u",
+"s"
+]
+],
+"layer": "G",
+"freq": 1437,
+"source": "chezky-approved"
+},
+"צו": {
+"key": "צו",
+"variants": [
+[
+"ʦ",
+"i"
+]
+],
+"layer": "G",
+"freq": 1325,
+"source": "chezky-approved"
+},
+"אז": {
+"key": "אז",
+"variants": [
+[
+"a",
+"z"
+]
+],
+"layer": "G",
+"freq": 1298,
+"source": "chezky-approved"
+},
+"האט": {
+"key": "האט",
+"variants": [
+[
+"h",
+"u",
+"t"
+],
+[
+"h",
+"ɔ",
+"t"
+]
+],
+"layer": "G",
+"freq": 1252,
+"source": "chezky-approved"
+},
+"עס": {
+"key": "עס",
+"variants": [
+[
+"ɛ",
+"s"
+]
+],
+"layer": "G",
+"freq": 1151,
+"source": "chezky-approved"
+},
+"איך": {
+"key": "איכ",
+"variants": [
+[
+"i",
+"x"
+]
+],
+"layer": "G",
+"freq": 1139,
+"source": "chezky-approved"
+},
+"מיט": {
+"key": "מיט",
+"variants": [
+[
+"m",
+"i",
+"t"
+]
+],
+"layer": "G",
+"freq": 993,
+"source": "chezky-approved"
+},
+"פאר": {
+"key": "פאר",
+"variants": [
+[
+"f",
+"a",
+"r"
+]
+],
+"layer": "G",
+"freq": 947,
+"source": "chezky-approved"
+},
+"מען": {
+"key": "מענ",
+"variants": [
+[
+"m",
+"ɛ",
+"n"
+]
+],
+"layer": "G",
+"freq": 883,
+"source": "chezky-approved"
+},
+"ער": {
+"key": "ער",
+"variants": [
+[
+"ɛ",
+"r"
+]
+],
+"layer": "G",
+"freq": 843,
+"source": "chezky-verified"
+},
+"זיך": {
+"key": "זיכ",
+"variants": [
+[
+"z",
+"i",
+"x"
+]
+],
+"layer": "G",
+"freq": 809,
+"source": "chezky-approved"
+},
+"דער": {
+"key": "דער",
+"variants": [
+[
+"d",
+"ɛ",
+"r"
+]
+],
+"layer": "G",
+"freq": 728,
+"source": "chezky-approved"
+},
+"זיין": {
+"key": "זיינ",
+"variants": [
+[
+"z",
+"aː",
+"n"
+]
+],
+"layer": "G",
+"freq": 703,
+"source": "chezky-approved"
+},
+"ווי": {
+"key": "ווי",
+"variants": [
+[
+"v",
+"i"
+]
+],
+"layer": "G",
+"freq": 684,
+"source": "chezky-approved"
+},
+"אויף": {
+"key": "אויפ",
+"variants": [
+[
+"oʊ",
+"f"
+],
+[
+"a",
+"f"
+]
+],
+"layer": "G",
+"freq": 641,
+"source": "chezky-verified"
+},
+"דא": {
+"key": "דא",
+"variants": [
+[
+"d",
+"u"
+]
+],
+"layer": "G",
+"freq": 543,
+"source": "chezky-verified"
+},
+"דאס": {
+"key": "דאס",
+"variants": [
+[
+"d",
+"u",
+"s"
+]
+],
+"layer": "G",
+"freq": 530,
+"source": "chezky-approved"
+},
+"קען": {
+"key": "קענ",
+"variants": [
+[
+"k",
+"ɛ",
+"n"
+]
+],
+"layer": "G",
+"freq": 529,
+"source": "chezky-approved"
+},
+"דעם": {
+"key": "דעמ",
+"variants": [
+[
+"d",
+"ej",
+"m"
+],
+[
+"d",
+"ɛ",
+"m"
+]
+],
+"layer": "G",
+"freq": 473,
+"source": "chezky-verified"
+},
+"זיי": {
+"key": "זיי",
+"variants": [
+[
+"z",
+"aj"
+]
+],
+"layer": "G",
+"freq": 458,
+"source": "chezky-approved"
+},
+"אבער": {
+"key": "אבער",
+"variants": [
+[
+"ɔ",
+"b",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 450,
+"source": "chezky-approved"
+},
+"אן": {
+"key": "אנ",
+"variants": [
+[
+"u",
+"n"
+],
+[
+"a",
+"n"
+]
+],
+"layer": "G",
+"freq": 441,
+"source": "chezky-approved"
+},
+"מיר": {
+"key": "מיר",
+"variants": [
+[
+"m",
+"i",
+"r"
+]
+],
+"layer": "G",
+"freq": 417,
+"source": "chezky-approved"
+},
+"געווען": {
+"key": "געווענ",
+"variants": [
+[
+"ɡ",
+"ə",
+"v",
+"ej",
+"n"
+]
+],
+"layer": "G",
+"freq": 401,
+"source": "chezky-approved"
+},
+"האבן": {
+"key": "האבנ",
+"variants": [
+[
+"h",
+"u",
+"b",
+"n"
+],
+[
+"h",
+"ɔ",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 401,
+"source": "chezky-verified"
+},
+"שוין": {
+"key": "שוינ",
+"variants": [
+[
+"ʃ",
+"ɔj",
+"n"
+]
+],
+"layer": "G",
+"freq": 401,
+"source": "chezky-approved"
+},
+"זענען": {
+"key": "זענענ",
+"variants": [
+[
+"z",
+"ɛ",
+"n",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 372,
+"source": "chezky-approved"
+},
+"קיין": {
+"key": "קיינ",
+"variants": [
+[
+"k",
+"a",
+"n"
+],
+[
+"k",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 364,
+"source": "chezky-verified"
+},
+"ווען": {
+"key": "ווענ",
+"variants": [
+[
+"v",
+"ɛ",
+"n"
+]
+],
+"layer": "G",
+"freq": 354,
+"source": "chezky-approved"
+},
+"נאר": {
+"key": "נאר",
+"variants": [
+[
+"n",
+"ɔ",
+"r"
+]
+],
+"layer": "G",
+"freq": 340,
+"source": "chezky-verified"
+},
+"אויב": {
+"key": "אויב",
+"variants": [
+[
+"ɔj",
+"b"
+]
+],
+"layer": "G",
+"freq": 338,
+"source": "chezky-verified"
+},
+"האב": {
+"key": "האב",
+"variants": [
+[
+"h",
+"u",
+"b"
+],
+[
+"h",
+"ɔ",
+"b"
+]
+],
+"layer": "G",
+"freq": 337,
+"source": "chezky-verified"
+},
+"אזוי": {
+"key": "אזוי",
+"variants": [
+[
+"a",
+"z",
+"ɔj"
+]
+],
+"layer": "G",
+"freq": 330,
+"source": "chezky-approved"
+},
+"נאך": {
+"key": "נאכ",
+"variants": [
+[
+"n",
+"u",
+"x"
+]
+],
+"layer": "G",
+"freq": 316,
+"source": "chezky-approved"
+},
+"ביי": {
+"key": "ביי",
+"variants": [
+[
+"b",
+"aː"
+],
+[
+"b",
+"a"
+],
+[
+"b",
+"aj"
+]
+],
+"layer": "G",
+"freq": 310,
+"source": "chezky-approved"
+},
+"אויך": {
+"key": "אויכ",
+"variants": [
+[
+"ɔj",
+"x"
+],
+[
+"oʊ",
+"x"
+]
+],
+"layer": "G",
+"freq": 302,
+"source": "chezky-verified"
+},
+"זייער": {
+"key": "זייער",
+"variants": [
+[
+"z",
+"aj",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 287,
+"source": "chezky-approved"
+},
+"אדער": {
+"key": "אדער",
+"variants": [
+[
+"ɔ",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 286,
+"source": "chezky-verified"
+},
+"זאל": {
+"key": "זאל",
+"variants": [
+[
+"z",
+"u",
+"l"
+]
+],
+"layer": "G",
+"freq": 281,
+"source": "chezky-approved"
+},
+"וועט": {
+"key": "וועט",
+"variants": [
+[
+"v",
+"ɛ",
+"t"
+]
+],
+"layer": "G",
+"freq": 277,
+"source": "chezky-approved"
+},
+"אלע": {
+"key": "אלע",
+"variants": [
+[
+"a",
+"l",
+"ə"
+]
+],
+"layer": "G",
+"freq": 253,
+"source": "chezky-approved"
+},
+"איינער": {
+"key": "איינער",
+"variants": [
+[
+"aj",
+"n",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 250,
+"source": "chezky-approved"
+},
+"גייט": {
+"key": "גייט",
+"variants": [
+[
+"ɡ",
+"aj",
+"t"
+]
+],
+"layer": "G",
+"freq": 215,
+"source": "chezky-approved"
+},
+"מיין": {
+"key": "מיינ",
+"variants": [
+[
+"m",
+"aː",
+"n"
+],
+[
+"m",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 213,
+"source": "chezky-verified"
+},
+"מער": {
+"key": "מער",
+"variants": [
+[
+"m",
+"ɛ",
+"r"
+]
+],
+"layer": "G",
+"freq": 210,
+"source": "chezky-verified"
+},
+"ס'איז": {
+"key": "ס'איז",
+"variants": [
+[
+"s",
+"i",
+"z"
+]
+],
+"layer": "G",
+"freq": 197,
+"source": "chezky-verified"
+},
+"ווייל": {
+"key": "ווייל",
+"variants": [
+[
+"v",
+"aː",
+"l"
+],
+[
+"v",
+"aj",
+"l"
+]
+],
+"layer": "G",
+"freq": 193,
+"source": "chezky-approved"
+},
+"דארף": {
+"key": "דארפ",
+"variants": [
+[
+"d",
+"a",
+"f"
+],
+[
+"d",
+"a",
+"r",
+"f"
+]
+],
+"layer": "G",
+"freq": 191,
+"source": "chezky-verified"
+},
+"אים": {
+"key": "אימ",
+"variants": [
+[
+"ej",
+"m"
+],
+[
+"i",
+"m"
+]
+],
+"layer": "G",
+"freq": 177,
+"source": "chezky-verified"
+},
+"איין": {
+"key": "איינ",
+"variants": [
+[
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 175,
+"source": "chezky-approved"
+},
+"דו": {
+"key": "דו",
+"variants": [
+[
+"d",
+"i"
+],
+[
+"d",
+"u"
+]
+],
+"layer": "G",
+"freq": 170,
+"source": "chezky-approved"
+},
+"יא": {
+"key": "יא",
+"variants": [
+[
+"j",
+"u"
+]
+],
+"layer": "G",
+"freq": 168,
+"source": "chezky-approved"
+},
+"ישראל": {
+"key": "ישראל",
+"variants": [
+[
+"j",
+"i",
+"s",
+"r",
+"u",
+"ə",
+"l"
+]
+],
+"layer": "L",
+"freq": 166,
+"source": "chezky-approved"
+},
+"איבער": {
+"key": "איבער",
+"variants": [
+[
+"i",
+"b",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 160,
+"source": "chezky-approved"
+},
+"יעצט": {
+"key": "יעצט",
+"variants": [
+[
+"j",
+"ɛ",
+"ʦ",
+"t"
+]
+],
+"layer": "G",
+"freq": 157,
+"source": "chezky-approved"
+},
+"איר": {
+"key": "איר",
+"variants": [
+[
+"i",
+"r"
+]
+],
+"layer": "G",
+"freq": 156,
+"source": "chezky-approved"
+},
+"אויס": {
+"key": "אויס",
+"variants": [
+[
+"oʊ",
+"s"
+],
+[
+"ɔj",
+"s"
+]
+],
+"layer": "G",
+"freq": 155,
+"source": "chezky-verified"
+},
+"מאכן": {
+"key": "מאכנ",
+"variants": [
+[
+"m",
+"a",
+"x",
+"n"
+]
+],
+"layer": "G",
+"freq": 155,
+"source": "chezky-approved"
+},
+"געווארן": {
+"key": "געווארנ",
+"variants": [
+[
+"ɡ",
+"ə",
+"v",
+"ɔ",
+"r",
+"n"
+]
+],
+"layer": "G",
+"freq": 153,
+"source": "chezky-verified"
+},
+"קענען": {
+"key": "קענענ",
+"variants": [
+[
+"k",
+"ɛ",
+"n",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 152,
+"source": "chezky-approved"
+},
+"וועלט": {
+"key": "וועלט",
+"variants": [
+[
+"v",
+"ɛ",
+"l",
+"t"
+]
+],
+"layer": "G",
+"freq": 151,
+"source": "chezky-approved"
+},
+"צום": {
+"key": "צומ",
+"variants": [
+[
+"ʦ",
+"i",
+"m"
+],
+[
+"ʦ",
+"u",
+"m"
+]
+],
+"layer": "G",
+"freq": 151,
+"source": "chezky-approved"
+},
+"אריין": {
+"key": "אריינ",
+"variants": [
+[
+"a",
+"r",
+"aː",
+"n"
+],
+[
+"a",
+"r",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 149,
+"source": "chezky-verified"
+},
+"רבי": {
+"key": "רבי",
+"variants": [
+[
+"r",
+"ɛ",
+"b",
+"ə"
+],
+[
+"r",
+"ɛ",
+"b",
+"i"
+]
+],
+"layer": "L",
+"freq": 149,
+"source": "chezky-approved"
+},
+"ווער": {
+"key": "ווער",
+"variants": [
+[
+"v",
+"ɛ",
+"r"
+]
+],
+"layer": "G",
+"freq": 148,
+"source": "chezky-verified"
+},
+"אויפן": {
+"key": "אויפנ",
+"variants": [
+[
+"a",
+"f",
+"n"
+],
+[
+"ɔ",
+"f",
+"n"
+]
+],
+"layer": "G",
+"freq": 147,
+"source": "chezky-verified"
+},
+"גוט": {
+"key": "גוט",
+"variants": [
+[
+"ɡ",
+"i",
+"t"
+]
+],
+"layer": "G",
+"freq": 147,
+"source": "chezky-approved"
+},
+"יאר": {
+"key": "יאר",
+"variants": [
+[
+"j",
+"u",
+"r"
+]
+],
+"layer": "G",
+"freq": 142,
+"source": "chezky-approved"
+},
+"אסאך": {
+"key": "אסאכ",
+"variants": [
+[
+"a",
+"s",
+"a",
+"x"
+]
+],
+"layer": "G",
+"freq": 141,
+"source": "chezky-approved"
+},
+"ווערט": {
+"key": "ווערט",
+"variants": [
+[
+"v",
+"i",
+"r",
+"t"
+],
+[
+"v",
+"ɛ",
+"r",
+"t"
+]
+],
+"layer": "G",
+"freq": 139,
+"source": "chezky-approved"
+},
+"דיין": {
+"key": "דיינ",
+"variants": [
+[
+"d",
+"aː",
+"n"
+],
+[
+"d",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 137,
+"source": "chezky-approved"
+},
+"פונעם": {
+"key": "פונעמ",
+"variants": [
+[
+"f",
+"i",
+"n",
+"ə",
+"m"
+],
+[
+"f",
+"u",
+"n",
+"ə",
+"m"
+]
+],
+"layer": "G",
+"freq": 135,
+"source": "chezky-approved"
+},
+"קומט": {
+"key": "קומט",
+"variants": [
+[
+"k",
+"i",
+"m",
+"t"
+]
+],
+"layer": "G",
+"freq": 134,
+"source": "chezky-approved"
+},
+"זאגט": {
+"key": "זאגט",
+"variants": [
+[
+"z",
+"u",
+"ɡ",
+"t"
+],
+[
+"z",
+"u",
+"k",
+"t"
+]
+],
+"layer": "G",
+"freq": 132,
+"source": "chezky-verified"
+},
+"טאג": {
+"key": "טאג",
+"variants": [
+[
+"t",
+"u",
+"ɡ"
+],
+[
+"t",
+"u",
+"k"
+]
+],
+"layer": "G",
+"freq": 130,
+"source": "chezky-approved"
+},
+"אנדערע": {
+"key": "אנדערע",
+"variants": [
+[
+"a",
+"n",
+"d",
+"ə",
+"r",
+"ə"
+]
+],
+"layer": "G",
+"freq": 128,
+"source": "chezky-approved"
+},
+"דורך": {
+"key": "דורכ",
+"variants": [
+[
+"d",
+"ɔ",
+"r",
+"ə",
+"x"
+],
+[
+"d",
+"u",
+"r",
+"x"
+]
+],
+"layer": "G",
+"freq": 128,
+"source": "chezky-verified"
+},
+"ווערן": {
+"key": "ווערנ",
+"variants": [
+[
+"v",
+"i",
+"r",
+"n"
+],
+[
+"v",
+"ɛ",
+"r",
+"n"
+]
+],
+"layer": "G",
+"freq": 128,
+"source": "chezky-verified"
+},
+"וויל": {
+"key": "וויל",
+"variants": [
+[
+"v",
+"i",
+"l"
+]
+],
+"layer": "G",
+"freq": 127,
+"source": "chezky-approved"
+},
+"וועלכע": {
+"key": "וועלכע",
+"variants": [
+[
+"v",
+"ɛ",
+"l",
+"x",
+"ə"
+]
+],
+"layer": "G",
+"freq": 127,
+"source": "chezky-approved"
+},
+"עפעס": {
+"key": "עפעס",
+"variants": [
+[
+"ɛ",
+"p",
+"ə",
+"s"
+]
+],
+"layer": "G",
+"freq": 127,
+"source": "chezky-verified"
+},
+"אשכול": {
+"key": "אשכול",
+"variants": [
+[
+"a",
+"ʃ",
+"k",
+"l"
+]
+],
+"layer": "X",
+"freq": 125,
+"source": "chezky-verified"
+},
+"היינט": {
+"key": "היינט",
+"variants": [
+[
+"h",
+"aː",
+"n",
+"t"
+],
+[
+"h",
+"aj",
+"n",
+"t"
+]
+],
+"layer": "G",
+"freq": 125,
+"source": "chezky-approved"
+},
+"צוויי": {
+"key": "צוויי",
+"variants": [
+[
+"ʦ",
+"v",
+"aj"
+]
+],
+"layer": "G",
+"freq": 123,
+"source": "chezky-verified"
+},
+"דארט": {
+"key": "דארט",
+"variants": [
+[
+"d",
+"ɔ",
+"r",
+"t"
+]
+],
+"layer": "G",
+"freq": 119,
+"source": "chezky-approved"
+},
+"אידן": {
+"key": "אידנ",
+"variants": [
+[
+"j",
+"i",
+"d",
+"n"
+],
+[
+"i",
+"d",
+"n"
+]
+],
+"layer": "G",
+"freq": 118,
+"source": "chezky-verified"
+},
+"געלט": {
+"key": "געלט",
+"variants": [
+[
+"ɡ",
+"ɛ",
+"l",
+"t"
+]
+],
+"layer": "G",
+"freq": 117,
+"source": "chezky-approved"
+},
+"דיר": {
+"key": "דיר",
+"variants": [
+[
+"d",
+"i",
+"r"
+]
+],
+"layer": "G",
+"freq": 116,
+"source": "chezky-verified"
+},
+"טראמפ": {
+"key": "טראמפ",
+"variants": [
+[
+"t",
+"r",
+"ɔ",
+"m",
+"p"
+],
+[
+"t",
+"r",
+"u",
+"m",
+"p"
+]
+],
+"layer": "E",
+"freq": 115,
+"source": "chezky-verified"
+},
+"על": {
+"key": "על",
+"variants": [
+[
+"a",
+"l"
+]
+],
+"layer": "L",
+"freq": 115,
+"source": "chezky-verified"
+},
+"ארויס": {
+"key": "ארויס",
+"variants": [
+[
+"a",
+"r",
+"oʊ",
+"s"
+],
+[
+"a",
+"r",
+"ɔj",
+"s"
+]
+],
+"layer": "G",
+"freq": 114,
+"source": "chezky-verified"
+},
+"יעדע": {
+"key": "יעדע",
+"variants": [
+[
+"j",
+"ɛ",
+"d",
+"ə"
+]
+],
+"layer": "G",
+"freq": 113,
+"source": "chezky-approved"
+},
+"ביז": {
+"key": "ביז",
+"variants": [
+[
+"b",
+"i",
+"z"
+],
+[
+"b",
+"i",
+"s"
+]
+],
+"layer": "G",
+"freq": 111,
+"source": "chezky-verified"
+},
+"בין": {
+"key": "בינ",
+"variants": [
+[
+"b",
+"i",
+"n"
+]
+],
+"layer": "G",
+"freq": 109,
+"source": "chezky-approved"
+},
+"פארוואס": {
+"key": "פארוואס",
+"variants": [
+[
+"f",
+"a",
+"r",
+"v",
+"u",
+"s"
+]
+],
+"layer": "G",
+"freq": 109,
+"source": "chezky-verified"
+},
+"וואלט": {
+"key": "וואלט",
+"variants": [
+[
+"v",
+"ɔ",
+"l",
+"t"
+]
+],
+"layer": "G",
+"freq": 108,
+"source": "chezky-verified"
+},
+"גאנצע": {
+"key": "גאנצע",
+"variants": [
+[
+"ɡ",
+"a",
+"n",
+"ʦ",
+"ə"
+]
+],
+"layer": "G",
+"freq": 107,
+"source": "chezky-approved"
+},
+"בית": {
+"key": "בית",
+"variants": [
+[
+"b",
+"aj",
+"s",
+"b",
+"i",
+"s",
+"i",
+"n",
+"b",
+"i",
+"s",
+"m",
+"ə",
+"d",
+"r",
+"ə",
+"ʃ"
+]
+],
+"layer": "L",
+"freq": 106,
+"source": "chezky-approved"
+},
+"נייעס": {
+"key": "נייעס",
+"variants": [
+[
+"n",
+"aː",
+"j",
+"ə",
+"s"
+],
+[
+"n",
+"aj",
+"ə",
+"s"
+]
+],
+"layer": "G",
+"freq": 105,
+"source": "chezky-approved"
+},
+"אזא": {
+"key": "אזא",
+"variants": [
+[
+"a",
+"z",
+"a"
+]
+],
+"layer": "G",
+"freq": 104,
+"source": "chezky-approved"
+},
+"פארן": {
+"key": "פארנ",
+"variants": [
+[
+"f",
+"a",
+"r",
+"n"
+]
+],
+"layer": "G",
+"freq": 104,
+"source": "chezky-approved"
+},
+"ביים": {
+"key": "ביימ",
+"variants": [
+[
+"b",
+"a",
+"m"
+],
+[
+"b",
+"aː",
+"m"
+]
+],
+"layer": "G",
+"freq": 103,
+"source": "chezky-verified"
+},
+"זאך": {
+"key": "זאכ",
+"variants": [
+[
+"z",
+"a",
+"x"
+]
+],
+"layer": "G",
+"freq": 102,
+"source": "chezky-approved"
+},
+"נייע": {
+"key": "נייע",
+"variants": [
+[
+"n",
+"aː",
+"j",
+"ə"
+],
+[
+"n",
+"aj",
+"ə"
+]
+],
+"layer": "G",
+"freq": 100,
+"source": "chezky-approved"
+},
+"ביטע": {
+"key": "ביטע",
+"variants": [
+[
+"b",
+"i",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 99,
+"source": "chezky-approved"
+},
+"צוריק": {
+"key": "צוריק",
+"variants": [
+[
+"ʦ",
+"i",
+"r",
+"i",
+"k"
+],
+[
+"ʦ",
+"u",
+"r",
+"i",
+"k"
+]
+],
+"layer": "G",
+"freq": 99,
+"source": "chezky-approved"
+},
+"גאר": {
+"key": "גאר",
+"variants": [
+[
+"ɡ",
+"u",
+"r"
+]
+],
+"layer": "G",
+"freq": 97,
+"source": "chezky-verified"
+},
+"שבת": {
+"key": "שבת",
+"variants": [
+[
+"ʃ",
+"a",
+"b",
+"ə",
+"s"
+]
+],
+"layer": "L",
+"freq": 97,
+"source": "chezky-approved"
+},
+"אידישע": {
+"key": "אידישע",
+"variants": [
+[
+"j",
+"i",
+"d",
+"i",
+"ʃ",
+"ə"
+],
+[
+"j",
+"ɛ",
+"d",
+"i",
+"ʃ",
+"ə"
+]
+],
+"layer": "G",
+"freq": 95,
+"source": "chezky-verified"
+},
+"געזאגט": {
+"key": "געזאגט",
+"variants": [
+[
+"ɡ",
+"ə",
+"z",
+"u",
+"ɡ",
+"t"
+],
+[
+"ɡ",
+"ə",
+"z",
+"u",
+"k",
+"t"
+]
+],
+"layer": "G",
+"freq": 95,
+"source": "chezky-verified"
+},
+"וואך": {
+"key": "וואכ",
+"variants": [
+[
+"v",
+"ɔ",
+"x"
+]
+],
+"layer": "G",
+"freq": 94,
+"source": "chezky-approved"
+},
+"זאגן": {
+"key": "זאגנ",
+"variants": [
+[
+"z",
+"u",
+"ɡ",
+"n"
+]
+],
+"layer": "G",
+"freq": 94,
+"source": "chezky-approved"
+},
+"ווייסט": {
+"key": "ווייסט",
+"variants": [
+[
+"v",
+"aj",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 92,
+"source": "chezky-approved"
+},
+"וויאזוי": {
+"key": "וויאזוי",
+"variants": [
+[
+"v",
+"i",
+"z",
+"ɔj"
+],
+[
+"v",
+"i",
+"a",
+"z",
+"ɔj"
+]
+],
+"layer": "G",
+"freq": 91,
+"source": "chezky-verified"
+},
+"דאך": {
+"key": "דאכ",
+"variants": [
+[
+"d",
+"ɔ",
+"x"
+]
+],
+"layer": "G",
+"freq": 90,
+"source": "chezky-verified"
+},
+"גוטע": {
+"key": "גוטע",
+"variants": [
+[
+"ɡ",
+"i",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 89,
+"source": "chezky-approved"
+},
+"וואו": {
+"key": "וואו",
+"variants": [
+[
+"v",
+"i"
+]
+],
+"layer": "G",
+"freq": 89,
+"source": "chezky-verified"
+},
+"טאקע": {
+"key": "טאקע",
+"variants": [
+[
+"t",
+"a",
+"k",
+"ə"
+]
+],
+"layer": "G",
+"freq": 89,
+"source": "chezky-verified"
+},
+"נעמען": {
+"key": "נעמענ",
+"variants": [
+[
+"n",
+"ɛ",
+"m",
+"ə",
+"n"
+],
+[
+"n",
+"ej",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 88,
+"source": "chezky-verified"
+},
+"געהאט": {
+"key": "געהאט",
+"variants": [
+[
+"ɡ",
+"ə",
+"h",
+"a",
+"t"
+]
+],
+"layer": "G",
+"freq": 87,
+"source": "chezky-approved"
+},
+"צייט": {
+"key": "צייט",
+"variants": [
+[
+"ʦ",
+"aː",
+"t"
+],
+[
+"ʦ",
+"aj",
+"t"
+]
+],
+"layer": "G",
+"freq": 87,
+"source": "chezky-approved"
+},
+"אפילו": {
+"key": "אפילו",
+"variants": [
+[
+"a",
+"f",
+"i",
+"l",
+"ə"
+]
+],
+"layer": "L",
+"freq": 86,
+"source": "chezky-approved"
+},
+"גיין": {
+"key": "גיינ",
+"variants": [
+[
+"ɡ",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 86,
+"source": "chezky-approved"
+},
+"גרויסע": {
+"key": "גרויסע",
+"variants": [
+[
+"ɡ",
+"r",
+"ɔj",
+"s",
+"ə"
+]
+],
+"layer": "G",
+"freq": 86,
+"source": "chezky-approved"
+},
+"יעדער": {
+"key": "יעדער",
+"variants": [
+[
+"j",
+"ɛ",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 86,
+"source": "chezky-approved"
+},
+"איד": {
+"key": "איד",
+"variants": [
+[
+"j",
+"i",
+"d"
+],
+[
+"i",
+"d"
+]
+],
+"layer": "G",
+"freq": 85,
+"source": "chezky-approved"
+},
+"קינדער": {
+"key": "קינדער",
+"variants": [
+[
+"k",
+"i",
+"n",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 85,
+"source": "chezky-approved"
+},
+"אלעס": {
+"key": "אלעס",
+"variants": [
+[
+"a",
+"l",
+"ə",
+"s"
+]
+],
+"layer": "G",
+"freq": 84,
+"source": "chezky-approved"
+},
+"נפש": {
+"key": "נפש",
+"variants": [
+[
+"n",
+"ej",
+"f",
+"i",
+"ʃ"
+],
+[
+"n",
+"ɛ",
+"f",
+"ə",
+"ʃ"
+]
+],
+"layer": "L",
+"freq": 84,
+"source": "chezky-verified"
+},
+"אפשר": {
+"key": "אפשר",
+"variants": [
+[
+"ɛ",
+"f",
+"ʃ",
+"i",
+"r"
+],
+[
+"ɛ",
+"f",
+"ʃ",
+"ə",
+"r"
+]
+],
+"layer": "L",
+"freq": 83,
+"source": "chezky-verified"
+},
+"לאמיר": {
+"key": "לאמיר",
+"variants": [
+[
+"l",
+"ɔ",
+"m",
+"i",
+"r"
+],
+[
+"l",
+"u",
+"m",
+"i",
+"r"
+]
+],
+"layer": "G",
+"freq": 83,
+"source": "chezky-verified"
+},
+"מענטשן": {
+"key": "מענטשנ",
+"variants": [
+[
+"m",
+"ɛ",
+"n",
+"ʧ",
+"n"
+]
+],
+"layer": "G",
+"freq": 83,
+"source": "chezky-approved"
+},
+"סיי": {
+"key": "סיי",
+"variants": [
+[
+"s",
+"aj"
+]
+],
+"layer": "G",
+"freq": 83,
+"source": "chezky-verified"
+},
+"ווארט": {
+"key": "ווארט",
+"variants": [
+[
+"v",
+"ɔ",
+"r",
+"t"
+]
+],
+"layer": "G",
+"freq": 82,
+"source": "chezky-verified"
+},
+"וועלן": {
+"key": "וועלנ",
+"variants": [
+[
+"v",
+"ɛ",
+"l",
+"n"
+]
+],
+"layer": "G",
+"freq": 82,
+"source": "chezky-approved"
+},
+"מיינט": {
+"key": "מיינט",
+"variants": [
+[
+"m",
+"aj",
+"n",
+"t"
+]
+],
+"layer": "G",
+"freq": 82,
+"source": "chezky-approved"
+},
+"כח": {
+"key": "כח",
+"variants": [
+[
+"k",
+"ɔj",
+"ə",
+"x"
+]
+],
+"layer": "L",
+"freq": 81,
+"source": "chezky-verified"
+},
+"מענטש": {
+"key": "מענטש",
+"variants": [
+[
+"m",
+"ɛ",
+"n",
+"ʧ"
+]
+],
+"layer": "G",
+"freq": 81,
+"source": "chezky-approved"
+},
+"שטייט": {
+"key": "שטייט",
+"variants": [
+[
+"ʃ",
+"t",
+"aj",
+"t"
+],
+[
+"ʃ",
+"t",
+"aː",
+"t"
+]
+],
+"layer": "G",
+"freq": 81,
+"source": "chezky-verified"
+},
+"באקומען": {
+"key": "באקומענ",
+"variants": [
+[
+"b",
+"a",
+"k",
+"i",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 80,
+"source": "chezky-approved"
+},
+"קומען": {
+"key": "קומענ",
+"variants": [
+[
+"k",
+"i",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 79,
+"source": "chezky-approved"
+},
+"תורה": {
+"key": "תורה",
+"variants": [
+[
+"t",
+"ɔj",
+"r",
+"ə"
+]
+],
+"layer": "L",
+"freq": 79,
+"source": "chezky-approved"
+},
+"ארבעט": {
+"key": "ארבעט",
+"variants": [
+[
+"a",
+"r",
+"b",
+"ə",
+"t"
+]
+],
+"layer": "G",
+"freq": 78,
+"source": "chezky-approved"
+},
+"יוסף": {
+"key": "יוספ",
+"variants": [
+[
+"j",
+"ɔ",
+"s",
+"ə",
+"f"
+],
+[
+"j",
+"ɔj",
+"s",
+"ə",
+"f"
+]
+],
+"layer": "N",
+"freq": 78,
+"source": "chezky-verified"
+},
+"געשריבן": {
+"key": "געשריבנ",
+"variants": [
+[
+"ɡ",
+"ə",
+"ʃ",
+"r",
+"i",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 76,
+"source": "chezky-approved"
+},
+"חנוכה": {
+"key": "חנוכה",
+"variants": [
+[
+"x",
+"a",
+"n",
+"i",
+"k",
+"ə"
+],
+[
+"x",
+"a",
+"n",
+"u",
+"k",
+"ə"
+]
+],
+"layer": "L",
+"freq": 76,
+"source": "chezky-verified"
+},
+"אונז": {
+"key": "אונז",
+"variants": [
+[
+"i",
+"n",
+"z"
+],
+[
+"i",
+"n",
+"ʦ"
+],
+[
+"i",
+"n",
+"d",
+"z"
+]
+],
+"layer": "G",
+"freq": 75,
+"source": "chezky-verified"
+},
+"וועגן": {
+"key": "וועגנ",
+"variants": [
+[
+"v",
+"ej",
+"ɡ",
+"n"
+],
+[
+"v",
+"ɛ",
+"ɡ",
+"n"
+]
+],
+"layer": "G",
+"freq": 75,
+"source": "chezky-approved"
+},
+"מיך": {
+"key": "מיכ",
+"variants": [
+[
+"m",
+"i",
+"x"
+]
+],
+"layer": "G",
+"freq": 75,
+"source": "chezky-verified"
+},
+"עולם": {
+"key": "עולמ",
+"variants": [
+[
+"ɔj",
+"l",
+"ə",
+"m"
+],
+[
+"ɔj",
+"l",
+"u",
+"m"
+]
+],
+"layer": "L",
+"freq": 74,
+"source": "chezky-approved"
+},
+"אמאל": {
+"key": "אמאל",
+"variants": [
+[
+"a",
+"m",
+"u",
+"l"
+],
+[
+"a",
+"m",
+"ɔ",
+"l"
+]
+],
+"layer": "G",
+"freq": 73,
+"source": "chezky-verified"
+},
+"וועג": {
+"key": "וועג",
+"variants": [
+[
+"v",
+"ej",
+"ɡ"
+],
+[
+"v",
+"ɛ",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 72,
+"source": "chezky-verified"
+},
+"מאכט": {
+"key": "מאכט",
+"variants": [
+[
+"m",
+"a",
+"x",
+"t"
+]
+],
+"layer": "G",
+"freq": 72,
+"source": "chezky-approved"
+},
+"פסח": {
+"key": "פסח",
+"variants": [
+[
+"p",
+"aj",
+"s",
+"ə",
+"x"
+]
+],
+"layer": "L",
+"freq": 72,
+"source": "chezky-verified"
+},
+"געמאכט": {
+"key": "געמאכט",
+"variants": [
+[
+"ɡ",
+"ə",
+"m",
+"a",
+"x",
+"t"
+]
+],
+"layer": "G",
+"freq": 71,
+"source": "chezky-approved"
+},
+"זיינע": {
+"key": "זיינע",
+"variants": [
+[
+"z",
+"aː",
+"n",
+"ə"
+],
+[
+"z",
+"aj",
+"n",
+"ə"
+]
+],
+"layer": "G",
+"freq": 70,
+"source": "chezky-verified"
+},
+"חלק": {
+"key": "חלק",
+"variants": [
+[
+"x",
+"aj",
+"l",
+"ə",
+"k"
+]
+],
+"layer": "L",
+"freq": 70,
+"source": "chezky-verified"
+},
+"כל": {
+"key": "כל",
+"variants": [
+[
+"k",
+"ɔ",
+"l"
+],
+[
+"k",
+"u",
+"l"
+]
+],
+"layer": "L",
+"freq": 70,
+"source": "chezky-verified"
+},
+"אביסל": {
+"key": "אביסל",
+"variants": [
+[
+"a",
+"b",
+"i",
+"s",
+"l"
+]
+],
+"layer": "G",
+"freq": 69,
+"source": "chezky-verified"
+},
+"ארום": {
+"key": "ארומ",
+"variants": [
+[
+"a",
+"r",
+"i",
+"m"
+],
+[
+"a",
+"r",
+"u",
+"m"
+]
+],
+"layer": "G",
+"freq": 69,
+"source": "chezky-approved"
+},
+"יום": {
+"key": "יומ",
+"variants": [
+[
+"j",
+"ɔj",
+"m"
+],
+[
+"j",
+"ɔ",
+"m"
+]
+],
+"layer": "L",
+"freq": 69,
+"source": "chezky-approved"
+},
+"אלס": {
+"key": "אלס",
+"variants": [
+[
+"a",
+"l",
+"i",
+"s"
+],
+[
+"a",
+"l",
+"s"
+]
+],
+"layer": "G",
+"freq": 68,
+"source": "chezky-verified"
+},
+"געהערט": {
+"key": "געהערט",
+"variants": [
+[
+"ɡ",
+"ə",
+"h",
+"i",
+"r",
+"t"
+],
+[
+"ɡ",
+"ə",
+"h",
+"ɛ",
+"r",
+"t"
+]
+],
+"layer": "G",
+"freq": 68,
+"source": "chezky-verified"
+},
+"האלט": {
+"key": "האלט",
+"variants": [
+[
+"h",
+"a",
+"l",
+"t"
+]
+],
+"layer": "G",
+"freq": 67,
+"source": "chezky-approved"
+},
+"געבן": {
+"key": "געבנ",
+"variants": [
+[
+"ɡ",
+"ej",
+"b",
+"n"
+],
+[
+"ɡ",
+"ɛ",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 66,
+"source": "chezky-verified"
+},
+"הרב": {
+"key": "הרב",
+"variants": [
+[
+"h",
+"a",
+"r",
+"aː",
+"v"
+],
+[
+"h",
+"a",
+"r",
+"a",
+"v"
+]
+],
+"layer": "L",
+"freq": 66,
+"source": "chezky-verified"
+},
+"טוב": {
+"key": "טוב",
+"variants": [
+[
+"t",
+"ɔj",
+"v"
+],
+[
+"t",
+"ɔ",
+"v"
+]
+],
+"layer": "L",
+"freq": 66,
+"source": "chezky-verified"
+},
+"טוט": {
+"key": "טוט",
+"variants": [
+[
+"t",
+"i",
+"t"
+],
+[
+"t",
+"u",
+"t"
+]
+],
+"layer": "G",
+"freq": 65,
+"source": "chezky-verified"
+},
+"טעג": {
+"key": "טעג",
+"variants": [
+[
+"t",
+"ej",
+"ɡ"
+],
+[
+"t",
+"ɛ",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 65,
+"source": "chezky-verified"
+},
+"זאכן": {
+"key": "זאכנ",
+"variants": [
+[
+"z",
+"a",
+"x",
+"n"
+]
+],
+"layer": "G",
+"freq": 64,
+"source": "chezky-verified"
+},
+"זעלבע": {
+"key": "זעלבע",
+"variants": [
+[
+"z",
+"ɛ",
+"l",
+"b",
+"ə"
+]
+],
+"layer": "G",
+"freq": 64,
+"source": "chezky-verified"
+},
+"מינוט": {
+"key": "מינוט",
+"variants": [
+[
+"m",
+"i",
+"n",
+"i",
+"t"
+],
+[
+"m",
+"i",
+"n",
+"u",
+"t"
+]
+],
+"layer": "G",
+"freq": 64,
+"source": "chezky-verified"
+},
+"לעצטע": {
+"key": "לעצטע",
+"variants": [
+[
+"l",
+"ɛ",
+"ʦ",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 63,
+"source": "chezky-approved"
+},
+"מאל": {
+"key": "מאל",
+"variants": [
+[
+"m",
+"u",
+"l"
+],
+[
+"m",
+"ɔ",
+"l"
+]
+],
+"layer": "G",
+"freq": 63,
+"source": "chezky-verified"
+},
+"עטליכע": {
+"key": "עטליכע",
+"variants": [
+[
+"ɛ",
+"t",
+"l",
+"ə",
+"x",
+"ə"
+]
+],
+"layer": "G",
+"freq": 63,
+"source": "chezky-verified"
+},
+"פשוט": {
+"key": "פשוט",
+"variants": [
+[
+"p",
+"u",
+"ʃ",
+"i",
+"t"
+],
+[
+"p",
+"u",
+"ʃ",
+"ə",
+"t"
+]
+],
+"layer": "L",
+"freq": 63,
+"source": "chezky-verified"
+},
+"אינעם": {
+"key": "אינעמ",
+"variants": [
+[
+"i",
+"n",
+"ə",
+"m"
+]
+],
+"layer": "G",
+"freq": 62,
+"source": "chezky-approved"
+},
+"בלויז": {
+"key": "בלויז",
+"variants": [
+[
+"b",
+"l",
+"ɔj",
+"z"
+]
+],
+"layer": "G",
+"freq": 62,
+"source": "chezky-verified"
+},
+"האסט": {
+"key": "האסט",
+"variants": [
+[
+"h",
+"u",
+"s",
+"t"
+],
+[
+"h",
+"ɔ",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 62,
+"source": "chezky-verified"
+},
+"זיכער": {
+"key": "זיכער",
+"variants": [
+[
+"z",
+"i",
+"x",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 62,
+"source": "chezky-approved"
+},
+"לויט": {
+"key": "לויט",
+"variants": [
+[
+"l",
+"oʊ",
+"t"
+],
+[
+"l",
+"ɔj",
+"t"
+]
+],
+"layer": "G",
+"freq": 62,
+"source": "chezky-verified"
+},
+"ווייס": {
+"key": "ווייס",
+"variants": [
+[
+"v",
+"aj",
+"s"
+],
+[
+"v",
+"aː",
+"s"
+]
+],
+"layer": "G",
+"freq": 61,
+"source": "chezky-verified"
+},
+"זעהן": {
+"key": "זעהנ",
+"variants": [
+[
+"z",
+"ej",
+"n"
+]
+],
+"layer": "G",
+"freq": 61,
+"source": "chezky-verified"
+},
+"מיטן": {
+"key": "מיטנ",
+"variants": [
+[
+"m",
+"i",
+"t",
+"n"
+]
+],
+"layer": "G",
+"freq": 61,
+"source": "chezky-verified"
+},
+"שליט\"א": {
+"key": "שליט\"א",
+"variants": [
+[
+"ʃ",
+"l",
+"i",
+"t",
+"ə"
+]
+],
+"layer": "A",
+"freq": 61,
+"source": "chezky-approved"
+},
+"צי": {
+"key": "צי",
+"variants": [
+[
+"ʦ",
+"i"
+]
+],
+"layer": "G",
+"freq": 60,
+"source": "chezky-verified"
+},
+"שאלה": {
+"key": "שאלה",
+"variants": [
+[
+"ʃ",
+"aː",
+"l",
+"ə"
+],
+[
+"ʃ",
+"aj",
+"l",
+"ə"
+]
+],
+"layer": "L",
+"freq": 60,
+"source": "chezky-verified"
+},
+"וויפיל": {
+"key": "וויפיל",
+"variants": [
+[
+"v",
+"i",
+"f",
+"i",
+"l"
+],
+[
+"v",
+"i",
+"f",
+"l"
+]
+],
+"layer": "G",
+"freq": 59,
+"source": "chezky-verified"
+},
+"בכלל": {
+"key": "בכלל",
+"variants": [
+[
+"b",
+"ə",
+"x",
+"l",
+"aː",
+"l"
+],
+[
+"b",
+"i",
+"x",
+"l",
+"a",
+"l"
+]
+],
+"layer": "L",
+"freq": 58,
+"source": "chezky-verified"
+},
+"גארנישט": {
+"key": "גארנישט",
+"variants": [
+[
+"ɡ",
+"u",
+"r",
+"n",
+"i",
+"ʃ",
+"t"
+],
+[
+"ɡ",
+"ɔ",
+"r",
+"n",
+"i",
+"ʃ",
+"t"
+]
+],
+"layer": "G",
+"freq": 58,
+"source": "chezky-verified"
+},
+"וויסן": {
+"key": "וויסנ",
+"variants": [
+[
+"v",
+"i",
+"s",
+"n"
+]
+],
+"layer": "G",
+"freq": 58,
+"source": "chezky-verified"
+},
+"וועל": {
+"key": "וועל",
+"variants": [
+[
+"v",
+"ɛ",
+"l"
+]
+],
+"layer": "G",
+"freq": 58,
+"source": "chezky-verified"
+},
+"ערשטע": {
+"key": "ערשטע",
+"variants": [
+[
+"ɛ",
+"r",
+"ʃ",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 58,
+"source": "chezky-approved"
+},
+"פארומס": {
+"key": "פארומס",
+"variants": [
+[
+"f",
+"ɔ",
+"r",
+"u",
+"m",
+"s"
+]
+],
+"layer": "E",
+"freq": 58,
+"source": "chezky-verified"
+},
+"שיין": {
+"key": "שיינ",
+"variants": [
+[
+"ʃ",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 58,
+"source": "chezky-approved"
+},
+"של": {
+"key": "של",
+"variants": [
+[
+"ʃ",
+"ɛ",
+"l"
+]
+],
+"layer": "L",
+"freq": 58,
+"source": "chezky-verified"
+},
+"אפאר": {
+"key": "אפאר",
+"variants": [
+[
+"a",
+"p",
+"u",
+"r"
+],
+[
+"a",
+"p",
+"ɔ",
+"r"
+]
+],
+"layer": "G",
+"freq": 57,
+"source": "chezky-verified"
+},
+"דריי": {
+"key": "דריי",
+"variants": [
+[
+"d",
+"r",
+"aj"
+],
+[
+"d",
+"r",
+"aː"
+]
+],
+"layer": "G",
+"freq": 57,
+"source": "chezky-verified"
+},
+"זאלן": {
+"key": "זאלנ",
+"variants": [
+[
+"z",
+"ɔ",
+"l",
+"n"
+],
+[
+"z",
+"u",
+"l",
+"n"
+]
+],
+"layer": "G",
+"freq": 57,
+"source": "chezky-verified"
+},
+"פלאץ": {
+"key": "פלאצ",
+"variants": [
+[
+"p",
+"l",
+"aː",
+"ʦ"
+],
+[
+"p",
+"l",
+"a",
+"ʦ"
+]
+],
+"layer": "G",
+"freq": 57,
+"source": "chezky-verified"
+},
+"אלץ": {
+"key": "אלצ",
+"variants": [
+[
+"a",
+"l",
+"ʦ"
+]
+],
+"layer": "G",
+"freq": 56,
+"source": "chezky-approved"
+},
+"זייט": {
+"key": "זייט",
+"variants": [
+[
+"z",
+"aː",
+"t"
+],
+[
+"z",
+"aj",
+"t"
+]
+],
+"layer": "G",
+"freq": 56,
+"source": "chezky-verified"
+},
+"צווישן": {
+"key": "צווישנ",
+"variants": [
+[
+"ʦ",
+"v",
+"i",
+"ʃ",
+"n"
+]
+],
+"layer": "G",
+"freq": 56,
+"source": "chezky-verified"
+},
+"יעדן": {
+"key": "יעדנ",
+"variants": [
+[
+"j",
+"ej",
+"d",
+"n"
+],
+[
+"j",
+"ɛ",
+"d",
+"n"
+]
+],
+"layer": "G",
+"freq": 55,
+"source": "chezky-verified"
+},
+"לא": {
+"key": "לא",
+"variants": [
+[
+"l",
+"ɔj"
+],
+[
+"l",
+"ɔ"
+]
+],
+"layer": "L",
+"freq": 55,
+"source": "chezky-verified"
+},
+"נאמען": {
+"key": "נאמענ",
+"variants": [
+[
+"n",
+"u",
+"m",
+"ə",
+"n"
+],
+[
+"n",
+"ɔ",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 55,
+"source": "chezky-verified"
+},
+"פין": {
+"key": "פינ",
+"variants": [
+[
+"p",
+"i",
+"n"
+]
+],
+"layer": "E",
+"freq": 55,
+"source": "chezky-verified"
+},
+"יישר": {
+"key": "יישר",
+"variants": [
+[
+"j",
+"a",
+"ʃ",
+"ə",
+"r"
+],
+[
+"j",
+"a",
+"ʃ",
+"i",
+"r"
+]
+],
+"layer": "L",
+"freq": 54,
+"source": "chezky-verified"
+},
+"מלחמה": {
+"key": "מלחמה",
+"variants": [
+[
+"m",
+"i",
+"l",
+"x",
+"u",
+"m",
+"ə"
+],
+[
+"m",
+"i",
+"l",
+"x",
+"ɔ",
+"m",
+"ə"
+]
+],
+"layer": "L",
+"freq": 54,
+"source": "chezky-verified"
+},
+"ממש": {
+"key": "ממש",
+"variants": [
+[
+"m",
+"a",
+"m",
+"i",
+"ʃ"
+],
+[
+"m",
+"a",
+"m",
+"ə",
+"ʃ"
+]
+],
+"layer": "L",
+"freq": 54,
+"source": "chezky-verified"
+},
+"העלפן": {
+"key": "העלפנ",
+"variants": [
+[
+"h",
+"ɛ",
+"l",
+"f",
+"n"
+]
+],
+"layer": "G",
+"freq": 53,
+"source": "chezky-verified"
+},
+"וואסער": {
+"key": "וואסער",
+"variants": [
+[
+"v",
+"a",
+"s",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 53,
+"source": "chezky-approved"
+},
+"קינד": {
+"key": "קינד",
+"variants": [
+[
+"k",
+"i",
+"n",
+"d"
+]
+],
+"layer": "G",
+"freq": 53,
+"source": "chezky-verified"
+},
+"רוח": {
+"key": "רוח",
+"variants": [
+[
+"r",
+"i",
+"ə",
+"x"
+],
+[
+"r",
+"u",
+"ə",
+"x"
+]
+],
+"layer": "L",
+"freq": 53,
+"source": "chezky-verified"
+},
+"רעדט": {
+"key": "רעדט",
+"variants": [
+[
+"r",
+"ɛ",
+"d",
+"t"
+],
+[
+"r",
+"ɛ",
+"t"
+]
+],
+"layer": "G",
+"freq": 53,
+"source": "chezky-approved"
+},
+"לעבן": {
+"key": "לעבנ",
+"variants": [
+[
+"l",
+"ej",
+"b",
+"n"
+],
+[
+"l",
+"ɛ",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 52,
+"source": "chezky-approved"
+},
+"קענסט": {
+"key": "קענסט",
+"variants": [
+[
+"k",
+"ɛ",
+"n",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 52,
+"source": "chezky-approved"
+},
+"בעל": {
+"key": "בעל",
+"variants": [
+[
+"b",
+"aː",
+"l"
+],
+[
+"b",
+"ɛ",
+"l"
+]
+],
+"layer": "L",
+"freq": 51,
+"source": "chezky-verified"
+},
+"לאנג": {
+"key": "לאנג",
+"variants": [
+[
+"l",
+"aː",
+"n",
+"ɡ"
+],
+[
+"l",
+"a",
+"n",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 51,
+"source": "chezky-verified"
+},
+"מ'קען": {
+"key": "מ'קענ",
+"variants": [
+[
+"m",
+"ɛ",
+"k",
+"ə",
+"n"
+],
+[
+"m",
+"k",
+"ɛ",
+"n"
+]
+],
+"layer": "G",
+"freq": 51,
+"source": "chezky-verified"
+},
+"משה": {
+"key": "משה",
+"variants": [
+[
+"m",
+"ɔj",
+"ʃ",
+"ə"
+]
+],
+"layer": "N",
+"freq": 51,
+"source": "chezky-approved"
+},
+"פראבלעם": {
+"key": "פראבלעמ",
+"variants": [
+[
+"p",
+"r",
+"ɔ",
+"b",
+"l",
+"ej",
+"m"
+],
+[
+"p",
+"r",
+"ɔ",
+"b",
+"l",
+"ɛ",
+"m"
+]
+],
+"layer": "E",
+"freq": 51,
+"source": "chezky-verified"
+},
+"רב": {
+"key": "רב",
+"variants": [
+[
+"r",
+"u",
+"v"
+]
+],
+"layer": "L",
+"freq": 51,
+"source": "chezky-verified"
+},
+"שווער": {
+"key": "שווער",
+"variants": [
+[
+"ʃ",
+"v",
+"i",
+"r"
+],
+[
+"ʃ",
+"v",
+"ɛ",
+"r"
+]
+],
+"layer": "G",
+"freq": 51,
+"source": "chezky-verified"
+},
+"ווייטער": {
+"key": "ווייטער",
+"variants": [
+[
+"v",
+"aː",
+"t",
+"ə",
+"r"
+],
+[
+"v",
+"aj",
+"t",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 50,
+"source": "chezky-verified"
+},
+"כלל": {
+"key": "כלל",
+"variants": [
+[
+"k",
+"l",
+"a",
+"l"
+]
+],
+"layer": "L",
+"freq": 50,
+"source": "chezky-verified"
+},
+"עסן": {
+"key": "עסנ",
+"variants": [
+[
+"ɛ",
+"s",
+"n"
+]
+],
+"layer": "G",
+"freq": 50,
+"source": "chezky-verified"
+},
+"קוקט": {
+"key": "קוקט",
+"variants": [
+[
+"k",
+"i",
+"k",
+"t"
+],
+[
+"k",
+"u",
+"k",
+"t"
+]
+],
+"layer": "G",
+"freq": 50,
+"source": "chezky-approved"
+},
+"קעגן": {
+"key": "קעגנ",
+"variants": [
+[
+"k",
+"ej",
+"ɡ",
+"n"
+],
+[
+"k",
+"ɛ",
+"ɡ",
+"n"
+]
+],
+"layer": "G",
+"freq": 50,
+"source": "chezky-verified"
+},
+"שרייבן": {
+"key": "שרייבנ",
+"variants": [
+[
+"ʃ",
+"r",
+"aː",
+"b",
+"n"
+],
+[
+"ʃ",
+"r",
+"aj",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 50,
+"source": "chezky-approved"
+},
+"ארויף": {
+"key": "ארויפ",
+"variants": [
+[
+"a",
+"r",
+"oʊ",
+"f"
+]
+],
+"layer": "G",
+"freq": 49,
+"source": "chezky-verified"
+},
+"את": {
+"key": "את",
+"variants": [
+[
+"ɛ",
+"s"
+]
+],
+"layer": "L",
+"freq": 49,
+"source": "chezky-verified"
+},
+"בן": {
+"key": "בנ",
+"variants": [
+[
+"b",
+"ɛ",
+"n"
+]
+],
+"layer": "L",
+"freq": 49,
+"source": "chezky-verified"
+},
+"גייען": {
+"key": "גייענ",
+"variants": [
+[
+"ɡ",
+"aj",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 49,
+"source": "chezky-approved"
+},
+"למעשה": {
+"key": "למעשה",
+"variants": [
+[
+"l",
+"ə",
+"m",
+"aː",
+"s",
+"ə"
+],
+[
+"l",
+"ə",
+"m",
+"aj",
+"s",
+"ə"
+]
+],
+"layer": "L",
+"freq": 49,
+"source": "chezky-verified"
+},
+"רעדן": {
+"key": "רעדנ",
+"variants": [
+[
+"r",
+"ɛ",
+"d",
+"n"
+]
+],
+"layer": "G",
+"freq": 49,
+"source": "chezky-verified"
+},
+"ארץ": {
+"key": "ארצ",
+"variants": [
+[
+"ɛ",
+"r",
+"ə",
+"ʦ"
+]
+],
+"layer": "L",
+"freq": 48,
+"source": "chezky-verified"
+},
+"הייסט": {
+"key": "הייסט",
+"variants": [
+[
+"h",
+"aj",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 48,
+"source": "chezky-verified"
+},
+"יארן": {
+"key": "יארנ",
+"variants": [
+[
+"j",
+"u",
+"r",
+"n"
+]
+],
+"layer": "G",
+"freq": 48,
+"source": "chezky-verified"
+},
+"קלאר": {
+"key": "קלאר",
+"variants": [
+[
+"k",
+"l",
+"u",
+"r"
+],
+[
+"k",
+"l",
+"ɔ",
+"r"
+]
+],
+"layer": "G",
+"freq": 48,
+"source": "chezky-verified"
+},
+"געגאנגען": {
+"key": "געגאנגענ",
+"variants": [
+[
+"ɡ",
+"ə",
+"ɡ",
+"a",
+"n",
+"ɡ",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 47,
+"source": "chezky-approved"
+},
+"אליינס": {
+"key": "אליינס",
+"variants": [
+[
+"a",
+"l",
+"aj",
+"n",
+"s"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-approved"
+},
+"גייסט": {
+"key": "גייסט",
+"variants": [
+[
+"ɡ",
+"aj",
+"s",
+"t"
+],
+[
+"ɡ",
+"aː",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-approved"
+},
+"האלטן": {
+"key": "האלטנ",
+"variants": [
+[
+"h",
+"a",
+"l",
+"t",
+"n"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-verified"
+},
+"ווערטער": {
+"key": "ווערטער",
+"variants": [
+[
+"v",
+"ɛ",
+"r",
+"t",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-approved"
+},
+"מעשה": {
+"key": "מעשה",
+"variants": [
+[
+"m",
+"aː",
+"s",
+"ə"
+],
+[
+"m",
+"aj",
+"s",
+"ə"
+]
+],
+"layer": "L",
+"freq": 46,
+"source": "chezky-verified"
+},
+"ניגונים": {
+"key": "ניגונימ",
+"variants": [
+[
+"n",
+"i",
+"ɡ",
+"i",
+"n",
+"i",
+"m"
+],
+[
+"n",
+"i",
+"ɡ",
+"u",
+"n",
+"i",
+"m"
+]
+],
+"layer": "L",
+"freq": 46,
+"source": "chezky-verified"
+},
+"סאיז": {
+"key": "סאיז",
+"variants": [
+[
+"s",
+"i",
+"z"
+],
+[
+"s",
+"a",
+"i",
+"z"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-verified"
+},
+"שרייבט": {
+"key": "שרייבט",
+"variants": [
+[
+"ʃ",
+"r",
+"aː",
+"b",
+"t"
+],
+[
+"ʃ",
+"r",
+"aj",
+"b",
+"t"
+]
+],
+"layer": "G",
+"freq": 46,
+"source": "chezky-verified"
+},
+"אליין": {
+"key": "אליינ",
+"variants": [
+[
+"a",
+"l",
+"aj",
+"n"
+],
+[
+"a",
+"l",
+"ej",
+"n"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-approved"
+},
+"דארפן": {
+"key": "דארפנ",
+"variants": [
+[
+"d",
+"aː",
+"f",
+"n"
+],
+[
+"d",
+"a",
+"r",
+"f",
+"n"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-verified"
+},
+"הערן": {
+"key": "הערנ",
+"variants": [
+[
+"h",
+"i",
+"r",
+"n"
+],
+[
+"h",
+"ɛ",
+"r",
+"n"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-approved"
+},
+"זי\"ע": {
+"key": "זי\"ע",
+"variants": [
+[
+"z",
+"x",
+"i",
+"s",
+"ɔj",
+"j",
+"u",
+"ɡ",
+"i",
+"n",
+"u",
+"l",
+"aj",
+"n",
+"i"
+]
+],
+"layer": "A",
+"freq": 45,
+"source": "chezky-verified"
+},
+"כ'האב": {
+"key": "כ'האב",
+"variants": [
+[
+"x",
+"ɔ",
+"b"
+],
+[
+"x",
+"h",
+"ɔ",
+"b"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-verified"
+},
+"מעג": {
+"key": "מעג",
+"variants": [
+[
+"m",
+"ej",
+"ɡ"
+],
+[
+"m",
+"ɛ",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-verified"
+},
+"ספר": {
+"key": "ספר",
+"variants": [
+[
+"s",
+"aj",
+"f",
+"ə",
+"r"
+],
+[
+"s",
+"ej",
+"f",
+"ə",
+"r"
+]
+],
+"layer": "L",
+"freq": 45,
+"source": "chezky-approved"
+},
+"שטארק": {
+"key": "שטארק",
+"variants": [
+[
+"ʃ",
+"t",
+"a",
+"r",
+"k"
+]
+],
+"layer": "G",
+"freq": 45,
+"source": "chezky-approved"
+},
+"אמת": {
+"key": "אמת",
+"variants": [
+[
+"ɛ",
+"m",
+"ə",
+"s"
+]
+],
+"layer": "L",
+"freq": 44,
+"source": "chezky-verified"
+},
+"וכו": {
+"key": "וכו",
+"variants": [
+[
+"v",
+"ə",
+"x",
+"i",
+"l",
+"ə"
+],
+[
+"v",
+"ɛ",
+"x",
+"u",
+"l",
+"aj"
+]
+],
+"layer": "L",
+"freq": 44,
+"source": "chezky-verified"
+},
+"יעקב": {
+"key": "יעקב",
+"variants": [
+[
+"j",
+"a",
+"n",
+"k",
+"ə",
+"v"
+],
+[
+"j",
+"a",
+"n",
+"k",
+"ə",
+"f"
+]
+],
+"layer": "N",
+"freq": 44,
+"source": "chezky-verified"
+},
+"מיינע": {
+"key": "מיינע",
+"variants": [
+[
+"m",
+"aː",
+"n",
+"ə"
+],
+[
+"m",
+"aj",
+"n",
+"ə"
+]
+],
+"layer": "G",
+"freq": 44,
+"source": "chezky-verified"
+},
+"פרעזידענט": {
+"key": "פרעזידענט",
+"variants": [
+[
+"p",
+"r",
+"ə",
+"z",
+"i",
+"d",
+"ɛ",
+"n",
+"t"
+]
+],
+"layer": "E",
+"freq": 44,
+"source": "chezky-verified"
+},
+"באשעפער": {
+"key": "באשעפער",
+"variants": [
+[
+"b",
+"a",
+"ʃ",
+"ɛ",
+"f",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 43,
+"source": "chezky-approved"
+},
+"כי": {
+"key": "כי",
+"variants": [
+[
+"k",
+"i"
+]
+],
+"layer": "L",
+"freq": 43,
+"source": "chezky-verified"
+},
+"מאיר": {
+"key": "מאיר",
+"variants": [
+[
+"m",
+"aj",
+"ə",
+"r"
+]
+],
+"layer": "N",
+"freq": 43,
+"source": "chezky-approved"
+},
+"איראן": {
+"key": "איראנ",
+"variants": [
+[
+"i",
+"r",
+"a",
+"n"
+]
+],
+"layer": "E",
+"freq": 42,
+"source": "chezky-approved"
+},
+"לכאורה": {
+"key": "לכאורה",
+"variants": [
+[
+"l",
+"i",
+"x",
+"ɔj",
+"r",
+"ə"
+],
+[
+"l",
+"ə",
+"x",
+"ɔj",
+"r",
+"ə"
+]
+],
+"layer": "L",
+"freq": 42,
+"source": "chezky-verified"
+},
+"לערנען": {
+"key": "לערנענ",
+"variants": [
+[
+"l",
+"i",
+"r",
+"n",
+"ə",
+"n"
+],
+[
+"l",
+"ɛ",
+"r",
+"n",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 42,
+"source": "chezky-verified"
+},
+"בערך": {
+"key": "בערכ",
+"variants": [
+[
+"b",
+"ə",
+"ej",
+"r",
+"ə",
+"x"
+],
+[
+"b",
+"ə",
+"ɛ",
+"r",
+"ə",
+"x"
+]
+],
+"layer": "L",
+"freq": 41,
+"source": "chezky-verified"
+},
+"היימישע": {
+"key": "היימישע",
+"variants": [
+[
+"h",
+"aj",
+"m",
+"i",
+"ʃ",
+"ə"
+]
+],
+"layer": "G",
+"freq": 41,
+"source": "chezky-approved"
+},
+"השם": {
+"key": "השמ",
+"variants": [
+[
+"h",
+"a",
+"ʃ",
+"ɛ",
+"m"
+]
+],
+"layer": "L",
+"freq": 41,
+"source": "chezky-verified"
+},
+"זעהט": {
+"key": "זעהט",
+"variants": [
+[
+"z",
+"ej",
+"t"
+],
+[
+"z",
+"ɛ",
+"t"
+]
+],
+"layer": "G",
+"freq": 41,
+"source": "chezky-verified"
+},
+"יואל": {
+"key": "יואל",
+"variants": [
+[
+"j",
+"ɔj",
+"ə",
+"l"
+]
+],
+"layer": "N",
+"freq": 41,
+"source": "chezky-verified"
+},
+"נעמט": {
+"key": "נעמט",
+"variants": [
+[
+"n",
+"ɛ",
+"m",
+"t"
+]
+],
+"layer": "G",
+"freq": 41,
+"source": "chezky-approved"
+},
+"קאר": {
+"key": "קאר",
+"variants": [
+[
+"k",
+"a",
+"r"
+]
+],
+"layer": "E",
+"freq": 41,
+"source": "chezky-approved"
+},
+"ארבעטן": {
+"key": "ארבעטנ",
+"variants": [
+[
+"a",
+"r",
+"b",
+"ə",
+"t",
+"n"
+]
+],
+"layer": "G",
+"freq": 40,
+"source": "chezky-approved"
+},
+"יו\"ט": {
+"key": "יו\"ט",
+"variants": [
+[
+"j",
+"ɔ",
+"n",
+"t",
+"ə",
+"f"
+],
+[
+"j",
+"ɔ",
+"n",
+"t",
+"i",
+"f"
+]
+],
+"layer": "A",
+"freq": 40,
+"source": "chezky-approved"
+},
+"נאכן": {
+"key": "נאכנ",
+"variants": [
+[
+"n",
+"u",
+"x",
+"n"
+]
+],
+"layer": "G",
+"freq": 40,
+"source": "chezky-verified"
+},
+"קליינע": {
+"key": "קליינע",
+"variants": [
+[
+"k",
+"l",
+"aj",
+"n",
+"ə"
+]
+],
+"layer": "G",
+"freq": 40,
+"source": "chezky-approved"
+},
+"שיקן": {
+"key": "שיקנ",
+"variants": [
+[
+"ʃ",
+"i",
+"k",
+"n"
+]
+],
+"layer": "G",
+"freq": 40,
+"source": "chezky-approved"
+},
+"שעה": {
+"key": "שעה",
+"variants": [
+[
+"ʃ",
+"u"
+],
+[
+"ʃ",
+"ɔ"
+]
+],
+"layer": "L",
+"freq": 40,
+"source": "chezky-verified"
+},
+"אייך": {
+"key": "אייכ",
+"variants": [
+[
+"aː",
+"x"
+],
+[
+"aj",
+"x"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-verified"
+},
+"איינס": {
+"key": "איינס",
+"variants": [
+[
+"aj",
+"n",
+"s"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-approved"
+},
+"אימעיל": {
+"key": "אימעיל",
+"variants": [
+[
+"i",
+"m",
+"ej",
+"l"
+],
+[
+"ɛ",
+"m",
+"a",
+"i",
+"l"
+]
+],
+"layer": "E",
+"freq": 39,
+"source": "chezky-verified"
+},
+"בעסער": {
+"key": "בעסער",
+"variants": [
+[
+"b",
+"ɛ",
+"s",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-approved"
+},
+"דאנק": {
+"key": "דאנק",
+"variants": [
+[
+"d",
+"a",
+"n",
+"k"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-approved"
+},
+"דערפון": {
+"key": "דערפונ",
+"variants": [
+[
+"d",
+"ə",
+"r",
+"f",
+"i",
+"n"
+],
+[
+"d",
+"ə",
+"r",
+"f",
+"u",
+"n"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-approved"
+},
+"האסטו": {
+"key": "האסטו",
+"variants": [
+[
+"h",
+"u",
+"s",
+"t",
+"i"
+],
+[
+"h",
+"ɔ",
+"s",
+"t",
+"i"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-verified"
+},
+"למשל": {
+"key": "למשל",
+"variants": [
+[
+"l",
+"ə",
+"m",
+"u",
+"ʃ",
+"l"
+]
+],
+"layer": "L",
+"freq": 39,
+"source": "chezky-verified"
+},
+"מעגליך": {
+"key": "מעגליכ",
+"variants": [
+[
+"m",
+"ej",
+"ɡ",
+"l",
+"ə",
+"x"
+],
+[
+"m",
+"ɛ",
+"ɡ",
+"l",
+"ə",
+"x"
+]
+],
+"layer": "G",
+"freq": 39,
+"source": "chezky-verified"
+},
+"סיסטעם": {
+"key": "סיסטעמ",
+"variants": [
+[
+"s",
+"i",
+"s",
+"t",
+"ə",
+"m"
+]
+],
+"layer": "E",
+"freq": 39,
+"source": "chezky-approved"
+},
+"סתם": {
+"key": "סתמ",
+"variants": [
+[
+"s",
+"t",
+"a",
+"m"
+]
+],
+"layer": "L",
+"freq": 39,
+"source": "chezky-verified"
+},
+"אונזער": {
+"key": "אונזער",
+"variants": [
+[
+"i",
+"n",
+"z",
+"ə",
+"r"
+],
+[
+"i",
+"n",
+"d",
+"z",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-approved"
+},
+"אנגעהויבן": {
+"key": "אנגעהויבנ",
+"variants": [
+[
+"u",
+"n",
+"ɡ",
+"ə",
+"h",
+"ɔj",
+"b",
+"n"
+],
+[
+"ɔ",
+"n",
+"ɡ",
+"ə",
+"h",
+"ɔj",
+"b",
+"n"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-verified"
+},
+"אראפ": {
+"key": "אראפ",
+"variants": [
+[
+"a",
+"r",
+"u",
+"p"
+],
+[
+"a",
+"r",
+"ɔ",
+"p"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-verified"
+},
+"ביידע": {
+"key": "ביידע",
+"variants": [
+[
+"b",
+"aj",
+"d",
+"ə"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-approved"
+},
+"גענומען": {
+"key": "גענומענ",
+"variants": [
+[
+"ɡ",
+"ə",
+"n",
+"i",
+"m",
+"ə",
+"n"
+],
+[
+"ɡ",
+"ə",
+"n",
+"u",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-approved"
+},
+"וויליאמסבורג": {
+"key": "וויליאמסבורג",
+"variants": [
+[
+"v",
+"i",
+"l",
+"j",
+"a",
+"m",
+"s",
+"b",
+"u",
+"r",
+"ɡ"
+]
+],
+"layer": "E",
+"freq": 38,
+"source": "chezky-verified"
+},
+"טוהן": {
+"key": "טוהנ",
+"variants": [
+[
+"t",
+"i",
+"ə",
+"n"
+],
+[
+"t",
+"i",
+"n"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-verified"
+},
+"טעקסט": {
+"key": "טעקסט",
+"variants": [
+[
+"t",
+"ɛ",
+"k",
+"s",
+"t"
+]
+],
+"layer": "E",
+"freq": 38,
+"source": "chezky-approved"
+},
+"יתרו": {
+"key": "יתרו",
+"variants": [
+[
+"j",
+"i",
+"s",
+"r",
+"ɔj"
+],
+[
+"j",
+"i",
+"s",
+"r",
+"ɔ"
+]
+],
+"layer": "L",
+"freq": 38,
+"source": "chezky-verified"
+},
+"סדר": {
+"key": "סדר",
+"variants": [
+[
+"s",
+"aj",
+"d",
+"ə",
+"r"
+],
+[
+"s",
+"ej",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "L",
+"freq": 38,
+"source": "chezky-verified"
+},
+"סוף": {
+"key": "סופ",
+"variants": [
+[
+"s",
+"ɔ",
+"f"
+],
+[
+"s",
+"ɔj",
+"f"
+]
+],
+"layer": "L",
+"freq": 38,
+"source": "chezky-verified"
+},
+"צווייטע": {
+"key": "צווייטע",
+"variants": [
+[
+"ʦ",
+"v",
+"aj",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 38,
+"source": "chezky-approved"
+},
+"אמעריקע": {
+"key": "אמעריקע",
+"variants": [
+[
+"a",
+"m",
+"ɛ",
+"r",
+"i",
+"k",
+"ə"
+]
+],
+"layer": "E",
+"freq": 37,
+"source": "chezky-approved"
+},
+"געוואלט": {
+"key": "געוואלט",
+"variants": [
+[
+"ɡ",
+"ə",
+"v",
+"ɔ",
+"l",
+"t"
+],
+[
+"ɡ",
+"ə",
+"v",
+"a",
+"l",
+"d"
+]
+],
+"layer": "G",
+"freq": 37,
+"source": "chezky-verified"
+},
+"געוויסע": {
+"key": "געוויסע",
+"variants": [
+[
+"ɡ",
+"ə",
+"v",
+"i",
+"s",
+"ə"
+]
+],
+"layer": "G",
+"freq": 37,
+"source": "chezky-approved"
+},
+"הייליגע": {
+"key": "הייליגע",
+"variants": [
+[
+"h",
+"aj",
+"l",
+"i",
+"ɡ",
+"ə"
+]
+],
+"layer": "G",
+"freq": 37,
+"source": "chezky-approved"
+},
+"טרעפן": {
+"key": "טרעפנ",
+"variants": [
+[
+"t",
+"r",
+"ɛ",
+"f",
+"n"
+]
+],
+"layer": "G",
+"freq": 37,
+"source": "chezky-approved"
+},
+"עם": {
+"key": "עמ",
+"variants": [
+[
+"ej",
+"m"
+],
+[
+"a",
+"m"
+]
+],
+"layer": "L",
+"freq": 37,
+"source": "chezky-verified"
+},
+"אפ": {
+"key": "אפ",
+"variants": [
+[
+"ɔ",
+"p"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-verified"
+},
+"בחורים": {
+"key": "בחורימ",
+"variants": [
+[
+"b",
+"u",
+"x",
+"i",
+"r",
+"i",
+"m"
+]
+],
+"layer": "L",
+"freq": 36,
+"source": "chezky-verified"
+},
+"ביזנעס": {
+"key": "ביזנעס",
+"variants": [
+[
+"b",
+"i",
+"z",
+"n",
+"ə",
+"s"
+]
+],
+"layer": "E",
+"freq": 36,
+"source": "chezky-approved"
+},
+"גאנץ": {
+"key": "גאנצ",
+"variants": [
+[
+"ɡ",
+"a",
+"n",
+"ʦ"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"גוגל": {
+"key": "גוגל",
+"variants": [
+[
+"ɡ",
+"u",
+"ɡ",
+"l"
+]
+],
+"layer": "E",
+"freq": 36,
+"source": "chezky-verified"
+},
+"גמרא": {
+"key": "גמרא",
+"variants": [
+[
+"ɡ",
+"ə",
+"m",
+"u",
+"r",
+"ə"
+]
+],
+"layer": "L",
+"freq": 36,
+"source": "chezky-verified"
+},
+"גענוג": {
+"key": "גענוג",
+"variants": [
+[
+"ɡ",
+"ə",
+"n",
+"i",
+"ɡ"
+],
+[
+"ɡ",
+"ə",
+"n",
+"u",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-verified"
+},
+"געקומען": {
+"key": "געקומענ",
+"variants": [
+[
+"ɡ",
+"ə",
+"k",
+"i",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"זי": {
+"key": "זי",
+"variants": [
+[
+"z",
+"i"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"כמעט": {
+"key": "כמעט",
+"variants": [
+[
+"k",
+"ə",
+"m",
+"a",
+"t"
+],
+[
+"k",
+"i",
+"m",
+"a",
+"t"
+]
+],
+"layer": "L",
+"freq": 36,
+"source": "chezky-verified"
+},
+"לייגן": {
+"key": "לייגנ",
+"variants": [
+[
+"l",
+"aj",
+"ɡ",
+"n"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"צאלן": {
+"key": "צאלנ",
+"variants": [
+[
+"ʦ",
+"u",
+"l",
+"n"
+],
+[
+"ʦ",
+"ɔ",
+"l",
+"n"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-verified"
+},
+"שטיין": {
+"key": "שטיינ",
+"variants": [
+[
+"ʃ",
+"t",
+"aj",
+"n"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"שיינע": {
+"key": "שיינע",
+"variants": [
+[
+"ʃ",
+"aj",
+"n",
+"ə"
+]
+],
+"layer": "G",
+"freq": 36,
+"source": "chezky-approved"
+},
+"בילדער": {
+"key": "בילדער",
+"variants": [
+[
+"b",
+"i",
+"l",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-approved"
+},
+"דאן": {
+"key": "דאנ",
+"variants": [
+[
+"d",
+"a",
+"n"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-approved"
+},
+"התורה": {
+"key": "התורה",
+"variants": [
+[
+"h",
+"a",
+"t",
+"ɔj",
+"r",
+"ə"
+]
+],
+"layer": "L",
+"freq": 35,
+"source": "chezky-verified"
+},
+"נישטא": {
+"key": "נישטא",
+"variants": [
+[
+"n",
+"i",
+"ʃ",
+"t",
+"u"
+],
+[
+"n",
+"i",
+"ʃ",
+"t",
+"ɔ"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-verified"
+},
+"ספרים": {
+"key": "ספרימ",
+"variants": [
+[
+"s",
+"f",
+"u",
+"r",
+"i",
+"m"
+]
+],
+"layer": "L",
+"freq": 35,
+"source": "chezky-verified"
+},
+"עלטערע": {
+"key": "עלטערע",
+"variants": [
+[
+"ɛ",
+"l",
+"t",
+"ə",
+"r",
+"ə"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-approved"
+},
+"פיל": {
+"key": "פיל",
+"variants": [
+[
+"f",
+"i",
+"l"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-approved"
+},
+"צוליב": {
+"key": "צוליב",
+"variants": [
+[
+"ʦ",
+"i",
+"l",
+"i",
+"b"
+],
+[
+"ʦ",
+"u",
+"l",
+"i",
+"b"
+]
+],
+"layer": "G",
+"freq": 35,
+"source": "chezky-verified"
+},
+"אונטער": {
+"key": "אונטער",
+"variants": [
+[
+"i",
+"n",
+"t",
+"ə",
+"r"
+],
+[
+"u",
+"n",
+"t",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"איהם": {
+"key": "איהמ",
+"variants": [
+[
+"i",
+"m"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"אייוועלט": {
+"key": "אייוועלט",
+"variants": [
+[
+"i",
+"v",
+"ə",
+"l",
+"t"
+]
+],
+"layer": "X",
+"freq": 34,
+"source": "chezky-verified"
+},
+"אייער": {
+"key": "אייער",
+"variants": [
+[
+"aː",
+"j",
+"ə",
+"r"
+],
+[
+"aj",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"בחור": {
+"key": "בחור",
+"variants": [
+[
+"b",
+"u",
+"x",
+"ə",
+"r"
+],
+[
+"b",
+"u",
+"x",
+"i",
+"r"
+]
+],
+"layer": "L",
+"freq": 34,
+"source": "chezky-verified"
+},
+"בילד": {
+"key": "בילד",
+"variants": [
+[
+"b",
+"i",
+"l",
+"d"
+],
+[
+"b",
+"i",
+"l",
+"t"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"ברוך": {
+"key": "ברוכ",
+"variants": [
+[
+"b",
+"u",
+"r",
+"ə",
+"x"
+],
+[
+"b",
+"ɔ",
+"r",
+"u",
+"x"
+]
+],
+"layer": "L",
+"freq": 34,
+"source": "chezky-verified"
+},
+"גיי": {
+"key": "גיי",
+"variants": [
+[
+"ɡ",
+"aj"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"דערנאך": {
+"key": "דערנאכ",
+"variants": [
+[
+"d",
+"ə",
+"r",
+"n",
+"u",
+"x"
+],
+[
+"d",
+"ə",
+"r",
+"n",
+"ɔ",
+"x"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"הארץ": {
+"key": "הארצ",
+"variants": [
+[
+"h",
+"a",
+"r",
+"ʦ"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"חוץ": {
+"key": "חוצ",
+"variants": [
+[
+"x",
+"i",
+"ʦ"
+],
+[
+"x",
+"u",
+"ʦ"
+]
+],
+"layer": "L",
+"freq": 34,
+"source": "chezky-approved"
+},
+"טייערע": {
+"key": "טייערע",
+"variants": [
+[
+"t",
+"aː",
+"j",
+"ə",
+"r",
+"ə"
+],
+[
+"t",
+"aj",
+"ə",
+"r",
+"ə"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"לאזט": {
+"key": "לאזט",
+"variants": [
+[
+"l",
+"ɔ",
+"z",
+"t"
+],
+[
+"l",
+"u",
+"z",
+"t"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"ניין": {
+"key": "ניינ",
+"variants": [
+[
+"n",
+"aj",
+"n"
+],
+[
+"n",
+"aː",
+"n"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"פלאן": {
+"key": "פלאנ",
+"variants": [
+[
+"p",
+"l",
+"aː",
+"n"
+],
+[
+"p",
+"l",
+"a",
+"n"
+]
+],
+"layer": "E",
+"freq": 34,
+"source": "chezky-verified"
+},
+"פרייז": {
+"key": "פרייז",
+"variants": [
+[
+"p",
+"r",
+"aː",
+"z"
+],
+[
+"p",
+"r",
+"aj",
+"z"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+},
+"קודם": {
+"key": "קודמ",
+"variants": [
+[
+"k",
+"ɔj",
+"d",
+"ə",
+"m"
+]
+],
+"layer": "L",
+"freq": 34,
+"source": "chezky-verified"
+},
+"קיינער": {
+"key": "קיינער",
+"variants": [
+[
+"k",
+"aj",
+"n",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"שטארקע": {
+"key": "שטארקע",
+"variants": [
+[
+"ʃ",
+"t",
+"a",
+"r",
+"k",
+"ə"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-approved"
+},
+"אברהם": {
+"key": "אברהמ",
+"variants": [
+[
+"a",
+"v",
+"r",
+"u",
+"m"
+],
+[
+"a",
+"v",
+"r",
+"u",
+"h",
+"ə",
+"m"
+]
+],
+"layer": "N",
+"freq": 33,
+"source": "chezky-verified"
+},
+"אוועק": {
+"key": "אוועק",
+"variants": [
+[
+"a",
+"v",
+"ɛ",
+"k"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"אנדערש": {
+"key": "אנדערש",
+"variants": [
+[
+"a",
+"n",
+"d",
+"i",
+"ʃ"
+],
+[
+"a",
+"n",
+"d",
+"ə",
+"r",
+"ʃ"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"ברענגט": {
+"key": "ברענגט",
+"variants": [
+[
+"b",
+"r",
+"ɛ",
+"n",
+"ɡ",
+"t"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-approved"
+},
+"געקענט": {
+"key": "געקענט",
+"variants": [
+[
+"ɡ",
+"ə",
+"k",
+"ɛ",
+"n",
+"t"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-approved"
+},
+"גרויס": {
+"key": "גרויס",
+"variants": [
+[
+"ɡ",
+"r",
+"ɔj",
+"s"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"דיך": {
+"key": "דיכ",
+"variants": [
+[
+"d",
+"i",
+"x"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"ווייט": {
+"key": "ווייט",
+"variants": [
+[
+"v",
+"aː",
+"t"
+],
+[
+"v",
+"aj",
+"t"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-approved"
+},
+"זעה": {
+"key": "זעה",
+"variants": [
+[
+"z",
+"ej"
+],
+[
+"z",
+"ɛ"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"ים": {
+"key": "ימ",
+"variants": [
+[
+"j",
+"a",
+"m"
+]
+],
+"layer": "L",
+"freq": 33,
+"source": "chezky-verified"
+},
+"ליידער": {
+"key": "ליידער",
+"variants": [
+[
+"l",
+"aj",
+"d",
+"ə",
+"r"
+],
+[
+"l",
+"ej",
+"d",
+"ə",
+"r"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-approved"
+},
+"מוסדות": {
+"key": "מוסדות",
+"variants": [
+[
+"m",
+"ɔj",
+"z",
+"d",
+"ə",
+"s"
+],
+[
+"m",
+"ɔj",
+"s",
+"d",
+"ə",
+"s"
+]
+],
+"layer": "L",
+"freq": 33,
+"source": "chezky-verified"
+},
+"נאכט": {
+"key": "נאכט",
+"variants": [
+[
+"n",
+"a",
+"x",
+"t"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-approved"
+},
+"ניו": {
+"key": "ניו",
+"variants": [
+[
+"n",
+"j",
+"u"
+]
+],
+"layer": "E",
+"freq": 33,
+"source": "chezky-verified"
+},
+"פרשת": {
+"key": "פרשת",
+"variants": [
+[
+"p",
+"a",
+"r",
+"ʃ",
+"i",
+"s"
+],
+[
+"p",
+"a",
+"r",
+"ʃ",
+"ə",
+"s"
+]
+],
+"layer": "L",
+"freq": 33,
+"source": "chezky-verified"
+},
+"קאמפיין": {
+"key": "קאמפיינ",
+"variants": [
+[
+"k",
+"ɔ",
+"m",
+"p",
+"aj",
+"n"
+],
+[
+"k",
+"a",
+"m",
+"p",
+"ej",
+"n"
+]
+],
+"layer": "E",
+"freq": 33,
+"source": "chezky-verified"
+},
+"שמועס": {
+"key": "שמועס",
+"variants": [
+[
+"ʃ",
+"m",
+"i",
+"ə",
+"s"
+],
+[
+"ʃ",
+"m",
+"u",
+"ə",
+"s"
+]
+],
+"layer": "G",
+"freq": 33,
+"source": "chezky-verified"
+},
+"אגב": {
+"key": "אגב",
+"variants": [
+[
+"a",
+"ɡ",
+"a",
+"v"
+],
+[
+"a",
+"ɡ",
+"ə",
+"v"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-verified"
+},
+"בעטן": {
+"key": "בעטנ",
+"variants": [
+[
+"b",
+"ej",
+"t",
+"n"
+],
+[
+"b",
+"ɛ",
+"t",
+"n"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"גרייט": {
+"key": "גרייט",
+"variants": [
+[
+"ɡ",
+"r",
+"aj",
+"t"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-approved"
+},
+"הויז": {
+"key": "הויז",
+"variants": [
+[
+"h",
+"oʊ",
+"z"
+],
+[
+"h",
+"ɔj",
+"z"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"הלל": {
+"key": "הלל",
+"variants": [
+[
+"h",
+"a",
+"l",
+"ɛ",
+"l"
+],
+[
+"h",
+"i",
+"l",
+"ɛ",
+"l"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-verified"
+},
+"טוישן": {
+"key": "טוישנ",
+"variants": [
+[
+"t",
+"oʊ",
+"ʃ",
+"n"
+],
+[
+"t",
+"ɔj",
+"ʃ",
+"n"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"כדי": {
+"key": "כדי",
+"variants": [
+[
+"k",
+"ə",
+"d",
+"aj"
+],
+[
+"k",
+"ə",
+"d",
+"ej"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-verified"
+},
+"כינוס": {
+"key": "כינוס",
+"variants": [
+[
+"k",
+"i",
+"n",
+"ə",
+"s"
+],
+[
+"k",
+"i",
+"n",
+"u",
+"s"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-verified"
+},
+"לייג": {
+"key": "לייג",
+"variants": [
+[
+"l",
+"aj",
+"ɡ"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"מסביר": {
+"key": "מסביר",
+"variants": [
+[
+"m",
+"a",
+"z",
+"b",
+"i",
+"r"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-verified"
+},
+"סארט": {
+"key": "סארט",
+"variants": [
+[
+"s",
+"ɔ",
+"r",
+"t"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"קאסט": {
+"key": "קאסט",
+"variants": [
+[
+"k",
+"ɔ",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 32,
+"source": "chezky-verified"
+},
+"שום": {
+"key": "שומ",
+"variants": [
+[
+"ʃ",
+"i",
+"m"
+],
+[
+"ʃ",
+"u",
+"m"
+]
+],
+"layer": "L",
+"freq": 32,
+"source": "chezky-approved"
+},
+"אינמיטן": {
+"key": "אינמיטנ",
+"variants": [
+[
+"i",
+"n",
+"m",
+"i",
+"t",
+"n"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-approved"
+},
+"ביסט": {
+"key": "ביסט",
+"variants": [
+[
+"b",
+"i",
+"s",
+"t"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-approved"
+},
+"בעסטע": {
+"key": "בעסטע",
+"variants": [
+[
+"b",
+"ɛ",
+"s",
+"t",
+"ə"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-approved"
+},
+"ברענגען": {
+"key": "ברענגענ",
+"variants": [
+[
+"b",
+"r",
+"ej",
+"n",
+"ɡ",
+"ə",
+"n"
+],
+[
+"b",
+"r",
+"ɛ",
+"n",
+"ɡ",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"דאלער": {
+"key": "דאלער",
+"variants": [
+[
+"d",
+"ɔ",
+"l",
+"ə",
+"r"
+],
+[
+"d",
+"ɔ",
+"l",
+"a",
+"r"
+]
+],
+"layer": "E",
+"freq": 31,
+"source": "chezky-verified"
+},
+"חיים": {
+"key": "חיימ",
+"variants": [
+[
+"x",
+"aj",
+"i",
+"m"
+]
+],
+"layer": "N",
+"freq": 31,
+"source": "chezky-verified"
+},
+"טון": {
+"key": "טונ",
+"variants": [
+[
+"t",
+"i",
+"n"
+],
+[
+"t",
+"u",
+"n"
+],
+[
+"t",
+"ɔ",
+"n"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"יענע": {
+"key": "יענע",
+"variants": [
+[
+"j",
+"ɛ",
+"n",
+"ə"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-approved"
+},
+"נאכדעם": {
+"key": "נאכדעמ",
+"variants": [
+[
+"n",
+"u",
+"x",
+"d",
+"ej",
+"m"
+],
+[
+"n",
+"u",
+"x",
+"d",
+"ə",
+"m"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"ס'האט": {
+"key": "ס'האט",
+"variants": [
+[
+"s",
+"ə",
+"h",
+"u",
+"t"
+],
+[
+"ʃ",
+"u",
+"t"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"פונקט": {
+"key": "פונקט",
+"variants": [
+[
+"p",
+"i",
+"n",
+"k",
+"t"
+],
+[
+"p",
+"u",
+"n",
+"k",
+"t"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"צוזאמען": {
+"key": "צוזאמענ",
+"variants": [
+[
+"ʦ",
+"i",
+"z",
+"a",
+"m",
+"ə",
+"n"
+],
+[
+"ʦ",
+"u",
+"z",
+"a",
+"m",
+"ə",
+"n"
+]
+],
+"layer": "G",
+"freq": 31,
+"source": "chezky-verified"
+},
+"אהיים": {
+"key": "אהיימ",
+"variants": [
+[
+"a",
+"h",
+"aj",
+"m"
+]
+],
+"layer": "G",
+"freq": 30,
+"source": "chezky-approved"
+},
+"מצוה": {
+"key": "מצוה",
+"variants": [
+[
+"m",
+"i",
+"ʦ",
+"v",
+"ə"
+]
+],
+"layer": "L",
+"freq": 28,
+"source": "chezky-verified"
+},
+"רוב": {
+"key": "רוב",
+"variants": [
+[
+"r",
+"ɔ",
+"v"
+]
+],
+"layer": "L",
+"freq": 28,
+"source": "chezky-verified"
+},
+"זען": {
+"key": "זענ",
+"variants": [
+[
+"z",
+"ej",
+"n"
+]
+],
+"layer": "G",
+"freq": 25,
+"source": "chezky-verified"
+},
+"פאמיליע": {
+"key": "פאמיליע",
+"variants": [
+[
+"f",
+"a",
+"m",
+"i",
+"l",
+"i",
+"ə"
+]
+],
+"layer": "E",
+"freq": 5,
+"source": "chezky-verified"
+},
+"פראגעס": {
+"key": "פראגעס",
+"variants": [
+[
+"f",
+"r",
+"a",
+"ɡ",
+"ə",
+"s"
+]
+],
+"layer": "G",
+"freq": 4,
+"source": "chezky-verified"
+},
+"האף": {
+"key": "האפ",
+"variants": [
+[
+"h",
+"u",
+"f"
+]
+],
+"layer": "G",
+"freq": 4,
+"source": "chezky-verified"
+},
+"גאס": {
+"key": "גאס",
+"variants": [
+[
+"ɡ",
+"aː",
+"s"
+]
+],
+"layer": "G",
+"freq": 138,
+"source": "chezky-verified"
+},
+"פריינד": {
+"key": "פריינד",
+"variants": [
+[
+"f",
+"r",
+"aː",
+"n",
+"d"
+]
+],
+"layer": "G",
+"freq": 23,
+"source": "chezky-verified"
+},
+"פארגעסן": {
+"key": "פארגעסנ",
+"variants": [
+[
+"f",
+"aː",
+"r",
+"ɡ",
+"ɛ",
+"s",
+"n"
+]
+],
+"layer": "G",
+"freq": 299,
+"source": "chezky-verified"
+},
+"אפשאצן": {
+"key": "אפשאצנ",
+"variants": [
+[
+"u",
+"p",
+"ʃ",
+"a",
+"ʦ",
+"n"
+]
+],
+"layer": "G",
+"freq": 2,
+"source": "chezky-verified"
+},
+"פראביר": {
+"key": "פראביר",
+"variants": [
+[
+"p",
+"r",
+"ɔ",
+"b",
+"i",
+"r"
+]
+],
+"layer": "G",
+"freq": 1,
+"source": "chezky-verified"
+},
+"פאדלאגע": {
+"key": "פאדלאגע",
+"variants": [
+[
+"p",
+"ɔ",
+"d",
+"l",
+"ɔ",
+"ɡ",
+"ə"
+]
+],
+"layer": "G",
+"freq": 2,
+"source": "chezky-verified"
+},
+"געקאכט": {
+"key": "געקאכט",
+"variants": [
+[
+"ɡ",
+"ə",
+"k",
+"ɔ",
+"x",
+"t"
+]
+],
+"layer": "G",
+"freq": 34,
+"source": "chezky-verified"
+}
+}
