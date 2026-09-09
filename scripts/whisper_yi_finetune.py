@@ -82,7 +82,13 @@ def main() -> None:
     print(f"train chunks {len(train_rows):,}  eval chunks {len(test_rows)} (held-out episodes)", flush=True)
 
     processor = WhisperProcessor.from_pretrained(MODEL)
-    model = WhisperForConditionalGeneration.from_pretrained(MODEL, torch_dtype=torch.bfloat16 if device == "cuda" else torch.float32)
+    # The labels must carry the same prefix the decoder is given at generation
+    # time — <|startoftranscript|><|yi|><|transcribe|><|notimestamps|>. Without
+    # set_prefix_tokens the tokenizer emits only <|startoftranscript|><|notimestamps|>,
+    # the model trains on that, and generation with the language token forced is
+    # off-distribution: the first run did exactly this and got worse (63% → 66% WER).
+    processor.tokenizer.set_prefix_tokens(language="yi", task="transcribe", predict_timestamps=False)
+    model = WhisperForConditionalGeneration.from_pretrained(MODEL, dtype=torch.bfloat16 if device == "cuda" else torch.float32)
     model.generation_config.language = "yi"
     model.generation_config.task = "transcribe"
     model.generation_config.forced_decoder_ids = None
