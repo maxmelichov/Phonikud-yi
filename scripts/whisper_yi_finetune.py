@@ -176,8 +176,9 @@ def main() -> None:
             batch = test_rows[i:i + 4]
             wavs = [load_audio(Path(args.root) / f"data/chunks/{r['episode']}/chunk_{int(r['chunk_idx']):05d}.mp3")[: SR * 30] for r in batch]
             feats = processor.feature_extractor(wavs, sampling_rate=SR, return_tensors="pt").input_features.to(device, dtype=next(model.parameters()).dtype)
-            ids = model.generate(input_features=feats, language="yi", task="transcribe", max_new_tokens=220, num_beams=1,
-                                 no_repeat_ngram_size=4)
+            # 30 s of Hasidic Yiddish is ~320 byte-level tokens; a 220 cap truncates, and an
+            # n-gram block forbids the language's real repeats (א ... א). Both cost ~18 WER points.
+            ids = model.generate(input_features=feats, language="yi", task="transcribe", max_new_tokens=440, num_beams=1)
             hyps = processor.batch_decode(ids, skip_special_tokens=True)
             for r, hyp in zip(batch, hyps):
                 ref_w, hyp_w = norm_words(r["text"]), norm_words(hyp)
