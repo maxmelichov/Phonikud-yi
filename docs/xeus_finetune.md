@@ -692,3 +692,34 @@ but on the *attested* ones (`attest.jsonl` — the run-2 ear's own decisions,
 which carry oʊ where it was heard), then fine-tune on the certain clips. A
 one-line change to the target builder and one more pod pass (~$2). Not run
 yet.
+
+## 24. What ivrit.ai's Yiddish Whisper is good for
+
+Its encoder is not a better ear (§22). Two other things it brings are:
+
+**A transcriber for this corpus.** Zero-shot, `yi-whisper-large-v3` writes
+another community's orthography and scores ~50% WER against the Yiddish Labs
+transcripts. `scripts/whisper_yi_finetune.py` fine-tunes it (LoRA, r=32, on
+every attention and feed-forward projection; 57.7M trainable of 1.6B) on the
+corpus's 30 s chunks — 196 h of the host with transcripts in the conventions
+every tool here expects — holding out the six test/val episodes for WER.
+A transcriber that writes this corpus's Yiddish can transcribe the ~180 h of
+yiddish24 that were never transcribed, which triples the audio every model
+here learns from. _Numbers below when the run completes._
+
+**Its training data.** `ivrit-ai/crowd-whatsapp-yi`: 20.5 h of scripted
+messages read into WhatsApp by **581 volunteers**, in Hasidic-American
+Yiddish — the sample transcript is *"איך האב געbook-ט tickets פאר אונז אלע
+פאר די חתונה"* — each with its text and a Stable-Whisper alignment. Licence:
+CC BY 4.0 restricted to AI training and academic research, and no
+audiovisual material simulating the speakers' voices; training a phone
+recognizer on it is exactly the permitted use, and it never goes near the TTS.
+
+The ear has only ever heard one host. `scripts/whatsapp_text.py` turns the
+messages into the same rows the corpus uses (2,072 messages after dropping
+273 with Latin-script code-switching, 568 speakers, 173,619 tokens of which
+59.4% are certain words — the same share as the corpus); `xeus_ft_prepare.py
+--targets/--split` cuts them with the run-2 ear; `xeus_ft_train.py
+--extra-data` trains on corpus + WhatsApp clips and scores a
+**held-out-speaker** split (85 speakers) — the generalisation test the
+corpus could never provide. _Queued behind the transcriber run._
