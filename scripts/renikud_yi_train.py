@@ -179,6 +179,8 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", type=Path, default=REPO / "data/renikud_yi")
     ap.add_argument("--init", type=Path, default=REPO / "models/phonikud_yi_v6/best")
+    ap.add_argument("--init-run", type=Path, default=None,
+                    help="continue from a previous ReNikud-yi run (its best/encoder + best/heads.pt): stage 2 of a curriculum")
     ap.add_argument("--out", type=Path, default=REPO / "models/renikud_yi_v1")
     ap.add_argument("--epochs", type=int, default=3)
     ap.add_argument("--batch-size", type=int, default=8)
@@ -203,8 +205,17 @@ def main() -> None:
     labels = json.loads((args.data / "labels.json").read_text(encoding="utf-8"))
     n_cons, n_vowel = len(labels["consonants"]), len(labels["vowels"])
 
-    enc, tok = load_encoder(args.init, device)
-    model = ReNikudYi(enc, n_cons, n_vowel).to(device)
+    if args.init_run:
+        from transformers import AutoTokenizer, BertModel
+        enc = BertModel.from_pretrained(args.init_run / "best" / "encoder", add_pooling_layer=False).to(device)
+        tok = AutoTokenizer.from_pretrained(args.init_run / "best" / "encoder")
+        model = ReNikudYi(enc, n_cons, n_vowel).to(device)
+        heads = torch.load(args.init_run / "best" / "heads.pt", map_location=device)["heads"]
+        model.load_state_dict(heads, strict=False)
+        print(f"stage 2: continuing from {args.init_run}", flush=True)
+    else:
+        enc, tok = load_encoder(args.init, device)
+        model = ReNikudYi(enc, n_cons, n_vowel).to(device)
     collate = Collator(tok, args.max_length)
     train = read_rows(args.data / "train.jsonl", args.max_chars, args.limit)
     val = read_rows(args.data / "val.jsonl", args.max_chars, args.val_limit)

@@ -170,7 +170,12 @@ def align_word(word: str, ipa: str) -> list[tuple[str, str]] | None:
                 return ((ch, chunk),) + r
         return None
 
-    out = search(0, 0)
+    if len(w) > 40 or len(ipa) > 80:
+        return None                # a URL, a number run, a pasted string: not a word
+    try:
+        out = search(0, 0)
+    except RecursionError:
+        return None
     return list(out) if out is not None else None
 
 

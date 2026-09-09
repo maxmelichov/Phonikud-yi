@@ -74,6 +74,9 @@ def main() -> None:
     ap.add_argument("--type-share", type=float, default=0.85)
     ap.add_argument("--val-episodes", default=str(REPO / "data/retrain3/val_episodes.txt"))
     ap.add_argument("--out", default=str(REPO / "data/renikud_yi"))
+    ap.add_argument("--engine-all", action="store_true",
+                    help="label every unvouched word with the engine's own reading (noisy, full coverage) — "
+                         "the pretraining set of a curriculum whose second stage is the vouched data")
     args = ap.parse_args()
     csv.field_size_limit(10_000_000)
     out = Path(args.out)
@@ -165,6 +168,8 @@ def main() -> None:
                     phones, source = type_reading[key], "audio-type"
                 if phones is not None and len(phones) == len(tokenize_ipa(e["ipa"])):
                     ipa = restress(e["ipa"], phones)
+            if ipa is None and args.engine_all and e["ipa"]:
+                ipa, source = e["ipa"], "engine"
             if ipa is None:
                 stats["ignore_" + (source or "unvouched")] += 1
                 continue

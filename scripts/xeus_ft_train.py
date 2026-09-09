@@ -78,6 +78,28 @@ class Segments:
         return out
 
 
+class ChunkSegments(Segments):
+    """Whole 30 s corpus chunks, target = the engine's reading of every word.
+
+    The noisy, full-coverage label set for a pretraining pass: every word has
+    a reading (the rule engine's), most of them right, none of them vouched
+    for. The fine-tune on the certain clips comes after."""
+
+    def __init__(self, chunk_rows: list[dict], root: Path):
+        rows = []
+        for r in chunk_rows:
+            target = [p for w in r["words"] for p in (w.get("ph") or [])]
+            if target:
+                rows.append({"id": f"{r['episode']}-{r['chunk_idx']:05d}", "split": "chunk", "target": target,
+                             "dur_s": 30.0, "file": r["file"], "words": [], "baseline": []})
+        super().__init__(rows, root)
+        self.root = root
+
+    def audio(self, i: int) -> np.ndarray:
+        from xeus_ft_prepare import load_audio
+        return load_audio(self.root / self.rows[i]["file"])
+
+
 def collate(ds: Segments, idx: list[int], device):
     import torch
     wavs = [ds.audio(i) for i in idx]
@@ -169,6 +191,10 @@ def main() -> None:
     ap.add_argument("--no-amp", action="store_true")
     ap.add_argument("--time-budget-min", type=float, default=0.0, help="stop after this many minutes")
     ap.add_argument("--augment", action="store_true", help="speed / gain / noise augmentation on training clips")
+    ap.add_argument("--chunks", default=None,
+                    help="pretraining mode: train on whole corpus chunks (attest_targets.jsonl) with the "
+                         "engine's readings as targets, instead of the certain-word clips")
+    ap.add_argument("--root", default=str(REPO), help="where data/chunks lives (with --chunks)")
     ap.add_argument("--train-blank-penalty", type=float, default=0.0,
                     help="subtract this from the blank logit inside the training loss only. The model must then "
                          "earn every blank frame against a handicap, which pushes half-believed phones (the "
@@ -218,6 +244,13 @@ def main() -> None:
         by["train"] = by["train"] + extra * (args.oversample_schwa - 1)
         print(f"oversampling {len(extra):,} clips with a word-final ə x{args.oversample_schwa}", flush=True)
     ds = {s: Segments(r, data / "seg") for s, r in by.items()}
+    if args.chunks:
+        chunk_rows = list(read_jsonl(args.chunks))
+        if args.limit:
+            rng.shuffle(chunk_rows); chunk_rows = chunk_rows[: args.limit]
+        ds["train"] = ChunkSegments(chunk_rows, Path(args.root))
+        by["train"] = ds["train"].rows
+        print(f"pretraining on {len(by['train']):,} whole chunks with engine readings", flush=True)
     hours = {s: round(sum(r["dur_s"] for r in v) / 3600, 2) for s, v in by.items()}
     print(f"segments {({s: len(v) for s, v in by.items()})}  hours {hours}", flush=True)
 
