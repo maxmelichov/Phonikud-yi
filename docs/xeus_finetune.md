@@ -599,3 +599,23 @@ Packaged as `scripts/renikud_yi_g2p.py` (`YiG2P.read(text)` / CLI with
 graph by the model, stress from the engine. On `געבעטן` it prefers
 `ɡəbˈajtn` over the engine's `ɡəbˈejtn` by 9.9 nats — the same word, in the
 same direction, that the audio put at the top of Chezky's queue.
+
+## 20. Ear round 2 (training-time blank penalty): a second negative result
+
+Continuing from run 2 on the run-3 clips with the blank logit penalised by
+1.0 inside the CTC loss (so ə would have to win its frames against a
+handicap), 2 epochs, augmentation on, L4 pod, 38 min:
+
+| epoch | unseen words PER | ə recall | oʊ recall |
+|---|---|---|---|
+| 0 (= run 2) | 0.357 | 0.62 | 0.39 |
+| 1 | 0.465 | 0.43 | 0.06 |
+| 2 | 0.433 | 0.47 | 0.06 |
+
+Worse on everything, ə included; selection kept epoch 0, nothing was
+re-attested. Two loss-side ideas for the schwa have now failed in the same
+way (§16, §20): each one moves the blank/phone balance globally and the model
+loses phones it had. The schwa needs a *targeted* signal — a frame-level
+auxiliary loss on the ə frames of the forced alignment, or simply more
+word-final-ə words in Chezky's gold so the ear hears them labelled — not a
+global thumb on the scale. Run 2 remains the ear.
