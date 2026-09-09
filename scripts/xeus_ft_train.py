@@ -272,6 +272,10 @@ def main() -> None:
 
     if args.init_ckpt:
         from xeus_yi_decode import load_finetuned
+        # load_finetuned falls back to the pretrained encoder when the dir has no
+        # weights; a warm start from nothing is a silent different experiment.
+        if not (Path(args.init_ckpt) / "inner.safetensors").exists():
+            sys.exit(f"--init-ckpt {args.init_ckpt}: no inner.safetensors there")
         inner, head = load_finetuned(Path(args.init_ckpt), device)
         print(f"warm start from {args.init_ckpt}", flush=True)
     else:
