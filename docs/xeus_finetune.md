@@ -747,4 +747,79 @@ messages into the same rows the corpus uses (2,072 messages after dropping
 --targets/--split` cuts them with the run-2 ear; `xeus_ft_train.py
 --extra-data` trains on corpus + WhatsApp clips and scores a
 **held-out-speaker** split (85 speakers) — the generalisation test the
-corpus could never provide. _Queued behind the transcriber run._
+corpus could never provide. Results in §25.
+
+
+## 25. The ear on 581 strangers (2026-09-10)
+
+Two questions. Does run 2, which has only ever heard one host, understand
+anyone else? And does adding the WhatsApp volunteers to its training make it
+better — for the host, for strangers, or for neither?
+
+**Setup.** `whatsapp_text.py` → `xeus_ft_prepare.py --targets --split
+--no-baseline` on the pod: 15,435 train clips and 2,700 val_speakers clips
+(85 held-out speakers; the same held-out word types as the corpus so
+val_words stays comparable). `xeus_ft_train.py --extra-data data/xeus_ft_wa`
+on run 2's clips + these, 3 epochs, augmentation, encoder LR 1e-5.
+`xeus_ft_compare.py` (new) scores two checkpoints on identical clips and
+runs the sign test on the clips exactly one of them gets right.
+
+**A trap first.** The first run's `--init-ckpt data/xeus_ft/ckpt/best`
+pointed at a directory that did not exist on that pod, and
+`load_finetuned` quietly used the pretrained encoder with a warm-started
+head. That run therefore trained *from scratch* on corpus + WhatsApp (its
+epoch-0 row reads 0.668/0.715/0.674 — the giveaway) and its "comparison"
+against run 2 was against the untrained head. `--init-ckpt` now refuses a
+directory without weights. The same absence means the WhatsApp clips were
+cut with the *pretrained* aligner, not run 2 — which worked (the pretrained
+aligner is what cut run 1 too).
+
+**Run 2 on strangers, cold.** PER 0.242, exact 32.6% on the 2,700
+held-out-speaker clips — *better* than on the host's own unseen episodes
+(0.308). The WhatsApp clips are read speech, short and clean, so this is
+not the same difficulty; but the ear did not fall apart on 85 voices it had
+never heard. That is the robustness claim, on the cheap: the phone
+inventory learned from one host transfers.
+
+**Trained from scratch on corpus + WhatsApp** (the accidental run, 3 epochs,
+`ckpt_wa/best`): unseen words 0.357 (= run 2; more exact matches, 128 vs 51
+discordant clips, p = 8e-9), unseen episodes 0.320 (worse than run 2's
+0.308; 95 vs 170, p = 5e-6), strangers 0.220 (better; 140 vs 104, p = 0.025).
+A wash for the host; oʊ 0.12 vs 0.17.
+
+**Warm-started from run 2** (the intended run, `ckpt_wa2`, epoch 3):
+
+| split (paired, same clips) | run 2 | + WhatsApp | only-A / only-B exact | p |
+|---|---|---|---|---|
+| unseen words, host (3,600) | **0.357** | 0.374 | 45 / 43 | 0.92 |
+| unseen episodes, host (3,600) | 0.308 | **0.303** (exact 31.0→32.9%) | 65 / 135 | 8e-7 |
+| unseen speakers (2,700) | 0.242 | **0.208** (exact 32.6→38.3%) | 43 / 198 | 6e-25 |
+
+Strangers improve a lot, the host's unseen episodes improve a little, the
+host's unseen words are a coin flip. And the one regression that keeps
+recurring: **oʊ recall 0.50 → 0.20** on the host's episodes (n = 10; heard
+as ɔj), 0.33 → 0.20 on strangers (n = 88; 22 of them as ɔj), 0.17 → 0.07 on
+unseen words. oʊ is 0.04% of the corpus training phones and 0.26% of the
+WhatsApp ones, so any continued training moves it on the strength of a few
+hundred frames, and the WhatsApp readers may well say ɔj where Chezky writes
+oʊ. The same phone collapsed in §21 (curriculum) and §14 (schwa
+oversampling): it is the canary for every continuation of run 2.
+
+**Decision.** Run 2 stays the ear for everything that touches Chezky's
+labels (attestation, menus, the lattice): oʊ is one of the open slots the
+lattice has to discriminate, and the WhatsApp ear is worse at exactly that.
+The warm-started ear is the better model for *other people's* speech, by a
+wide margin, and should be the one used if the ear is ever pointed at
+anyone but the host. Its weights were not brought home: the trainer keeps
+`best/` by unseen-word PER, which epoch 0 (run 2 itself) still held, and
+the pod was terminated before `last/` was fetched — a 30-minute, $0.50
+repeat (`--init-ckpt data/xeus_ft/ckpt/best --extra-data data/xeus_ft_wa`)
+if it is wanted. The numbers are in `data/xeus_ft/compare_wa2.json`
+(warm-started) and `compare_wa.json` (from scratch); logs in
+`data/xeus_ft/wa/`.
+
+**What would fix oʊ** is not more of the same data: a few dozen more
+certain words with וי = oʊ from Chezky (the review queue has the ambiguous
+ones), or an oʊ-weighted term in the CTC loss on the frames the aligner
+assigns to it. Day-3 pod spend ≈ $4 (transcriber, whisper ears, two
+WhatsApp ears, comparisons).
