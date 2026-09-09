@@ -56,7 +56,8 @@ class Segments:
 
     def audio(self, i: int) -> np.ndarray:
         r = self.rows[i]
-        return np.load(self.seg_dir / r["split"] / f"{r['id']}.npy").astype(np.float32) / 32767.0
+        root = Path(r["_root"]) if r.get("_root") else self.seg_dir
+        return np.load(root / r["split"] / f"{r['id']}.npy").astype(np.float32) / 32767.0
 
     def batches(self, seconds: float, shuffle: bool, rng: random.Random) -> list[list[int]]:
         """Length-bucketed batches capped by total padded seconds."""
@@ -191,6 +192,9 @@ def main() -> None:
     ap.add_argument("--no-amp", action="store_true")
     ap.add_argument("--time-budget-min", type=float, default=0.0, help="stop after this many minutes")
     ap.add_argument("--augment", action="store_true", help="speed / gain / noise augmentation on training clips")
+    ap.add_argument("--extra-data", default=None,
+                    help="a second prepared dir (segments.jsonl + seg/): its train clips join training, "
+                         "its val_eps clips are scored as val_speakers (held-out speakers of that set)")
     ap.add_argument("--chunks", default=None,
                     help="pretraining mode: train on whole corpus chunks (attest_targets.jsonl) with the "
                          "engine's readings as targets, instead of the certain-word clips")
@@ -244,6 +248,18 @@ def main() -> None:
         by["train"] = by["train"] + extra * (args.oversample_schwa - 1)
         print(f"oversampling {len(extra):,} clips with a word-final ə x{args.oversample_schwa}", flush=True)
     ds = {s: Segments(r, data / "seg") for s, r in by.items()}
+    if args.extra_data:
+        xd = Path(args.extra_data)
+        xrows = list(read_jsonl(xd / "segments.jsonl"))
+        xtrain = [r for r in xrows if r["split"] == "train"]
+        xval = [r for r in xrows if r["split"] == "val_eps"]
+        for r in xtrain + xval:
+            r["_root"] = str(xd / "seg")
+        by["train"] = by["train"] + xtrain
+        by["val_speakers"] = xval
+        ds["train"] = Segments(by["train"], data / "seg")
+        ds["val_speakers"] = Segments(xval, xd / "seg")
+        print(f"extra data {xd}: +{len(xtrain):,} train clips, {len(xval):,} val_speakers clips", flush=True)
     if args.chunks:
         chunk_rows = list(read_jsonl(args.chunks))
         if args.limit:
@@ -298,10 +314,11 @@ def main() -> None:
     sched = torch.optim.lr_scheduler.LambdaLR(opt, lr_scale)
 
     # Baseline: the pretrained model + fold map on the very same segments.
-    base = {s: baseline(ds[s]).summary() for s in ("val_words", "val_eps")}
+    val_splits = [s for s in ("val_words", "val_eps", "val_speakers") if s in ds and len(ds[s])]
+    base = {s: baseline(ds[s]).summary() for s in val_splits}
     print("baseline  " + "  ".join(f"{s}: PER {v['per']:.3f} exact {v['exact_match']:.3f}" for s, v in base.items()), flush=True)
     # Epoch 0: the warm-started head before any training.
-    ep0 = {s: evaluate(inner, head, ds[s], device, args.eval_seconds, use_amp).summary() for s in ("val_words", "val_eps")}
+    ep0 = {s: evaluate(inner, head, ds[s], device, args.eval_seconds, use_amp).summary() for s in val_splits}
     print("epoch 0   " + "  ".join(f"{s}: PER {v['per']:.3f} exact {v['exact_match']:.3f}" for s, v in ep0.items()), flush=True)
 
     log = open(out / "train_log.jsonl", "a", encoding="utf-8")
@@ -352,7 +369,7 @@ def main() -> None:
                 print("  time budget reached", flush=True)
                 stop = True
                 break
-        val = {s: evaluate(inner, head, ds[s], device, args.eval_seconds, use_amp).summary() for s in ("val_words", "val_eps")}
+        val = {s: evaluate(inner, head, ds[s], device, args.eval_seconds, use_amp).summary() for s in val_splits}
         print(f"epoch {epoch}   " + "  ".join(f"{s}: PER {v['per']:.3f} exact {v['exact_match']:.3f}" for s, v in val.items())
               + f"   ({(time.time() - t0) / 60:.1f} min)", flush=True)
         hard = val["val_words"]["hard_phones"]

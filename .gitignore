@@ -54,3 +54,6 @@ data/renikud_yi*/*.jsonl
 data/xeus_ft/attest_targets.jsonl
 data/xeus_ft/attest.jsonl
 data/retrain8/*.jsonl
+data/ivrit_whatsapp/
+data/xeus_ft/whatsapp_targets.jsonl
+data/xeus_ft_wa/

@@ -229,6 +229,8 @@ def main() -> None:
     ap.add_argument("--seed", type=int, default=20260907)
     ap.add_argument("--sample", action="store_true",
                     help="random chunk order instead of rarest-first (smoke tests)")
+    ap.add_argument("--targets", default=None, help="targets JSONL (default <data>/chunk_targets.jsonl)")
+    ap.add_argument("--split", default=None, help="split JSON (default <data>/split.json)")
     args = ap.parse_args()
 
     import torch
@@ -243,13 +245,13 @@ def main() -> None:
     out = Path(args.out or args.data)
     seg_dir = out / "seg"
     device = args.device or ("cuda" if torch.cuda.is_available() else "cpu")
-    split = json.loads((data / "split.json").read_text(encoding="utf-8"))
+    split = json.loads(Path(args.split or data / "split.json").read_text(encoding="utf-8"))
     quota = args.quota or split["quota"]
     val_eps = set(split["val_episodes"])
     val_types = set(split["val_types"])
     totals = split["type_counts"]
 
-    rows = list(read_jsonl(data / "chunk_targets.jsonl"))
+    rows = list(read_jsonl(args.targets or data / "chunk_targets.jsonl"))
     rng = random.Random(args.seed)
     rng.shuffle(rows)
 
