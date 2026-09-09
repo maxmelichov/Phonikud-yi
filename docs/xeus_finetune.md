@@ -705,7 +705,32 @@ corpus's 30 s chunks — 196 h of the host with transcripts in the conventions
 every tool here expects — holding out the six test/val episodes for WER.
 A transcriber that writes this corpus's Yiddish can transcribe the ~180 h of
 yiddish24 that were never transcribed, which triples the audio every model
-here learns from. _Numbers below when the run completes._
+here learns from.
+
+Measured (240 held-out chunks, six episodes, same normalisation):
+
+| transcriber | WER |
+|---|---|
+| zero-shot `yi-whisper-large-v3` | **63.2%** |
+| + one LoRA epoch on the corpus (three runs; the third with the labels formatted exactly as HF's Whisper expects) | 68.6% |
+
+The fine-tune does not help, and the training loss says why: it plateaus at
+0.62 per token, where a fit to clean pairs would reach ~0.3. The corpus's
+(audio, text) pairs are 30 s chunks whose text came from phrase-level
+timestamps — good enough for CTC forced alignment, which absorbs a word or
+two of slack at each edge, but a seq2seq transcriber is trained to emit the
+text for exactly the audio it is given, and boundary words that are in the
+text but not the audio (or the reverse) teach it to hallucinate at the
+edges. Two of the three runs were also mine to answer for: labels without
+the `<|yi|><|transcribe|>` prefix, then with a doubled `<|startoftranscript|>`;
+and a decode cap of 220 tokens on 30 s chunks that need ~320, which alone
+cost 18 points. All fixed in `whisper_yi_finetune.py`; the number above is
+the clean one.
+
+The route that would work is clean pairs: cut the corpus at the ear's own
+word alignments (§17 gives a span for every word) into 5–10 s segments whose
+text is exactly what is said, and fine-tune on those. Not run; the
+transcriber is not on the critical path for Chezky's dialect work.
 
 **Its training data.** `ivrit-ai/crowd-whatsapp-yi`: 20.5 h of scripted
 messages read into WhatsApp by **581 volunteers**, in Hasidic-American
