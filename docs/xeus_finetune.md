@@ -591,3 +591,9 @@ constrained one.
 the paired tests, and `*_disagreements.tsv`: the word types on which the
 systems disagree with the audio, by frequency — `data/eval/chezky_disagreements_top60.tsv`
 is the sixty for Chezky.
+
+Packaged as `scripts/renikud_yi_g2p.py` (`YiG2P.read(text)` / CLI with
+`--explain`): table words from the engine, everything else ranked over the
+graph by the model, stress from the engine. On `געבעטן` it prefers
+`ɡəbˈajtn` over the engine's `ɡəbˈejtn` by 9.9 nats — the same word, in the
+same direction, that the audio put at the top of Chezky's queue.
