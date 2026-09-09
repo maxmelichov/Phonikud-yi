@@ -492,9 +492,28 @@ against what the audio says:
 
 | system | rule-path words, agreement with audio | gold words |
 |---|---|---|
-| frozen rule engine (production) | **88.4%** | 99.97% |
+| frozen rule engine on unpointed text (the Space's speech path) | **88.4%** | 99.97% |
+| phonikud-yi **v6** → engine reads the pointed word (the pointing path) | 64.2% | 99.94% |
+| phonikud-yi **v8** (audio tier) → engine reads the pointed word | 72.7% | 99.94% |
 | ReNikud-yi, no audio labels | 46.0% | 96.85% |
 | **ReNikud-yi, audio labels** | **89.2%** | 96.88% |
+
+Paired sign tests on the 517 rule-path words (`data/eval/renikud_yi_eval_full.json`):
+
+| comparison | fixed | broke | net | p |
+|---|---|---|---|---|
+| ReNikud-yi audio vs engine | 46 | 42 | +4 | 0.75 |
+| ReNikud-yi audio vs no-audio | 227 | 4 | +223 | ≈0 |
+| ReNikud-yi audio vs phonikud v8 path | 116 | 31 | +85 | ≈0 |
+| **phonikud v8 vs v6** (pointing path) | 48 | 4 | **+44** | ≈0 |
+| phonikud v8 path vs engine | 6 | 87 | −81 | ≈0 |
+
+Leak check: the type-level readings in both datasets were aggregated over
+every episode's decisions, the test episode's included. Without it, no type
+reading changes and 10 types would have had none, touching 15 of the 517
+tokens (2.9%). Worst case those all flip: v8 over v6 becomes +29 (still
+p ≈ 0), ReNikud-yi over the engine becomes −11 (still parity within noise).
+Both builders now exclude the test episode from type aggregation.
 
 Without audio the per-letter model memorises the labelled types and does not
 recover the rules the engine has by hand (46%). With the audio tier it goes to
@@ -523,8 +542,16 @@ retrain2 test split, paired against v6 token by token
 | `vs_gold_rule` (1,641) | 72.76% | 73.55% |
 | paired, rule tokens | — | fixed 80 · broke 67 · net +13 · sign test p ≈ 0.32 |
 
-Not a demonstrated improvement — the same bar that rejected v7 — so **v6
-stays the shipped pointing model**. The audio tier is real data (13.5 points
+On the gold-*pointing* yardstick this is not a demonstrated improvement.
+On the audio yardstick — the pointed word read back by the engine, against
+what the rabbi said, on the 517 unlabelled words — **v8 beats v6 48 to 4
+(p ≈ 0)**: the gold-pointing test could not see it because its reference is
+transcriber convention, and two thirds of its rule tokens are ones the
+pointing convention cannot distinguish anyway. v8 is at least as good on
+every measure and clearly better on the one that is about speech, so it is
+the candidate to ship; the pointing path as a whole is still 24 points
+behind the rule engine on these words, which is why the Space's speech path
+does not use it. The audio tier is real data (13.5 points
 of new coverage) but the nikud → rules → IPA path does not turn it into
 better readings on this test: the pointing convention itself is the
 bottleneck (a decided reading has to find a corpus pointing that reads back

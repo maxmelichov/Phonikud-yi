@@ -82,7 +82,9 @@ def predict_words(model, tok, labels, text: str, device: str) -> list[str]:
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--models", nargs="+", required=True, help="run dirs holding heads.pt + best_encoder/")
+    ap.add_argument("--models", nargs="*", default=[], help="ReNikud-yi run dirs holding heads.pt + best_encoder/")
+    ap.add_argument("--phonikud", nargs="*", default=[],
+                    help="phonikud-yi checkpoint dirs: the production path, text -> pointing model -> engine reads the pointed word")
     ap.add_argument("--corpus", default=str(REPO / "data/corpus/yiddish_tts_dataset.tsv"))
     ap.add_argument("--attest", default=str(REPO / "data/xeus_ft/attest.jsonl"))
     ap.add_argument("--dictionary", default=str(REPO / "data/xeus_ft/dictionary.json"))
@@ -106,14 +108,36 @@ def main() -> None:
             audio[(int(r["chunk_idx"]), r["wi"])] = r
 
     models = {Path(m).name: load_model(Path(m), device) for m in args.models}
+    pointers = {}
+    if args.phonikud:
+        from point_text import Pointer
+        from yiddish_g2p import hebrew_to_ipa
+        for d in args.phonikud:
+            pointers[Path(d).parent.name if Path(d).name == "best" else Path(d).name] = Pointer(d, device="auto")
+
+    def pointed_readings(text: str, pointer) -> list[str]:
+        pointed = pointer.point([text])[0]
+        out = []
+        for m in _HEB.finditer(pointed):
+            try:
+                ipa = hebrew_to_ipa(m.group(0), stress=True, quarantine=False)
+            except Exception:  # noqa: BLE001
+                ipa = ""
+            out.append(" ".join(tokenize_ipa(ipa)))
+        return out
     engine_cache: dict[str, str] = {}
     # counters: bucket -> system -> [hits, n]
     acc: dict[str, dict[str, list[int]]] = collections.defaultdict(lambda: collections.defaultdict(lambda: [0, 0]))
     examples: list[dict] = []
+    per_token: list[dict] = []
     for r in rows:
         text = r["text"]
         ci = int(r["chunk_idx"])
         preds = {name: predict_words(m, t, l, text, device) for name, (m, t, l) in models.items()}
+        for name, ptr in pointers.items():
+            pr = pointed_readings(text, ptr)
+            if len(pr) == len(_HEB.findall(text)):
+                preds[name] = pr
         for hi, m in enumerate(_HEB.finditer(text)):
             w = m.group(0)
             key = lexicon_key(w)
@@ -128,21 +152,39 @@ def main() -> None:
             else:
                 continue
             systems = {"engine": eng, **{name: p[hi] for name, p in preds.items()}}
+            hits = {}
             for name, hyp in systems.items():
                 acc[bucket][name][1] += 1
                 acc[bucket][name][0] += int(hyp in refs)
+                hits[name] = int(hyp in refs)
+            per_token.append({"bucket": bucket[:4], "word": w, **hits})
             if bucket.startswith("rule") and len(examples) < 40 and any(systems[n] != eng for n in preds):
                 examples.append({"word": w, "audio": refs[0], **systems})
     report = {b: {n: {"n": v[1], "acc": round(100 * v[0] / max(1, v[1]), 2)} for n, v in d.items()} for b, d in acc.items()}
     report["examples"] = examples
+    # paired sign tests on the rule-path bucket, every system against every other
+    from math import comb
+    names = [n for n in acc[next(b for b in acc if b.startswith("rule"))]]
+    rule = [t for t in per_token if t["bucket"] == "rule"]
+    paired = {}
+    for i, a in enumerate(names):
+        for b in names[i + 1:]:
+            fixed = sum(1 for t in rule if t[b] and not t[a]); broke = sum(1 for t in rule if t[a] and not t[b])
+            k = fixed + broke
+            pv = min(1.0, 2 * sum(comb(k, j) for j in range(0, min(fixed, broke) + 1)) / 2 ** k) if k else 1.0
+            paired[f"{b} vs {a}"] = {"fixed": fixed, "broke": broke, "net": fixed - broke, "p": round(pv, 4)}
+    report["paired_rule_path"] = paired
     Path(args.out).parent.mkdir(parents=True, exist_ok=True)
     Path(args.out).write_text(json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8")
     for b, d in report.items():
-        if b == "examples":
+        if b in ("examples", "paired_rule_path"):
             continue
         print(f"\n{b}")
         for n, v in d.items():
             print(f"  {n:22} n={v['n']:5}  word acc {v['acc']:6.2f}%")
+    print("\npaired on rule-path words (b vs a: b right where a wrong / a right where b wrong):")
+    for k, v in paired.items():
+        print(f"  {k:40} fixed {v['fixed']:3} broke {v['broke']:3} net {v['net']:+4}  p={v['p']}")
     print("\nexamples where a model differs from the engine (audio decision first):")
     for e in examples[:20]:
         print("  ", e)

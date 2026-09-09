@@ -118,6 +118,8 @@ class AudioStamper:
             n += 1
             rid = f"{r['episode']}-{int(r['chunk_idx']):05d}"
             self.occ[(rid, r["wi"])] = r
+            if r["episode"] == V3.TEST_EPISODE:
+                continue      # the test episode's clips must not shape any type reading
             if r["margin"] >= self.margin_type:
                 per_type[r["key"]][" ".join(r["chosen"])] += 1
         for key, c in per_type.items():

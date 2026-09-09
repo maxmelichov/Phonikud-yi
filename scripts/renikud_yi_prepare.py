@@ -105,6 +105,8 @@ def main() -> None:
         for line in attp.open(encoding="utf-8"):
             r = json.loads(line)
             occ[(r["episode"], int(r["chunk_idx"]), r["wi"])] = r
+            if r["episode"] == TEST_EPISODE:
+                continue      # the test episode's clips must not shape any type reading
             if r["margin"] >= args.margin_type:
                 per_type[r["key"]][" ".join(r["chosen"])] += 1
         for key, c in per_type.items():
