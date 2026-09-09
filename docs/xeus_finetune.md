@@ -619,3 +619,22 @@ loses phones it had. The schwa needs a *targeted* signal — a frame-level
 auxiliary loss on the ə frames of the forced alignment, or simply more
 word-final-ə words in Chezky's gold so the ear hears them labelled — not a
 global thumb on the scale. Run 2 remains the ear.
+
+## 21. Curriculum for ReNikud-yi: pretrain on the engine, fine-tune on the vouched
+
+Stage 1: every word labelled — vouched readings where they exist, the
+engine's own reading everywhere else (98.3% of tokens), 2 epochs. Stage 2:
+continue on the vouched labels only, 2 epochs at lower lr. Same six-episode
+test, 3,748 unlabelled words vs audio:
+
+| | free decode | + graph |
+|---|---|---|
+| audio labels only (§18) | 86.5% | 94.50% |
+| stage 1, engine-all | 84.6% | 92.50% |
+| **stage 1 → stage 2 (curriculum)** | 86.7% | **94.64%** |
+
+Nothing to see: the curriculum lands within noise of the audio-only model
+(+0.14 with the graph, +0.2 free; paired vs engine +250 against +245).
+Pretraining on the engine's readings teaches the model the engine's
+mistakes as well as its rules, and the fine-tune has to unlearn them; the
+graph already supplies the rules at decode time for free. Not adopted.

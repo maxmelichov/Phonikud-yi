@@ -78,8 +78,12 @@ class WhisperEar:
         # Whisper's extractor pads/truncates to 30 s; ask for the batch's own length instead.
         feats = self.fe(wavs, sampling_rate=SR, return_tensors="pt", padding="longest",
                         max_length=max_len, truncation=True, return_attention_mask=False)
-        mel = feats.input_features.to(self.device)
-        n_frames = torch.tensor([math.ceil(len(w) / FRAME) for w in wavs], device=self.device)
+        # The extractor still pads to its 30 s window; keep only the batch's own frames
+        # (never more than the positional table's 1500 encoder frames).
+        t_mel = min(math.ceil(max_len / MEL_HOP) + 1, 3000)
+        t_mel += t_mel % 2                      # the conv stack halves it; keep it even
+        mel = feats.input_features[:, :, :t_mel].to(self.device)
+        n_frames = torch.tensor([min(math.ceil(len(w) / FRAME), t_mel // 2) for w in wavs], device=self.device)
         return mel, n_frames
 
     def logits(self, speech, lens):

@@ -1,0 +1,1262 @@
+{
+ "rule-path words with audio decision (margin ≥ 2)": {
+  "engine": {
+   "n": 3748,
+   "acc": 87.97
+  },
+  "renikud_yi_audio": {
+   "n": 3748,
+   "acc": 86.53
+  },
+  "renikud_yi_engineall": {
+   "n": 3748,
+   "acc": 84.61
+  },
+  "renikud_yi_curriculum": {
+   "n": 3748,
+   "acc": 86.71
+  },
+  "renikud_yi_audio+graph": {
+   "n": 3748,
+   "acc": 94.5
+  },
+  "renikud_yi_engineall+graph": {
+   "n": 3748,
+   "acc": 92.5
+  },
+  "renikud_yi_curriculum+graph": {
+   "n": 3748,
+   "acc": 94.64
+  },
+  "renikud_yi_audio+lexicon": {
+   "n": 3748,
+   "acc": 86.53
+  },
+  "renikud_yi_audio+graph+lexicon": {
+   "n": 3748,
+   "acc": 94.5
+  },
+  "renikud_yi_engineall+lexicon": {
+   "n": 3748,
+   "acc": 84.61
+  },
+  "renikud_yi_engineall+graph+lexicon": {
+   "n": 3748,
+   "acc": 92.5
+  },
+  "renikud_yi_curriculum+lexicon": {
+   "n": 3748,
+   "acc": 86.71
+  },
+  "renikud_yi_curriculum+graph+lexicon": {
+   "n": 3748,
+   "acc": 94.64
+  }
+ },
+ "gold words (label agreement)": {
+  "engine": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_audio": {
+   "n": 25728,
+   "acc": 96.54
+  },
+  "renikud_yi_engineall": {
+   "n": 25728,
+   "acc": 96.53
+  },
+  "renikud_yi_curriculum": {
+   "n": 25728,
+   "acc": 96.54
+  },
+  "renikud_yi_audio+graph": {
+   "n": 25728,
+   "acc": 99.92
+  },
+  "renikud_yi_engineall+graph": {
+   "n": 25728,
+   "acc": 99.92
+  },
+  "renikud_yi_curriculum+graph": {
+   "n": 25728,
+   "acc": 99.92
+  },
+  "renikud_yi_audio+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_audio+graph+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_engineall+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_engineall+graph+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_curriculum+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_curriculum+graph+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  }
+ },
+ "examples": [
+  {
+   "word": "אריינטרעטן",
+   "audio": "a r aː n t r ə t n",
+   "engine": "a r aː n t r ə t n",
+   "renikud_yi_audio": "a r aj n t r ə t n",
+   "renikud_yi_engineall": "a r aː n t r ə t n",
+   "renikud_yi_curriculum": "a r aj n t r ə t n",
+   "renikud_yi_audio+graph": "a r aj n t r ə t n",
+   "renikud_yi_engineall+graph": "a r aː n t r ə t n",
+   "renikud_yi_curriculum+graph": "a r aj n t r ə t n",
+   "renikud_yi_audio+lexicon": "a r aj n t r ə t n",
+   "renikud_yi_audio+graph+lexicon": "a r aj n t r ə t n",
+   "renikud_yi_engineall+lexicon": "a r aː n t r ə t n",
+   "renikud_yi_engineall+graph+lexicon": "a r aː n t r ə t n",
+   "renikud_yi_curriculum+lexicon": "a r aj n t r ə t n",
+   "renikud_yi_curriculum+graph+lexicon": "a r aj n t r ə t n"
+  },
+  {
+   "word": "נאכזאגן",
+   "audio": "n u x z u ɡ n",
+   "engine": "n a x z a ɡ n",
+   "renikud_yi_audio": "n u x z u ɡ n",
+   "renikud_yi_engineall": "n u x z u ɡ n",
+   "renikud_yi_curriculum": "n u x z u ɡ n",
+   "renikud_yi_audio+graph": "n u x z u ɡ n",
+   "renikud_yi_engineall+graph": "n u x z u ɡ n",
+   "renikud_yi_curriculum+graph": "n u x z u ɡ n",
+   "renikud_yi_audio+lexicon": "n u x z u ɡ n",
+   "renikud_yi_audio+graph+lexicon": "n u x z u ɡ n",
+   "renikud_yi_engineall+lexicon": "n u x z u ɡ n",
+   "renikud_yi_engineall+graph+lexicon": "n u x z u ɡ n",
+   "renikud_yi_curriculum+lexicon": "n u x z u ɡ n",
+   "renikud_yi_curriculum+graph+lexicon": "n u x z u ɡ n"
+  },
+  {
+   "word": "מגיד",
+   "audio": "m ɡ i t",
+   "engine": "m ɡ i d",
+   "renikud_yi_audio": "m ɡ i t",
+   "renikud_yi_engineall": "m ɡ i t",
+   "renikud_yi_curriculum": "m ɡ i t",
+   "renikud_yi_audio+graph": "m ɡ i t",
+   "renikud_yi_engineall+graph": "m ɡ i t",
+   "renikud_yi_curriculum+graph": "m ɡ i t",
+   "renikud_yi_audio+lexicon": "m ɡ i t",
+   "renikud_yi_audio+graph+lexicon": "m ɡ i t",
+   "renikud_yi_engineall+lexicon": "m ɡ i t",
+   "renikud_yi_engineall+graph+lexicon": "m ɡ i t",
+   "renikud_yi_curriculum+lexicon": "m ɡ i t",
+   "renikud_yi_curriculum+graph+lexicon": "m ɡ i t"
+  },
+  {
+   "word": "נמתק",
+   "audio": "n i m t i k",
+   "engine": "n i m t u k",
+   "renikud_yi_audio": "n i m t i k",
+   "renikud_yi_engineall": "n i m t u k",
+   "renikud_yi_curriculum": "n i m t i k",
+   "renikud_yi_audio+graph": "n i m t i k",
+   "renikud_yi_engineall+graph": "n i m t u k",
+   "renikud_yi_curriculum+graph": "n i m t i k",
+   "renikud_yi_audio+lexicon": "n i m t i k",
+   "renikud_yi_audio+graph+lexicon": "n i m t i k",
+   "renikud_yi_engineall+lexicon": "n i m t u k",
+   "renikud_yi_engineall+graph+lexicon": "n i m t u k",
+   "renikud_yi_curriculum+lexicon": "n i m t i k",
+   "renikud_yi_curriculum+graph+lexicon": "n i m t i k"
+  },
+  {
+   "word": "מ'זעט",
+   "audio": "m z aj t",
+   "engine": "m z ej t",
+   "renikud_yi_audio": "m z aj t",
+   "renikud_yi_engineall": "m z aj t",
+   "renikud_yi_curriculum": "m z aj t",
+   "renikud_yi_audio+graph": "m z aj t",
+   "renikud_yi_engineall+graph": "m z aj t",
+   "renikud_yi_curriculum+graph": "m z aj t",
+   "renikud_yi_audio+lexicon": "m z aj t",
+   "renikud_yi_audio+graph+lexicon": "m z aj t",
+   "renikud_yi_engineall+lexicon": "m z aj t",
+   "renikud_yi_engineall+graph+lexicon": "m z aj t",
+   "renikud_yi_curriculum+lexicon": "m z aj t",
+   "renikud_yi_curriculum+graph+lexicon": "m z aj t"
+  },
+  {
+   "word": "דערהויבענער",
+   "audio": "d ə r h ɔj b ə n ə r",
+   "engine": "d ɛ r h ɔj b ə n ə r",
+   "renikud_yi_audio": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_engineall": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_curriculum": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio+graph": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_engineall+graph": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_curriculum+graph": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio+graph+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_engineall+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_engineall+graph+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_curriculum+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_curriculum+graph+lexicon": "d ə r h ɔj b ə n ə r"
+  },
+  {
+   "word": "סקווערער",
+   "audio": "s k v ə r ə r",
+   "engine": "s k v ɛ r ə r",
+   "renikud_yi_audio": "s k v ə r ə r",
+   "renikud_yi_engineall": "s k v ə r ə r",
+   "renikud_yi_curriculum": "s k v ə r ə r",
+   "renikud_yi_audio+graph": "s k v ə r ə r",
+   "renikud_yi_engineall+graph": "s k v ə r ə r",
+   "renikud_yi_curriculum+graph": "s k v ə r ə r",
+   "renikud_yi_audio+lexicon": "s k v ə r ə r",
+   "renikud_yi_audio+graph+lexicon": "s k v ə r ə r",
+   "renikud_yi_engineall+lexicon": "s k v ə r ə r",
+   "renikud_yi_engineall+graph+lexicon": "s k v ə r ə r",
+   "renikud_yi_curriculum+lexicon": "s k v ə r ə r",
+   "renikud_yi_curriculum+graph+lexicon": "s k v ə r ə r"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "renikud_yi_engineall": "j ɔ v n",
+   "renikud_yi_curriculum": "j ɔ v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_engineall+graph": "ɔj v n",
+   "renikud_yi_curriculum+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n",
+   "renikud_yi_engineall+lexicon": "j ɔ v n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "renikud_yi_engineall": "j ɔ v n",
+   "renikud_yi_curriculum": "j ɔ v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_engineall+graph": "ɔj v n",
+   "renikud_yi_curriculum+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n",
+   "renikud_yi_engineall+lexicon": "j ɔ v n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "אויוונס",
+   "audio": "ɔj v n s",
+   "engine": "ɔj v n s",
+   "renikud_yi_audio": "j ɔ v n s",
+   "renikud_yi_engineall": "j ɔ v n s",
+   "renikud_yi_curriculum": "j ɔ v n s",
+   "renikud_yi_audio+graph": "ɔj v n s",
+   "renikud_yi_engineall+graph": "ɔj v n s",
+   "renikud_yi_curriculum+graph": "ɔj v n s",
+   "renikud_yi_audio+lexicon": "j ɔ v n s",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n s",
+   "renikud_yi_engineall+lexicon": "j ɔ v n s",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n s",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n s",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n s"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "renikud_yi_engineall": "j ɔ v n",
+   "renikud_yi_curriculum": "j ɔ v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_engineall+graph": "ɔj v n",
+   "renikud_yi_curriculum+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n",
+   "renikud_yi_engineall+lexicon": "j ɔ v n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "געכשרט",
+   "audio": "ɡ ə x ʃ r t",
+   "engine": "ɡ ɛ x ʃ r t",
+   "renikud_yi_audio": "ɡ ə k ʃ ə r t",
+   "renikud_yi_engineall": "ɡ ə k ʃ ə r t",
+   "renikud_yi_curriculum": "ɡ ə k ʃ r t",
+   "renikud_yi_audio+graph": "ɡ ə k ʃ ə r t",
+   "renikud_yi_engineall+graph": "ɡ ə k ʃ ə r t",
+   "renikud_yi_curriculum+graph": "ɡ ə k ʃ r t",
+   "renikud_yi_audio+lexicon": "ɡ ə k ʃ ə r t",
+   "renikud_yi_audio+graph+lexicon": "ɡ ə k ʃ ə r t",
+   "renikud_yi_engineall+lexicon": "ɡ ə k ʃ ə r t",
+   "renikud_yi_engineall+graph+lexicon": "ɡ ə k ʃ ə r t",
+   "renikud_yi_curriculum+lexicon": "ɡ ə k ʃ r t",
+   "renikud_yi_curriculum+graph+lexicon": "ɡ ə k ʃ r t"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "renikud_yi_engineall": "j ɔ v n",
+   "renikud_yi_curriculum": "j ɔ v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_engineall+graph": "ɔj v n",
+   "renikud_yi_curriculum+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n",
+   "renikud_yi_engineall+lexicon": "j ɔ v n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "ואחרונים",
+   "audio": "v a x a r ɔj n i m",
+   "engine": "v a x a r ɔj n i m",
+   "renikud_yi_audio": "v i a x a r ɔj n i m",
+   "renikud_yi_engineall": "v a a x a r ɔj n i m",
+   "renikud_yi_curriculum": "v a a x a r ɔj n i m",
+   "renikud_yi_audio+graph": "v i a x a r ɔj n i m",
+   "renikud_yi_engineall+graph": "v a a x a r ɔj n i m",
+   "renikud_yi_curriculum+graph": "v a a x a r ɔj n i m",
+   "renikud_yi_audio+lexicon": "v i a x a r ɔj n i m",
+   "renikud_yi_audio+graph+lexicon": "v i a x a r ɔj n i m",
+   "renikud_yi_engineall+lexicon": "v a a x a r ɔj n i m",
+   "renikud_yi_engineall+graph+lexicon": "v a a x a r ɔj n i m",
+   "renikud_yi_curriculum+lexicon": "v a a x a r ɔj n i m",
+   "renikud_yi_curriculum+graph+lexicon": "v a a x a r ɔj n i m"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "renikud_yi_engineall": "j ɔ v n",
+   "renikud_yi_curriculum": "j ɔ v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_engineall+graph": "ɔj v n",
+   "renikud_yi_curriculum+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n",
+   "renikud_yi_engineall+lexicon": "j ɔ v n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj v n",
+   "renikud_yi_curriculum+lexicon": "j ɔ v n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "המשמר",
+   "audio": "h a m i ʃ m i r",
+   "engine": "h a m i ʃ m u r",
+   "renikud_yi_audio": "h a m i ʃ m i r",
+   "renikud_yi_engineall": "h a m i ʃ m u r",
+   "renikud_yi_curriculum": "h a m i ʃ m i r",
+   "renikud_yi_audio+graph": "h a m i ʃ m i r",
+   "renikud_yi_engineall+graph": "h a m i ʃ m u r",
+   "renikud_yi_curriculum+graph": "h a m i ʃ m i r",
+   "renikud_yi_audio+lexicon": "h a m i ʃ m i r",
+   "renikud_yi_audio+graph+lexicon": "h a m i ʃ m i r",
+   "renikud_yi_engineall+lexicon": "h a m i ʃ m u r",
+   "renikud_yi_engineall+graph+lexicon": "h a m i ʃ m u r",
+   "renikud_yi_curriculum+lexicon": "h a m i ʃ m i r",
+   "renikud_yi_curriculum+graph+lexicon": "h a m i ʃ m i r"
+  },
+  {
+   "word": "עז",
+   "audio": "ə z",
+   "engine": "ɛ z",
+   "renikud_yi_audio": "ə z",
+   "renikud_yi_engineall": "ɛ z",
+   "renikud_yi_curriculum": "ə z",
+   "renikud_yi_audio+graph": "ə z",
+   "renikud_yi_engineall+graph": "ɛ z",
+   "renikud_yi_curriculum+graph": "ə z",
+   "renikud_yi_audio+lexicon": "ə z",
+   "renikud_yi_audio+graph+lexicon": "ə z",
+   "renikud_yi_engineall+lexicon": "ɛ z",
+   "renikud_yi_engineall+graph+lexicon": "ɛ z",
+   "renikud_yi_curriculum+lexicon": "ə z",
+   "renikud_yi_curriculum+graph+lexicon": "ə z"
+  },
+  {
+   "word": "איבערגעבויט",
+   "audio": "i b ə r ɡ ə b ɔj t",
+   "engine": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_audio": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_engineall": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_curriculum": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_audio+graph": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_engineall+graph": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_curriculum+graph": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_audio+lexicon": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_audio+graph+lexicon": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_engineall+lexicon": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_engineall+graph+lexicon": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_curriculum+lexicon": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_curriculum+graph+lexicon": "i b ə r ɡ ə b ɔj t"
+  },
+  {
+   "word": "פארדעם",
+   "audio": "f a r d aj m",
+   "engine": "f a r d ej m",
+   "renikud_yi_audio": "f a r d aj m",
+   "renikud_yi_engineall": "f a r d aj m",
+   "renikud_yi_curriculum": "f a r d aj m",
+   "renikud_yi_audio+graph": "f a r d aj m",
+   "renikud_yi_engineall+graph": "f a r d aj m",
+   "renikud_yi_curriculum+graph": "f a r d aj m",
+   "renikud_yi_audio+lexicon": "f a r d aj m",
+   "renikud_yi_audio+graph+lexicon": "f a r d aj m",
+   "renikud_yi_engineall+lexicon": "f a r d aj m",
+   "renikud_yi_engineall+graph+lexicon": "f a r d aj m",
+   "renikud_yi_curriculum+lexicon": "f a r d aj m",
+   "renikud_yi_curriculum+graph+lexicon": "f a r d aj m"
+  },
+  {
+   "word": "צוואה",
+   "audio": "ʦ v a",
+   "engine": "ʦ v a",
+   "renikud_yi_audio": "ʦ v u",
+   "renikud_yi_engineall": "ʦ v a",
+   "renikud_yi_curriculum": "ʦ v u",
+   "renikud_yi_audio+graph": "ʦ v u",
+   "renikud_yi_engineall+graph": "ʦ v a",
+   "renikud_yi_curriculum+graph": "ʦ v u",
+   "renikud_yi_audio+lexicon": "ʦ v u",
+   "renikud_yi_audio+graph+lexicon": "ʦ v u",
+   "renikud_yi_engineall+lexicon": "ʦ v a",
+   "renikud_yi_engineall+graph+lexicon": "ʦ v a",
+   "renikud_yi_curriculum+lexicon": "ʦ v u",
+   "renikud_yi_curriculum+graph+lexicon": "ʦ v u"
+  },
+  {
+   "word": "אראפנעמען",
+   "audio": "a r u p n ɛ m ə n",
+   "engine": "a r u p n ə m ə n",
+   "renikud_yi_audio": "a r u p n ɛ m ə n",
+   "renikud_yi_engineall": "a r u p n ɛ m ə n",
+   "renikud_yi_curriculum": "a r u p n ɛ m ə n",
+   "renikud_yi_audio+graph": "a r u p n ɛ m ə n",
+   "renikud_yi_engineall+graph": "a r u p n ɛ m ə n",
+   "renikud_yi_curriculum+graph": "a r u p n ɛ m ə n",
+   "renikud_yi_audio+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_audio+graph+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_engineall+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_engineall+graph+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_curriculum+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_curriculum+graph+lexicon": "a r u p n ɛ m ə n"
+  },
+  {
+   "word": "סר",
+   "audio": "s i r",
+   "engine": "s u r",
+   "renikud_yi_audio": "s a r",
+   "renikud_yi_engineall": "s a r",
+   "renikud_yi_curriculum": "s a r",
+   "renikud_yi_audio+graph": "s a r",
+   "renikud_yi_engineall+graph": "s a r",
+   "renikud_yi_curriculum+graph": "s a r",
+   "renikud_yi_audio+lexicon": "s a r",
+   "renikud_yi_audio+graph+lexicon": "s a r",
+   "renikud_yi_engineall+lexicon": "s a r",
+   "renikud_yi_engineall+graph+lexicon": "s a r",
+   "renikud_yi_curriculum+lexicon": "s a r",
+   "renikud_yi_curriculum+graph+lexicon": "s a r"
+  },
+  {
+   "word": "צוואה",
+   "audio": "ʦ v u",
+   "engine": "ʦ v a",
+   "renikud_yi_audio": "ʦ v u",
+   "renikud_yi_engineall": "ʦ v a",
+   "renikud_yi_curriculum": "ʦ v u",
+   "renikud_yi_audio+graph": "ʦ v u",
+   "renikud_yi_engineall+graph": "ʦ v a",
+   "renikud_yi_curriculum+graph": "ʦ v u",
+   "renikud_yi_audio+lexicon": "ʦ v u",
+   "renikud_yi_audio+graph+lexicon": "ʦ v u",
+   "renikud_yi_engineall+lexicon": "ʦ v a",
+   "renikud_yi_engineall+graph+lexicon": "ʦ v a",
+   "renikud_yi_curriculum+lexicon": "ʦ v u",
+   "renikud_yi_curriculum+graph+lexicon": "ʦ v u"
+  },
+  {
+   "word": "אויבערשטן",
+   "audio": "ɔj b ə r ʃ t n",
+   "engine": "ɔj b ə r ʃ t n",
+   "renikud_yi_audio": "j ɔ b ə r ʃ t n",
+   "renikud_yi_engineall": "j ɔ b ə r ʃ t n",
+   "renikud_yi_curriculum": "j ɔ b ə r ʃ t n",
+   "renikud_yi_audio+graph": "ɔj b ə r ʃ t n",
+   "renikud_yi_engineall+graph": "ɔj b ə r ʃ t n",
+   "renikud_yi_curriculum+graph": "ɔj b ə r ʃ t n",
+   "renikud_yi_audio+lexicon": "j ɔ b ə r ʃ t n",
+   "renikud_yi_audio+graph+lexicon": "ɔj b ə r ʃ t n",
+   "renikud_yi_engineall+lexicon": "j ɔ b ə r ʃ t n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj b ə r ʃ t n",
+   "renikud_yi_curriculum+lexicon": "j ɔ b ə r ʃ t n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj b ə r ʃ t n"
+  },
+  {
+   "word": "אייזן",
+   "audio": "aj z n",
+   "engine": "aj z n",
+   "renikud_yi_audio": "j a z n",
+   "renikud_yi_engineall": "j a z n",
+   "renikud_yi_curriculum": "j a z n",
+   "renikud_yi_audio+graph": "aj z n",
+   "renikud_yi_engineall+graph": "aj z n",
+   "renikud_yi_curriculum+graph": "aj z n",
+   "renikud_yi_audio+lexicon": "j a z n",
+   "renikud_yi_audio+graph+lexicon": "aj z n",
+   "renikud_yi_engineall+lexicon": "j a z n",
+   "renikud_yi_engineall+graph+lexicon": "aj z n",
+   "renikud_yi_curriculum+lexicon": "j a z n",
+   "renikud_yi_curriculum+graph+lexicon": "aj z n"
+  },
+  {
+   "word": "אייזן",
+   "audio": "aj z n",
+   "engine": "aj z n",
+   "renikud_yi_audio": "j a z n",
+   "renikud_yi_engineall": "j a z n",
+   "renikud_yi_curriculum": "j a z n",
+   "renikud_yi_audio+graph": "aj z n",
+   "renikud_yi_engineall+graph": "aj z n",
+   "renikud_yi_curriculum+graph": "aj z n",
+   "renikud_yi_audio+lexicon": "j a z n",
+   "renikud_yi_audio+graph+lexicon": "aj z n",
+   "renikud_yi_engineall+lexicon": "j a z n",
+   "renikud_yi_engineall+graph+lexicon": "aj z n",
+   "renikud_yi_curriculum+lexicon": "j a z n",
+   "renikud_yi_curriculum+graph+lexicon": "aj z n"
+  },
+  {
+   "word": "מצויות",
+   "audio": "m ʦ i j ɔj s",
+   "engine": "m ʦ i j ɔj s",
+   "renikud_yi_audio": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_engineall": "m ʦ ɔj i j ɔj s",
+   "renikud_yi_curriculum": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_audio+graph": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_engineall+graph": "m ʦ ɔj i j ɔj s",
+   "renikud_yi_curriculum+graph": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_audio+lexicon": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_audio+graph+lexicon": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_engineall+lexicon": "m ʦ ɔj i j ɔj s",
+   "renikud_yi_engineall+graph+lexicon": "m ʦ ɔj i j ɔj s",
+   "renikud_yi_curriculum+lexicon": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_curriculum+graph+lexicon": "m i ʦ ɔj i j ɔj s"
+  },
+  {
+   "word": "איינץ",
+   "audio": "aj n ʦ",
+   "engine": "aj n ʦ",
+   "renikud_yi_audio": "j a n ʦ",
+   "renikud_yi_engineall": "j a n ʦ",
+   "renikud_yi_curriculum": "j a n ʦ",
+   "renikud_yi_audio+graph": "aj n ʦ",
+   "renikud_yi_engineall+graph": "aj n ʦ",
+   "renikud_yi_curriculum+graph": "aj n ʦ",
+   "renikud_yi_audio+lexicon": "j a n ʦ",
+   "renikud_yi_audio+graph+lexicon": "aj n ʦ",
+   "renikud_yi_engineall+lexicon": "j a n ʦ",
+   "renikud_yi_engineall+graph+lexicon": "aj n ʦ",
+   "renikud_yi_curriculum+lexicon": "j a n ʦ",
+   "renikud_yi_curriculum+graph+lexicon": "aj n ʦ"
+  },
+  {
+   "word": "מחלה",
+   "audio": "m a x l i",
+   "engine": "m a x l u",
+   "renikud_yi_audio": "m a x l i",
+   "renikud_yi_engineall": "m a x l i",
+   "renikud_yi_curriculum": "m a x l i",
+   "renikud_yi_audio+graph": "m a x l i",
+   "renikud_yi_engineall+graph": "m a x l i",
+   "renikud_yi_curriculum+graph": "m a x l i",
+   "renikud_yi_audio+lexicon": "m a x l i",
+   "renikud_yi_audio+graph+lexicon": "m a x l i",
+   "renikud_yi_engineall+lexicon": "m a x l i",
+   "renikud_yi_engineall+graph+lexicon": "m a x l i",
+   "renikud_yi_curriculum+lexicon": "m a x l i",
+   "renikud_yi_curriculum+graph+lexicon": "m a x l i"
+  },
+  {
+   "word": "מחלה",
+   "audio": "m a x l i",
+   "engine": "m a x l u",
+   "renikud_yi_audio": "m a x l i",
+   "renikud_yi_engineall": "m a x l i",
+   "renikud_yi_curriculum": "m a x l i",
+   "renikud_yi_audio+graph": "m a x l i",
+   "renikud_yi_engineall+graph": "m a x l i",
+   "renikud_yi_curriculum+graph": "m a x l i",
+   "renikud_yi_audio+lexicon": "m a x l i",
+   "renikud_yi_audio+graph+lexicon": "m a x l i",
+   "renikud_yi_engineall+lexicon": "m a x l i",
+   "renikud_yi_engineall+graph+lexicon": "m a x l i",
+   "renikud_yi_curriculum+lexicon": "m a x l i",
+   "renikud_yi_curriculum+graph+lexicon": "m a x l i"
+  },
+  {
+   "word": "אייבערשטער",
+   "audio": "aj b ə r ʃ t ə r",
+   "engine": "aj b ə r ʃ t ə r",
+   "renikud_yi_audio": "j a b ə r ʃ t ə r",
+   "renikud_yi_engineall": "j a b ə r ʃ t ə r",
+   "renikud_yi_curriculum": "j a b ə r ʃ t ə r",
+   "renikud_yi_audio+graph": "aj b ə r ʃ t ə r",
+   "renikud_yi_engineall+graph": "aj b ə r ʃ t ə r",
+   "renikud_yi_curriculum+graph": "aj b ə r ʃ t ə r",
+   "renikud_yi_audio+lexicon": "j a b ə r ʃ t ə r",
+   "renikud_yi_audio+graph+lexicon": "aj b ə r ʃ t ə r",
+   "renikud_yi_engineall+lexicon": "j a b ə r ʃ t ə r",
+   "renikud_yi_engineall+graph+lexicon": "aj b ə r ʃ t ə r",
+   "renikud_yi_curriculum+lexicon": "j a b ə r ʃ t ə r",
+   "renikud_yi_curriculum+graph+lexicon": "aj b ə r ʃ t ə r"
+  },
+  {
+   "word": "קדושות",
+   "audio": "k d ɔj ʃ ɔj s",
+   "engine": "k d ɔj ʃ ɔj s",
+   "renikud_yi_audio": "k d ɔj ʃ ɔj s",
+   "renikud_yi_engineall": "k d i ʃ ɔj s",
+   "renikud_yi_curriculum": "k d ɔj ʃ ɔj s",
+   "renikud_yi_audio+graph": "k d ɔj ʃ ɔj s",
+   "renikud_yi_engineall+graph": "k d i ʃ ɔj s",
+   "renikud_yi_curriculum+graph": "k d ɔj ʃ ɔj s",
+   "renikud_yi_audio+lexicon": "k d ɔj ʃ ɔj s",
+   "renikud_yi_audio+graph+lexicon": "k d ɔj ʃ ɔj s",
+   "renikud_yi_engineall+lexicon": "k d i ʃ ɔj s",
+   "renikud_yi_engineall+graph+lexicon": "k d i ʃ ɔj s",
+   "renikud_yi_curriculum+lexicon": "k d ɔj ʃ ɔj s",
+   "renikud_yi_curriculum+graph+lexicon": "k d ɔj ʃ ɔj s"
+  },
+  {
+   "word": "אויערן",
+   "audio": "ɔj ə r n",
+   "engine": "ɔj ə r n",
+   "renikud_yi_audio": "j ɔ ə r n",
+   "renikud_yi_engineall": "j ɔ ə r n",
+   "renikud_yi_curriculum": "j ɔ ə r n",
+   "renikud_yi_audio+graph": "ɔj ə r n",
+   "renikud_yi_engineall+graph": "ɔj ə r n",
+   "renikud_yi_curriculum+graph": "ɔj ə r n",
+   "renikud_yi_audio+lexicon": "j ɔ ə r n",
+   "renikud_yi_audio+graph+lexicon": "ɔj ə r n",
+   "renikud_yi_engineall+lexicon": "j ɔ ə r n",
+   "renikud_yi_engineall+graph+lexicon": "ɔj ə r n",
+   "renikud_yi_curriculum+lexicon": "j ɔ ə r n",
+   "renikud_yi_curriculum+graph+lexicon": "ɔj ə r n"
+  },
+  {
+   "word": "איינץ",
+   "audio": "aj n ʦ",
+   "engine": "aj n ʦ",
+   "renikud_yi_audio": "j a n ʦ",
+   "renikud_yi_engineall": "j a n ʦ",
+   "renikud_yi_curriculum": "j a n ʦ",
+   "renikud_yi_audio+graph": "aj n ʦ",
+   "renikud_yi_engineall+graph": "aj n ʦ",
+   "renikud_yi_curriculum+graph": "aj n ʦ",
+   "renikud_yi_audio+lexicon": "j a n ʦ",
+   "renikud_yi_audio+graph+lexicon": "aj n ʦ",
+   "renikud_yi_engineall+lexicon": "j a n ʦ",
+   "renikud_yi_engineall+graph+lexicon": "aj n ʦ",
+   "renikud_yi_curriculum+lexicon": "j a n ʦ",
+   "renikud_yi_curriculum+graph+lexicon": "aj n ʦ"
+  },
+  {
+   "word": "כ'רעד",
+   "audio": "x r ə t",
+   "engine": "x r ɛ d",
+   "renikud_yi_audio": "x r ə t",
+   "renikud_yi_engineall": "x r ɛ t",
+   "renikud_yi_curriculum": "x r ɛ t",
+   "renikud_yi_audio+graph": "x r ə t",
+   "renikud_yi_engineall+graph": "x r ɛ t",
+   "renikud_yi_curriculum+graph": "x r ɛ t",
+   "renikud_yi_audio+lexicon": "x r ə t",
+   "renikud_yi_audio+graph+lexicon": "x r ə t",
+   "renikud_yi_engineall+lexicon": "x r ɛ t",
+   "renikud_yi_engineall+graph+lexicon": "x r ɛ t",
+   "renikud_yi_curriculum+lexicon": "x r ɛ t",
+   "renikud_yi_curriculum+graph+lexicon": "x r ɛ t"
+  },
+  {
+   "word": "ומטברך",
+   "audio": "i m i t b r ə x",
+   "engine": "i m i t b r ə x",
+   "renikud_yi_audio": "i m t b r x",
+   "renikud_yi_engineall": "i m t b r x",
+   "renikud_yi_curriculum": "i m t b r x",
+   "renikud_yi_audio+graph": "i m t b r x",
+   "renikud_yi_engineall+graph": "i m t b r x",
+   "renikud_yi_curriculum+graph": "i m t b r x",
+   "renikud_yi_audio+lexicon": "i m t b r x",
+   "renikud_yi_audio+graph+lexicon": "i m t b r x",
+   "renikud_yi_engineall+lexicon": "i m t b r x",
+   "renikud_yi_engineall+graph+lexicon": "i m t b r x",
+   "renikud_yi_curriculum+lexicon": "i m t b r x",
+   "renikud_yi_curriculum+graph+lexicon": "i m t b r x"
+  },
+  {
+   "word": "ימים",
+   "audio": "i m i m",
+   "engine": "i m i m",
+   "renikud_yi_audio": "u m i m",
+   "renikud_yi_engineall": "i m i m",
+   "renikud_yi_curriculum": "i m i m",
+   "renikud_yi_audio+graph": "u m i m",
+   "renikud_yi_engineall+graph": "i m i m",
+   "renikud_yi_curriculum+graph": "i m i m",
+   "renikud_yi_audio+lexicon": "u m i m",
+   "renikud_yi_audio+graph+lexicon": "u m i m",
+   "renikud_yi_engineall+lexicon": "i m i m",
+   "renikud_yi_engineall+graph+lexicon": "i m i m",
+   "renikud_yi_curriculum+lexicon": "i m i m",
+   "renikud_yi_curriculum+graph+lexicon": "i m i m"
+  },
+  {
+   "word": "למען",
+   "audio": "l m ə n",
+   "engine": "l m ɛ n",
+   "renikud_yi_audio": "l m ə n",
+   "renikud_yi_engineall": "l m ə n",
+   "renikud_yi_curriculum": "l m ə n",
+   "renikud_yi_audio+graph": "l m ə n",
+   "renikud_yi_engineall+graph": "l m ə n",
+   "renikud_yi_curriculum+graph": "l m ə n",
+   "renikud_yi_audio+lexicon": "l m ə n",
+   "renikud_yi_audio+graph+lexicon": "l m ə n",
+   "renikud_yi_engineall+lexicon": "l m ə n",
+   "renikud_yi_engineall+graph+lexicon": "l m ə n",
+   "renikud_yi_curriculum+lexicon": "l m ə n",
+   "renikud_yi_curriculum+graph+lexicon": "l m ə n"
+  },
+  {
+   "word": "גע",
+   "audio": "ɡ ə",
+   "engine": "ɡ ɛ",
+   "renikud_yi_audio": "ɡ ə",
+   "renikud_yi_engineall": "ɡ ə",
+   "renikud_yi_curriculum": "ɡ ə",
+   "renikud_yi_audio+graph": "ɡ ə",
+   "renikud_yi_engineall+graph": "ɡ ə",
+   "renikud_yi_curriculum+graph": "ɡ ə",
+   "renikud_yi_audio+lexicon": "ɡ ə",
+   "renikud_yi_audio+graph+lexicon": "ɡ ə",
+   "renikud_yi_engineall+lexicon": "ɡ ə",
+   "renikud_yi_engineall+graph+lexicon": "ɡ ə",
+   "renikud_yi_curriculum+lexicon": "ɡ ə",
+   "renikud_yi_curriculum+graph+lexicon": "ɡ ə"
+  },
+  {
+   "word": "בטרחא",
+   "audio": "b t i r x i",
+   "engine": "b t i r x u",
+   "renikud_yi_audio": "b t i r x i",
+   "renikud_yi_engineall": "b t i r x u",
+   "renikud_yi_curriculum": "b t i r x i",
+   "renikud_yi_audio+graph": "b t i r x i",
+   "renikud_yi_engineall+graph": "b t i r x u",
+   "renikud_yi_curriculum+graph": "b t i r x i",
+   "renikud_yi_audio+lexicon": "b t i r x i",
+   "renikud_yi_audio+graph+lexicon": "b t i r x i",
+   "renikud_yi_engineall+lexicon": "b t i r x u",
+   "renikud_yi_engineall+graph+lexicon": "b t i r x u",
+   "renikud_yi_curriculum+lexicon": "b t i r x i",
+   "renikud_yi_curriculum+graph+lexicon": "b t i r x i"
+  }
+ ],
+ "paired_rule_path": {
+  "renikud_yi_audio vs engine": {
+   "fixed": 300,
+   "broke": 354,
+   "net": -54,
+   "p": 0.0381
+  },
+  "renikud_yi_engineall vs engine": {
+   "fixed": 208,
+   "broke": 334,
+   "net": -126,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum vs engine": {
+   "fixed": 299,
+   "broke": 346,
+   "net": -47,
+   "p": 0.07
+  },
+  "renikud_yi_audio+graph vs engine": {
+   "fixed": 322,
+   "broke": 77,
+   "net": 245,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph vs engine": {
+   "fixed": 229,
+   "broke": 59,
+   "net": 170,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph vs engine": {
+   "fixed": 321,
+   "broke": 71,
+   "net": 250,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs engine": {
+   "fixed": 300,
+   "broke": 354,
+   "net": -54,
+   "p": 0.0381
+  },
+  "renikud_yi_audio+graph+lexicon vs engine": {
+   "fixed": 322,
+   "broke": 77,
+   "net": 245,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs engine": {
+   "fixed": 208,
+   "broke": 334,
+   "net": -126,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs engine": {
+   "fixed": 229,
+   "broke": 59,
+   "net": 170,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs engine": {
+   "fixed": 299,
+   "broke": 346,
+   "net": -47,
+   "p": 0.07
+  },
+  "renikud_yi_curriculum+graph+lexicon vs engine": {
+   "fixed": 321,
+   "broke": 71,
+   "net": 250,
+   "p": 0.0
+  },
+  "renikud_yi_engineall vs renikud_yi_audio": {
+   "fixed": 40,
+   "broke": 112,
+   "net": -72,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum vs renikud_yi_audio": {
+   "fixed": 33,
+   "broke": 26,
+   "net": 7,
+   "p": 0.435
+  },
+  "renikud_yi_audio+graph vs renikud_yi_audio": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph vs renikud_yi_audio": {
+   "fixed": 335,
+   "broke": 111,
+   "net": 224,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph vs renikud_yi_audio": {
+   "fixed": 330,
+   "broke": 26,
+   "net": 304,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_audio": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_audio": {
+   "fixed": 40,
+   "broke": 112,
+   "net": -72,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_audio": {
+   "fixed": 335,
+   "broke": 111,
+   "net": 224,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_audio": {
+   "fixed": 33,
+   "broke": 26,
+   "net": 7,
+   "p": 0.435
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_audio": {
+   "fixed": 330,
+   "broke": 26,
+   "net": 304,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum vs renikud_yi_engineall": {
+   "fixed": 108,
+   "broke": 29,
+   "net": 79,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph vs renikud_yi_engineall": {
+   "fixed": 409,
+   "broke": 38,
+   "net": 371,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph vs renikud_yi_engineall": {
+   "fixed": 296,
+   "broke": 0,
+   "net": 296,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph vs renikud_yi_engineall": {
+   "fixed": 405,
+   "broke": 29,
+   "net": 376,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_engineall": {
+   "fixed": 112,
+   "broke": 40,
+   "net": 72,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_engineall": {
+   "fixed": 409,
+   "broke": 38,
+   "net": 371,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_engineall": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_engineall": {
+   "fixed": 296,
+   "broke": 0,
+   "net": 296,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_engineall": {
+   "fixed": 108,
+   "broke": 29,
+   "net": 79,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_engineall": {
+   "fixed": 405,
+   "broke": 29,
+   "net": 376,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph vs renikud_yi_curriculum": {
+   "fixed": 323,
+   "broke": 31,
+   "net": 292,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph vs renikud_yi_curriculum": {
+   "fixed": 324,
+   "broke": 107,
+   "net": 217,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph vs renikud_yi_curriculum": {
+   "fixed": 297,
+   "broke": 0,
+   "net": 297,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_curriculum": {
+   "fixed": 26,
+   "broke": 33,
+   "net": -7,
+   "p": 0.435
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_curriculum": {
+   "fixed": 323,
+   "broke": 31,
+   "net": 292,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_curriculum": {
+   "fixed": 29,
+   "broke": 108,
+   "net": -79,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_curriculum": {
+   "fixed": 324,
+   "broke": 107,
+   "net": 217,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_curriculum": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_curriculum": {
+   "fixed": 297,
+   "broke": 0,
+   "net": 297,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph vs renikud_yi_audio+graph": {
+   "fixed": 40,
+   "broke": 115,
+   "net": -75,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph vs renikud_yi_audio+graph": {
+   "fixed": 32,
+   "broke": 27,
+   "net": 5,
+   "p": 0.6029
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 0,
+   "broke": 299,
+   "net": -299,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 38,
+   "broke": 409,
+   "net": -371,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 40,
+   "broke": 115,
+   "net": -75,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 31,
+   "broke": 323,
+   "net": -292,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 32,
+   "broke": 27,
+   "net": 5,
+   "p": 0.6029
+  },
+  "renikud_yi_curriculum+graph vs renikud_yi_engineall+graph": {
+   "fixed": 110,
+   "broke": 30,
+   "net": 80,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 111,
+   "broke": 335,
+   "net": -224,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 115,
+   "broke": 40,
+   "net": 75,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 0,
+   "broke": 296,
+   "net": -296,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 107,
+   "broke": 324,
+   "net": -217,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_engineall+graph": {
+   "fixed": 110,
+   "broke": 30,
+   "net": 80,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 26,
+   "broke": 330,
+   "net": -304,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 27,
+   "broke": 32,
+   "net": -5,
+   "p": 0.6029
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 29,
+   "broke": 405,
+   "net": -376,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 30,
+   "broke": 110,
+   "net": -80,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 0,
+   "broke": 297,
+   "net": -297,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_curriculum+graph": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 40,
+   "broke": 112,
+   "net": -72,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 335,
+   "broke": 111,
+   "net": 224,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 33,
+   "broke": 26,
+   "net": 7,
+   "p": 0.435
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 330,
+   "broke": 26,
+   "net": 304,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+lexicon vs renikud_yi_audio+graph+lexicon": {
+   "fixed": 38,
+   "broke": 409,
+   "net": -371,
+   "p": 0.0
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_audio+graph+lexicon": {
+   "fixed": 40,
+   "broke": 115,
+   "net": -75,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_audio+graph+lexicon": {
+   "fixed": 31,
+   "broke": 323,
+   "net": -292,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_audio+graph+lexicon": {
+   "fixed": 32,
+   "broke": 27,
+   "net": 5,
+   "p": 0.6029
+  },
+  "renikud_yi_engineall+graph+lexicon vs renikud_yi_engineall+lexicon": {
+   "fixed": 296,
+   "broke": 0,
+   "net": 296,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_engineall+lexicon": {
+   "fixed": 108,
+   "broke": 29,
+   "net": 79,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_engineall+lexicon": {
+   "fixed": 405,
+   "broke": 29,
+   "net": 376,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+lexicon vs renikud_yi_engineall+graph+lexicon": {
+   "fixed": 107,
+   "broke": 324,
+   "net": -217,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_engineall+graph+lexicon": {
+   "fixed": 110,
+   "broke": 30,
+   "net": 80,
+   "p": 0.0
+  },
+  "renikud_yi_curriculum+graph+lexicon vs renikud_yi_curriculum+lexicon": {
+   "fixed": 297,
+   "broke": 0,
+   "net": 297,
+   "p": 0.0
+  }
+ }
+}
