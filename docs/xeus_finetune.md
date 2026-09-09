@@ -548,8 +548,10 @@ what the rabbi said, on the 517 unlabelled words — **v8 beats v6 48 to 4
 (p ≈ 0)**: the gold-pointing test could not see it because its reference is
 transcriber convention, and two thirds of its rule tokens are ones the
 pointing convention cannot distinguish anyway. v8 is at least as good on
-every measure and clearly better on the one that is about speech, so it is
-the candidate to ship; the pointing path as a whole is still 24 points
+every measure and clearly better on the one that is about speech, so it
+**shipped on 2026-09-09**: engine repo revision `45e794db` (`onnx_yiddish_v8`,
+v6 removed), Space pinned at `c9e1549`, verified live — three probe sentences
+where v6 and v8 point differently all come back pointed as v8; the pointing path as a whole is still 24 points
 behind the rule engine on these words, which is why the Space's speech path
 does not use it. The audio tier is real data (13.5 points
 of new coverage) but the nikud → rules → IPA path does not turn it into
