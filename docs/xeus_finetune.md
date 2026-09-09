@@ -664,3 +664,31 @@ was trained to feed a text decoder, XEUS's to predict phones; for a
 phone-level ear the latter is the better start, and depth does not close
 the gap on this much data. Not adopted. The 8-layer model at 0.466 on seen
 episodes is the one to remember if a small on-device ear is ever needed.
+
+## 23. Ear curriculum: pretrain on 196 h of engine-labelled chunks, then the certain clips
+
+`xeus_ft_train.py --chunks`: one epoch over all 23,666 whole chunks with the
+engine's reading of every word as the CTC target (noisy, full coverage),
+from the pretrained PhoneticXeus; then the usual fine-tune on the certain
+clips (3 epochs, augmentation). Same run-3 cut as run 2:
+
+| | unseen words PER | exact | @15 dB | unseen episodes PER | exact | ə recall | oʊ recall |
+|---|---|---|---|---|---|---|---|
+| run 2 (§11) | 0.357 | 6.1% | 0.379 | 0.308 | 30.9% | 0.62 | 0.39 |
+| **curriculum** | **0.337** | **10.7%** | **0.361** | 0.306 | 32.3% | 0.62 | **0.07** |
+
+Two points of PER on unseen words and a near-doubling of exact matches — the
+first ear improvement since run 1, and the opposite outcome from the text
+model's curriculum (§21): the ear's bottleneck was having heard 413 word
+types, and 196 h of speech with mostly-right labels is 83k types of phonetic
+context. But one phone was lost: oʊ recall 0.39 → 0.07. The engine writes
+ɔj for almost every וי (Weinreich 44 default, oʊ kept lexical), so the
+pretraining pass taught the ear that oʊ does not exist and three epochs of
+certain clips did not bring it back. For an ear whose job includes deciding
+ɔj/oʊ, that is disqualifying, so **run 2 stays the ear** for now.
+
+The fix is the loop closing on itself: pretrain not on the engine's readings
+but on the *attested* ones (`attest.jsonl` — the run-2 ear's own decisions,
+which carry oʊ where it was heard), then fine-tune on the certain clips. A
+one-line change to the target builder and one more pod pass (~$2). Not run
+yet.
