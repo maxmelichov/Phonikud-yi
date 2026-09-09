@@ -137,6 +137,13 @@ def main() -> None:
                     break
                 feats = processor.feature_extractor([w for w, _ in items], sampling_rate=SR, return_tensors="pt").input_features
                 labels = processor.tokenizer([t for _, t in items], padding=True, return_tensors="pt", truncation=True, max_length=448).input_ids
+                # HF's Whisper prepends decoder_start_token_id (<|startoftranscript|>) itself when it
+                # shifts the labels right; leaving the tokenizer's copy in place doubles it and puts
+                # every later target one position off the decoder input generation actually sees —
+                # the second run trained fine (loss 0.61) and decoded loops (WER 2.4) for this reason.
+                sot = model.config.decoder_start_token_id if hasattr(model, "config") else model.base_model.config.decoder_start_token_id
+                if (labels[:, 0] == sot).all():
+                    labels = labels[:, 1:]
                 labels = labels.masked_fill(labels == processor.tokenizer.pad_token_id, -100)
                 feats = feats.to(device, dtype=model.dtype if hasattr(model, "dtype") else torch.bfloat16)
                 loss = model(input_features=feats, labels=labels.to(device)).loss / args.grad_accum
@@ -169,7 +176,8 @@ def main() -> None:
             batch = test_rows[i:i + 4]
             wavs = [load_audio(Path(args.root) / f"data/chunks/{r['episode']}/chunk_{int(r['chunk_idx']):05d}.mp3")[: SR * 30] for r in batch]
             feats = processor.feature_extractor(wavs, sampling_rate=SR, return_tensors="pt").input_features.to(device, dtype=next(model.parameters()).dtype)
-            ids = model.generate(input_features=feats, language="yi", task="transcribe", max_new_tokens=440, num_beams=1)
+            ids = model.generate(input_features=feats, language="yi", task="transcribe", max_new_tokens=220, num_beams=1,
+                                 no_repeat_ngram_size=4)
             hyps = processor.batch_decode(ids, skip_special_tokens=True)
             for r, hyp in zip(batch, hyps):
                 ref_w, hyp_w = norm_words(r["text"]), norm_words(hyp)

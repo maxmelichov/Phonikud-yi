@@ -230,6 +230,9 @@ def main() -> None:
     ap.add_argument("--sample", action="store_true",
                     help="random chunk order instead of rarest-first (smoke tests)")
     ap.add_argument("--targets", default=None, help="targets JSONL (default <data>/chunk_targets.jsonl)")
+    ap.add_argument("--no-baseline", action="store_true",
+                    help="do not load the pretrained model for the baseline column (halves GPU memory; "
+                         "needed for 60 s messages with a fine-tuned aligner)")
     ap.add_argument("--split", default=None, help="split JSON (default <data>/split.json)")
     args = ap.parse_args()
 
@@ -266,7 +269,7 @@ def main() -> None:
     if args.limit:
         rows = rows[: args.limit]
 
-    _, inner = load_pretrained(device)
+    _, inner = load_pretrained(device if not (args.no_baseline and args.align_ckpt) else "cpu")
     vocab, x2i = xeus_vocab(inner)
     hop = inner.points_by_frames()
 
@@ -311,22 +314,35 @@ def main() -> None:
         for i, (_, w) in enumerate(batch_rows):
             speech[i, : len(w)] = torch.from_numpy(w)
         speech, lens = speech.to(device), lens.to(device)
-        with torch.no_grad(), torch.autocast(device_type="cuda", dtype=torch.bfloat16, enabled=device == "cuda"):
-            logits, flens = inner.ctc_logits(speech, lens)
-            lp_base_all = torch.log_softmax(logits.float(), -1)
-            if ft_inner is not None:
-                from xeus_ft_common import yi_logits
-                ft_logits, ft_flens = yi_logits(ft_inner, ft_head, speech, lens)
-                lp_all = torch.log_softmax(ft_logits.float(), -1)
-            else:
-                lp_all, ft_flens = lp_base_all, flens
+        try:
+            with torch.no_grad(), torch.autocast(device_type="cuda", dtype=torch.bfloat16, enabled=device == "cuda"):
+                if ft_inner is not None and args.no_baseline:
+                    from xeus_ft_common import yi_logits
+                    ft_logits, ft_flens = yi_logits(ft_inner, ft_head, speech, lens)
+                    lp_all = torch.log_softmax(ft_logits.float(), -1)
+                    lp_base_all, flens = lp_all, ft_flens
+                else:
+                    logits, flens = inner.ctc_logits(speech, lens)
+                    lp_base_all = torch.log_softmax(logits.float(), -1)
+                    if ft_inner is not None:
+                        from xeus_ft_common import yi_logits
+                        ft_logits, ft_flens = yi_logits(ft_inner, ft_head, speech, lens)
+                        lp_all = torch.log_softmax(ft_logits.float(), -1)
+                    else:
+                        lp_all, ft_flens = lp_base_all, flens
+        except torch.OutOfMemoryError:
+            # one 60 s message can exceed the card; skip it rather than lose the pass
+            stats["skip_oom"] += len(batch_rows)
+            batch_rows = []
+            torch.cuda.empty_cache()
+            return
         for i, (row, wav) in enumerate(batch_rows):
             n = min(int(flens[i]), int(ft_flens[i]))
             process(row, wav, lp_all[i, :n], lp_base_all[i, :n])
         batch_rows = []
         # With two 575M models resident, fragmentation alone can OOM a 24 GB
         # card by the second batch; give the allocator its blocks back.
-        del logits, lp_base_all, lp_all
+        del lp_base_all, lp_all
         if device == "cuda":
             torch.cuda.empty_cache()
 
@@ -422,7 +438,7 @@ def main() -> None:
                 target: list[str] = []
                 for w, c in zip(seg_words, choice):
                     target.extend(w["variants"][c])
-                baseline = greedy_fold(lp_base[s:e], vocab, inner.blank_id, fold_phone_string)
+                baseline = [] if args.no_baseline else greedy_fold(lp_base[s:e], vocab, inner.blank_id, fold_phone_string)
 
                 seg_id = f"{row['episode']}-{row['chunk_idx']:05d}-{stats['chunks']:06d}-{len(segments):07d}"
                 a, b = s * hop, min(e * hop, len(wav))
