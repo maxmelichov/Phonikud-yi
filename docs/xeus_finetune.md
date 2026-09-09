@@ -638,3 +638,29 @@ Nothing to see: the curriculum lands within noise of the audio-only model
 Pretraining on the engine's readings teaches the model the engine's
 mistakes as well as its rules, and the fine-tune has to unlearn them; the
 graph already supplies the rules at decode time for free. Not adopted.
+
+## 22. Whisper as the ear: 4, 8 and 32 encoder layers
+
+`scripts/whisper_ear_train.py`: the encoder of `ivrit-ai/yi-whisper-large-v3`
+(a Whisper large-v3 encoder fine-tuned on ~97 h of Yiddish) truncated to the
+first N blocks, a 35-way CTC head, the same run-3 clips, augmentation, and
+metrics as the XEUS ear. Whisper's extractor pads every clip to 30 s; the
+forward here runs the encoder on the batch's own length (positional table
+sliced), otherwise a 1 s clip costs 30 s of compute.
+
+| ear | params | epochs | unseen words PER | unseen episodes PER |
+|---|---|---|---|---|
+| whisper, 4 layers | 86M | 3 | 0.575 | 0.519 |
+| whisper, 8 layers | 165M | 3 | 0.526 | 0.466 |
+| whisper, 32 layers (full) | 637M | 2 | 0.441 | 0.313 |
+| **XEUS run 2** (§11) | 575M | 6 | **0.357** | **0.308** |
+| pretrained XEUS + fold (no training) | — | — | 0.570 | 0.579 |
+
+The small Whisper ears are no better than the untrained XEUS fold on unseen
+words; the full encoder gets close to XEUS on unseen *episodes* (0.313 vs
+0.308, still falling at epoch 2) but stays 8 points behind on unseen *words*,
+and its diphthongs lag (aj 0.66 vs 0.78, oʊ 0.04 vs 0.39). Whisper's encoder
+was trained to feed a text decoder, XEUS's to predict phones; for a
+phone-level ear the latter is the better start, and depth does not close
+the gap on this much data. Not adopted. The 8-layer model at 0.466 on seen
+episodes is the one to remember if a small on-device ear is ever needed.
