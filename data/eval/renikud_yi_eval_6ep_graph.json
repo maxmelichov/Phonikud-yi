@@ -1,0 +1,548 @@
+{
+ "rule-path words with audio decision (margin ≥ 2)": {
+  "engine": {
+   "n": 3748,
+   "acc": 87.97
+  },
+  "renikud_yi_audio": {
+   "n": 3748,
+   "acc": 86.53
+  },
+  "phonikud_yi_v8": {
+   "n": 3748,
+   "acc": 74.31
+  },
+  "renikud_yi_audio+graph": {
+   "n": 3748,
+   "acc": 94.5
+  },
+  "renikud_yi_audio+lexicon": {
+   "n": 3748,
+   "acc": 86.53
+  },
+  "renikud_yi_audio+graph+lexicon": {
+   "n": 3748,
+   "acc": 94.5
+  }
+ },
+ "gold words (label agreement)": {
+  "engine": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_audio": {
+   "n": 25728,
+   "acc": 96.54
+  },
+  "phonikud_yi_v8": {
+   "n": 25728,
+   "acc": 99.9
+  },
+  "renikud_yi_audio+graph": {
+   "n": 25728,
+   "acc": 99.92
+  },
+  "renikud_yi_audio+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  },
+  "renikud_yi_audio+graph+lexicon": {
+   "n": 25728,
+   "acc": 99.98
+  }
+ },
+ "examples": [
+  {
+   "word": "ביינאַכט",
+   "audio": "b aj n a x t",
+   "engine": "b aj n a x t",
+   "renikud_yi_audio": "b aj n a x t",
+   "phonikud_yi_v8": "b aː n a x t",
+   "renikud_yi_audio+graph": "b aj n a x t",
+   "renikud_yi_audio+lexicon": "b aj n a x t",
+   "renikud_yi_audio+graph+lexicon": "b aj n a x t"
+  },
+  {
+   "word": "שמרבים",
+   "audio": "ʃ m r b i m",
+   "engine": "ʃ m r b i m",
+   "renikud_yi_audio": "ʃ m r b i m",
+   "phonikud_yi_v8": "ʃ ɛ m a r b i m",
+   "renikud_yi_audio+graph": "ʃ m r b i m",
+   "renikud_yi_audio+lexicon": "ʃ m r b i m",
+   "renikud_yi_audio+graph+lexicon": "ʃ m r b i m"
+  },
+  {
+   "word": "אריינטרעטן",
+   "audio": "a r aː n t r ə t n",
+   "engine": "a r aː n t r ə t n",
+   "renikud_yi_audio": "a r aj n t r ə t n",
+   "phonikud_yi_v8": "a r aː n t r ə t n",
+   "renikud_yi_audio+graph": "a r aj n t r ə t n",
+   "renikud_yi_audio+lexicon": "a r aj n t r ə t n",
+   "renikud_yi_audio+graph+lexicon": "a r aj n t r ə t n"
+  },
+  {
+   "word": "נאכזאגן",
+   "audio": "n u x z u ɡ n",
+   "engine": "n a x z a ɡ n",
+   "renikud_yi_audio": "n u x z u ɡ n",
+   "phonikud_yi_v8": "n u x z u ɡ n",
+   "renikud_yi_audio+graph": "n u x z u ɡ n",
+   "renikud_yi_audio+lexicon": "n u x z u ɡ n",
+   "renikud_yi_audio+graph+lexicon": "n u x z u ɡ n"
+  },
+  {
+   "word": "מגיד",
+   "audio": "m ɡ i t",
+   "engine": "m ɡ i d",
+   "renikud_yi_audio": "m ɡ i t",
+   "phonikud_yi_v8": "m a ɡ i d",
+   "renikud_yi_audio+graph": "m ɡ i t",
+   "renikud_yi_audio+lexicon": "m ɡ i t",
+   "renikud_yi_audio+graph+lexicon": "m ɡ i t"
+  },
+  {
+   "word": "נמתק",
+   "audio": "n i m t i k",
+   "engine": "n i m t u k",
+   "renikud_yi_audio": "n i m t i k",
+   "phonikud_yi_v8": "n i m t u k",
+   "renikud_yi_audio+graph": "n i m t i k",
+   "renikud_yi_audio+lexicon": "n i m t i k",
+   "renikud_yi_audio+graph+lexicon": "n i m t i k"
+  },
+  {
+   "word": "טובים",
+   "audio": "t i b i m",
+   "engine": "t i b i m",
+   "renikud_yi_audio": "t i b i m",
+   "phonikud_yi_v8": "t ɔj b i m",
+   "renikud_yi_audio+graph": "t i b i m",
+   "renikud_yi_audio+lexicon": "t i b i m",
+   "renikud_yi_audio+graph+lexicon": "t i b i m"
+  },
+  {
+   "word": "מ'זעט",
+   "audio": "m z aj t",
+   "engine": "m z ej t",
+   "renikud_yi_audio": "m z aj t",
+   "phonikud_yi_v8": "m z ej t",
+   "renikud_yi_audio+graph": "m z aj t",
+   "renikud_yi_audio+lexicon": "m z aj t",
+   "renikud_yi_audio+graph+lexicon": "m z aj t"
+  },
+  {
+   "word": "דערהויבענער",
+   "audio": "d ə r h ɔj b ə n ə r",
+   "engine": "d ɛ r h ɔj b ə n ə r",
+   "renikud_yi_audio": "d ə r h ɔj b ə n ə r",
+   "phonikud_yi_v8": "d ɛ r h ɔj b ə n ə r",
+   "renikud_yi_audio+graph": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio+lexicon": "d ə r h ɔj b ə n ə r",
+   "renikud_yi_audio+graph+lexicon": "d ə r h ɔj b ə n ə r"
+  },
+  {
+   "word": "סקווערער",
+   "audio": "s k v ə r ə r",
+   "engine": "s k v ɛ r ə r",
+   "renikud_yi_audio": "s k v ə r ə r",
+   "phonikud_yi_v8": "s k v ɛ r ə r",
+   "renikud_yi_audio+graph": "s k v ə r ə r",
+   "renikud_yi_audio+lexicon": "s k v ə r ə r",
+   "renikud_yi_audio+graph+lexicon": "s k v ə r ə r"
+  },
+  {
+   "word": "רבי׳ן",
+   "audio": "r b i n",
+   "engine": "r b i n",
+   "renikud_yi_audio": "r b i n",
+   "phonikud_yi_v8": "r ɛ b i n",
+   "renikud_yi_audio+graph": "r b i n",
+   "renikud_yi_audio+lexicon": "r b i n",
+   "renikud_yi_audio+graph+lexicon": "r b i n"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "phonikud_yi_v8": "ɔj v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "מסודר",
+   "audio": "m s i d r",
+   "engine": "m s i d r",
+   "renikud_yi_audio": "m s i d r",
+   "phonikud_yi_v8": "m s i d u r",
+   "renikud_yi_audio+graph": "m s i d r",
+   "renikud_yi_audio+lexicon": "m s i d r",
+   "renikud_yi_audio+graph+lexicon": "m s i d r"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "phonikud_yi_v8": "ɔj v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "אויוונס",
+   "audio": "ɔj v n s",
+   "engine": "ɔj v n s",
+   "renikud_yi_audio": "j ɔ v n s",
+   "phonikud_yi_v8": "ɔj v n s",
+   "renikud_yi_audio+graph": "ɔj v n s",
+   "renikud_yi_audio+lexicon": "j ɔ v n s",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n s"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "phonikud_yi_v8": "ɔj v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "געכשרט",
+   "audio": "ɡ ə x ʃ r t",
+   "engine": "ɡ ɛ x ʃ r t",
+   "renikud_yi_audio": "ɡ ə k ʃ ə r t",
+   "phonikud_yi_v8": "ɡ ə k ʃ ɛ r t",
+   "renikud_yi_audio+graph": "ɡ ə k ʃ ə r t",
+   "renikud_yi_audio+lexicon": "ɡ ə k ʃ ə r t",
+   "renikud_yi_audio+graph+lexicon": "ɡ ə k ʃ ə r t"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "phonikud_yi_v8": "ɔj v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "כלים",
+   "audio": "x l i m",
+   "engine": "x l i m",
+   "renikud_yi_audio": "x l i m",
+   "phonikud_yi_v8": "k aj l i m",
+   "renikud_yi_audio+graph": "x l i m",
+   "renikud_yi_audio+lexicon": "x l i m",
+   "renikud_yi_audio+graph+lexicon": "x l i m"
+  },
+  {
+   "word": "ואחרונים",
+   "audio": "v a x a r ɔj n i m",
+   "engine": "v a x a r ɔj n i m",
+   "renikud_yi_audio": "v i a x a r ɔj n i m",
+   "phonikud_yi_v8": "v a x a r ɔj n i m",
+   "renikud_yi_audio+graph": "v i a x a r ɔj n i m",
+   "renikud_yi_audio+lexicon": "v i a x a r ɔj n i m",
+   "renikud_yi_audio+graph+lexicon": "v i a x a r ɔj n i m"
+  },
+  {
+   "word": "אויוון",
+   "audio": "ɔj v n",
+   "engine": "ɔj v n",
+   "renikud_yi_audio": "j ɔ v n",
+   "phonikud_yi_v8": "ɔj v n",
+   "renikud_yi_audio+graph": "ɔj v n",
+   "renikud_yi_audio+lexicon": "j ɔ v n",
+   "renikud_yi_audio+graph+lexicon": "ɔj v n"
+  },
+  {
+   "word": "המשמר",
+   "audio": "h a m i ʃ m i r",
+   "engine": "h a m i ʃ m u r",
+   "renikud_yi_audio": "h a m i ʃ m i r",
+   "phonikud_yi_v8": "h a m i ʃ m u r",
+   "renikud_yi_audio+graph": "h a m i ʃ m i r",
+   "renikud_yi_audio+lexicon": "h a m i ʃ m i r",
+   "renikud_yi_audio+graph+lexicon": "h a m i ʃ m i r"
+  },
+  {
+   "word": "עז",
+   "audio": "ə z",
+   "engine": "ɛ z",
+   "renikud_yi_audio": "ə z",
+   "phonikud_yi_v8": "a z",
+   "renikud_yi_audio+graph": "ə z",
+   "renikud_yi_audio+lexicon": "ə z",
+   "renikud_yi_audio+graph+lexicon": "ə z"
+  },
+  {
+   "word": "בנין",
+   "audio": "b n i n",
+   "engine": "b n i n",
+   "renikud_yi_audio": "b n i n",
+   "phonikud_yi_v8": "b i n u n",
+   "renikud_yi_audio+graph": "b n i n",
+   "renikud_yi_audio+lexicon": "b n i n",
+   "renikud_yi_audio+graph+lexicon": "b n i n"
+  },
+  {
+   "word": "איבערגעבויט",
+   "audio": "i b ə r ɡ ə b ɔj t",
+   "engine": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_audio": "i b ə r ɡ ə b ɔj t",
+   "phonikud_yi_v8": "i b ə r ɡ ə b oʊ t",
+   "renikud_yi_audio+graph": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_audio+lexicon": "i b ə r ɡ ə b ɔj t",
+   "renikud_yi_audio+graph+lexicon": "i b ə r ɡ ə b ɔj t"
+  },
+  {
+   "word": "פארדעם",
+   "audio": "f a r d aj m",
+   "engine": "f a r d ej m",
+   "renikud_yi_audio": "f a r d aj m",
+   "phonikud_yi_v8": "f a r d ej m",
+   "renikud_yi_audio+graph": "f a r d aj m",
+   "renikud_yi_audio+lexicon": "f a r d aj m",
+   "renikud_yi_audio+graph+lexicon": "f a r d aj m"
+  },
+  {
+   "word": "צוואה",
+   "audio": "ʦ v a",
+   "engine": "ʦ v a",
+   "renikud_yi_audio": "ʦ v u",
+   "phonikud_yi_v8": "ʦ v ə",
+   "renikud_yi_audio+graph": "ʦ v u",
+   "renikud_yi_audio+lexicon": "ʦ v u",
+   "renikud_yi_audio+graph+lexicon": "ʦ v u"
+  },
+  {
+   "word": "למקום",
+   "audio": "l m k i m",
+   "engine": "l m k i m",
+   "renikud_yi_audio": "l m k i m",
+   "phonikud_yi_v8": "l m u k ɔj m",
+   "renikud_yi_audio+graph": "l m k i m",
+   "renikud_yi_audio+lexicon": "l m k i m",
+   "renikud_yi_audio+graph+lexicon": "l m k i m"
+  },
+  {
+   "word": "אראפנעמען",
+   "audio": "a r u p n ɛ m ə n",
+   "engine": "a r u p n ə m ə n",
+   "renikud_yi_audio": "a r u p n ɛ m ə n",
+   "phonikud_yi_v8": "a r u p n ə m ə n",
+   "renikud_yi_audio+graph": "a r u p n ɛ m ə n",
+   "renikud_yi_audio+lexicon": "a r u p n ɛ m ə n",
+   "renikud_yi_audio+graph+lexicon": "a r u p n ɛ m ə n"
+  },
+  {
+   "word": "וצדיק",
+   "audio": "i ʦ d i k",
+   "engine": "i ʦ d i k",
+   "renikud_yi_audio": "i ʦ d i k",
+   "phonikud_yi_v8": "v ʦ a d i k",
+   "renikud_yi_audio+graph": "i ʦ d i k",
+   "renikud_yi_audio+lexicon": "i ʦ d i k",
+   "renikud_yi_audio+graph+lexicon": "i ʦ d i k"
+  },
+  {
+   "word": "סר",
+   "audio": "s i r",
+   "engine": "s u r",
+   "renikud_yi_audio": "s a r",
+   "phonikud_yi_v8": "s a r",
+   "renikud_yi_audio+graph": "s a r",
+   "renikud_yi_audio+lexicon": "s a r",
+   "renikud_yi_audio+graph+lexicon": "s a r"
+  },
+  {
+   "word": "צוואה",
+   "audio": "ʦ v u",
+   "engine": "ʦ v a",
+   "renikud_yi_audio": "ʦ v u",
+   "phonikud_yi_v8": "ʦ v ə",
+   "renikud_yi_audio+graph": "ʦ v u",
+   "renikud_yi_audio+lexicon": "ʦ v u",
+   "renikud_yi_audio+graph+lexicon": "ʦ v u"
+  },
+  {
+   "word": "אויבערשטן",
+   "audio": "ɔj b ə r ʃ t n",
+   "engine": "ɔj b ə r ʃ t n",
+   "renikud_yi_audio": "j ɔ b ə r ʃ t n",
+   "phonikud_yi_v8": "ɔj b ə r ʃ t n",
+   "renikud_yi_audio+graph": "ɔj b ə r ʃ t n",
+   "renikud_yi_audio+lexicon": "j ɔ b ə r ʃ t n",
+   "renikud_yi_audio+graph+lexicon": "ɔj b ə r ʃ t n"
+  },
+  {
+   "word": "אייזן",
+   "audio": "aj z n",
+   "engine": "aj z n",
+   "renikud_yi_audio": "j a z n",
+   "phonikud_yi_v8": "aj z n",
+   "renikud_yi_audio+graph": "aj z n",
+   "renikud_yi_audio+lexicon": "j a z n",
+   "renikud_yi_audio+graph+lexicon": "aj z n"
+  },
+  {
+   "word": "כביכול",
+   "audio": "x b i x i l",
+   "engine": "x b i x i l",
+   "renikud_yi_audio": "x b i x i l",
+   "phonikud_yi_v8": "k i v u x ɔj l",
+   "renikud_yi_audio+graph": "x b i x i l",
+   "renikud_yi_audio+lexicon": "x b i x i l",
+   "renikud_yi_audio+graph+lexicon": "x b i x i l"
+  },
+  {
+   "word": "כביכול",
+   "audio": "x b i x i l",
+   "engine": "x b i x i l",
+   "renikud_yi_audio": "x b i x i l",
+   "phonikud_yi_v8": "k i v u x ɔj l",
+   "renikud_yi_audio+graph": "x b i x i l",
+   "renikud_yi_audio+lexicon": "x b i x i l",
+   "renikud_yi_audio+graph+lexicon": "x b i x i l"
+  },
+  {
+   "word": "אייזן",
+   "audio": "aj z n",
+   "engine": "aj z n",
+   "renikud_yi_audio": "j a z n",
+   "phonikud_yi_v8": "aj z n",
+   "renikud_yi_audio+graph": "aj z n",
+   "renikud_yi_audio+lexicon": "j a z n",
+   "renikud_yi_audio+graph+lexicon": "aj z n"
+  },
+  {
+   "word": "זכרים",
+   "audio": "z x r i m",
+   "engine": "z x r i m",
+   "renikud_yi_audio": "z x r i m",
+   "phonikud_yi_v8": "z x u r i m",
+   "renikud_yi_audio+graph": "z x r i m",
+   "renikud_yi_audio+lexicon": "z x r i m",
+   "renikud_yi_audio+graph+lexicon": "z x r i m"
+  },
+  {
+   "word": "בלשון",
+   "audio": "b l ʃ i n",
+   "engine": "b l ʃ i n",
+   "renikud_yi_audio": "b l ʃ i n",
+   "phonikud_yi_v8": "b i l ʃ ɔj n",
+   "renikud_yi_audio+graph": "b l ʃ i n",
+   "renikud_yi_audio+lexicon": "b l ʃ i n",
+   "renikud_yi_audio+graph+lexicon": "b l ʃ i n"
+  },
+  {
+   "word": "מצויות",
+   "audio": "m ʦ i j ɔj s",
+   "engine": "m ʦ i j ɔj s",
+   "renikud_yi_audio": "m i ʦ ɔj i j ɔj s",
+   "phonikud_yi_v8": "m ʦ i j ɔj s",
+   "renikud_yi_audio+graph": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_audio+lexicon": "m i ʦ ɔj i j ɔj s",
+   "renikud_yi_audio+graph+lexicon": "m i ʦ ɔj i j ɔj s"
+  }
+ ],
+ "paired_rule_path": {
+  "renikud_yi_audio vs engine": {
+   "fixed": 300,
+   "broke": 354,
+   "net": -54,
+   "p": 0.0381
+  },
+  "phonikud_yi_v8 vs engine": {
+   "fixed": 36,
+   "broke": 548,
+   "net": -512,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph vs engine": {
+   "fixed": 322,
+   "broke": 77,
+   "net": 245,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs engine": {
+   "fixed": 300,
+   "broke": 354,
+   "net": -54,
+   "p": 0.0381
+  },
+  "renikud_yi_audio+graph+lexicon vs engine": {
+   "fixed": 322,
+   "broke": 77,
+   "net": 245,
+   "p": 0.0
+  },
+  "phonikud_yi_v8 vs renikud_yi_audio": {
+   "fixed": 301,
+   "broke": 759,
+   "net": -458,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph vs renikud_yi_audio": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_audio": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph vs phonikud_yi_v8": {
+   "fixed": 818,
+   "broke": 61,
+   "net": 757,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs phonikud_yi_v8": {
+   "fixed": 759,
+   "broke": 301,
+   "net": 458,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs phonikud_yi_v8": {
+   "fixed": 818,
+   "broke": 61,
+   "net": 757,
+   "p": 0.0
+  },
+  "renikud_yi_audio+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 0,
+   "broke": 299,
+   "net": -299,
+   "p": 0.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio+graph": {
+   "fixed": 0,
+   "broke": 0,
+   "net": 0,
+   "p": 1.0
+  },
+  "renikud_yi_audio+graph+lexicon vs renikud_yi_audio+lexicon": {
+   "fixed": 299,
+   "broke": 0,
+   "net": 299,
+   "p": 0.0
+  }
+ }
+}

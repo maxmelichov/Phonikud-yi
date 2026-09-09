@@ -169,6 +169,10 @@ def main() -> None:
     ap.add_argument("--no-amp", action="store_true")
     ap.add_argument("--time-budget-min", type=float, default=0.0, help="stop after this many minutes")
     ap.add_argument("--augment", action="store_true", help="speed / gain / noise augmentation on training clips")
+    ap.add_argument("--train-blank-penalty", type=float, default=0.0,
+                    help="subtract this from the blank logit inside the training loss only. The model must then "
+                         "earn every blank frame against a handicap, which pushes half-believed phones (the "
+                         "word-final ə it drops) above blank at plain decode time. Decoding is unchanged.")
     ap.add_argument("--init-ckpt", default=None,
                     help="continue from a fine-tuned checkpoint dir instead of the pretrained weights")
     ap.add_argument("--oversample-schwa", type=int, default=1,
@@ -290,7 +294,11 @@ def main() -> None:
                 speech, lens = augment(speech, lens, rng)
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16, enabled=use_amp):
                 logits, flens = yi_logits(inner, head, speech, lens)
-            lp = torch.log_softmax(logits.float(), -1).transpose(0, 1)
+            logits = logits.float()
+            if args.train_blank_penalty:
+                logits = logits.clone()
+                logits[..., YI_BLANK] -= args.train_blank_penalty
+            lp = torch.log_softmax(logits, -1).transpose(0, 1)
             loss = F.ctc_loss(lp, flat, flens, tlens, blank=YI_BLANK, reduction="mean", zero_infinity=True)
             opt.zero_grad(set_to_none=True)
             loss.backward()

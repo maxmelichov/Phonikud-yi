@@ -20,6 +20,8 @@ Usage:
 from __future__ import annotations
 
 import argparse
+import os
+import pathlib
 import hashlib
 import shutil
 import subprocess
@@ -36,7 +38,9 @@ TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "printed_respelling_lk.py", "model_pointed_lk.py",
           "stress_overrides.py")
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
-MODEL_SRC = REPO / "models" / "phonikud_yi_v6" / "v6.onnx"
+# v8 (2026-09-09): retrain8 = v6 + the audio-attested tier; beats v6 48:4 on the
+# audio yardstick (docs/xeus_finetune.md §18). PHONIKUD_YI_MODEL overrides.
+MODEL_SRC = pathlib.Path(os.environ["PHONIKUD_YI_MODEL"]) if os.environ.get("PHONIKUD_YI_MODEL") else REPO / "models" / "phonikud_yi_v8" / "v8.onnx"
 DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 
 
@@ -73,7 +77,7 @@ def main() -> int:
     if not args.no_model:
         if not (MODEL_SRC / "model.onnx").exists():
             raise SystemExit(f"no v5 export at {MODEL_SRC}; pass --no-model to skip")
-        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v6")
+        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v8")
     if args.with_dataset:
         if not DATASET.exists():
             raise SystemExit(f"{DATASET} missing; run scripts/retag_tts_dataset.py")

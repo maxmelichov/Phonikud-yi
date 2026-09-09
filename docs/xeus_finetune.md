@@ -557,3 +557,37 @@ better readings on this test: the pointing convention itself is the
 bottleneck (a decided reading has to find a corpus pointing that reads back
 to it; 117k tokens of decisions found none). The per-letter model has no
 such bottleneck, which is the case for it.
+
+## 19. Graph-constrained ReNikud-yi: the best Yiddish G2P so far
+
+The same move that made the ear usable (§12) applied to the text model: instead
+of taking its per-letter argmax, ReNikud-yi *ranks the spelling's legal
+readings* — the engine's reading with its open slots branched (§12 graph),
+plus its own free guess — by summing its per-letter (consonant, vowel)
+log-probabilities along each candidate's alignment (`yi_align`). It can no
+longer output an illegal reading; it only decides between the legal ones.
+
+Six held-out episodes (the test episode plus retrain3's five val episodes),
+**3,748 rule-path words with an audio decision at ≥ 2 nats**:
+
+| system | word accuracy vs audio | paired vs engine |
+|---|---|---|
+| phonikud-yi v6 → engine reads pointed | 63.2% | −927, p≈0 |
+| phonikud-yi v8 → engine reads pointed | 74.3% | −512, p≈0 |
+| ReNikud-yi (audio labels), free decode | 86.5% | −54, p=0.038 |
+| rule engine on unpointed text | 88.0% | — |
+| **ReNikud-yi + graph** | **94.5%** | **fixed 322 · broke 77 · +245, p≈0** |
+
+Against its own free decode the graph fixes 299 words and breaks none. With
+the lexicon in front (gold and lexicon words from the table), gold words are
+at 99.98% — so **lexicon → graph-constrained ReNikud-yi** is ≥ the engine on
+every bucket and 6.5 points ahead where the engine guesses.
+
+On the small 517-word test the free decode had looked like parity; the bigger
+test shows it was 1.4 points behind. The claim that survives is the
+constrained one.
+
+`scripts/renikud_yi_eval.py --models … --phonikud …` produces every row above,
+the paired tests, and `*_disagreements.tsv`: the word types on which the
+systems disagree with the audio, by frequency — `data/eval/chezky_disagreements_top60.tsv`
+is the sixty for Chezky.
