@@ -17,6 +17,10 @@ for attempt in $(seq 1 18); do
     echo "== no pod; retry in 10 min"; [ "$attempt" -eq 18 ] && { echo "== giving up"; exit 1; }
     sleep 600; continue
   fi
+  if ! pod_addr >/dev/null 2>&1; then
+    echo "== pod created but never placed (no ip); terminating and retrying"
+    scripts/xeus_ft_runpod.sh down 2>&1 | tail -1; sleep 120; continue
+  fi
   read -r IP PORT < <(pod_addr)
   R="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $PORT"
   break

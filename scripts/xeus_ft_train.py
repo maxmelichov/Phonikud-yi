@@ -258,6 +258,9 @@ def main() -> None:
                     help="repeat clips containing a word-final ə this many times per epoch. The model "
                          "drops word-final schwas (docs §11); at decode time a blank penalty only trades "
                          "errors, so the fix has to be in what it trains on.")
+    ap.add_argument("--oversample-phone", default=None,
+                    help="PHONE:K — repeat training clips whose target carries PHONE K times per epoch "
+                         "(oʊ is 0.04%% of training frames and every continuation of run 2 loses it, docs §27)")
     args = ap.parse_args()
 
     import torch
@@ -296,6 +299,11 @@ def main() -> None:
         extra = [r for r in by["train"] if has_final_schwa(r)]
         by["train"] = by["train"] + extra * (args.oversample_schwa - 1)
         print(f"oversampling {len(extra):,} clips with a word-final ə x{args.oversample_schwa}", flush=True)
+    if args.oversample_phone:
+        ph, k = args.oversample_phone.split(":")
+        extra = [r for r in by["train"] if ph in r["target"]]
+        by["train"] = by["train"] + extra * (int(k) - 1)
+        print(f"oversampling {len(extra):,} clips carrying {ph} x{k}", flush=True)
     ds = {s: Segments(r, data / "seg") for s, r in by.items()}
     if args.extra_data:
         xd = Path(args.extra_data)

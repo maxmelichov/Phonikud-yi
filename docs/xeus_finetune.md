@@ -874,3 +874,73 @@ the §23 curriculum re-run with the *attested* chunk readings as targets
 (`--chunks --attest`), so that pretraining no longer writes ɔj over every
 וי. `scripts/ear_round3.sh` runs both end to end on a pod and brings home
 `best/` and `last/` of every run.
+
+## 27. Ear round 3: the aux ə/oʊ loss and the attested curriculum (2026-09-13)
+
+Both experiments of §26's last paragraph ran on one pod (`scripts/ear_round3.sh`,
+4090, ~4 h, ~$3), each continued from run 2 and scored against it on
+identical clips with `xeus_ft_compare.py`. Numbers in
+`data/xeus_ft/ear3/compare_*.json`, checkpoints (best and last of every
+run) under `data/xeus_ft/ear3/`.
+
+**B — per-frame aux loss on ə/oʊ** (`--aux-frame-loss 0.3 --aux-weight 5`,
+3 epochs, lr 1e-5):
+
+| split (paired, same clips) | run 2 | + aux loss | only-A / only-B exact | p |
+|---|---|---|---|---|
+| unseen words (3,600) | **0.357** | 0.368 | 78 / 49 | 0.013 |
+| unseen episodes (3,600) | 0.308 | **0.303** (exact 31.0 → 32.8%) | 81 / 147 | 1.5e-5 |
+| oʊ recall, words / episodes | 0.17 / 0.50 | 0.07 / 0.30 | | |
+| ə recall, words / episodes | 0.59 / 0.72 | 0.62 / 0.76 | | |
+
+ə moves a little, oʊ halves even with its frames weighted five times: the
+weight cannot help a phone the aligner assigns a few hundred frames to.
+Negative; not adopted.
+
+**A — attested curriculum**: one epoch over the 23,666 whole chunks with the
+ear's own attested readings as targets (218,346 words swapped for the
+decision, `--chunks --attest`, 100 min), then 3 epochs on the certain clips
+(`--init-ckpt ckpt_pre_att/last`, lr 1.5e-5, augmentation). After the
+pretraining stage alone oʊ recall stood at 0.38 — the engine-labelled
+curriculum of §23 had left it at 0.07 — so attested labels do carry the
+phone. The fine-tune then:
+
+| split (paired, same clips) | run 2 | attested curriculum | only-A / only-B exact | p |
+|---|---|---|---|---|
+| unseen words (3,600) | 0.357 (exact 6.1%) | **0.334 (exact 12.1%)** | 27 / 242 | 2e-44 |
+| unseen episodes (3,600) | 0.308 | **0.303** (exact 32.3%) | 118 / 164 | 0.007 |
+| oʊ recall, words / episodes | 0.17 / 0.50 | 0.07 / 0.30 | | |
+| ə recall, words / episodes | 0.59 / 0.72 | 0.64 / 0.73 | | |
+
+The largest unseen-word gain of any continuation (exact match doubles,
+242 clips fixed for 27 broken), and the same canary: oʊ collapses again.
+
+**What the lattice actually asks.** Free-decode recall of oʊ is measured on
+10 episode clips. The question the attestation and the lattice put to the
+ear is narrower — given the clip and two readings that differ in one open
+slot, which is likelier? `scripts/xeus_ft_probe_pairs.py` scores every
+validation clip whose target holds exactly one phone of a pair, true reading
+against the swapped one, under both ears:
+
+| clip's true phone (unseen words) | n | run 2 right | attested ear right | only-run 2 / only-attested | p |
+|---|---|---|---|---|---|
+| oʊ | 62 | **0.47** | 0.08 | 24 / 0 | 1e-7 |
+| ɔj | 515 | 0.93 | **0.99** | 0 / 32 | 5e-10 |
+| ə | 600 | 0.79 | **0.86** | 16 / 58 | 1e-6 |
+| ɛ | 400 | 0.91 | 0.91 | 7 / 9 | 0.8 |
+
+(episodes: oʊ 6/8 → 2/8; ɔj 0.93 → 0.99; ə and ɛ unchanged.) So the new ear
+is better at the ə/ɛ slot and at וי-as-ɔj, and has all but stopped
+believing in oʊ: 5 of 62 unseen-word oʊ clips. Run 2 is itself only at a
+coin flip there (29/62) — the phone was never well discriminated, it is
+0.04% of the training frames and the attested readings, which the ear
+itself produced, wrote ɔj over 1,079 of its oʊ tokens (§17). The curriculum
+teaches the ear its own prior.
+
+**Decision.** Run 2 stays for anything that touches Chezky's labels; the
+attested-curriculum ear (`data/xeus_ft/ear3/ckpt_att/best`) is the better
+ear on every other slot and should be the one used if oʊ is handled
+separately. Two ways to do that, untried: oversample the 327 training
+clips that carry oʊ in the fine-tune stage (`--oversample-phone oʊ:8`),
+or decide the וי slot with run 2 and everything else with the new ear.
+Pod spend for the round ≈ $3.5.
