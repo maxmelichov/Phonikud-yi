@@ -2,7 +2,7 @@
 """Build the portable label-stack bundle for another machine (e.g. the TTS box).
 
 The bundle is this directory's modules + the engine + its eight generated
-tables + the phonikud-yi v8 pointing export + the ReNikud-yi context model, laid out so ``yiddish_nikud`` finds the
+tables + the phonikud-yi v9 pointing export + the ReNikud-yi context model, laid out so ``yiddish_nikud`` finds the
 model beside itself and ``yiddish_labels`` finds the engine beside itself.
 Nothing in it needs torch, transformers or a network -- only onnxruntime and
 numpy.
@@ -40,9 +40,11 @@ TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
 MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "yiddish_renikud.py", "selftest.py", "README.md")
 # The letter aligner ReNikud-yi's decode needs lives with the training scripts.
 SCRIPT_MODULES = ("yi_align.py",)
-# v8 (2026-09-09): retrain8 = v6 + the audio-attested tier; beats v6 48:4 on the
-# audio yardstick (docs/xeus_finetune.md §18). PHONIKUD_YI_MODEL overrides.
-MODEL_SRC = pathlib.Path(os.environ["PHONIKUD_YI_MODEL"]) if os.environ.get("PHONIKUD_YI_MODEL") else REPO / "models" / "phonikud_yi_v8" / "v8.onnx"
+# v9 (2026-09-13): retrain9 = the attested tier with ReNikud-yi as second
+# witness (coverage 83.8%); beats v8 36:12 (p=0.0007) on the audio yardstick
+# and is flat-to-better on gold pointing (docs/xeus_finetune.md §28). v8 beat
+# v6 48:4 the same way (§18). PHONIKUD_YI_MODEL overrides.
+MODEL_SRC = pathlib.Path(os.environ["PHONIKUD_YI_MODEL"]) if os.environ.get("PHONIKUD_YI_MODEL") else REPO / "models" / "phonikud_yi_v9" / "v9.onnx"
 DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
 # ReNikud-yi (2026-09-11): the context model for rule-path words, docs
 # §19/§26 — 94.5% agreement with the audio where the rule engine has 88.0%.
@@ -89,7 +91,7 @@ def main() -> int:
     if not args.no_model:
         if not (MODEL_SRC / "model.onnx").exists():
             raise SystemExit(f"no v5 export at {MODEL_SRC}; pass --no-model to skip")
-        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v8")
+        shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v9")
     if not args.no_renikud:
         if not (RENIKUD_SRC / "model.onnx").exists():
             raise SystemExit(f"no ReNikud-yi export at {RENIKUD_SRC}; run scripts/export_renikud_onnx.py --int8 or pass --no-renikud")

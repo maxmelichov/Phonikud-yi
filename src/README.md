@@ -79,15 +79,15 @@ immediately instead of surfacing months later in a listening test.
 
 ```
 yiddish_labels.py     front door + deployment guard  ← import this
-yiddish_nikud.py      diacritizer wrapper, points at v8
+yiddish_nikud.py      diacritizer wrapper, points at v9
 yiddish_renikud.py    ReNikud-yi: the context model for words no table holds
 yi_align.py           the letter aligner its decode uses
 selftest.py           run this first
 make_bundle.py        build the portable zip (repo only)
 yiddish_g2p.py        the G2P engine — in the bundle; in the repo it stays at the root
 data/*.py             7 generated tables the engine needs (2.1 MB)
-onnx_yiddish_v8/      phonikud-yi v8 export — in the bundle; in the repo it is
-                      models/phonikud_yi_v8/v8.onnx (or $PHONIKUD_YI_MODEL)
+onnx_yiddish_v9/      phonikud-yi v9 export — in the bundle; in the repo it is
+                      models/phonikud_yi_v9/v9.onnx (or $PHONIKUD_YI_MODEL)
 onnx_renikud_yi/      ReNikud-yi export (int8, 307 MB) — in the repo it is
                       models/renikud_yi_audio/onnx_int8 (or $PHONIKUD_YI_RENIKUD_MODEL)
 ```
