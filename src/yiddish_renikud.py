@@ -137,12 +137,15 @@ def restress(engine_ipa: str, phones: list[str], inventory: set[str]) -> str:
 class ReNikudYi:
     """The exported model plus the graph-constrained decode."""
 
-    def __init__(self, model_dir_: str | None = None, providers: list[str] | None = None):
+    def __init__(self, model_dir_: str | None = None, providers: list[str] | None = None, threads: int | None = None):
         import onnxruntime as ort
         self.model_dir = model_dir_ or model_dir()
         if not self.model_dir:
             raise RuntimeError("no ReNikud-yi export found (model.onnx in: " + ", ".join(c for c in _CANDIDATES if c) + ")")
-        self._session = ort.InferenceSession(os.path.join(self.model_dir, "model.onnx"), providers=providers or ["CPUExecutionProvider"])
+        so = ort.SessionOptions()
+        if threads:
+            so.intra_op_num_threads = threads
+        self._session = ort.InferenceSession(os.path.join(self.model_dir, "model.onnx"), so, providers=providers or ["CPUExecutionProvider"])
         meta = self._session.get_modelmeta().custom_metadata_map
         missing = {"vocab", "consonants", "vowels", "cls_id", "sep_id", "pad_id", "unk_id"} - set(meta)
         if missing:

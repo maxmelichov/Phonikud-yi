@@ -823,3 +823,54 @@ certain words with וי = oʊ from Chezky (the review queue has the ambiguous
 ones), or an oʊ-weighted term in the CTC loss on the frames the aligner
 assigns to it. Day-3 pod spend ≈ $4 (transcriber, whisper ears, two
 WhatsApp ears, comparisons).
+
+## 26. ReNikud-yi shipped: the context reader on the rule path (2026-09-13)
+
+The §19 winner — lexicon first, then the graph-constrained ReNikud-yi decode
+on the words the rule engine had to guess — is now in the engine bundle and
+on the Space (engine revision `08fad094`, Space commit `89083c4`).
+
+**What ships.** `scripts/export_renikud_onnx.py` exports the audio-variant
+ReNikud-yi (v6 pointing body, per-letter consonant/vowel/stress heads) to
+ONNX with the vocabulary and label tables embedded as model metadata (the
+export's vocab.txt is off by one against the real id order, so the metadata
+carries the itos in true id order), then dynamically quantises it to int8:
+1,223 MB → 307 MB, argmax identical to torch on every inner position.
+`src/yiddish_renikud.py` is the torch-free decode: NFKC + mark-stripped +
+lowercased base text, one batched forward per sentence, the `yi_align` DP
+aligner scoring each candidate reading as the sum of its per-letter
+log-probs, candidates = the spelling graph branched from the engine reading
+(א a/ɔ/u/aː, פ f/p, יי aj/aː/ej, וי ɔj/oʊ, ו i/u, ɛ/ə, final devoicing; ≤64)
+plus the model's own free reading; the engine's stress index is put back on
+the winner. `yiddish_g2p.set_context_reader` installs it and `g2p_tokens`
+applies it after routing, so `hebrew_to_ipa` and the Space's token table see
+the same records. Only `route == "rule"` records are rescored; lexicon
+records are never touched, and neither is any word the writer pointed by
+hand (the Space self-test caught the reader overriding a deliberate
+YIVO-style שאָבעס — a hand mark outranks the model). Rows it changes carry
+`layer = "R"` and a reason naming the engine's reading.
+
+**Measured on the production path** (`scripts/renikud_bundle_check.py`:
+`g2p_tokens` with the reader vs without, on the six held-out episodes'
+rule-path words that have an audio decision with margin ≥ 2 nats):
+
+| decode | agreement with the audio (n = 3,726) | ms / 30 s chunk (CPU) |
+|---|---|---|
+| rule engine alone | 87.60% | — |
+| + ReNikud-yi fp32 ONNX | 94.10% | 273 |
+| + ReNikud-yi int8 ONNX (shipped) | **93.99%** | 261 |
+| torch decode, §19 | 94.5% | — |
+
+int8 agrees with the torch decode on 99.2% of words (3,697 / 3,726); the
+disagreements are mostly multiword lexicon records, which the reader skips.
+Bundle self-test §4 pins the behaviour: דע → də and עליכם → ˈəlixm from
+context, lexicon sentence byte-identical, hand-pointed דֶע stays dɛ. Live on
+the Space, `/v1/audio/phonemize` returns those rows with layer R.
+
+**Round 3 of the ear** (§27 when it lands) is queued behind this:
+`xeus_ft_train.py --aux-frame-loss` (a per-frame cross-entropy on the
+frames the aligner assigns to ə/oʊ, weight 5, on top of CTC) from run 2, and
+the §23 curriculum re-run with the *attested* chunk readings as targets
+(`--chunks --attest`), so that pretraining no longer writes ɔj over every
+וי. `scripts/ear_round3.sh` runs both end to end on a pod and brings home
+`best/` and `last/` of every run.

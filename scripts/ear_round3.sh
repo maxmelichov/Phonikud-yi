@@ -18,9 +18,15 @@ POD_JSON=data/scratch/runpod_pod.json
 pod_addr() { .venv/bin/python -c "import json;p=json.load(open('$POD_JSON'));print(p['ip'],p['port'])"; }
 
 # --- 1. a pod with a usable upload link (some datacenters take ~0.8 MB/s) ----
-for attempt in 1 2 3 4; do
+for attempt in $(seq 1 12); do
   echo "== create attempt $attempt $(date)"
+  rm -f "$POD_JSON"   # never fall through onto a stale pod record
   scripts/xeus_ft_runpod.sh create 2>&1 | tail -2
+  if [ ! -s "$POD_JSON" ]; then
+    echo "== no pod (no instances available); retry in 10 min"
+    [ "$attempt" -eq 12 ] && { echo "== giving up"; exit 1; }
+    sleep 600; continue
+  fi
   read -r IP PORT < <(pod_addr)
   R="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p $PORT"
   t0=$(date +%s)
