@@ -944,3 +944,32 @@ separately. Two ways to do that, untried: oversample the 327 training
 clips that carry oʊ in the fine-tune stage (`--oversample-phone oʊ:8`),
 or decide the וי slot with run 2 and everything else with the new ear.
 Pod spend for the round ≈ $3.5.
+
+### 27b. The same fine-tune with the oʊ clips oversampled ×8
+
+`scripts/ear_round3b.sh`, on the same pod: the attested curriculum's
+fine-tune stage again from `ckpt_pre_att/last`, the 327 training clips
+that carry oʊ repeated eight times (`--oversample-phone oʊ:8`), 3 epochs.
+Best by unseen-word PER is epoch 1; epoch 3 (`last`) in brackets.
+
+| split (paired, same clips) | run 2 | oʊ ×8, epoch 1 [epoch 3] | only-A / only-B | p |
+|---|---|---|---|---|
+| unseen words (3,600) | 0.357 (exact 6.1%) | **0.330 (exact 12.4%)** [0.338] | 36 / 265 | 3e-44 |
+| unseen episodes (3,600) | **0.308** | 0.312 [**0.304**, exact 32.4%] | 202 / 125 | 2e-5 |
+| oʊ recall, words / episodes | 0.17 / 0.50 | **0.21** / 0.40 [0.15 / 0.40] | | |
+| ə recall, words / episodes | 0.59 / 0.72 | 0.65 / 0.72 [0.63 / 0.73] | | |
+
+Slot probe (`probe_att_ou_best.json`), unseen words: oʊ right 19 / 62
+(run 2: 29; §27's un-oversampled ear: 5; paired 10 / 0, p = 0.002),
+ɔj 0.97 (0.93), ə 0.86 (0.79), ɛ unchanged. Episodes: oʊ 5 / 8 (6), ə 0.87
+(0.90, 25 / 11, p = 0.03). Epoch 3 is closer to run 2 on ə but back down to
+13 / 62 on oʊ.
+
+Oversampling recovers most of the oʊ that the curriculum had erased, but
+not all of it, and run 2 is still the better discriminator of that one
+slot. Everything else the new ear does better, by a lot on unseen words.
+**Run 2 stays** by the standing rule; the ear to build the next step on is
+`data/xeus_ft/ear3/ckpt_att_ou/best`, with the וי slot decided by run 2 —
+a decode-time hybrid (two ears resident: batch ≤ 2 on 24 GB, §11 trap) that
+needs no training and can be measured with the same probe. Round 3 + 3b
+pod spend ≈ $9 (the secure cloud had only an A100 at $1.59/h that night).
