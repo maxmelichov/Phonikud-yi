@@ -66,7 +66,23 @@ try:
 except Exception as e:  # noqa: BLE001
     check(False, "nikud model", repr(e))
 
-# 4. end-to-end --------------------------------------------------------------
+# 4. ReNikud-yi, the context model on the rule path -------------------------
+try:
+    from yiddish_labels import CONTEXT_READER
+    check(CONTEXT_READER.startswith("installed"), "ReNikud-yi context reader installed", CONTEXT_READER)
+    if text_to_ipa and CONTEXT_READER.startswith("installed"):
+        # both words are rule-path; the rule engine reads dɛ / ˈɛlixm, the
+        # host says də / ˈəlixm (audio decisions over 29 and 40+ clips)
+        got = text_to_ipa("דע צדיקים האבן געזאגט שלום עליכם")
+        check(got.startswith("də ") and "ˈəlixm" in got, "ReNikud-yi re-reads דע / עליכם from context", got)
+        got = text_to_ipa("מיט א פאר יאר צוריק")
+        check(got == "mit a pˈur jur ʦirˈik", "lexicon words untouched by the context reader", got)
+        got = text_to_ipa("דֶע צדיקים")
+        check(got.startswith("dɛ "), "a word the writer pointed is not re-read (marks outrank the model)", got)
+except Exception as e:  # noqa: BLE001
+    check(False, "ReNikud-yi", repr(e))
+
+# 5. end-to-end --------------------------------------------------------------
 try:
     from yiddish_labels import text_to_nikud
     src = "מיט א פאר יאר צוריק"

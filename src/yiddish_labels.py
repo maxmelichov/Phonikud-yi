@@ -126,6 +126,27 @@ def verify(strict: bool = True) -> dict:
 verify()  # fail at import, not at inference
 
 
+def _install_context_reader() -> str:
+    """ReNikud-yi on the rule path (docs/xeus_finetune.md §19: 88.0% -> 94.5%
+    agreement with the audio on unlabelled words). Lexicon words are never
+    touched. PHONIKUD_YI_RENIKUD=0 keeps the engine as it was; a missing export
+    is reported, not fatal -- the tables are the guarded part."""
+    import os
+    if os.environ.get("PHONIKUD_YI_RENIKUD", "1") == "0":
+        return "disabled (PHONIKUD_YI_RENIKUD=0)"
+    try:
+        import yiddish_renikud
+    except Exception as exc:  # noqa: BLE001
+        return f"unavailable ({exc!r})"
+    if not yiddish_renikud.available():
+        return "no export found (onnx_renikud_yi/ beside yiddish_renikud.py)"
+    _g2p.set_context_reader(yiddish_renikud.context_reader)
+    return f"installed ({yiddish_renikud.model_dir()})"
+
+
+CONTEXT_READER = _install_context_reader()
+
+
 def text_to_ipa(text: str) -> str:
     """Phonemes for Hebrew-script Yiddish, via the full authority chain."""
     return _g2p.hebrew_to_ipa(text, stress=True)

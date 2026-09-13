@@ -138,6 +138,40 @@ def augment(speech, lens, rng: random.Random):
     return speech.clamp(-1.0, 1.0), lens
 
 
+def frame_aux_loss(logits, flens, flat, tlens, class_weight):
+    """Cross-entropy on the frames a forced alignment of the current posteriors
+    assigns to each target phone (blank frames excluded), with per-class weights.
+    The alignment is taken from detached log-probs, so this only sharpens the
+    model's own placement of each phone; it cannot move a phone to other frames."""
+    import torch
+    import torch.nn.functional as F
+    import torchaudio.functional as taf
+    lp = torch.log_softmax(logits.detach().float(), -1)
+    B, Tmax, V = logits.shape
+    rows, cols = [], []
+    off = 0
+    for b in range(B):
+        n, T = int(tlens[b]), int(flens[b])
+        ids = flat[off:off + n]
+        off += n
+        if n == 0 or T < n:
+            continue
+        try:
+            labels, _ = taf.forced_align(lp[b:b + 1, :T], ids.unsqueeze(0),
+                                         torch.tensor([T], device=lp.device), torch.tensor([n], device=lp.device),
+                                         blank=YI_BLANK)
+        except Exception:  # noqa: BLE001 - an unalignable clip just contributes nothing
+            continue
+        lab = labels[0]
+        nz = (lab != YI_BLANK).nonzero().squeeze(1)
+        rows.append(b * Tmax + nz)
+        cols.append(lab[nz])
+    if not rows:
+        return logits.new_zeros(())
+    sel = logits.float().reshape(-1, V)[torch.cat(rows)]
+    return F.cross_entropy(sel, torch.cat(cols), weight=class_weight)
+
+
 def evaluate(inner, head, ds: Segments, device, seconds: float, use_amp: bool) -> PerAccumulator:
     import torch
     acc = PerAccumulator()
@@ -199,6 +233,21 @@ def main() -> None:
                     help="pretraining mode: train on whole corpus chunks (attest_targets.jsonl) with the "
                          "engine's readings as targets, instead of the certain-word clips")
     ap.add_argument("--root", default=str(REPO), help="where data/chunks lives (with --chunks)")
+    ap.add_argument("--attest", default=None,
+                    help="with --chunks: attest.jsonl from xeus_attest.py; every attested word's target becomes "
+                         "the reading the ear chose there instead of the engine's (docs §23: the engine writes "
+                         "ɔj for nearly every וי, so pretraining on its readings unlearns oʊ; the attested "
+                         "readings carry oʊ where it was heard)")
+    ap.add_argument("--attest-margin", type=float, default=0.0,
+                    help="only swap in attested readings decided at this margin or more")
+    ap.add_argument("--aux-frame-loss", type=float, default=0.0,
+                    help="weight of a per-frame cross-entropy on the frames a forced alignment of the "
+                         "current model assigns to each target phone, with --aux-phones upweighted. CTC "
+                         "spreads its gradient over every path; this puts extra gradient on the few frames "
+                         "of the phones the ear keeps dropping (ə) or folding (oʊ) without changing what "
+                         "it trains on. 0 disables.")
+    ap.add_argument("--aux-phones", default="ə,oʊ", help="comma list of phones upweighted in the aux loss")
+    ap.add_argument("--aux-weight", type=float, default=5.0, help="class weight of --aux-phones in the aux loss")
     ap.add_argument("--train-blank-penalty", type=float, default=0.0,
                     help="subtract this from the blank logit inside the training loss only. The model must then "
                          "earn every blank frame against a handicap, which pushes half-believed phones (the "
@@ -264,9 +313,21 @@ def main() -> None:
         chunk_rows = list(read_jsonl(args.chunks))
         if args.limit:
             rng.shuffle(chunk_rows); chunk_rows = chunk_rows[: args.limit]
+        label = "engine readings"
+        if args.attest:
+            chosen = {(a["episode"], a["chunk_idx"], a["wi"]): a["chosen"]
+                      for a in read_jsonl(args.attest) if a["margin"] >= args.attest_margin}
+            swapped = 0
+            for r in chunk_rows:
+                for wi, w in enumerate(r["words"]):
+                    c = chosen.get((r["episode"], r["chunk_idx"], wi))
+                    if c and c != w.get("ph"):
+                        w["ph"] = c
+                        swapped += 1
+            label = f"attested readings ({swapped:,} words swapped for the ear's decision, margin >= {args.attest_margin:g})"
         ds["train"] = ChunkSegments(chunk_rows, Path(args.root))
         by["train"] = ds["train"].rows
-        print(f"pretraining on {len(by['train']):,} whole chunks with engine readings", flush=True)
+        print(f"pretraining on {len(by['train']):,} whole chunks with {label}", flush=True)
     hours = {s: round(sum(r["dur_s"] for r in v) / 3600, 2) for s, v in by.items()}
     print(f"segments {({s: len(v) for s, v in by.items()})}  hours {hours}", flush=True)
 
@@ -331,6 +392,13 @@ def main() -> None:
     best = ep0["val_words"]["per"]
     save_ckpt(inner, head, out / "best", {"epoch": 0, "val": ep0, "baseline": base, "args": vars(args)})
 
+    aux_weight = None
+    if args.aux_frame_loss:
+        aux_weight = torch.ones(len(YI_VOCAB), device=device)
+        for p in args.aux_phones.split(","):
+            aux_weight[YI_VOCAB.index(p.strip())] = args.aux_weight
+        print(f"aux frame loss x{args.aux_frame_loss} with {args.aux_phones} weighted x{args.aux_weight}", flush=True)
+
     step = 0
     t0 = time.time()
     stop = False
@@ -354,6 +422,8 @@ def main() -> None:
                 logits[..., YI_BLANK] -= args.train_blank_penalty
             lp = torch.log_softmax(logits, -1).transpose(0, 1)
             loss = F.ctc_loss(lp, flat, flens, tlens, blank=YI_BLANK, reduction="mean", zero_infinity=True)
+            if args.aux_frame_loss:
+                loss = loss + args.aux_frame_loss * frame_aux_loss(logits, flens, flat, tlens, aux_weight)
             opt.zero_grad(set_to_none=True)
             loss.backward()
             torch.nn.utils.clip_grad_norm_(enc_params + list(head.parameters()), args.grad_clip)

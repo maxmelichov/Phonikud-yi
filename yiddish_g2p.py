@@ -4026,6 +4026,20 @@ def _multiword_match(tokens: list[str], i: int) -> tuple[int, str, str] | None:
     return None
 
 
+# A sentence-level reader installed by yiddish_labels (ReNikud-yi, the
+# context model of docs/xeus_finetune.md §19): called on the routed records of
+# every g2p_tokens() call, it may replace the reading of route='rule' records
+# — never a lexicon one — using the whole line as context. None = the engine
+# as it always was, which is what every per-word tool and yardstick uses.
+_CONTEXT_READER = None
+
+
+def set_context_reader(reader) -> None:
+    """Install (or, with None, remove) the sentence-level reader."""
+    global _CONTEXT_READER
+    _CONTEXT_READER = reader
+
+
 def g2p_tokens(text: str) -> list[dict]:
     """Route a whole string and return one §12 record per token, in order.
 
@@ -4033,7 +4047,18 @@ def g2p_tokens(text: str) -> list[dict]:
     single record whose ``word`` is the joined spelling. Each record carries the
     surrounding punctuation in ``lead``/``trail`` so a caller can rebuild the
     line; hebrew_to_ipa does exactly that.
+
+    With a context reader installed (set_context_reader), the rule-path
+    records are handed to it last, with the whole line, and may come back
+    re-read; lexicon records are returned as routed.
     """
+    records = _route_records(text)
+    if _CONTEXT_READER is not None:
+        records = _CONTEXT_READER(text, records)
+    return records
+
+
+def _route_records(text: str) -> list[dict]:
     tokens = normalize_surface(strip_tags(text)).split()
     records: list[dict] = []
     prev_core: str | None = None

@@ -79,14 +79,26 @@ immediately instead of surfacing months later in a listening test.
 
 ```
 yiddish_labels.py     front door + deployment guard  ← import this
-yiddish_nikud.py      diacritizer wrapper, points at v5
+yiddish_nikud.py      diacritizer wrapper, points at v8
+yiddish_renikud.py    ReNikud-yi: the context model for words no table holds
+yi_align.py           the letter aligner its decode uses
 selftest.py           run this first
 make_bundle.py        build the portable zip (repo only)
 yiddish_g2p.py        the G2P engine — in the bundle; in the repo it stays at the root
 data/*.py             7 generated tables the engine needs (2.1 MB)
-onnx_yiddish_v5/      phonikud-yi v5 export — in the bundle; in the repo it is
-                      models/phonikud_yi_v5/v5.onnx (or $PHONIKUD_YI_MODEL)
+onnx_yiddish_v8/      phonikud-yi v8 export — in the bundle; in the repo it is
+                      models/phonikud_yi_v8/v8.onnx (or $PHONIKUD_YI_MODEL)
+onnx_renikud_yi/      ReNikud-yi export (int8, 307 MB) — in the repo it is
+                      models/renikud_yi_audio/onnx_int8 (or $PHONIKUD_YI_RENIKUD_MODEL)
 ```
+
+`yiddish_labels` installs ReNikud-yi on the engine's rule path at import
+(`yiddish_labels.CONTEXT_READER` says whether it did). Words any table
+answers are never touched; a rule-path word is re-read from the whole
+sentence, constrained to the legal readings of its spelling. Measured on
+3,748 unlabelled words across six held-out episodes: agreement with the
+host's audio 94.5%, the rule engine alone 88.0% (docs/xeus_finetune.md
+§19, §26). `PHONIKUD_YI_RENIKUD=0` runs the engine without it.
 
 **A name collision to know about:** an older `yiddish_nikud.py` aimed at the
 superseded `onnx_yiddish` export used to sit at the repo root (it now lives in
@@ -106,6 +118,9 @@ Fixed chain, highest first — a lower tier never overrides a higher one:
    readings refuted and barred from training
 3. **published pointing** (Sefaria) → 4. **model guesses** — both LOW
    confidence, always queued for human review
+5. **ReNikud-yi** for the words none of the above holds: the rule engine's
+   reading defines the spelling's legal readings, the context model picks
+   among them (layer `R` in the token record, the engine's reading in `reason`)
 
 v5 was finetuned on labels repaired under that chain, including the 793
 training rows where אַ פאר had been labelled "far".

@@ -2,7 +2,7 @@
 """Build the portable label-stack bundle for another machine (e.g. the TTS box).
 
 The bundle is this directory's modules + the engine + its eight generated
-tables + the phonikud-yi v5 export, laid out so ``yiddish_nikud`` finds the
+tables + the phonikud-yi v8 pointing export + the ReNikud-yi context model, laid out so ``yiddish_nikud`` finds the
 model beside itself and ``yiddish_labels`` finds the engine beside itself.
 Nothing in it needs torch, transformers or a network -- only onnxruntime and
 numpy.
@@ -37,11 +37,19 @@ TABLES = ("gold_lexicon.py", "audio_pe_lk.py", "audio_vowel_lk.py",
           "audio_endorsed_lk.py", "homograph_lk.py", "sefaria_pointed_lk.py",
           "printed_respelling_lk.py", "model_pointed_lk.py",
           "stress_overrides.py")
-MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "selftest.py", "README.md")
+MODULES = ("yiddish_labels.py", "yiddish_nikud.py", "yiddish_renikud.py", "selftest.py", "README.md")
+# The letter aligner ReNikud-yi's decode needs lives with the training scripts.
+SCRIPT_MODULES = ("yi_align.py",)
 # v8 (2026-09-09): retrain8 = v6 + the audio-attested tier; beats v6 48:4 on the
 # audio yardstick (docs/xeus_finetune.md §18). PHONIKUD_YI_MODEL overrides.
 MODEL_SRC = pathlib.Path(os.environ["PHONIKUD_YI_MODEL"]) if os.environ.get("PHONIKUD_YI_MODEL") else REPO / "models" / "phonikud_yi_v8" / "v8.onnx"
 DATASET = REPO / "data" / "corpus" / "yiddish_tts_dataset_v2.tsv"
+# ReNikud-yi (2026-09-11): the context model for rule-path words, docs
+# §19/§26 — 94.5% agreement with the audio where the rule engine has 88.0%.
+# The int8 dynamic-quantised export reads identically to fp32 on the held-out
+# episodes (renikud_bundle_check.py) at a quarter of the size. Override with
+# PHONIKUD_YI_RENIKUD_SRC; --no-renikud ships the engine without it.
+RENIKUD_SRC = pathlib.Path(os.environ["PHONIKUD_YI_RENIKUD_SRC"]) if os.environ.get("PHONIKUD_YI_RENIKUD_SRC") else REPO / "models" / "renikud_yi_audio" / "onnx_int8"
 
 
 def sha256(path: Path) -> str:
@@ -59,6 +67,8 @@ def main() -> int:
                     help="include yiddish_tts_dataset_v2.tsv (51 MB)")
     ap.add_argument("--no-model", action="store_true",
                     help="skip the 1.1 GB v5 export (code + tables only)")
+    ap.add_argument("--no-renikud", action="store_true",
+                    help="skip the ReNikud-yi export (the engine then reads rule-path words by rule alone)")
     ap.add_argument("--skip-selftest", action="store_true",
                     help="build even if the assembled tree fails its checks")
     args = ap.parse_args()
@@ -72,12 +82,18 @@ def main() -> int:
     for mod in MODULES:
         shutil.copy2(HERE / mod, stage / mod)
     shutil.copy2(REPO / "yiddish_g2p.py", stage / "yiddish_g2p.py")
+    for mod in SCRIPT_MODULES:
+        shutil.copy2(REPO / "scripts" / mod, stage / mod)
     for tbl in TABLES:
         shutil.copy2(REPO / "data" / "lexicons" / tbl, stage / "data" / "lexicons" / tbl)
     if not args.no_model:
         if not (MODEL_SRC / "model.onnx").exists():
             raise SystemExit(f"no v5 export at {MODEL_SRC}; pass --no-model to skip")
         shutil.copytree(MODEL_SRC, stage / "onnx_yiddish_v8")
+    if not args.no_renikud:
+        if not (RENIKUD_SRC / "model.onnx").exists():
+            raise SystemExit(f"no ReNikud-yi export at {RENIKUD_SRC}; run scripts/export_renikud_onnx.py --int8 or pass --no-renikud")
+        shutil.copytree(RENIKUD_SRC, stage / "onnx_renikud_yi")
     if args.with_dataset:
         if not DATASET.exists():
             raise SystemExit(f"{DATASET} missing; run scripts/retag_tts_dataset.py")
