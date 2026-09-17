@@ -973,3 +973,89 @@ slot. Everything else the new ear does better, by a lot on unseen words.
 a decode-time hybrid (two ears resident: batch ≤ 2 on 24 GB, §11 trap) that
 needs no training and can be measured with the same probe. Round 3 + 3b
 pod spend ≈ $9 (the secure cloud had only an A100 at $1.59/h that night).
+
+## 29. A multi-agent round on the ear and its data (2026-09-17)
+
+Seven agents in parallel, then a judge (`better-ear-better-data` workflow),
+followed by one pod run. Reports: `data/eval/hybrid_ear.md`,
+`stress_prosody.md`, `vowel_audit.md`, `vowel_review_queue.tsv`.
+
+**The oʊ canary was one word.** `scripts/xeus_hybrid_eval.py` scored graph
+candidates around gold with run 2 and the 3b ear on 1,530 unseen-word and
+1,487 unseen-episode clips (`data/xeus_ft/ear3/hybrid_nll_{A,B}.jsonl`). 65 of
+the 71 contested unseen-word oʊ slots are the single lexeme **ארויף**, whose
+audio the attested chunk stage had seen with the right label (686 lexicon
+tokens): every "oʊ collapses" verdict in §21-§27b measured one word under a
+curriculum that had heard it. On the וי slot per token, 3b is right on
+336/385 vs run 2's 328/385; on every other contested slot 3b is ahead (clip
+exact 0.446 → 0.526, 42/165, p = 2e-18; ə 0.797 → 0.870; f/p 0.836 → 0.911;
+ɔj 0.943 → 0.987). The decode-time hybrid (run 2 for וי, 3b elsewhere) is a
+wash on unseen words (p = 0.75) and a small loss on episodes (0/8, p = 0.008):
+it buys the 10 ארויף slots for 14 ɔj slots. Closed. Latent bug noted:
+`xeus_lattice.ctc_nll` / `xeus_ft_probe_pairs.nll` use `zero_infinity=True`,
+which scores an impossible candidate 0 instead of +∞ (never triggered here).
+
+**Stress from prosody** (`scripts/stress_prosody_probe.py`, 4,795 cases /
+163 polysyllabic certain types, 5-fold type-disjoint): vowel duration,
+energy and F0 from run 2's forced alignment predict the engine's stress at
+72.5% (duration 68.1, energy 65.0, F0 66.9); vowel identity alone 91.9% (ə is
+never stressed); position + vowel + audio 93.4%. Where it bites — words with
+no ə (n = 822, 41 types, chance 49.7%) — audio alone reaches 60.9%, and 56.7%
+on non-initial stress with no ə (n = 462). A per-type second witness over many
+clips, not a predictor. On the 16 types the Gemini judge had overturned,
+prosody sides with Gemini on 10/16 (13/16 with vowel identity). Engine bug
+found: נאכדעם reads nuxdˈejm, gold nuxdəm.
+
+**Vowel-label audit** (`attest_v9.jsonl`, 576,017 rows): ear ∧ ReNikud-yi
+agree inside the class on 99.0% (יי) and 99.2% (וי) of open rows — one witness
+counted twice, since ReNikud-yi learned from the ear's labels — but only
+81.4% (א), 89.9% (ו), 87.3% (ɛ/ə), 83.4% (פ), 80.6% (final devoicing); above
+95% only at ear margin ≥ 2. On the ear's own changes ReNikud-yi sides with the
+engine about as often as with the ear on א/פ/ו. The engine reads oʊ on 6,592
+tokens (1,504 types); the ear keeps oʊ on 250 (8 at ≥ 2 nats), ReNikud-yi on
+32, both on 2 — no witness can verify oʊ→ɔj. Review queue for Chezky:
+`data/eval/vowel_review_queue.tsv`, 150 types (622 qualify), the first 30
+cover 8,503 occurrences (סא, נו, אזעלכע, טאן, מוזיק, זעקס, החיים…). Label
+yield: ear ≥ 2 alone 164,975 tokens; v9 rule 350,777; strict (agree ∧ ear ≥ 2
+∧ ReNikud ≥ 1) 154,988.
+
+**New episodes.** 7 new yiddish24 episodes (30 Jul – 9 Sep 2026) scraped and
+chunked (412 chunks, 205 min; `scripts/build_new_episode_tsv.py` builds v2-shaped
+rows with v9 pointing + engine/ReNikud IPA), but the AI-gateway key is dead
+(401 since late July), so the Gemini transcripts — and with them the only
+fully blind oʊ audio — wait on a new key.
+
+**Round 3c** (`scripts/ear_round3c.sh`, the judged recipe): the 3b fine-tune
+again from `ckpt_pre_att/last` on the certain clips minus the 1,294 whose
+וי variant contradicts the primary reading (`xeus_ft_filter_variants.py` →
+`data/xeus_ft/run3c`; all three ears reject the ɔj label on 68-81% of the
+ארויס clips, `probe_run3c_conflict_clips.json`), oʊ ×8, 2 epochs, 4090
+(5.3 min/epoch; ≈ $1 with the ship). Paired on identical clips:
+
+| | run 2 | 3b | **3c** |
+|---|---|---|---|
+| unseen words PER (exact) | 0.357 (6.1%) | 0.330 (12.4%) | **0.335** (11.9%), 29/240 vs run 2, p = 2e-42 |
+| unseen episodes PER | 0.308 | 0.312 | 0.309 (146/152, p = 0.77) |
+| וי slot, ארויף clips (62) | **29** | 19 | 22 (vs 3b 4/1, p = 0.38) |
+| ɔj slot (515) | 480 | **499** | 494 |
+| ə slot, words / episodes | 0.79 / 0.90 | 0.86 / 0.87 | 0.87 / **0.91** |
+| וי tokens right, all 577 | 509 | 518 | 516 |
+| + decode prior oʊ:2 → oʊ / ɔj | 55 / 465 | — | 36 / 490 |
+
+The filter recovered 3 of the 10 ארויף clips (not significant) and cost 5 ɔj:
+necessary, not sufficient; the rest of the 44 → 22 drop is the fine-tune stage
+forgetting a phone it has 300 clips of. The attested chunk stage alone
+(`ckpt_pre_att/last`, PER 0.453) remains the best וי discriminator (44/62,
+497/515).
+
+**Where this leaves the ear.** By the standing rule run 2 stays for Chezky's
+labels. On every measurement that is not the one lexeme ארויף, 3b/3c are the
+better ears — unseen-word exact match doubled, ə and ɔj and f/p slots all up,
+episodes level — and on the וי slot as a whole they are at or above run 2. The
+question "does the new ear discriminate oʊ" cannot be answered on the
+existing splits; it needs blind oʊ audio (the 7 new episodes) or Chezky's
+verdicts on the 1,504 engine-oʊ types. Until then: run 2 for labels, 3c
+(`data/xeus_ft/ear3c/ckpt_att_ou_c/best`) for anything else, with `--phone-bias
+oʊ:2` as the calibration if the וי slot matters. Next lever for the ear itself:
+keep stage B from forgetting (rehearse a sample of attested chunk rows inside
+the certain-clip epochs — a trainer change), not more relabelling of stage A.
