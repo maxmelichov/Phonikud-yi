@@ -1,0 +1,15 @@
+{
+ "data/xeus_ft/ckpt/best": {
+  "val_words oʊ (n=62)": {
+   "true_wins": 55,
+   "swap_wins": 7,
+   "acc": 0.887
+  },
+  "val_words ɔj (n=515)": {
+   "true_wins": 465,
+   "swap_wins": 50,
+   "acc": 0.903
+  }
+ },
+ "phone_bias": "oʊ:2"
+}

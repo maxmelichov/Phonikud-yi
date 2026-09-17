@@ -1,0 +1,38 @@
+{
+ "data/xeus_ft/ckpt/best": {
+  "val_words oʊ (n=62)": {
+   "true_wins": 30,
+   "swap_wins": 32,
+   "acc": 0.484
+  },
+  "val_words ɔj (n=515)": {
+   "true_wins": 480,
+   "swap_wins": 35,
+   "acc": 0.932
+  }
+ },
+ "data/xeus_ft/ear3/ckpt_pre_att/last": {
+  "val_words oʊ (n=62)": {
+   "true_wins": 44,
+   "swap_wins": 18,
+   "acc": 0.71
+  },
+  "val_words ɔj (n=515)": {
+   "true_wins": 497,
+   "swap_wins": 18,
+   "acc": 0.965
+  }
+ },
+ "paired": {
+  "val_words oʊ": {
+   "a_only": 6,
+   "b_only": 20,
+   "p": 0.009355306625366211
+  },
+  "val_words ɔj": {
+   "a_only": 4,
+   "b_only": 21,
+   "p": 0.0009105205535888672
+  }
+ }
+}

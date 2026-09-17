@@ -1,0 +1,143 @@
+{
+ "data/xeus_ft/ckpt/best": {
+  "drop:לויט": {
+   "label_wins": 150,
+   "other_wins": 42,
+   "median_margin": 1.2
+  },
+  "drop:ארויס": {
+   "label_wins": 69,
+   "other_wins": 294,
+   "median_margin": -3.04
+  },
+  "drop:טוישנ": {
+   "label_wins": 16,
+   "other_wins": 21,
+   "median_margin": -0.2
+  },
+  "drop:אויס": {
+   "label_wins": 115,
+   "other_wins": 265,
+   "median_margin": -1.28
+  },
+  "drop:הויז": {
+   "label_wins": 68,
+   "other_wins": 73,
+   "median_margin": -0.26
+  },
+  "keep:הויז": {
+   "label_wins": 105,
+   "other_wins": 0,
+   "median_margin": 6.78
+  },
+  "keep:אויס": {
+   "label_wins": 32,
+   "other_wins": 0,
+   "median_margin": 4.22
+  },
+  "keep:?": {
+   "label_wins": 1,
+   "other_wins": 1,
+   "median_margin": 1.19
+  },
+  "keep:ארויס": {
+   "label_wins": 116,
+   "other_wins": 1,
+   "median_margin": 5.14
+  }
+ },
+ "data/xeus_ft/ear3/ckpt_pre_att/last": {
+  "drop:לויט": {
+   "label_wins": 133,
+   "other_wins": 59,
+   "median_margin": 1.07
+  },
+  "drop:ארויס": {
+   "label_wins": 160,
+   "other_wins": 203,
+   "median_margin": -0.23
+  },
+  "drop:טוישנ": {
+   "label_wins": 25,
+   "other_wins": 12,
+   "median_margin": 0.26
+  },
+  "drop:אויס": {
+   "label_wins": 248,
+   "other_wins": 132,
+   "median_margin": 0.59
+  },
+  "drop:הויז": {
+   "label_wins": 116,
+   "other_wins": 25,
+   "median_margin": 1.26
+  },
+  "keep:הויז": {
+   "label_wins": 83,
+   "other_wins": 22,
+   "median_margin": 1.24
+  },
+  "keep:אויס": {
+   "label_wins": 22,
+   "other_wins": 10,
+   "median_margin": 0.64
+  },
+  "keep:?": {
+   "label_wins": 2,
+   "other_wins": 0,
+   "median_margin": 1.49
+  },
+  "keep:ארויס": {
+   "label_wins": 101,
+   "other_wins": 16,
+   "median_margin": 1.94
+  }
+ },
+ "data/xeus_ft/ear3/ckpt_att_ou/best": {
+  "drop:לויט": {
+   "label_wins": 191,
+   "other_wins": 1,
+   "median_margin": 3.21
+  },
+  "drop:ארויס": {
+   "label_wins": 116,
+   "other_wins": 247,
+   "median_margin": -1.05
+  },
+  "drop:טוישנ": {
+   "label_wins": 37,
+   "other_wins": 0,
+   "median_margin": 2.95
+  },
+  "drop:אויס": {
+   "label_wins": 221,
+   "other_wins": 159,
+   "median_margin": 0.41
+  },
+  "drop:הויז": {
+   "label_wins": 83,
+   "other_wins": 58,
+   "median_margin": 1.07
+  },
+  "keep:הויז": {
+   "label_wins": 105,
+   "other_wins": 0,
+   "median_margin": 6.23
+  },
+  "keep:אויס": {
+   "label_wins": 31,
+   "other_wins": 1,
+   "median_margin": 2.96
+  },
+  "keep:?": {
+   "label_wins": 0,
+   "other_wins": 2,
+   "median_margin": -0.13
+  },
+  "keep:ארויס": {
+   "label_wins": 117,
+   "other_wins": 0,
+   "median_margin": 3.0
+  }
+ }
+}

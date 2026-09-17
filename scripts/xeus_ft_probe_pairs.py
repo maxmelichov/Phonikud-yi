@@ -61,9 +61,16 @@ def main() -> None:
     ap.add_argument("--limit-per-pair", type=int, default=600, help="per (split, phone); oʊ clips are all kept")
     ap.add_argument("--seconds", type=float, default=40.0)
     ap.add_argument("--device", default=None)
+    ap.add_argument("--phone-bias", default=None,
+                    help="PHONE:B  add B to that phone's logit on every frame before log_softmax (a decode-time prior; 0 = raw ear)")
     ap.add_argument("--out", default=str(REPO / "data/xeus_ft/ear3/probe_pairs.json"))
     args = ap.parse_args()
     import torch
+    bias = None
+    if args.phone_bias:
+        from xeus_ft_common import YI_VOCAB
+        ph, b = args.phone_bias.split(":")
+        bias = (YI_VOCAB.index(ph), float(b))
     device = args.device or ("cuda" if torch.cuda.is_available() else ("mps" if torch.backends.mps.is_available() else "cpu"))
     pairs = [tuple(p.split(":")) for p in args.pairs.split(",")]
     splits = args.splits.split(",")
@@ -98,7 +105,10 @@ def main() -> None:
             for idx in ds.batches(args.seconds, shuffle=False, rng=random.Random(0)):
                 speech, lens, _, _ = collate(ds, idx, device)
                 logits, flens = yi_logits(inner, head, speech, lens)
-                lp = torch.log_softmax(logits.float(), -1).cpu()  # ctc_loss has no MPS kernel
+                logits = logits.float()
+                if bias:
+                    logits[..., bias[0]] += bias[1]
+                lp = torch.log_softmax(logits, -1).cpu()  # ctc_loss has no MPS kernel
                 for j, i in enumerate(idx):
                     r = kept[i]
                     swapped = [r["_swap"] if p == r["_true"] else p for p in r["target"]]
@@ -127,6 +137,8 @@ def main() -> None:
         for k, (ao, bo) in paired.items():
             print(f"  {k:20s} A-only {ao:3d}  B-only {bo:3d}  p={sign_p(ao, bo):.3g}")
         results["paired"] = {k: {"a_only": v[0], "b_only": v[1], "p": sign_p(*v)} for k, v in paired.items()}
+    if args.phone_bias:
+        results["phone_bias"] = args.phone_bias
     Path(args.out).write_text(json.dumps(results, ensure_ascii=False, indent=1))
     print("wrote", args.out)
 
