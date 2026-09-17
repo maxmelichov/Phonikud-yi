@@ -127,14 +127,27 @@ def fetch_page(session: requests.Session, page: int) -> str:
     return result
 
 
+PAGE_COUNT_RE = re.compile(r'data-page="(\d+)"')
+
+
+def page_count(markup: str) -> int:
+    """The pager's highest data-page on the category page; TOTAL_PAGES if absent."""
+    pages = [int(p) for p in PAGE_COUNT_RE.findall(markup)]
+    return max(pages) if pages else TOTAL_PAGES
+
+
 def scrape(session: requests.Session) -> tuple[list[dict], list[tuple[int, str]]]:
+    global TOTAL_PAGES
+    first = fetch_page(session, 1)
+    TOTAL_PAGES = page_count(first)  # the site grows: 27 pages in Aug 2026, 28 by Sep
+    print("category has %d pages" % TOTAL_PAGES)
     episodes: list[dict] = []
     seen_urls: set[str] = set()
     failures: list[tuple[int, str]] = []
 
     for page in range(1, TOTAL_PAGES + 1):
         try:
-            markup = fetch_page(session, page)
+            markup = first if page == 1 else fetch_page(session, page)
             found = parse_episodes(markup, page)
         except Exception as exc:  # network, JSON, or parse failure
             failures.append((page, "%s: %s" % (type(exc).__name__, exc)))
