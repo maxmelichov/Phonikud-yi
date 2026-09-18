@@ -19,8 +19,10 @@ agreement with the host's audio 94.5%, the rule engine alone 88.0%):
     every combination of its open slots (the §12 graph), plus the model's own
     free guess; each candidate is aligned letter-by-letter to the spelling
     (yi_align) and scored by the sum of the model's per-letter log-probs; the
-    best legal reading replaces the engine's. Stress stays where the engine
-    put it.
+    best legal reading replaces the engine's; on a word with two or more
+    full vowels the model's stress head then places the stress (the vowel
+    whose letter it gives the highest stress probability), where the engine's
+    rule was right 78% of the time and the head 90% (v2, docs §31).
 
 Installed by yiddish_labels at import through yiddish_g2p.set_context_reader;
 PHONIKUD_YI_RENIKUD=0 leaves the engine as it was. Needs onnxruntime + numpy;
@@ -177,7 +179,7 @@ class ReNikudYi:
         return out
 
     def logprobs(self, base: str):
-        """Per-character (consonant, vowel) log-probabilities: two arrays (len(base), C) / (len(base), V)."""
+        """Per-character log-probabilities: (len(base), C) consonant, (len(base), V) vowel, (len(base),) log p(stress)."""
         import numpy as np
         segs = self._split(base)
         ids = [[self._cls] + [self._vocab.get(c, self._unk) for c in s] + [self._sep] for s in segs]
@@ -187,10 +189,11 @@ class ReNikudYi:
         for r, row in enumerate(ids):
             input_ids[r, : len(row)] = row
             attention[r, : len(row)] = 1
-        cons, vow, _ = self._session.run(None, {"input_ids": input_ids, "attention_mask": attention})
+        cons, vow, st = self._session.run(None, {"input_ids": input_ids, "attention_mask": attention})
         lc = np.concatenate([_log_softmax(cons[r, 1: 1 + len(s)]) for r, s in enumerate(segs)])
         lv = np.concatenate([_log_softmax(vow[r, 1: 1 + len(s)]) for r, s in enumerate(segs)])
-        return lc, lv
+        ls = np.concatenate([_log_softmax(st[r, 1: 1 + len(s)])[:, 1] for r, s in enumerate(segs)])
+        return lc, lv, ls
 
     # ------------------------------------------------------------ decode
     def tokenize(self, ipa: str) -> list[str]:
@@ -213,17 +216,36 @@ class ReNikudYi:
                 i += 1
         return out
 
-    def score(self, word: str, phones: list[str], start: int, lc, lv) -> float:
-        """Log-probability of a reading under the model, letter-aligned; -inf if unalignable."""
+    def score(self, word: str, phones: list[str], start: int, lc, lv, ls=None) -> tuple[float, int | None]:
+        """(log-probability of a reading under the model, letter-aligned, -inf if unalignable;
+        the stress ordinal the stress head puts on it: among the reading's full vowels the one
+        whose letter has the highest stress log-prob, None unless there are two or more)."""
         from yi_align import align_word, parse_chunk
         aligned = align_word(word, "".join(phones))
         if aligned is None or len(aligned) != len(word):
-            return float("-inf")
+            return float("-inf"), None
         total = 0.0
+        n_v = 0
+        full: list[tuple[int, float]] = []
         for k, (_, chunk) in enumerate(aligned):
             cons, vowel, _ = parse_chunk(chunk) if chunk else ("", "", 0)
             total += float(lc[start + k, self._c2i.get(cons, 0)]) + float(lv[start + k, self._v2i.get(vowel, 0)])
-        return total
+            if vowel:
+                if vowel != "ə" and ls is not None:
+                    full.append((n_v, float(ls[start + k])))
+                n_v += 1
+        return total, (max(full, key=lambda x: x[1])[0] if len(full) >= 2 else None)
+
+    def place_stress(self, phones: list[str], ordinal: int | None) -> str:
+        """The reading with the mark before its ordinal-th vowel (all vowels counted); unmarked if None."""
+        out, n_v = [], 0
+        for p in phones:
+            if p in self._v2i and p:
+                if ordinal is not None and n_v == ordinal:
+                    out.append("ˈ")
+                n_v += 1
+            out.append(p)
+        return "".join(out)
 
     def free_reading(self, start: int, end: int, lc, lv) -> list[str]:
         out: list[str] = []
@@ -241,7 +263,7 @@ class ReNikudYi:
         base = _base_text(text)
         if not any(r.get("route") == "rule" and r.get("ipa_primary") for r in records):
             return records
-        lc, lv = self.logprobs(base)
+        lc, lv, ls = self.logprobs(base)
         cursor = 0
         out = list(records)
         for i, rec in enumerate(records):
@@ -264,14 +286,20 @@ class ReNikudYi:
             own = self.free_reading(pos, pos + len(w), lc, lv)
             if own and own not in cands:
                 cands.append(own)
-            scored = sorted(((self.score(w, c, pos, lc, lv), c) for c in cands), key=lambda x: -x[0])
-            best_score, best = scored[0]
-            if best_score == float("-inf") or best == eng:
+            scored = sorted(((*self.score(w, c, pos, lc, lv, ls), c) for c in cands), key=lambda x: -x[0])
+            best_score, k, best = scored[0]
+            if best_score == float("-inf"):
+                continue
+            if k is not None:
+                ipa = self.place_stress(best, k)                       # the stress head's choice
+            else:
+                ipa = restress(eng_ipa, best, self.inventory) if len(best) == len(eng) else "".join(best)
+            if ipa == eng_ipa.replace(" ", ""):
                 continue
             new = dict(rec)  # never mutate the engine's cached record
-            new["ipa_primary"] = restress(eng_ipa, best, self.inventory) if len(best) == len(eng) else "".join(best)
+            new["ipa_primary"] = ipa
             new["layer"] = "R"
-            new["reason"] = f"ReNikud-yi, graph-constrained: engine read {eng_ipa}"
+            new["reason"] = f"ReNikud-yi, graph-constrained{' + stress head' if k is not None else ''}: engine read {eng_ipa}"
             out[i] = new
         return out
 

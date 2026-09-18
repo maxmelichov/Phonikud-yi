@@ -56,7 +56,7 @@ def _chunk(args):
         starts.append(pos)
         pos += len(bw) + 1
     try:
-        lc, lv = _MODEL.logprobs(base)
+        lc, lv, _ = _MODEL.logprobs(base)
     except Exception as e:  # noqa: BLE001
         return [(k, None, 0.0, repr(e)) for k, _, _ in targets]
     out = []
@@ -70,7 +70,7 @@ def _chunk(args):
         own = _MODEL.free_reading(st, st + len(w), lc, lv)
         if own and own not in cands:
             cands.append(own)
-        scored = sorted(((_MODEL.score(w, c, st, lc, lv), c) for c in cands), key=lambda x: -x[0])
+        scored = sorted(((_MODEL.score(w, c, st, lc, lv)[0], c) for c in cands), key=lambda x: -x[0])
         if not scored or scored[0][0] == float("-inf"):
             out.append((key, None, 0.0, "unalignable"))
             continue

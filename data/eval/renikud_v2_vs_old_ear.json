@@ -1,0 +1,671 @@
+{
+ "ref": "data/xeus_ft/attest_old_heldout.jsonl",
+ "ref_format": "old",
+ "margin": 2.0,
+ "episodes": [
+  "100313",
+  "104192",
+  "104690",
+  "113370",
+  "58622",
+  "94226"
+ ],
+ "n_rule": 3748,
+ "n_poly": 0,
+ "systems": {
+  "engine": {
+   "rule_n": 3748,
+   "seg_acc": 87.97,
+   "gold_n": 25728,
+   "gold_acc": 99.98
+  },
+  "v1": {
+   "rule_n": 3748,
+   "seg_acc": 86.53,
+   "gold_n": 25728,
+   "gold_acc": 96.54
+  },
+  "v1+graph": {
+   "rule_n": 3748,
+   "seg_acc": 94.5,
+   "gold_n": 25728,
+   "gold_acc": 99.92
+  },
+  "v1+graph+engine-stress": {
+   "rule_n": 3748,
+   "seg_acc": 94.5,
+   "gold_n": 25728,
+   "gold_acc": 99.92
+  },
+  "v2": {
+   "rule_n": 3748,
+   "seg_acc": 83.06,
+   "gold_n": 25728,
+   "gold_acc": 96.37
+  },
+  "v2+graph": {
+   "rule_n": 3748,
+   "seg_acc": 91.01,
+   "gold_n": 25728,
+   "gold_acc": 99.83
+  },
+  "v2+graph+engine-stress": {
+   "rule_n": 3748,
+   "seg_acc": 91.01,
+   "gold_n": 25728,
+   "gold_acc": 99.83
+  }
+ },
+ "paired_rule_path": {
+  "v1 vs engine": {
+   "seg": {
+    "fixed": 300,
+    "broke": 354,
+    "net": -54,
+    "p": 0.038141
+   }
+  },
+  "v1+graph vs engine": {
+   "seg": {
+    "fixed": 322,
+    "broke": 77,
+    "net": 245,
+    "p": 0.0
+   }
+  },
+  "v1+graph+engine-stress vs engine": {
+   "seg": {
+    "fixed": 322,
+    "broke": 77,
+    "net": 245,
+    "p": 0.0
+   }
+  },
+  "v2 vs engine": {
+   "seg": {
+    "fixed": 191,
+    "broke": 375,
+    "net": -184,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs engine": {
+   "seg": {
+    "fixed": 213,
+    "broke": 99,
+    "net": 114,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs engine": {
+   "seg": {
+    "fixed": 213,
+    "broke": 99,
+    "net": 114,
+    "p": 0.0
+   }
+  },
+  "v1+graph vs v1": {
+   "seg": {
+    "fixed": 299,
+    "broke": 0,
+    "net": 299,
+    "p": 0.0
+   }
+  },
+  "v1+graph+engine-stress vs v1": {
+   "seg": {
+    "fixed": 299,
+    "broke": 0,
+    "net": 299,
+    "p": 0.0
+   }
+  },
+  "v2 vs v1": {
+   "seg": {
+    "fixed": 34,
+    "broke": 164,
+    "net": -130,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1": {
+   "seg": {
+    "fixed": 328,
+    "broke": 160,
+    "net": 168,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1": {
+   "seg": {
+    "fixed": 328,
+    "broke": 160,
+    "net": 168,
+    "p": 0.0
+   }
+  },
+  "v1+graph+engine-stress vs v1+graph": {
+   "seg": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v2 vs v1+graph": {
+   "seg": {
+    "fixed": 32,
+    "broke": 461,
+    "net": -429,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1+graph": {
+   "seg": {
+    "fixed": 33,
+    "broke": 164,
+    "net": -131,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1+graph": {
+   "seg": {
+    "fixed": 33,
+    "broke": 164,
+    "net": -131,
+    "p": 0.0
+   }
+  },
+  "v2 vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 32,
+    "broke": 461,
+    "net": -429,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 33,
+    "broke": 164,
+    "net": -131,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 33,
+    "broke": 164,
+    "net": -131,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v2": {
+   "seg": {
+    "fixed": 298,
+    "broke": 0,
+    "net": 298,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v2": {
+   "seg": {
+    "fixed": 298,
+    "broke": 0,
+    "net": 298,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v2+graph": {
+   "seg": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  }
+ },
+ "examples": [
+  {
+   "word": "ביינאַכט",
+   "ear": "bajnaxt",
+   "engine": "bˈajnaxt",
+   "v1": "bˈajnaxt",
+   "v1+graph": "bˈajnaxt",
+   "v1+graph+engine-stress": "bˈajnaxt",
+   "v2": "baːnˈaxt",
+   "v2+graph": "baːnˈaxt",
+   "v2+graph+engine-stress": "bˈaːnaxt"
+  },
+  {
+   "word": "אריינטרעטן",
+   "ear": "araːntrətn",
+   "engine": "arˈaːntrətn",
+   "v1": "arˈajntrətn",
+   "v1+graph": "arˈajntrətn",
+   "v1+graph+engine-stress": "arˈajntrətn",
+   "v2": "arˈaːntrɛtn",
+   "v2+graph": "arˈaːntrɛtn",
+   "v2+graph+engine-stress": "arˈaːntrɛtn"
+  },
+  {
+   "word": "נאכזאגן",
+   "ear": "nuxzuɡn",
+   "engine": "nˈaxzaɡn",
+   "v1": "nˈuxzuɡn",
+   "v1+graph": "nˈuxzuɡn",
+   "v1+graph+engine-stress": "nˈuxzuɡn",
+   "v2": "nˈuxzuɡn",
+   "v2+graph": "nˈuxzuɡn",
+   "v2+graph+engine-stress": "nˈuxzuɡn"
+  },
+  {
+   "word": "מגיד",
+   "ear": "mɡit",
+   "engine": "mɡid",
+   "v1": "mɡit",
+   "v1+graph": "mɡit",
+   "v1+graph+engine-stress": "mɡit",
+   "v2": "mɡit",
+   "v2+graph": "mɡit",
+   "v2+graph+engine-stress": "mɡit"
+  },
+  {
+   "word": "נמתק",
+   "ear": "nimtik",
+   "engine": "nˈimtuk",
+   "v1": "nˈimtik",
+   "v1+graph": "nˈimtik",
+   "v1+graph+engine-stress": "nˈimtik",
+   "v2": "nˈimtik",
+   "v2+graph": "nˈimtik",
+   "v2+graph+engine-stress": "nˈimtik"
+  },
+  {
+   "word": "מ'זעט",
+   "ear": "mzajt",
+   "engine": "mzejt",
+   "v1": "mzajt",
+   "v1+graph": "mzajt",
+   "v1+graph+engine-stress": "mzajt",
+   "v2": "mzejt",
+   "v2+graph": "mzejt",
+   "v2+graph+engine-stress": "mzejt"
+  },
+  {
+   "word": "דערהויבענער",
+   "ear": "dərhɔjbənər",
+   "engine": "dˈɛrhɔjbənər",
+   "v1": "dərhɔjbənər",
+   "v1+graph": "dərhɔjbənər",
+   "v1+graph+engine-stress": "dərhɔjbənər",
+   "v2": "dərhɔjbənər",
+   "v2+graph": "dərhɔjbənər",
+   "v2+graph+engine-stress": "dərhɔjbənər"
+  },
+  {
+   "word": "סקווערער",
+   "ear": "skvərər",
+   "engine": "skvˈɛrər",
+   "v1": "skvərər",
+   "v1+graph": "skvərər",
+   "v1+graph+engine-stress": "skvərər",
+   "v2": "skvɛrər",
+   "v2+graph": "skvɛrər",
+   "v2+graph+engine-stress": "skvˈɛrər"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "אויוונס",
+   "ear": "ɔjvns",
+   "engine": "ɔjvns",
+   "v1": "jɔvns",
+   "v1+graph": "ɔjvns",
+   "v1+graph+engine-stress": "ɔjvns",
+   "v2": "jɔvns",
+   "v2+graph": "ɔjvns",
+   "v2+graph+engine-stress": "ɔjvns"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "געכשרט",
+   "ear": "ɡəxʃrt",
+   "engine": "ɡɛxʃrt",
+   "v1": "ɡəkʃərt",
+   "v1+graph": "ɡəkʃərt",
+   "v1+graph+engine-stress": "ɡəkʃərt",
+   "v2": "ɡəkʃərt",
+   "v2+graph": "ɡəkʃərt",
+   "v2+graph+engine-stress": "ɡəkʃərt"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "ואחרונים",
+   "ear": "vaxarɔjnim",
+   "engine": "vaxarˈɔjnim",
+   "v1": "viaxarˈɔjnim",
+   "v1+graph": "viaxarˈɔjnim",
+   "v1+graph+engine-stress": "viaxˈarɔjnim",
+   "v2": "vaxarˈɔjnim",
+   "v2+graph": "vaxarˈɔjnim",
+   "v2+graph+engine-stress": "vaxarˈɔjnim"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "המשמר",
+   "ear": "hamiʃmir",
+   "engine": "hamˈiʃmur",
+   "v1": "hamˈiʃmir",
+   "v1+graph": "hamˈiʃmir",
+   "v1+graph+engine-stress": "hamˈiʃmir",
+   "v2": "hamˈiʃmir",
+   "v2+graph": "hamˈiʃmir",
+   "v2+graph+engine-stress": "hamˈiʃmir"
+  },
+  {
+   "word": "עז",
+   "ear": "əz",
+   "engine": "ɛz",
+   "v1": "əz",
+   "v1+graph": "əz",
+   "v1+graph+engine-stress": "əz",
+   "v2": "ɛz",
+   "v2+graph": "ɛz",
+   "v2+graph+engine-stress": "ɛz"
+  },
+  {
+   "word": "איבערגעבויט",
+   "ear": "ibərɡəbɔjt",
+   "engine": "ˈibərɡəboʊt",
+   "v1": "ˈibərɡəbɔjt",
+   "v1+graph": "ˈibərɡəbɔjt",
+   "v1+graph+engine-stress": "ˈibərɡəbɔjt",
+   "v2": "ˈibərɡəbɔjt",
+   "v2+graph": "ˈibərɡəbɔjt",
+   "v2+graph+engine-stress": "ˈibərɡəbɔjt"
+  },
+  {
+   "word": "פארדעם",
+   "ear": "fardajm",
+   "engine": "fardˈejm",
+   "v1": "fardˈajm",
+   "v1+graph": "fardˈajm",
+   "v1+graph+engine-stress": "fardˈajm",
+   "v2": "fˈardejm",
+   "v2+graph": "fˈardejm",
+   "v2+graph+engine-stress": "fardˈejm"
+  },
+  {
+   "word": "צוואה",
+   "ear": "ʦva",
+   "engine": "ʦva",
+   "v1": "ʦvu",
+   "v1+graph": "ʦvu",
+   "v1+graph+engine-stress": "ʦvu",
+   "v2": "ʦvu",
+   "v2+graph": "ʦvu",
+   "v2+graph+engine-stress": "ʦvu"
+  },
+  {
+   "word": "אראפנעמען",
+   "ear": "arupnɛmən",
+   "engine": "arˈupnəmən",
+   "v1": "arˈupnɛmən",
+   "v1+graph": "arˈupnɛmən",
+   "v1+graph+engine-stress": "arˈupnɛmən",
+   "v2": "arˈupnɛmən",
+   "v2+graph": "arˈupnɛmən",
+   "v2+graph+engine-stress": "arˈupnɛmən"
+  },
+  {
+   "word": "סר",
+   "ear": "sir",
+   "engine": "sur",
+   "v1": "sar",
+   "v1+graph": "sar",
+   "v1+graph+engine-stress": "sar",
+   "v2": "sar",
+   "v2+graph": "sar",
+   "v2+graph+engine-stress": "sar"
+  },
+  {
+   "word": "צוואה",
+   "ear": "ʦvu",
+   "engine": "ʦva",
+   "v1": "ʦvu",
+   "v1+graph": "ʦvu",
+   "v1+graph+engine-stress": "ʦvu",
+   "v2": "ʦvu",
+   "v2+graph": "ʦvu",
+   "v2+graph+engine-stress": "ʦvu"
+  },
+  {
+   "word": "אויבערשטן",
+   "ear": "ɔjbərʃtn",
+   "engine": "ˈɔjbərʃtn",
+   "v1": "jɔbərʃtn",
+   "v1+graph": "ɔjbərʃtn",
+   "v1+graph+engine-stress": "ˈɔjbərʃtn",
+   "v2": "jɔbərʃtn",
+   "v2+graph": "ɔjbərʃtn",
+   "v2+graph+engine-stress": "ˈɔjbərʃtn"
+  },
+  {
+   "word": "אייזן",
+   "ear": "ajzn",
+   "engine": "ajzn",
+   "v1": "jazn",
+   "v1+graph": "ajzn",
+   "v1+graph+engine-stress": "ajzn",
+   "v2": "jazn",
+   "v2+graph": "ajzn",
+   "v2+graph+engine-stress": "ajzn"
+  },
+  {
+   "word": "אייזן",
+   "ear": "ajzn",
+   "engine": "ajzn",
+   "v1": "jazn",
+   "v1+graph": "ajzn",
+   "v1+graph+engine-stress": "ajzn",
+   "v2": "jazn",
+   "v2+graph": "ajzn",
+   "v2+graph+engine-stress": "ajzn"
+  },
+  {
+   "word": "מצויות",
+   "ear": "mʦijɔjs",
+   "engine": "mʦˈijɔjs",
+   "v1": "miʦˈɔjijɔjs",
+   "v1+graph": "miʦˈɔjijɔjs",
+   "v1+graph+engine-stress": "mˈiʦɔjijɔjs",
+   "v2": "mʦˈɔjijɔjs",
+   "v2+graph": "mʦˈɔjijɔjs",
+   "v2+graph+engine-stress": "mʦˈɔjijɔjs"
+  },
+  {
+   "word": "איינץ",
+   "ear": "ajnʦ",
+   "engine": "ajnʦ",
+   "v1": "janʦ",
+   "v1+graph": "ajnʦ",
+   "v1+graph+engine-stress": "ajnʦ",
+   "v2": "janʦ",
+   "v2+graph": "ajnʦ",
+   "v2+graph+engine-stress": "ajnʦ"
+  },
+  {
+   "word": "מחלה",
+   "ear": "maxli",
+   "engine": "mˈaxlu",
+   "v1": "mˈaxli",
+   "v1+graph": "mˈaxli",
+   "v1+graph+engine-stress": "mˈaxli",
+   "v2": "mˈaxli",
+   "v2+graph": "mˈaxli",
+   "v2+graph+engine-stress": "mˈaxli"
+  },
+  {
+   "word": "מחלה",
+   "ear": "maxli",
+   "engine": "mˈaxlu",
+   "v1": "mˈaxli",
+   "v1+graph": "mˈaxli",
+   "v1+graph+engine-stress": "mˈaxli",
+   "v2": "mˈaxli",
+   "v2+graph": "mˈaxli",
+   "v2+graph+engine-stress": "mˈaxli"
+  },
+  {
+   "word": "אייבערשטער",
+   "ear": "ajbərʃtər",
+   "engine": "ˈajbərʃtər",
+   "v1": "jabərʃtər",
+   "v1+graph": "ajbərʃtər",
+   "v1+graph+engine-stress": "ˈajbərʃtər",
+   "v2": "jabərʃtər",
+   "v2+graph": "ajbərʃtər",
+   "v2+graph+engine-stress": "ˈajbərʃtər"
+  },
+  {
+   "word": "סטייפּלס",
+   "ear": "stajpls",
+   "engine": "stajpls",
+   "v1": "stajpls",
+   "v1+graph": "stajpls",
+   "v1+graph+engine-stress": "stajpls",
+   "v2": "stajfls",
+   "v2+graph": "stajfls",
+   "v2+graph+engine-stress": "stajfls"
+  },
+  {
+   "word": "אויערן",
+   "ear": "ɔjərn",
+   "engine": "ˈɔjərn",
+   "v1": "jɔərn",
+   "v1+graph": "ɔjərn",
+   "v1+graph+engine-stress": "ˈɔjərn",
+   "v2": "jɔərn",
+   "v2+graph": "ɔjərn",
+   "v2+graph+engine-stress": "ˈɔjərn"
+  },
+  {
+   "word": "איינץ",
+   "ear": "ajnʦ",
+   "engine": "ajnʦ",
+   "v1": "janʦ",
+   "v1+graph": "ajnʦ",
+   "v1+graph+engine-stress": "ajnʦ",
+   "v2": "janʦ",
+   "v2+graph": "ajnʦ",
+   "v2+graph+engine-stress": "ajnʦ"
+  },
+  {
+   "word": "כ'רעד",
+   "ear": "xrət",
+   "engine": "xrɛd",
+   "v1": "xrət",
+   "v1+graph": "xrət",
+   "v1+graph+engine-stress": "xrət",
+   "v2": "xrɛt",
+   "v2+graph": "xrɛt",
+   "v2+graph+engine-stress": "xrɛt"
+  },
+  {
+   "word": "ומטברך",
+   "ear": "imitbrəx",
+   "engine": "imˈitbrəx",
+   "v1": "imtbrx",
+   "v1+graph": "imtbrx",
+   "v1+graph+engine-stress": "imtbrx",
+   "v2": "imtbrx",
+   "v2+graph": "imtbrx",
+   "v2+graph+engine-stress": "imtbrx"
+  },
+  {
+   "word": "במעיו",
+   "ear": "bmaji",
+   "engine": "bmˈaji",
+   "v1": "bmˈaji",
+   "v1+graph": "bmˈaji",
+   "v1+graph+engine-stress": "bmˈaji",
+   "v2": "bmˈajji",
+   "v2+graph": "bmˈajji",
+   "v2+graph+engine-stress": "bmˈajji"
+  },
+  {
+   "word": "דיי",
+   "ear": "daj",
+   "engine": "daj",
+   "v1": "daj",
+   "v1+graph": "daj",
+   "v1+graph+engine-stress": "daj",
+   "v2": "dej",
+   "v2+graph": "dej",
+   "v2+graph+engine-stress": "dej"
+  },
+  {
+   "word": "ימים",
+   "ear": "imim",
+   "engine": "ˈimim",
+   "v1": "ˈumim",
+   "v1+graph": "ˈumim",
+   "v1+graph+engine-stress": "ˈumim",
+   "v2": "ˈimim",
+   "v2+graph": "ˈimim",
+   "v2+graph+engine-stress": "ˈimim"
+  }
+ ]
+}

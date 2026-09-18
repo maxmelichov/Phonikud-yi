@@ -72,9 +72,11 @@ try:
     check(CONTEXT_READER.startswith("installed"), "ReNikud-yi context reader installed", CONTEXT_READER)
     if text_to_ipa and CONTEXT_READER.startswith("installed"):
         # both words are rule-path; the rule engine reads dɛ / ˈɛlixm, the
-        # host says də / ˈəlixm (audio decisions over 29 and 40+ clips)
+        # host says də (1,094 of 1,477 clips) and stresses עליכם on its second
+        # vowel, ɛlˈixm (143 clips at margin >= 2; the lattice ear, docs §30):
+        # the segment from the letter heads, the stress from the stress head
         got = text_to_ipa("דע צדיקים האבן געזאגט שלום עליכם")
-        check(got.startswith("də ") and "ˈəlixm" in got, "ReNikud-yi re-reads דע / עליכם from context", got)
+        check(got.startswith("də ") and "ɛlˈixm" in got, "ReNikud-yi re-reads דע / עליכם (segment + stress) from context", got)
         got = text_to_ipa("מיט א פאר יאר צוריק")
         check(got == "mit a pˈur jur ʦirˈik", "lexicon words untouched by the context reader", got)
         got = text_to_ipa("דֶע צדיקים")
