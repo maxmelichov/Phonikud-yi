@@ -1172,3 +1172,47 @@ Shipped: engine `notmax123/phonikud-yi-engine` @ `9d32d702` (v2 int8 ONNX
 `notmax123/phonikud-yi-blue-tts` repinned. The gold audit review queue
 (`data/eval/gold_audit_review.tsv`) is the next input for Chezky: 12 variant
 types and 12 stress types, the lexicon's stress for בחורים first.
+
+## 32. Ear v3: the open-slot graph as negatives (2026-09-18/19)
+
+`xeus-yi-ipa` `train.py --mmi 0.3 --mmi-max-cands 24 --mmi-max-secs 8`: on every gold clip up
+to 8 s the loss adds log p(open-slot graph) − log p(label), the graph being the menu widened
+by every open-slot alternative of the label (a/ɔ/u, aj/ej/aː, ɔj/oʊ, i/u, ɛ/ə, final
+devoicing; free stress). The label's likelihood is the plain loss already computed, so only
+the denominator lattice is extra. On 30-s teacher chunks the denominator is ~20k states and
+tripled the step time (3.4 s on a 4090), hence the 8-s cap (1.0 s/step, 15 GB, bs 120).
+Eval every 500 steps on 1,500 clips per file, on the menu and on the graph-widened menu
+(`--eval-graph`, "@graph"). 4090 at $0.74/h; one host died at step 2,500 (resumed from the
+synced checkpoint: `RESUME_FROM`, `MAX_STEPS` in `scripts/ear_v3_and_attest.sh`); 19,060
+steps in total (bs 120 = 2 epochs).
+
+**Same eval, same 1,500 clips, v2 vs v3 (step 11,000; segments — see the stress caveat):**
+
+| | v2 | v3 |
+|---|---|---|
+| unseen episodes: menu / ambiguous / graph-widened | 95.07 / 86.73 / 77.02 | 95.34 / 87.63 / 77.98 |
+| unseen word types: menu / ambiguous / graph-widened | 95.08 / 85.63 / 74.05 | 94.73 / 84.51 / 74.86 |
+
+Final (pod eval, step 19,060): unseen episodes menu 94.7, ambiguous 86.6, graph-widened
+78.1, stress 97.3; unseen types 93.8 / 84.4 / 74.8 / 95.0. The graph-widened score plateaued
+at 77.5–78.3 from step ~7,500. A modest gain where the negatives act (graph-widened +1,
+episodes' ambiguous +0.9), a small loss on unseen word types' menu. The trainer's "best"
+checkpoint is chosen by the first eval file (unseen word types, menu) — the one metric that
+fell — so it froze at step 6,000; the attestation was pointed at the final checkpoint instead
+(same-length in-place edit of the running chain; `runs/full3/lastsnap -> last`). Unresolved:
+`--eval-only` scores stress at exactly 100 % for every checkpoint on CPU and MPS alike, while
+the in-training evals give 95–98 %; code and data checksums match the pod. Segment metrics are
+unaffected; stress numbers here come from the pod.
+
+**The corpus re-attested with v3** (`xeus-yi-ipa/data/attest_lattice_v3.jsonl`, 1,826,670
+words, `runs/v3/attest_summary.txt`): the same words, decided with more confidence —
+confident (segment margin ≥ 2) decisions: dictionary words 968 k → 993 k, menu words
+200 k → 223 k (+11 %), graph words 73.6 k → 81.7 k (+11 %), lexicon-graph 41.6 k → 51.0 k
+(+22 %); margins ≥ 4 nats 10.3 % → 14.8 % of scored words; fewer changes against the engine
+on every route. ReNikud-yi v3 data (`data/renikud_yi_v3`): labelled 85.2 % → 86.0 %,
+occurrence labels 240 k → 269 k, ear-placed stress on polysyllables 97 k → 110 k.
+
+ReNikud-yi v3 itself is not trained: the RunPod balance ran out at the end of the
+attestation ($0.13). To finish (≈ $1, 4090, 30 min):
+`RUNPOD_GPUS="NVIDIA GeForce RTX 4090,NVIDIA GeForce RTX 3090" DATA=data/renikud_yi_v3 OUT=models/renikud_yi_v3 ATTEST=../xeus-yi-ipa/data/attest_lattice_v3.jsonl MODELS="models/renikud_yi_audio models/renikud_yi_v2 models/renikud_yi_v3" NAMES="v1 v2 v3" TAG=v3 bash scripts/renikud_v2_pod.sh`,
+then the consensus-reference comparison as in §31.
