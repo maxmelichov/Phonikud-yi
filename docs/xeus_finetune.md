@@ -1134,3 +1134,41 @@ every gold clip's words scored against every alternative in two tiers — the
 verified/menu readings the ear was trained to tell apart (tier A) and the
 open-slot graph alternatives it was not (tier B, listed only at ≥ 5 nats).
 Results in `gold_audit.md` and §31.
+
+## 31. ReNikud-yi v2: the verdict, and the stress head finally used (2026-09-18)
+
+Trained 3 epochs on `data/renikud_yi_v2` (4090-class pod, 26 min; val word
+96.37 %, joint 98.92 %). Three references on the six held-out episodes, rule-path
+words at margin ≥ 2 (`scripts/renikud_yi_eval_v2.py`; `+graph` = the engine's
+graph-constrained decode; `+engine-stress` = the engine's rule stress put back,
+what the engine did until today):
+
+| reference | n | engine seg / stress | v1+graph | v2+graph | v2+graph vs v1+graph, paired |
+|---|---|---|---|---|---|
+| lattice ear (v2's teacher) | 6,040 / 1,397 poly | 92.3 / 75.9 | 87.1 / 76.7 | **95.0 / 92.0** | seg +474 (518/44), stress +308 |
+| run-2 ear (v1's teacher, no stress) | 3,748 | 88.0 / — | **94.5** | 91.0 | seg −131 (33/164) |
+| **both ears agree, both ≥ 2 nats** | 2,666 / 682 poly | 95.5 / 77.7 | 97.6 / 76.7 | 97.4 / **89.9** | seg −5 (16/21, p = 0.51); stress **+90** (103/13, p ≈ 0) |
+
+Each student agrees with its own teacher; the fair row is the consensus (the
+two ears, trained on different labels, pick the same segment on 98.6 % of the
+words where both are confident). There v1 and v2 are the same on segments and
+v2 places stress right on 89.9 % of polysyllables against 77.7 % for the rule
+and 76.7 % for v1. (Stress has one reference, the lattice ear; the gold audit
+of §30 is the independent evidence that where that ear disagrees with the
+rule it is the rule that is wrong: בחורים bˈuxirim on 40/46 clips, אביסל,
+וויליאמסבורג.)
+
+**The engine had been throwing the stress away.** `src/yiddish_renikud.py`
+scored candidates with the consonant and vowel heads and then `restress`ed
+the winner with the engine's own mark — the `+engine-stress` row, 77.7 %. It
+now reads the stress head too: along the winning reading, the full vowel
+whose letter has the highest stress log-prob gets the mark (two or more full
+vowels; else the engine's placement), the `+graph` row. The selftest sentence
+moved accordingly: עליכם is ɛlˈixm (the ear, 143 clips at margin ≥ 2), not the
+rule's ˈɛlixm; דע stays də.
+
+Shipped: engine `notmax123/phonikud-yi-engine` @ `9d32d702` (v2 int8 ONNX
+307 MB, `models/renikud_yi_v2/onnx_int8`; v9 pointing unchanged), Space
+`notmax123/phonikud-yi-blue-tts` repinned. The gold audit review queue
+(`data/eval/gold_audit_review.tsv`) is the next input for Chezky: 12 variant
+types and 12 stress types, the lexicon's stress for בחורים first.
