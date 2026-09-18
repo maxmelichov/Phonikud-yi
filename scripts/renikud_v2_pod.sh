@@ -32,6 +32,10 @@ POD_JSON=data/scratch/runpod_pod.json
 XEUS_YI=../xeus-yi-ipa
 DATA="${DATA:-data/renikud_yi_v2}"
 OUT="${OUT:-models/renikud_yi_v2}"
+ATTEST="${ATTEST:-$XEUS_YI/data/attest_lattice.jsonl}"   # the ear's decisions the data was built from
+MODELS="${MODELS:-models/renikud_yi_audio $OUT}"         # checkpoints compared in the eval, with their names
+NAMES="${NAMES:-v1 v2}"
+TAG="${TAG:-v2}"                                          # data/eval/renikud_${TAG}_vs_{lattice,old}_ear.json
 EPOCHS="${EPOCHS:-3}"
 HELD=100313,104192,104690,113370,58622,94226
 SHIP=data/scratch/renikud_v2_ship
@@ -41,7 +45,7 @@ pod_addr() { $PY -c "import json;p=json.load(open('$POD_JSON'));print(p['ip'],p[
 # ---------------------------------------------------------------- local staging
 echo "== local checks $(date)"
 [ -s "$DATA/train.jsonl" ] || { echo "no $DATA/train.jsonl: run scripts/renikud_yi_prepare_v2.py first"; exit 1; }
-[ -s "$XEUS_YI/data/attest_lattice.jsonl" ] || { echo "no $XEUS_YI/data/attest_lattice.jsonl (the sibling stream's output)"; exit 1; }
+[ -s "$ATTEST" ] || { echo "no $ATTEST (the ear's attestation)"; exit 1; }
 $PY - "$DATA" <<'EOF' || exit 1
 import json, sys
 cfg = json.load(open(sys.argv[1] + "/prepare_config.json"))
@@ -56,11 +60,11 @@ for split in ("train", "val"):
 print("data ok:", cfg["attest"], "trainer val", cfg["trainer_val"])
 EOF
 mkdir -p "$SHIP"
-$PY - "$SHIP" "$XEUS_YI" <<'EOF'
+$PY - "$SHIP" "$ATTEST" <<'EOF'
 import json, sys
-ship, xy = sys.argv[1], sys.argv[2]
+ship, attest = sys.argv[1], sys.argv[2]
 held = {"100313", "104192", "104690", "113370", "58622", "94226"}
-for src, dst in ((f"{xy}/data/attest_lattice.jsonl", "attest_lattice_heldout.jsonl"),
+for src, dst in ((attest, "attest_lattice_heldout.jsonl"),
                  ("data/xeus_ft/attest.jsonl", "attest_old_heldout.jsonl"),
                  ("data/xeus_ft/attest_targets.jsonl", "attest_targets_heldout.jsonl")):
     n = 0
@@ -70,7 +74,7 @@ for src, dst in ((f"{xy}/data/attest_lattice.jsonl", "attest_lattice_heldout.jso
                 fh.write(line); n += 1
     print(f"{dst}: {n:,} rows")
 EOF
-$PY scripts/renikud_yi_prepare_v2.py --check-only --attest "$XEUS_YI/data/attest_lattice.jsonl" --check-rows 2000 || exit 1
+$PY scripts/renikud_yi_prepare_v2.py --check-only --attest "$ATTEST" --check-rows 2000 || exit 1
 [ "${STAGE:-}" = "local" ] && { echo "== local staging done"; exit 0; }
 
 # ---------------------------------------------------------------- pod
@@ -105,7 +109,12 @@ rsync -a -e "$R" "$DATA/" "root@$IP:$REMOTE/$DATA/" 2>/dev/null
 rsync -a -e "$R" data/corpus/yiddish_tts_dataset.tsv "root@$IP:$REMOTE/data/corpus/" 2>/dev/null
 rsync -a -e "$R" data/xeus_ft/dictionary.json "$SHIP/attest_lattice_heldout.jsonl" "$SHIP/attest_old_heldout.jsonl" "$SHIP/attest_targets_heldout.jsonl" "root@$IP:$REMOTE/data/xeus_ft/" 2>/dev/null
 rsync -a -e "$R" --exclude='__pycache__' models/phonikud_yi_v6/best/ "root@$IP:$REMOTE/models/phonikud_yi_v6/best/" 2>/dev/null
-rsync -a -e "$R" models/renikud_yi_audio/heads.pt models/renikud_yi_audio/best_encoder "root@$IP:$REMOTE/models/renikud_yi_audio/" 2>/dev/null
+for M in $MODELS; do   # every compared checkpoint (the one being trained, $OUT, does not exist yet)
+  [ "$M" = "$OUT" ] && continue
+  $R root@$IP "mkdir -p $REMOTE/$M" 2>/dev/null
+  if [ -d "$M/best_encoder" ]; then rsync -a -e "$R" "$M/heads.pt" "$M/best_encoder" "root@$IP:$REMOTE/$M/" 2>/dev/null
+  else rsync -a -e "$R" "$M/best/" "root@$IP:$REMOTE/$M/best/" 2>/dev/null; fi
+done
 echo "== shipped $(date)"
 
 cat > /tmp/renikud_v2_pod.sh <<POD
@@ -117,8 +126,8 @@ python scripts/renikud_yi_train.py --data $DATA --init models/phonikud_yi_v6/bes
 for REF in lattice old; do
   echo "== eval vs \$REF ear \$(date)"
   python scripts/renikud_yi_eval_v2.py --ref data/xeus_ft/attest_\${REF}_heldout.jsonl --targets data/xeus_ft/attest_targets_heldout.jsonl \\
-    --episodes $HELD --margin 2 --models models/renikud_yi_audio $OUT --names v1 v2 \\
-    --out data/eval/renikud_v2_vs_\${REF}_ear.json 2>&1 | grep -v "^Fetching\|note:\|Warning"
+    --episodes $HELD --margin 2 --models $MODELS --names $NAMES \\
+    --out data/eval/renikud_${TAG}_vs_\${REF}_ear.json 2>&1 | grep -v "^Fetching\|note:\|Warning"
 done
 echo "== RENIKUD V2 DONE \$(date)"
 POD
@@ -135,6 +144,6 @@ mkdir -p "$OUT" data/eval
 rsync -a -e "$R" "root@$IP:$REMOTE/run.log" "$OUT/train_renikud_yi_v2.log" 2>/dev/null
 for f in train_log.jsonl last_heads.pt; do rsync -a -e "$R" "root@$IP:$REMOTE/$OUT/$f" "$OUT/" 2>/dev/null; done
 rsync -a -e "$R" "root@$IP:$REMOTE/$OUT/best/" "$OUT/best/" 2>/dev/null
-rsync -a -e "$R" --include='renikud_v2_vs_*' --exclude='*' "root@$IP:$REMOTE/data/eval/" data/eval/ 2>/dev/null
-echo "== RENIKUD V2 LOCAL DONE $(date): $OUT/best, data/eval/renikud_v2_vs_{lattice,old}_ear.json"
+rsync -a -e "$R" --include="renikud_${TAG}_vs_*" --exclude='*' "root@$IP:$REMOTE/data/eval/" data/eval/ 2>/dev/null
+echo "== RENIKUD V2 LOCAL DONE $(date): $OUT/best, data/eval/renikud_${TAG}_vs_{lattice,old}_ear.json"
 scripts/xeus_ft_runpod.sh down 2>&1 | tail -1
