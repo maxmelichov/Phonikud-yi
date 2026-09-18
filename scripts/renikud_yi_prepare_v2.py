@@ -171,6 +171,9 @@ def load_attest(path: Path, check_rows: int) -> tuple[dict[tuple[str, int, int],
     with path.open(encoding="utf-8") as fh:
         for n, line in enumerate(fh):
             r = json.loads(line)
+            if r.get("chosen") is None:        # scoreless: no candidates, or a lattice the ear declined (attest.py caps)
+                seen["scoreless"] += 1
+                continue
             if n < check_rows:
                 check_row(r, f"{n} ({r.get('episode')}/{r.get('chunk_idx')}/{r.get('wi')})")
             occ[(r["episode"], int(r["chunk_idx"]), int(r["wi"]))] = r
