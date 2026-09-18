@@ -1059,3 +1059,78 @@ verdicts on the 1,504 engine-oʊ types. Until then: run 2 for labels, 3c
 oʊ:2` as the calibration if the וי slot matters. Next lever for the ear itself:
 keep stage B from forgetting (rehearse a sample of attested chunk rows inside
 the certain-clip epochs — a trainer change), not more relabelling of stage A.
+
+## 30. The lattice ear with stress, the corpus re-attested, ReNikud v2 (2026-09-18)
+
+A new repo, `~/Documents/yiddish/xeus-yi-ipa` (a port of conikud's Hebrew
+`xeus-he-ipa`): PhoneticXeus replayed block by block → learned softmax mix of
+the 20 hidden states → LayerNorm → MLP → 46 CTC symbols (23 consonants, 11
+vowels, the 10 stressable vowels again as *stressed* tokens, a word separator).
+The decoder is a CTC lattice over a per-word reading menu (`lattice.py`:
+differentiable marginal for training, Viterbi for the reading + stress + frame
+span, forward-backward for every candidate's posterior). Text never enters the
+model; the graph only lists what the word may legally sound like, and stress
+is left free so the ear places it. Trained on the certain clips (`gold_train`,
+77,612 clips, 21 h, ×3) plus 21,961 teacher-labelled 30-s chunks (182 h),
+top 5 encoder blocks tuned, 2 epochs on an H100 (`runs/final/full2/best_acc`,
+step 11,266). Whisper's encoder (ivrit-ai/yi-whisper-large-v3, 4 or 8 of 32
+layers) was tried in the same frame at the user's request and lost by 1–2
+points on every metric; the seq2seq Whisper port (`whisper-yi-ipa`) was built
+and shelved before training ("ear only").
+
+**Held out, free stress, graph = every reading the word may take.**
+
+| ear | unseen word types: word / amb / seg / stress | unseen episodes: word / amb / seg / stress |
+|---|---|---|
+| XEUS lattice ear, 2 epochs (**shipped**) | 0.943 / 0.850 / 0.956 / 0.948 | 0.954 / 0.876 / 0.959 / 0.974 |
+| XEUS, 1 epoch | 0.941 / 0.842 / 0.954 / 0.945 | 0.952 / 0.869 / 0.956 / 0.975 |
+| Whisper encoder, 8 layers | 0.939 / 0.834 / 0.951 / 0.949 | 0.947 / 0.849 / 0.955 / 0.959 |
+| Whisper encoder, 4 layers | 0.937 / 0.829 / 0.950 / 0.947 | 0.948 / 0.851 / 0.955 / 0.961 |
+| run 2 (§11; no stress, dictionary word exact) | 0.808 | — |
+
+(n = 16,548 / 11,390 words; "amb" = words with more than one candidate; "stress"
+= stress on the right vowel given the right segment; Hebrew reference 0.872
+graph / 0.929 menu.) The ear's free (graph-less) reading is poor — 0.23 / 0.36
+word exact — the lattice does the work; anything that uses this ear must give it
+a menu. Published: model `Yiddish-AI/xeus-yi-ipa` (head + tuned blocks, 475 MB,
+dictionary, readings menu; private until flipped), Space `Yiddish-AI/xeus-yi-ear`
+now runs the lattice app (`xeus-yi-ipa/space/`: per-word reading, stressed
+syllable, span, posterior, margin).
+
+**The corpus re-attested** (`src/attest.py`, `data/attest_lattice.jsonl`):
+1,826,670 words in 23,662 chunks of 264 episodes, every word with its Viterbi
+reading, stress index, posterior, margin over the runner-up, segment margin and
+stress margin. Summary (`runs/final/attest_summary.txt`): dictionary words
+(1.09 M) — the ear picks a different verified variant than the engine on 5.6 %,
+2.0 % at segment margin ≥ 2, stress agrees with the engine on 98.3 % of
+polysyllables; menu words (372 k) — 22 % changed, 5.9 % at margin ≥ 2, stress
+agrees 83.8 %; graph words (246 k) — 42 % / 15.6 %, stress 76.6 %. Top
+substitutions at margin ≥ 2: ɛ→ə 6.3 k, a→u 3.5 k, ej→i 3.3 k, u→a 3.2 k,
+ej→ɛ 3.2 k, aː→aj 2.5 k, oʊ→a 1.3 k. Viterbi = max-posterior on 98.4 %.
+
+**Trap: one 2,100-letter token.** Episode 143317 has a transcript token
+"סאאא…ער" (2,100 letters, a stretched *saaaa…*). Its graph gave 96 readings ×
+2,116 stress positions × 2,100 phones ≈ 10⁸ lattice states; one attestation
+shard died silently, the other sat at 118 GB of RAM at 100 % of one core for
+25 min (both shards reached that episode within 8 min of each other). Fix in
+`attest.py`: words over 60 phones are scored with the engine reading only,
+never more than 256 paths per word, a per-chunk state budget
+(`EAR_ATTEST_STATES`, 400 k) that leaves a chunk scoreless rather than run it,
+and `--resume`. `renikud_yi_prepare_v2.py` skips scoreless rows. An
+`EAR_LATTICE_BUDGET` of the same kind already guarded training (§29 follow-up);
+attestation had none.
+
+**ReNikud-yi v2** (`scripts/renikud_yi_prepare_v2.py` → `data/renikud_yi_v2`,
+`scripts/renikud_v2_pod.sh`): 21,417 training chunks, 1.74 M tokens, 85.2 %
+labelled — 1.0 M gold-variant tokens decided by the ear, 240 k occurrence
+labels at margin ≥ 2, 157 k type-level readings (5,902 types, ≥ 5 occurrences,
+≥ 85 % agreement), 80 k lexicon; stress on polysyllables from the ear where its
+stress margin ≥ 2 (97 k), else the engine / the type. The six held-out episodes
+and the 14 val_eps episodes are excluded. Training + eval vs v1 (both ears as
+reference, paired tests) runs on its own cheap pod; results in §31.
+
+**Gold audit** (`xeus-yi-ipa/scripts/audit_gold.py` → `data/eval/gold_audit/`):
+every gold clip's words scored against every alternative in two tiers — the
+verified/menu readings the ear was trained to tell apart (tier A) and the
+open-slot graph alternatives it was not (tier B, listed only at ≥ 5 nats).
+Results in `gold_audit.md` and §31.
