@@ -1,0 +1,176 @@
+{
+  "model": "models/phonikud_yi_v9/best",
+  "test": "data/retrain2/test.jsonl",
+  "rows": 409,
+  "rows_letter_unsafe": 0,
+  "rows_token_misaligned": 0,
+  "inference_seconds": 11.0,
+  "char": {
+    "supervised_chars": 12058,
+    "char_acc": 75.1,
+    "marked_char_acc": 72.45,
+    "dagesh_acc": 96.87,
+    "rafe_acc": 98.91,
+    "shin_acc": 98.8
+  },
+  "per_vowel": {
+    "NO_MARK": {
+      "n": 7739,
+      "acc": 79.38
+    },
+    "pasekh": {
+      "n": 1041,
+      "acc": 80.02
+    },
+    "komets": {
+      "n": 934,
+      "acc": 62.85
+    },
+    "sheva": {
+      "n": 758,
+      "acc": 74.8
+    },
+    "segol": {
+      "n": 695,
+      "acc": 79.14
+    },
+    "khirik": {
+      "n": 537,
+      "acc": 91.99
+    },
+    "holam": {
+      "n": 190,
+      "acc": 63.68
+    },
+    "tsere": {
+      "n": 122,
+      "acc": 77.87
+    },
+    "hataf-pasekh": {
+      "n": 37,
+      "acc": 64.86
+    },
+    "hataf-segol": {
+      "n": 5,
+      "acc": 100.0
+    }
+  },
+  "top_vowel_confusions": [
+    {
+      "gold": "NO_MARK",
+      "pred": "sheva",
+      "n": 509
+    },
+    {
+      "gold": "NO_MARK",
+      "pred": "segol",
+      "n": 334
+    },
+    {
+      "gold": "NO_MARK",
+      "pred": "komets",
+      "n": 262
+    },
+    {
+      "gold": "NO_MARK",
+      "pred": "pasekh",
+      "n": 256
+    },
+    {
+      "gold": "komets",
+      "pred": "NO_MARK",
+      "n": 241
+    },
+    {
+      "gold": "sheva",
+      "pred": "NO_MARK",
+      "n": 162
+    },
+    {
+      "gold": "NO_MARK",
+      "pred": "khirik",
+      "n": 150
+    },
+    {
+      "gold": "pasekh",
+      "pred": "NO_MARK",
+      "n": 146
+    },
+    {
+      "gold": "segol",
+      "pred": "NO_MARK",
+      "n": 123
+    },
+    {
+      "gold": "komets",
+      "pred": "pasekh",
+      "n": 87
+    },
+    {
+      "gold": "holam",
+      "pred": "NO_MARK",
+      "n": 66
+    },
+    {
+      "gold": "NO_MARK",
+      "pred": "tsere",
+      "n": 42
+    }
+  ],
+  "word": {
+    "supervised_words": 2997,
+    "exact_pointing_rate": 47.28
+  },
+  "downstream": {
+    "vs_engine_verified": {
+      "n": 3209,
+      "agree": 99.94
+    },
+    "vs_gold_all": {
+      "n": 4845,
+      "agree": 91.12
+    },
+    "vs_gold_fallback": {
+      "n": 20,
+      "agree": 85.0
+    },
+    "vs_gold_lexicon": {
+      "n": 3184,
+      "agree": 99.94
+    },
+    "vs_gold_rule": {
+      "n": 1641,
+      "agree": 74.1
+    }
+  },
+  "samples": [
+    {
+      "gold": "בְּשֵׁם ה' נַעֲשֶׂה וְנַצְלִיחַ.",
+      "pred": "בְּשֵׁם הַ' נעשׁה וְנַצְלִיחַ."
+    },
+    {
+      "gold": "בָּרוּךְ ה' מֶען האַלט שוין דאָ פּרשַׁת מִשְׁפָּטִים תְּשַׁפ\"ד לפ\"ק.",
+      "pred": "בָּרוּךְ הַ' מֶען הַאַלְט שׁוֹין דאָ פַּרְשַׁת מִשְׁפָּטִים תַּשְׁפָּ\"ד לפ\"ק."
+    },
+    {
+      "gold": "הַיינְט קֶען מֶען זאָגן בסייעתא דִּשְׁמַיָּא מיט דֶעם שֶׁעפֶּערְס הִילְף אַז מֶען האַלט שוין אַןעהאַלטן צייט דִּינְסְטָאָג בַּיינַאכט לְכָבוֹד שַׁבַּת רֹאשׁ חוֹדֶשׁ אֲדָר.",
+      "pred": "הַייַנְט קֶען מֶען זאָגְן בסייעָתא דִּשְׁמַיּאָ מִיט דֶעם שֶׁעפֶּֿערְס הִילְף אַז מֶען הַאַלְט שׁוֹין אַןֶעהאַלְטְן צַייַט דִּינְסְטָאָג בַּייַנַאַכְט לִכְבוֹד שַׁבָּת רֹאשׁ חוֹדֶשׁ אדָר."
+    }
+  ],
+  "ceiling": {
+    "supervised_test_tokens": 2997,
+    "stamp_identical": 915,
+    "stamp_different": 688,
+    "stamp_unsupervised": 1394,
+    "ceiling_supervised_chars": 12058,
+    "ceiling_char_acc": 91.04,
+    "ceiling_supervised_words": 2997,
+    "ceiling_word_exact": 77.04
+  },
+  "vs_ceiling": {
+    "char_acc_pct_of_ceiling": 82.49,
+    "word_exact_pct_of_ceiling": 61.37,
+    "char_headroom": 15.94,
+    "word_headroom": 29.76
+  }
+}

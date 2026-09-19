@@ -1,0 +1,7 @@
+/Users/maxm/Documents/yiddish/Phonikud-yi/scripts/export_renikud_onnx.py:52: DeprecationWarning: You are using the legacy TorchScript-based ONNX export. Starting in PyTorch 2.9, the new torch.export-based ONNX exporter has become the default. Learn more about the new export logic: https://docs.pytorch.org/docs/stable/onnx_export.html. For exporting control flow: https://pytorch.org/tutorials/beginner/onnx/export_control_flow_model_to_onnx_tutorial.html
+  torch.onnx.export(w, (sample["input_ids"], sample["attention_mask"]), str(path),
+/Users/maxm/Documents/yiddish/Phonikud-yi/.venv/lib/python3.14/site-packages/transformers/modeling_attn_mask_utils.py:196: TracerWarning: torch.tensor results are registered as constants in the trace. You can safely ignore this warning if you use this function to create tensors out of constant variables that would be the same every time you call this function. In any other case, this might cause the trace to be incorrect.
+  inverted_mask = torch.tensor(1.0, dtype=dtype) - expanded_mask
+WARNING:root:Please consider to run pre-processing before quantization. Refer to example: https://github.com/microsoft/onnxruntime-inference-examples/blob/main/quantization/image_classification/cpu/ReadMe.md 
+exported /Users/maxm/Documents/yiddish/Phonikud-yi/models/renikud_yi_audio/onnx/model.onnx (1223 MB)  verify: max |diff| 5.05e+00, argmax mismatches 3
+int8: 307 MB, argmax mismatches vs fp32 on 3 sentences: 0

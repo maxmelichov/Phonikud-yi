@@ -232,14 +232,6 @@ root with the venv python.
 .venv/bin/python src/make_bundle.py --with-dataset
 ```
 
-`.env` at the repo root, for the scripts that need it:
-
-```
-AI_GATEWAY_API_KEY=...
-AI_GATEWAY_BASE_URL=https://ai-gateway.vercel.sh/v1
-RUNPOD_API_KEY=...
-```
-
 ## Layout
 
 ```

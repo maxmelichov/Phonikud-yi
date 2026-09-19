@@ -1,0 +1,18 @@
+context reader: installed (models/renikud_yi_audio/onnx_int8)
+rule-path words with an audio decision (margin >= 2): 3726
+  engine alone      87.601%
+  production path   93.988%
+  agreement with the torch decode: 3697/3726 (99.22%)
+    תאכלו          prod=s ɔj x l i             torch=t ɔj x l i             audio=t ɔj x l i
+    נעפֿש          prod=n ɛ f ʃ                torch=n ɛ p ʃ                audio=n ɛ f ʃ
+    הרבנים         prod=h r b u n i m          torch=h r b n i m            audio=h r b n i m
+    תבואה          prod=t v i ə                torch=t aj v i               audio=t v i ə
+    שבע            prod=ʃ ɛ v ə b r u x ə s    torch=ʒ b ə                  audio=ʒ b ə
+    אַ             prod=a p u r                torch=a                      audio=a
+    כשר׳ן          prod=k ʃ ɛ r n              torch=k ʃ ə r n              audio=k ʃ ə r n
+    לשון           prod=l u ʃ n h u r ə        torch=l ʃ i n                audio=l ʃ i n
+    ס'געגן         prod=s ɡ aj ɡ n             torch=s ɡ ə ɡ n              audio=s ɡ ə ɡ n
+    אַ             prod=a p u r                torch=a                      audio=a
+    א              prod=a p u r                torch=a                      audio=a
+    לשון           prod=l u ʃ n h u r ə        torch=l ʃ i n                audio=l ʃ i n
+  production g2p_tokens: 261 ms / chunk over 566 chunks; skipped 1

@@ -57,3 +57,11 @@ data/retrain8/*.jsonl
 data/ivrit_whatsapp/
 data/xeus_ft/whatsapp_targets.jsonl
 data/xeus_ft_wa/
+
+# --- per-token eval dumps, datasets and scratch (regenerable; tens of MB each) ---
+data/eval/*_tokens.jsonl
+data/eval/stress_prosody_feats.jsonl
+data/eval/ckpt_*/
+data/renikud_yi_v*/
+data/retrain9/
+data/scratch/

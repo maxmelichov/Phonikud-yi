@@ -1,0 +1,5 @@
+context reader: installed (models/renikud_yi_audio/onnx)
+rule-path words with an audio decision (margin >= 2): 3726
+  engine alone      87.601%
+  production path   94.096%
+  production g2p_tokens: 273 ms / chunk over 566 chunks; skipped 1
