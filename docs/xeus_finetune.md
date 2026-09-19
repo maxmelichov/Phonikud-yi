@@ -1216,3 +1216,33 @@ ReNikud-yi v3 itself is not trained: the RunPod balance ran out at the end of th
 attestation ($0.13). To finish (≈ $1, 4090, 30 min):
 `RUNPOD_GPUS="NVIDIA GeForce RTX 4090,NVIDIA GeForce RTX 3090" DATA=data/renikud_yi_v3 OUT=models/renikud_yi_v3 ATTEST=../xeus-yi-ipa/data/attest_lattice_v3.jsonl MODELS="models/renikud_yi_audio models/renikud_yi_v2 models/renikud_yi_v3" NAMES="v1 v2 v3" TAG=v3 bash scripts/renikud_v2_pod.sh`,
 then the consensus-reference comparison as in §31.
+
+## 33. ReNikud-yi v3, trained on the Mac (2026-09-19)
+
+Trained locally after the RunPod balance ran out: `models/renikud_yi_v3`, fine-tuned 1 epoch
+from v2 on `data/renikud_yi_v3` (labels from the v3 lattice ear, §32), 3,689 steps at bs 8,
+MPS, 5.0 s/step, 5 h 17 min; val word 96.54 %. Two Mac traps fixed in
+`scripts/renikud_yi_train.py`: PyTorch's SDPA attention on MPS has no dropout, so training
+fell off the fast path (~11 min/step, and a batch of 8 × 490 chars took 22 GB and swapped) —
+BERT is now built with eager attention on MPS (chosen at construction: `set_attn_implementation`
+after loading does not help); `--grad-ckpt` keeps it at ~10 GB.
+
+Held out, rule-path words at margin ≥ 2, `+graph` decode (`data/eval/renikud_v3_vs_*.json`):
+
+| reference | words / poly | v1 seg / stress | v2 seg / stress | v3 seg / stress | v3 vs v2, paired |
+|---|---|---|---|---|---|
+| old ear ∩ v2 ear (§31) | 2,666 / 682 | 97.56 / 76.69 | 97.37 / 89.88 | 97.41 / 89.59 | seg +1 (p 1), stress −2 (p 0.80) |
+| old ∩ v2 ∩ v3 ears | 2,523 / 620 | 97.98 / 78.39 | 97.90 / 92.90 | 97.98 / 92.74 | seg +2 (p 0.77), stress −1 (p 1) |
+| v3 ear alone (v3's teacher) | 6,754 / 1,684 | 86.64 / 68.94 | 94.11 / 89.61 | 94.61 / 90.44 | seg +34 (p 0.0003), stress +14 (p 0.06) |
+
+On the independent references v3 ties v2 (differences of 1–2 words either way); only on its
+own teacher's labels is it ahead. Shipped anyway on the user's request ("train it locally and
+push it") with the gate read as "not significantly worse": engine
+`notmax123/phonikud-yi-engine` @ `ceef285f` (v3 int8 ONNX; ONNX vs torch 0 argmax mismatches;
+selftest all ok), which also carries the four gold-lexicon stress fixes of the audit
+(בחורים bˈuxirim, אביסל ˈabisl, וויליאמסבורג viljamsbˈurɡ, פרעזידענט prˈɛzidɛnt). Space
+`notmax123/phonikud-yi-blue-tts` repinned and verified on `/v1/audio/phonemize`. Where the
+next gain has to come from: not more relabelling with the same ear family (v2 → v3 ears
+agree on 93.6 % of segments and 96 % of stress on the held-out episodes, and the student
+differences wash out), but new audio (the 7 new Yiddish 24 episodes, blocked on an AI Gateway
+key) and Chezky's verdicts on `data/eval/gold_audit_review.tsv`.

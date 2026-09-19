@@ -1,0 +1,1311 @@
+{
+ "ref": "data/scratch/renikud_v3_ship/attest_v3ear_heldout.jsonl",
+ "ref_format": "new",
+ "margin": 2.0,
+ "episodes": [
+  "100313",
+  "104192",
+  "104690",
+  "113370",
+  "58622",
+  "94226"
+ ],
+ "n_rule": 6754,
+ "n_poly": 1684,
+ "systems": {
+  "engine": {
+   "rule_n": 6754,
+   "seg_acc": 91.86,
+   "gold_n": 25728,
+   "gold_acc": 98.52,
+   "poly_n": 1684,
+   "stress_acc": 74.7,
+   "stress_given_seg": 77.5,
+   "full_acc": 68.53
+  },
+  "v1": {
+   "rule_n": 6754,
+   "seg_acc": 81.26,
+   "gold_n": 25728,
+   "gold_acc": 95.15,
+   "poly_n": 1684,
+   "stress_acc": 67.93,
+   "stress_given_seg": 77.75,
+   "full_acc": 56.65
+  },
+  "v1+graph": {
+   "rule_n": 6754,
+   "seg_acc": 86.64,
+   "gold_n": 25728,
+   "gold_acc": 98.47,
+   "poly_n": 1684,
+   "stress_acc": 68.94,
+   "stress_given_seg": 77.61,
+   "full_acc": 60.93
+  },
+  "v1+graph+engine-stress": {
+   "rule_n": 6754,
+   "seg_acc": 86.64,
+   "gold_n": 25728,
+   "gold_acc": 98.47,
+   "poly_n": 1684,
+   "stress_acc": 74.7,
+   "stress_given_seg": 77.76,
+   "full_acc": 61.05
+  },
+  "v2": {
+   "rule_n": 6754,
+   "seg_acc": 88.63,
+   "gold_n": 25728,
+   "gold_acc": 95.44,
+   "poly_n": 1684,
+   "stress_acc": 88.72,
+   "stress_given_seg": 95.4,
+   "full_acc": 81.35
+  },
+  "v2+graph": {
+   "rule_n": 6754,
+   "seg_acc": 94.11,
+   "gold_n": 25728,
+   "gold_acc": 98.83,
+   "poly_n": 1684,
+   "stress_acc": 89.61,
+   "stress_given_seg": 94.27,
+   "full_acc": 86.05
+  },
+  "v2+graph+engine-stress": {
+   "rule_n": 6754,
+   "seg_acc": 94.11,
+   "gold_n": 25728,
+   "gold_acc": 98.83,
+   "poly_n": 1684,
+   "stress_acc": 74.7,
+   "stress_given_seg": 76.58,
+   "full_acc": 69.89
+  },
+  "v3": {
+   "rule_n": 6754,
+   "seg_acc": 89.18,
+   "gold_n": 25728,
+   "gold_acc": 95.43,
+   "poly_n": 1684,
+   "stress_acc": 89.61,
+   "stress_given_seg": 96.06,
+   "full_acc": 82.42
+  },
+  "v3+graph": {
+   "rule_n": 6754,
+   "seg_acc": 94.61,
+   "gold_n": 25728,
+   "gold_acc": 98.8,
+   "poly_n": 1684,
+   "stress_acc": 90.44,
+   "stress_given_seg": 95.01,
+   "full_acc": 87.11
+  },
+  "v3+graph+engine-stress": {
+   "rule_n": 6754,
+   "seg_acc": 94.61,
+   "gold_n": 25728,
+   "gold_acc": 98.8,
+   "poly_n": 1684,
+   "stress_acc": 74.7,
+   "stress_given_seg": 76.55,
+   "full_acc": 70.19
+  }
+ },
+ "paired_rule_path": {
+  "v1 vs engine": {
+   "seg": {
+    "fixed": 256,
+    "broke": 972,
+    "net": -716,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 25,
+    "broke": 139,
+    "net": -114,
+    "p": 0.0
+   }
+  },
+  "v1+graph vs engine": {
+   "seg": {
+    "fixed": 263,
+    "broke": 615,
+    "net": -352,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 25,
+    "broke": 122,
+    "net": -97,
+    "p": 0.0
+   }
+  },
+  "v1+graph+engine-stress vs engine": {
+   "seg": {
+    "fixed": 263,
+    "broke": 615,
+    "net": -352,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v2 vs engine": {
+   "seg": {
+    "fixed": 285,
+    "broke": 503,
+    "net": -218,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 309,
+    "broke": 73,
+    "net": 236,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs engine": {
+   "seg": {
+    "fixed": 291,
+    "broke": 139,
+    "net": 152,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 309,
+    "broke": 58,
+    "net": 251,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs engine": {
+   "seg": {
+    "fixed": 291,
+    "broke": 139,
+    "net": 152,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v3 vs engine": {
+   "seg": {
+    "fixed": 291,
+    "broke": 472,
+    "net": -181,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 65,
+    "net": 251,
+    "p": 0.0
+   }
+  },
+  "v3+graph vs engine": {
+   "seg": {
+    "fixed": 296,
+    "broke": 110,
+    "net": 186,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 51,
+    "net": 265,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs engine": {
+   "seg": {
+    "fixed": 296,
+    "broke": 110,
+    "net": 186,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v1+graph vs v1": {
+   "seg": {
+    "fixed": 364,
+    "broke": 0,
+    "net": 364,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 17,
+    "broke": 0,
+    "net": 17,
+    "p": 1.5e-05
+   }
+  },
+  "v1+graph+engine-stress vs v1": {
+   "seg": {
+    "fixed": 364,
+    "broke": 0,
+    "net": 364,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 139,
+    "broke": 25,
+    "net": 114,
+    "p": 0.0
+   }
+  },
+  "v2 vs v1": {
+   "seg": {
+    "fixed": 564,
+    "broke": 66,
+    "net": 498,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 383,
+    "broke": 33,
+    "net": 350,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1": {
+   "seg": {
+    "fixed": 931,
+    "broke": 63,
+    "net": 868,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 397,
+    "broke": 32,
+    "net": 365,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1": {
+   "seg": {
+    "fixed": 931,
+    "broke": 63,
+    "net": 868,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 139,
+    "broke": 25,
+    "net": 114,
+    "p": 0.0
+   }
+  },
+  "v3 vs v1": {
+   "seg": {
+    "fixed": 588,
+    "broke": 53,
+    "net": 535,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 391,
+    "broke": 26,
+    "net": 365,
+    "p": 0.0
+   }
+  },
+  "v3+graph vs v1": {
+   "seg": {
+    "fixed": 955,
+    "broke": 53,
+    "net": 902,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 405,
+    "broke": 26,
+    "net": 379,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs v1": {
+   "seg": {
+    "fixed": 955,
+    "broke": 53,
+    "net": 902,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 139,
+    "broke": 25,
+    "net": 114,
+    "p": 0.0
+   }
+  },
+  "v1+graph+engine-stress vs v1+graph": {
+   "seg": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   },
+   "stress": {
+    "fixed": 122,
+    "broke": 25,
+    "net": 97,
+    "p": 0.0
+   }
+  },
+  "v2 vs v1+graph": {
+   "seg": {
+    "fixed": 563,
+    "broke": 429,
+    "net": 134,
+    "p": 2.3e-05
+   },
+   "stress": {
+    "fixed": 379,
+    "broke": 46,
+    "net": 333,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1+graph": {
+   "seg": {
+    "fixed": 570,
+    "broke": 66,
+    "net": 504,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 380,
+    "broke": 32,
+    "net": 348,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1+graph": {
+   "seg": {
+    "fixed": 570,
+    "broke": 66,
+    "net": 504,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 122,
+    "broke": 25,
+    "net": 97,
+    "p": 0.0
+   }
+  },
+  "v3 vs v1+graph": {
+   "seg": {
+    "fixed": 587,
+    "broke": 416,
+    "net": 171,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 388,
+    "broke": 40,
+    "net": 348,
+    "p": 0.0
+   }
+  },
+  "v3+graph vs v1+graph": {
+   "seg": {
+    "fixed": 592,
+    "broke": 54,
+    "net": 538,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 388,
+    "broke": 26,
+    "net": 362,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs v1+graph": {
+   "seg": {
+    "fixed": 592,
+    "broke": 54,
+    "net": 538,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 122,
+    "broke": 25,
+    "net": 97,
+    "p": 0.0
+   }
+  },
+  "v2 vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 563,
+    "broke": 429,
+    "net": 134,
+    "p": 2.3e-05
+   },
+   "stress": {
+    "fixed": 309,
+    "broke": 73,
+    "net": 236,
+    "p": 0.0
+   }
+  },
+  "v2+graph vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 570,
+    "broke": 66,
+    "net": 504,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 309,
+    "broke": 58,
+    "net": 251,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 570,
+    "broke": 66,
+    "net": 504,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v3 vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 587,
+    "broke": 416,
+    "net": 171,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 65,
+    "net": 251,
+    "p": 0.0
+   }
+  },
+  "v3+graph vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 592,
+    "broke": 54,
+    "net": 538,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 51,
+    "net": 265,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs v1+graph+engine-stress": {
+   "seg": {
+    "fixed": 592,
+    "broke": 54,
+    "net": 538,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v2+graph vs v2": {
+   "seg": {
+    "fixed": 372,
+    "broke": 2,
+    "net": 370,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 15,
+    "broke": 0,
+    "net": 15,
+    "p": 6.1e-05
+   }
+  },
+  "v2+graph+engine-stress vs v2": {
+   "seg": {
+    "fixed": 372,
+    "broke": 2,
+    "net": 370,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 73,
+    "broke": 309,
+    "net": -236,
+    "p": 0.0
+   }
+  },
+  "v3 vs v2": {
+   "seg": {
+    "fixed": 61,
+    "broke": 24,
+    "net": 37,
+    "p": 7.4e-05
+   },
+   "stress": {
+    "fixed": 32,
+    "broke": 17,
+    "net": 15,
+    "p": 0.044384
+   }
+  },
+  "v3+graph vs v2": {
+   "seg": {
+    "fixed": 429,
+    "broke": 25,
+    "net": 404,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 45,
+    "broke": 16,
+    "net": 29,
+    "p": 0.000264
+   }
+  },
+  "v3+graph+engine-stress vs v2": {
+   "seg": {
+    "fixed": 429,
+    "broke": 25,
+    "net": 404,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 73,
+    "broke": 309,
+    "net": -236,
+    "p": 0.0
+   }
+  },
+  "v2+graph+engine-stress vs v2+graph": {
+   "seg": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   },
+   "stress": {
+    "fixed": 58,
+    "broke": 309,
+    "net": -251,
+    "p": 0.0
+   }
+  },
+  "v3 vs v2+graph": {
+   "seg": {
+    "fixed": 60,
+    "broke": 393,
+    "net": -333,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 31,
+    "broke": 31,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v3+graph vs v2+graph": {
+   "seg": {
+    "fixed": 59,
+    "broke": 25,
+    "net": 34,
+    "p": 0.000266
+   },
+   "stress": {
+    "fixed": 31,
+    "broke": 17,
+    "net": 14,
+    "p": 0.059463
+   }
+  },
+  "v3+graph+engine-stress vs v2+graph": {
+   "seg": {
+    "fixed": 59,
+    "broke": 25,
+    "net": 34,
+    "p": 0.000266
+   },
+   "stress": {
+    "fixed": 58,
+    "broke": 309,
+    "net": -251,
+    "p": 0.0
+   }
+  },
+  "v3 vs v2+graph+engine-stress": {
+   "seg": {
+    "fixed": 60,
+    "broke": 393,
+    "net": -333,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 65,
+    "net": 251,
+    "p": 0.0
+   }
+  },
+  "v3+graph vs v2+graph+engine-stress": {
+   "seg": {
+    "fixed": 59,
+    "broke": 25,
+    "net": 34,
+    "p": 0.000266
+   },
+   "stress": {
+    "fixed": 316,
+    "broke": 51,
+    "net": 265,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs v2+graph+engine-stress": {
+   "seg": {
+    "fixed": 59,
+    "broke": 25,
+    "net": 34,
+    "p": 0.000266
+   },
+   "stress": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   }
+  },
+  "v3+graph vs v3": {
+   "seg": {
+    "fixed": 369,
+    "broke": 2,
+    "net": 367,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 14,
+    "broke": 0,
+    "net": 14,
+    "p": 0.000122
+   }
+  },
+  "v3+graph+engine-stress vs v3": {
+   "seg": {
+    "fixed": 369,
+    "broke": 2,
+    "net": 367,
+    "p": 0.0
+   },
+   "stress": {
+    "fixed": 65,
+    "broke": 316,
+    "net": -251,
+    "p": 0.0
+   }
+  },
+  "v3+graph+engine-stress vs v3+graph": {
+   "seg": {
+    "fixed": 0,
+    "broke": 0,
+    "net": 0,
+    "p": 1.0
+   },
+   "stress": {
+    "fixed": 51,
+    "broke": 316,
+    "net": -265,
+    "p": 0.0
+   }
+  }
+ },
+ "examples": [
+  {
+   "word": "נעשה",
+   "ear": "nˈɛʃə",
+   "engine": "nˈɛʃə",
+   "v1": "nəʃə",
+   "v1+graph": "nəʃə",
+   "v1+graph+engine-stress": "nəʃə",
+   "v2": "nɛʃə",
+   "v2+graph": "nɛʃə",
+   "v2+graph+engine-stress": "nˈɛʃə",
+   "v3": "nɛʃə",
+   "v3+graph": "nɛʃə",
+   "v3+graph+engine-stress": "nˈɛʃə"
+  },
+  {
+   "word": "משפטים",
+   "ear": "mʃptim",
+   "engine": "mʃptim",
+   "v1": "mʃftim",
+   "v1+graph": "mʃftim",
+   "v1+graph+engine-stress": "mʃftim",
+   "v2": "mʃptim",
+   "v2+graph": "mʃptim",
+   "v2+graph+engine-stress": "mʃptim",
+   "v3": "mʃptim",
+   "v3+graph": "mʃptim",
+   "v3+graph+engine-stress": "mʃptim"
+  },
+  {
+   "word": "תשפ\"ד",
+   "ear": "tufʃinpajdˈaləd",
+   "engine": "tufʃinpajdˈuləd",
+   "v1": "taʃpˈajd",
+   "v1+graph": "taʃpˈajd",
+   "v1+graph+engine-stress": "taʃpajd",
+   "v2": "tiʃpˈud",
+   "v2+graph": "tiʃpˈud",
+   "v2+graph+engine-stress": "tiʃpud",
+   "v3": "tiʃpˈud",
+   "v3+graph": "tiʃpˈud",
+   "v3+graph+engine-stress": "tiʃpud"
+  },
+  {
+   "word": "קלענערע",
+   "ear": "klˈɛnərə",
+   "engine": "klˈɛnərə",
+   "v1": "klənərə",
+   "v1+graph": "klənərə",
+   "v1+graph+engine-stress": "klənərə",
+   "v2": "klɛnərə",
+   "v2+graph": "klɛnərə",
+   "v2+graph+engine-stress": "klˈɛnərə",
+   "v3": "klɛnərə",
+   "v3+graph": "klɛnərə",
+   "v3+graph+engine-stress": "klˈɛnərə"
+  },
+  {
+   "word": "געזונטהייט",
+   "ear": "ɡəzˈinthajt",
+   "engine": "ɡəzˈinthaːt",
+   "v1": "ɡəzˈinthajt",
+   "v1+graph": "ɡəzˈinthajt",
+   "v1+graph+engine-stress": "ɡəzˈinthajt",
+   "v2": "ɡəzˈinthajt",
+   "v2+graph": "ɡəzˈinthajt",
+   "v2+graph+engine-stress": "ɡəzˈinthajt",
+   "v3": "ɡəzˈinthajt",
+   "v3+graph": "ɡəzˈinthajt",
+   "v3+graph+engine-stress": "ɡəzˈinthajt"
+  },
+  {
+   "word": "אויגן",
+   "ear": "ɔjɡn",
+   "engine": "ɔjɡn",
+   "v1": "jɔɡn",
+   "v1+graph": "ɔjɡn",
+   "v1+graph+engine-stress": "ɔjɡn",
+   "v2": "jɔɡn",
+   "v2+graph": "ɔjɡn",
+   "v2+graph+engine-stress": "ɔjɡn",
+   "v3": "jɔɡn",
+   "v3+graph": "ɔjɡn",
+   "v3+graph+engine-stress": "ɔjɡn"
+  },
+  {
+   "word": "חשובן",
+   "ear": "xˈuʃivn",
+   "engine": "xˈaʃivn",
+   "v1": "xˈuʃivn",
+   "v1+graph": "xˈuʃivn",
+   "v1+graph+engine-stress": "xˈuʃivn",
+   "v2": "xˈuʃivn",
+   "v2+graph": "xˈuʃivn",
+   "v2+graph+engine-stress": "xˈuʃivn",
+   "v3": "xˈuʃivn",
+   "v3+graph": "xˈuʃivn",
+   "v3+graph+engine-stress": "xˈuʃivn"
+  },
+  {
+   "word": "משפטים",
+   "ear": "mʃptim",
+   "engine": "mʃptim",
+   "v1": "mʃftim",
+   "v1+graph": "mʃftim",
+   "v1+graph+engine-stress": "mʃftim",
+   "v2": "mʃptim",
+   "v2+graph": "mʃptim",
+   "v2+graph+engine-stress": "mʃptim",
+   "v3": "mʃptim",
+   "v3+graph": "mʃptim",
+   "v3+graph+engine-stress": "mʃptim"
+  },
+  {
+   "word": "ערעדן",
+   "ear": "ˈɛrɛdn",
+   "engine": "ˈɛrədn",
+   "v1": "ərədn",
+   "v1+graph": "ərədn",
+   "v1+graph+engine-stress": "ərədn",
+   "v2": "ɛrˈɛdn",
+   "v2+graph": "ɛrˈɛdn",
+   "v2+graph+engine-stress": "ˈɛrɛdn",
+   "v3": "ərɛdn",
+   "v3+graph": "ərɛdn",
+   "v3+graph+engine-stress": "ərɛdn"
+  },
+  {
+   "word": "משפטים",
+   "ear": "mʃptim",
+   "engine": "mʃptim",
+   "v1": "mʃftim",
+   "v1+graph": "mʃftim",
+   "v1+graph+engine-stress": "mʃftim",
+   "v2": "mʃptim",
+   "v2+graph": "mʃptim",
+   "v2+graph+engine-stress": "mʃptim",
+   "v3": "mʃptim",
+   "v3+graph": "mʃptim",
+   "v3+graph+engine-stress": "mʃptim"
+  },
+  {
+   "word": "משפטים",
+   "ear": "mʃptim",
+   "engine": "mʃptim",
+   "v1": "mˈiʃftim",
+   "v1+graph": "mˈiʃftim",
+   "v1+graph+engine-stress": "miʃftim",
+   "v2": "mʃptim",
+   "v2+graph": "mʃptim",
+   "v2+graph+engine-stress": "mʃptim",
+   "v3": "mʃptim",
+   "v3+graph": "mʃptim",
+   "v3+graph+engine-stress": "mʃptim"
+  },
+  {
+   "word": "משפטים",
+   "ear": "mʃptim",
+   "engine": "mʃptim",
+   "v1": "mʃftim",
+   "v1+graph": "mʃftim",
+   "v1+graph+engine-stress": "mʃftim",
+   "v2": "mʃptim",
+   "v2+graph": "mʃptim",
+   "v2+graph+engine-stress": "mʃptim",
+   "v3": "mʃptim",
+   "v3+graph": "mʃptim",
+   "v3+graph+engine-stress": "mʃptim"
+  },
+  {
+   "word": "מרבה",
+   "ear": "mˈarbə",
+   "engine": "mˈarbɛ",
+   "v1": "marbə",
+   "v1+graph": "marbə",
+   "v1+graph+engine-stress": "mˈarbə",
+   "v2": "marbə",
+   "v2+graph": "marbə",
+   "v2+graph+engine-stress": "mˈarbə",
+   "v3": "marbə",
+   "v3+graph": "marbə",
+   "v3+graph+engine-stress": "mˈarbə"
+  },
+  {
+   "word": "מגיד",
+   "ear": "mɡit",
+   "engine": "mɡid",
+   "v1": "mɡit",
+   "v1+graph": "mɡit",
+   "v1+graph+engine-stress": "mɡit",
+   "v2": "mɡit",
+   "v2+graph": "mɡit",
+   "v2+graph+engine-stress": "mɡit",
+   "v3": "mɡit",
+   "v3+graph": "mɡit",
+   "v3+graph+engine-stress": "mɡit"
+  },
+  {
+   "word": "דין",
+   "ear": "din",
+   "engine": "din",
+   "v1": "",
+   "v1+graph": "din",
+   "v1+graph+engine-stress": "din",
+   "v2": "",
+   "v2+graph": "din",
+   "v2+graph+engine-stress": "din",
+   "v3": "",
+   "v3+graph": "din",
+   "v3+graph+engine-stress": "din"
+  },
+  {
+   "word": "ממתק",
+   "ear": "mmˈatajk",
+   "engine": "mmˈatajk",
+   "v1": "mmˈatajk",
+   "v1+graph": "mmˈatajk",
+   "v1+graph+engine-stress": "mmˈatajk",
+   "v2": "mɛmˈatik",
+   "v2+graph": "mɛmˈatik",
+   "v2+graph+engine-stress": "mˈɛmatik",
+   "v3": "mˈɛmtik",
+   "v3+graph": "mˈɛmtik",
+   "v3+graph+engine-stress": "mˈɛmtik"
+  },
+  {
+   "word": "געשלחנע",
+   "ear": "ɡəʃləxnə",
+   "engine": "ɡəʃlˈɛxnə",
+   "v1": "ɡəʃlxnə",
+   "v1+graph": "ɡəʃlxnə",
+   "v1+graph+engine-stress": "ɡəʃlxnə",
+   "v2": "ɡəʃlxnə",
+   "v2+graph": "ɡəʃlxnə",
+   "v2+graph+engine-stress": "ɡəʃlxnə",
+   "v3": "ɡəʃlxnə",
+   "v3+graph": "ɡəʃlxnə",
+   "v3+graph+engine-stress": "ɡəʃlxnə"
+  },
+  {
+   "word": "מ'זעט",
+   "ear": "mzejt",
+   "engine": "mzejt",
+   "v1": "mzajt",
+   "v1+graph": "mzajt",
+   "v1+graph+engine-stress": "mzajt",
+   "v2": "mzejt",
+   "v2+graph": "mzejt",
+   "v2+graph+engine-stress": "mzejt",
+   "v3": "mzejt",
+   "v3+graph": "mzejt",
+   "v3+graph+engine-stress": "mzejt"
+  },
+  {
+   "word": "דואס",
+   "ear": "dˈius",
+   "engine": "dˈias",
+   "v1": "dˈuus",
+   "v1+graph": "dˈuus",
+   "v1+graph+engine-stress": "dˈuus",
+   "v2": "duˈas",
+   "v2+graph": "duˈas",
+   "v2+graph+engine-stress": "dˈuas",
+   "v3": "duˈas",
+   "v3+graph": "duˈas",
+   "v3+graph+engine-stress": "dˈuas"
+  },
+  {
+   "word": "סקווערער",
+   "ear": "skvˈɛrər",
+   "engine": "skvˈɛrər",
+   "v1": "skvərər",
+   "v1+graph": "skvərər",
+   "v1+graph+engine-stress": "skvərər",
+   "v2": "skvɛrər",
+   "v2+graph": "skvɛrər",
+   "v2+graph+engine-stress": "skvˈɛrər",
+   "v3": "skvɛrər",
+   "v3+graph": "skvɛrər",
+   "v3+graph+engine-stress": "skvˈɛrər"
+  },
+  {
+   "word": "באַטלען",
+   "ear": "bˈatlən",
+   "engine": "batlˈɛn",
+   "v1": "batlən",
+   "v1+graph": "batlən",
+   "v1+graph+engine-stress": "batlən",
+   "v2": "batlən",
+   "v2+graph": "batlən",
+   "v2+graph+engine-stress": "batlən",
+   "v3": "batlən",
+   "v3+graph": "batlən",
+   "v3+graph+engine-stress": "batlən"
+  },
+  {
+   "word": "ייִד",
+   "ear": "jid",
+   "engine": "jid",
+   "v1": "jit",
+   "v1+graph": "jit",
+   "v1+graph+engine-stress": "jit",
+   "v2": "jid",
+   "v2+graph": "jid",
+   "v2+graph+engine-stress": "jid",
+   "v3": "jid",
+   "v3+graph": "jid",
+   "v3+graph+engine-stress": "jid"
+  },
+  {
+   "word": "גבאי",
+   "ear": "ɡba",
+   "engine": "ɡbaː",
+   "v1": "ɡba",
+   "v1+graph": "ɡba",
+   "v1+graph+engine-stress": "ɡba",
+   "v2": "ɡba",
+   "v2+graph": "ɡba",
+   "v2+graph+engine-stress": "ɡba",
+   "v3": "ɡba",
+   "v3+graph": "ɡba",
+   "v3+graph+engine-stress": "ɡba"
+  },
+  {
+   "word": "סקווערער",
+   "ear": "skvˈɛrər",
+   "engine": "skvˈɛrər",
+   "v1": "skvərər",
+   "v1+graph": "skvərər",
+   "v1+graph+engine-stress": "skvərər",
+   "v2": "skvɛrər",
+   "v2+graph": "skvɛrər",
+   "v2+graph+engine-stress": "skvˈɛrər",
+   "v3": "skvɛrər",
+   "v3+graph": "skvɛrər",
+   "v3+graph+engine-stress": "skvˈɛrər"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn",
+   "v3": "jɔvn",
+   "v3+graph": "ɔjvn",
+   "v3+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "טאָן",
+   "ear": "tun",
+   "engine": "tun",
+   "v1": "tin",
+   "v1+graph": "tin",
+   "v1+graph+engine-stress": "tin",
+   "v2": "tin",
+   "v2+graph": "tin",
+   "v2+graph+engine-stress": "tin",
+   "v3": "tin",
+   "v3+graph": "tin",
+   "v3+graph+engine-stress": "tin"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn",
+   "v3": "jɔvn",
+   "v3+graph": "ɔjvn",
+   "v3+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "פֿאַראַ",
+   "ear": "farˈa",
+   "engine": "farˈa",
+   "v1": "parˈa",
+   "v1+graph": "parˈa",
+   "v1+graph+engine-stress": "parˈa",
+   "v2": "farˈa",
+   "v2+graph": "farˈa",
+   "v2+graph+engine-stress": "farˈa",
+   "v3": "farˈa",
+   "v3+graph": "farˈa",
+   "v3+graph+engine-stress": "farˈa"
+  },
+  {
+   "word": "חלה'ס",
+   "ear": "xˈalihs",
+   "engine": "xˈaluhs",
+   "v1": "xaləhs",
+   "v1+graph": "xaləhs",
+   "v1+graph+engine-stress": "xˈaləhs",
+   "v2": "xaləhs",
+   "v2+graph": "xaləhs",
+   "v2+graph+engine-stress": "xˈaləhs",
+   "v3": "xajləhs",
+   "v3+graph": "xajləhs",
+   "v3+graph+engine-stress": "xˈajləhs"
+  },
+  {
+   "word": "אויוונס",
+   "ear": "ɔjvns",
+   "engine": "ɔjvns",
+   "v1": "jɔvns",
+   "v1+graph": "ɔjvns",
+   "v1+graph+engine-stress": "ɔjvns",
+   "v2": "jɔvns",
+   "v2+graph": "ɔjvns",
+   "v2+graph+engine-stress": "ɔjvns",
+   "v3": "jɔvns",
+   "v3+graph": "ɔjvns",
+   "v3+graph+engine-stress": "ɔjvns"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn",
+   "v3": "jɔvn",
+   "v3+graph": "ɔjvn",
+   "v3+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "אָט",
+   "ear": "ut",
+   "engine": "ut",
+   "v1": "ɔt",
+   "v1+graph": "ɔt",
+   "v1+graph+engine-stress": "ɔt",
+   "v2": "ut",
+   "v2+graph": "ut",
+   "v2+graph+engine-stress": "ut",
+   "v3": "ut",
+   "v3+graph": "ut",
+   "v3+graph+engine-stress": "ut"
+  },
+  {
+   "word": "געכשרט",
+   "ear": "ɡəxʃrt",
+   "engine": "ɡɛxʃrt",
+   "v1": "ɡəkʃərt",
+   "v1+graph": "ɡəkʃərt",
+   "v1+graph+engine-stress": "ɡəkʃərt",
+   "v2": "ɡəkʃərt",
+   "v2+graph": "ɡəkʃərt",
+   "v2+graph+engine-stress": "ɡəkʃərt",
+   "v3": "ɡəkʃərt",
+   "v3+graph": "ɡəkʃərt",
+   "v3+graph+engine-stress": "ɡəkʃərt"
+  },
+  {
+   "word": "הלכות",
+   "ear": "halˈuxɔjs",
+   "engine": "halˈuxɔjs",
+   "v1": "halˈixɔjs",
+   "v1+graph": "halˈixɔjs",
+   "v1+graph+engine-stress": "halˈixɔjs",
+   "v2": "halˈuxɔjs",
+   "v2+graph": "halˈuxɔjs",
+   "v2+graph+engine-stress": "halˈuxɔjs",
+   "v3": "halˈuxɔjs",
+   "v3+graph": "halˈuxɔjs",
+   "v3+graph+engine-stress": "halˈuxɔjs"
+  },
+  {
+   "word": "סקווערער",
+   "ear": "skvˈɛrər",
+   "engine": "skvˈɛrər",
+   "v1": "skvərər",
+   "v1+graph": "skvərər",
+   "v1+graph+engine-stress": "skvərər",
+   "v2": "skvɛrər",
+   "v2+graph": "skvɛrər",
+   "v2+graph+engine-stress": "skvˈɛrər",
+   "v3": "skvɛrər",
+   "v3+graph": "skvɛrər",
+   "v3+graph+engine-stress": "skvˈɛrər"
+  },
+  {
+   "word": "הלכות",
+   "ear": "halˈuxɔjs",
+   "engine": "halˈuxɔjs",
+   "v1": "halˈixɔjs",
+   "v1+graph": "halˈixɔjs",
+   "v1+graph+engine-stress": "halˈixɔjs",
+   "v2": "halˈuxɔjs",
+   "v2+graph": "halˈuxɔjs",
+   "v2+graph+engine-stress": "halˈuxɔjs",
+   "v3": "halˈuxɔjs",
+   "v3+graph": "halˈuxɔjs",
+   "v3+graph+engine-stress": "halˈuxɔjs"
+  },
+  {
+   "word": "אויוון",
+   "ear": "ɔjvn",
+   "engine": "ɔjvn",
+   "v1": "jɔvn",
+   "v1+graph": "ɔjvn",
+   "v1+graph+engine-stress": "ɔjvn",
+   "v2": "jɔvn",
+   "v2+graph": "ɔjvn",
+   "v2+graph+engine-stress": "ɔjvn",
+   "v3": "jɔvn",
+   "v3+graph": "ɔjvn",
+   "v3+graph+engine-stress": "ɔjvn"
+  },
+  {
+   "word": "געזעצט",
+   "ear": "ɡəzˈɛʦt",
+   "engine": "ɡəzˈɛʦt",
+   "v1": "ɡəzəʦt",
+   "v1+graph": "ɡəzəʦt",
+   "v1+graph+engine-stress": "ɡəzəʦt",
+   "v2": "ɡəzɛʦt",
+   "v2+graph": "ɡəzɛʦt",
+   "v2+graph+engine-stress": "ɡəzˈɛʦt",
+   "v3": "ɡəzɛʦt",
+   "v3+graph": "ɡəzɛʦt",
+   "v3+graph+engine-stress": "ɡəzˈɛʦt"
+  },
+  {
+   "word": "עצי",
+   "ear": "əʦˈi",
+   "engine": "ˈɛʦi",
+   "v1": "əʦi",
+   "v1+graph": "əʦi",
+   "v1+graph+engine-stress": "əʦi",
+   "v2": "ˈɛʦi",
+   "v2+graph": "ˈɛʦi",
+   "v2+graph+engine-stress": "ˈɛʦi",
+   "v3": "ˈɛʦi",
+   "v3+graph": "ˈɛʦi",
+   "v3+graph+engine-stress": "ˈɛʦi"
+  },
+  {
+   "word": "גבאי",
+   "ear": "ɡba",
+   "engine": "ɡbaː",
+   "v1": "ɡba",
+   "v1+graph": "ɡba",
+   "v1+graph+engine-stress": "ɡba",
+   "v2": "ɡba",
+   "v2+graph": "ɡba",
+   "v2+graph+engine-stress": "ɡba",
+   "v3": "ɡba",
+   "v3+graph": "ɡba",
+   "v3+graph+engine-stress": "ɡba"
+  }
+ ]
+}
