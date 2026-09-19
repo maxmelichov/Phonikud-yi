@@ -124,6 +124,10 @@ def load_encoder(init: Path, device):
     from transformers import AutoTokenizer, BertConfig, BertModel
     from safetensors.torch import load_file
     cfg = BertConfig.from_pretrained(init)
+    if str(device) == "mps":
+        # PyTorch's SDPA kernel on MPS has no dropout, so training falls off the fast path
+        # (~11 min/step measured); BERT picks its attention class at construction.
+        cfg._attn_implementation = "eager"
     enc = BertModel(cfg, add_pooling_layer=False)
     state = load_file(str(init / "model.safetensors"))
     bert_state = {k[len("bert."):]: v for k, v in state.items() if k.startswith("bert.")}
@@ -196,6 +200,7 @@ def main() -> None:
     ap.add_argument("--device", default=None)
     ap.add_argument("--no-amp", action="store_true")
     ap.add_argument("--log-every", type=int, default=50)
+    ap.add_argument("--grad-ckpt", action="store_true", help="gradient checkpointing (Mac: bs 8 x 490 chars fits in ~10 GB)")
     args = ap.parse_args()
 
     torch.manual_seed(args.seed)
@@ -207,7 +212,8 @@ def main() -> None:
 
     if args.init_run:
         from transformers import AutoTokenizer, BertModel
-        enc = BertModel.from_pretrained(args.init_run / "best" / "encoder", add_pooling_layer=False).to(device)
+        enc = BertModel.from_pretrained(args.init_run / "best" / "encoder", add_pooling_layer=False,
+                                        **({"attn_implementation": "eager"} if device == "mps" else {})).to(device)
         tok = AutoTokenizer.from_pretrained(args.init_run / "best" / "encoder")
         model = ReNikudYi(enc, n_cons, n_vowel).to(device)
         heads = torch.load(args.init_run / "best" / "heads.pt", map_location=device)["heads"]
@@ -216,6 +222,11 @@ def main() -> None:
     else:
         enc, tok = load_encoder(args.init, device)
         model = ReNikudYi(enc, n_cons, n_vowel).to(device)
+    if device == "mps":
+        # (attention is eager on MPS: chosen at load time in load_encoder / the --init-run branch)
+        pass
+    if args.grad_ckpt:
+        model.encoder.gradient_checkpointing_enable()
     collate = Collator(tok, args.max_length)
     train = read_rows(args.data / "train.jsonl", args.max_chars, args.limit)
     val = read_rows(args.data / "val.jsonl", args.max_chars, args.val_limit)
